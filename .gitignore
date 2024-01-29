@@ -82,3 +82,18 @@ target/
 bin/
 lib/
 out/
+
+### Additional ###
+# Eclipse
+.metadata/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders/
+
+.springSettings
