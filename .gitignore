@@ -35,3 +35,65 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Added by GPT from here ###
+# IntelliJ
+.idea/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Gradle
+.gradle/
+build/
+
+# Spring Boot
+target/
+!src/main/
+!src/test/
+
+# React
+/node_modules/
+/build/
+
+# macOS
+.DS_Store
+
+# IDE-specific files
+*.iml
+*.ipr
+*.iws
+
+# Log files
+*.log
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Compiled binary files
+*.class
+
+# Dependency directories
+.idea_libs/
+bin/
+lib/
+out/
+
+### Additional ###
+# Eclipse
+.metadata/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders/
+
+.springSettings
