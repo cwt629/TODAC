@@ -1,4 +1,4 @@
-package data.dto;
+package member.data;
 
 public class MemberDto {
 

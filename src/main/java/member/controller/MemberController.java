@@ -1,4 +1,4 @@
-package data.controller;
+package member.controller;
 
 public class MemberController {
 
