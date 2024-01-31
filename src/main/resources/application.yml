@@ -2,12 +2,12 @@ server:
     port: 9002
 
     ##mysql setting
-    #spring:
-    #  datasource:
-    #    driver-class-name: com.mysql.cj.jdbc.Driver
-    #    url: jdbc:mysql://db-jbno2-kr.vpc-pub-cdb.ntruss.com:3306/studydb?serverTimezone=Asia/Seoul
-    #    username: study
-    #    password: bitcamp123!@#
+    spring:
+      datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://db-jbno2-kr.vpc-pub-cdb.ntruss.com:3306/studydb?serverTimezone=Asia/Seoul
+        username: study
+        password: bitcamp123!@#
 
     #JPA setting
     #스키마 생성 create:기존테이블삭제후 생성, update:변경된 부분만 반영
