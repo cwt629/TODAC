@@ -1,13 +1,12 @@
-package chat.controller;
+package mypage.controller;
 
 import org.springframework.web.bind.annotation.RestController;
-
-import chat.repository.ChatDao;
 import lombok.RequiredArgsConstructor;
+import mypage.repository.MypageDao;
 
 @RestController
 @RequiredArgsConstructor
-public class ChatController {
-	private final ChatDao chatDao;
+public class MypageController {
+	private final MypageDao userDao;
 
 }

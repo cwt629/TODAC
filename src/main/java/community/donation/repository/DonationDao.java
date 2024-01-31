@@ -1,10 +1,10 @@
-package login.repository;
+package community.donation.repository;
 
 import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
 
 @Repository
 @AllArgsConstructor
-public class LoginDao {
+public class DonationDao {
 
 }
