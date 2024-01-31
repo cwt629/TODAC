@@ -13,7 +13,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "chatsummary")
+@Table(name = "chatdiagnosis")
 @Data
 @Builder
 @NoArgsConstructor

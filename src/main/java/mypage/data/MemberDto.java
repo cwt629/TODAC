@@ -33,16 +33,16 @@ public class MemberDto {
     @Column(length = 20)
     private String nickname;
 
-    @Column(length = 20)
+    @Column(length = 100)
     private String photo;
 
-    @Column(length = 20)
+    @Column(length = 10)
     private String type;
 
     @Column
     private int point;
 
-    @Column(length = 20)
+    @Column(length = 100)
     private String address;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Seoul") //댓글 출력은 ajax로 처리하기 위해 포멧한다네요

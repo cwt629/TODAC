@@ -14,7 +14,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "boardcomment")
+@Table(name = "boardlikes")
 @Data
 @Builder
 @NoArgsConstructor

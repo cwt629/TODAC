@@ -32,16 +32,16 @@ public class BoardDto {
     @Column(length = 20)
     private String category;
 
-    @Column(length = 20)
+    @Column(length = 100)
     private String title;
 
-    @Column(length = 20)
+    @Column(length = 1000)
     private String content;
 
     @Column(length = 20)
     private String visitcount;
 
-    @Column(length = 20)
+    @Column(length = 100)
     private String photo;
 
     @Column
