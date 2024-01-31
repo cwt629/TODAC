@@ -25,8 +25,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation group: 'io.awspring.cloud', name: 'spring-cloud-starter-aws', version: '2.4.4'
+    implementation group: 'io.awspring.cloud', name: 'spring-cloud-starter-aws', version: '2.4.4'
     implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.12.416'
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
