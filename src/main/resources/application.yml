@@ -1,5 +1,6 @@
 server:
   port: 9002
+<<<<<<< Updated upstream
   
 ##mysql setting
 #spring:
@@ -20,4 +21,25 @@ server:
 #api 호출시 실행되는 sql 문을 콘솔에 보여줄것인가        
     show-sql: true
 #Mysql 상세지정    
+=======
+
+#mysql setting 
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://db-jbnpb-kr.vpc-pub-cdb.ntruss.com:3306/todacdb?serverTimezone=Asia/Seoul
+    username: tdDBUser
+    password: ncl0ud_TDdbSecret
+
+  #JPA setting
+  #스키마 생성 create : 기존 테이블 삭제 후 생성, update : 변경된 부분만 반영
+  jpa:
+    hibernate:
+      ddl-auto: update
+    #ddl 생성시 데이타 베이스 고유의 기능을 사용할 것인가
+    generate-ddl: true
+    #api 호출시 실행되는 sql 문을 콘솔에 보여줄 것인가
+    show-sql: true
+    #Mysql 상세지정
+>>>>>>> Stashed changes
     database-platform: org.hibernate.dialect.MySQLDialect
