@@ -7,10 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan({"chat.*","community.*","donation.*","smile.*","login.*","user.*","admin.*","member.*"
+@ComponentScan({"chat.*","board.*","donation.*","facemotion.*","login.*","admin.*","mypage.*"
 ,"naver.storage","security.setting"})
 @EntityScan("*.data")
-@EnableJpaRepositories({"chat.repository","community.repository","donation.repository","smile.repository","login.repository","user.repository","admin.repository","member.repository"})
+@EnableJpaRepositories({"chat.repository","board.repository","donation.repository","facemotion.repository","login.repository","admin.repository","mypage.repository"})
 public class TodacApplication {
 
 	public static void main(String[] args) {

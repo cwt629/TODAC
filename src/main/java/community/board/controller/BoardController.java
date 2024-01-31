@@ -1,13 +1,13 @@
-package chat.controller;
+package community.board.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import chat.repository.ChatDao;
+import community.board.repository.BoardDao;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class ChatController {
-	private final ChatDao chatDao;
+public class BoardController {
+	private final BoardDao boardDao;
 
 }
