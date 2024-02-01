@@ -2,14 +2,17 @@ package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
+@ComponentScan({"chat.*","community.board.*","community.donation.*","community.facemotion.*","login.*","admin.*","mypage.*"
+,"naver.storage","security.setting"})
+@EntityScan({"*.data","*.*.data"})
+@EnableJpaRepositories({"chat.repository","community.board.repository","community.donation.repository","community.facemotion.repository","login.repository","admin.repository","mypage.repository"})
 public class TodacApplication {
 
-	//git test-seoyeon 240130 20:30
-	//git test-lsm 240130 05:46
-	//git test-nahye 240130
-	//git test-dong 240130 21:18
 	public static void main(String[] args) {
 		SpringApplication.run(TodacApplication.class, args);
 	}
