@@ -5,13 +5,13 @@ const Footer = () => {
     const nav = useNavigate();
 
     return (
-        <div className='footer'>
-            <div className='footernav'
-            onClick={() => nav('/user/chat')}>Chat</div>
-            <div className='footernav'
-            onClick={() => nav('/user')}>Mypage</div>
-            <div className='footernav'
-            onClick={() => nav('/user/community')}>Community</div>
+        <div className='footer fixed-bottom text-center align-items-center'>
+            <div className='footernav col'
+            onClick={() => nav('/user/chat')}><img alt='chat' src={require("./image/ico_chat.png")}/></div>
+            <div className='footernav col'
+            onClick={() => nav('/user')}><img alt='chat' src={require("./image/ico_mypage.png")}/></div>
+            <div className='footernav col'
+            onClick={() => nav('/user/community')}><img alt='chat' src={require("./image/ico_community.png")}/></div>
         </div>
     );
 };

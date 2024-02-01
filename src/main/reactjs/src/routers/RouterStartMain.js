@@ -9,7 +9,7 @@ const RouterStartMain = () => {
 
     return (
         <div>
-            <div className='app'>
+            <div className='app container-fluid p-0'>
                 <Header/>
                 <div className='appcontent startpage'>
                     <img alt='' src={logo}/>
