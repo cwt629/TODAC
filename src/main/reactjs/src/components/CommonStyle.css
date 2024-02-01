@@ -165,6 +165,10 @@ div.footer .footernav {
     cursor: pointer;
 }
 
-div.footer .footernav:hover{
-    color: #7A98FF;
+.footer_ico{
+    fill: #9396A6;
+}
+
+.footer_ico:hover{
+    fill: #7A98FF;
 }
