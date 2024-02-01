@@ -2,7 +2,7 @@ import React from 'react';
 
 const LoginMain = () => {
     return (
-        <div className='app'>
+        <div>
             <h2>로그인 ㅋ</h2>
         </div>
     );

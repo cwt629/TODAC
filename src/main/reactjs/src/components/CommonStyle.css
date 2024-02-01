@@ -1,8 +1,8 @@
 @import url('https://webfontworld.github.io/pretendard/Pretendard.css');
 @import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');
 
-body *{
-	font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+body * {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 body {
@@ -31,10 +31,13 @@ body {
 .fs_14 {
     font-size: 14px;
 }
-.fs_15{
-	font-size: 15px;
-	
-}.fs_16 {
+
+.fs_15 {
+    font-size: 15px;
+
+}
+
+.fs_16 {
     font-size: 16px;
 }
 
@@ -49,9 +52,11 @@ body {
 .fs_19 {
     font-size: 19px;
 }
-.fs_20{
-	font-size: 20px;
+
+.fs_20 {
+    font-size: 20px;
 }
+
 .fs_21 {
     font-size: 21px;
 }
@@ -75,9 +80,11 @@ body {
 .fs_28 {
     font-size: 28px;
 }
-.fs_30{
-	font-size: 30px;
+
+.fs_30 {
+    font-size: 30px;
 }
+
 .fs_32 {
     font-size: 32px;
 }
@@ -94,23 +101,29 @@ body {
 .fw_300 {
     font-weight: 300;
 }
-.fw_400{
-	font-weight: 400;
+
+.fw_400 {
+    font-weight: 400;
 }
-.fw_500{
-	font-weight: 500;
+
+.fw_500 {
+    font-weight: 500;
 }
-.fw_600{
-	font-weight: 600;
+
+.fw_600 {
+    font-weight: 600;
 }
-.fw_700{
-	font-weight: 700;
+
+.fw_700 {
+    font-weight: 700;
 }
-.fw_800{
-	font-weight: 800;
+
+.fw_800 {
+    font-weight: 800;
 }
-.fw_900{
-	font-weight: 900;
+
+.fw_900 {
+    font-weight: 900;
 }
 
 
@@ -132,7 +145,7 @@ div.app {
 
 div.appcontent {
     background-color: pink;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 692px;
     overflow-y: auto;
 }
@@ -158,13 +171,13 @@ div.footer {
     display: flex;
     position: absolute;
     bottom: 0px;
-    border-top:1px solid #EEF0F7;
+    border-top: 1px solid #EEF0F7;
 }
 
 div.footer .footernav {
     cursor: pointer;
 }
 
-div.footer .footernav:hover{
+div.footer .footernav:hover {
     color: #7A98FF;
 }
