@@ -7,13 +7,15 @@ const Header = () => {
 
     return (
         <div className='header'>
-            <h2 style={{textAlign: 'center', cursor: 'pointer'}}
-            onClick={() => nav('/user')}>TODAC</h2>
+            <div style={{ textAlign: 'center' }}>
+                <b style={{ cursor: 'pointer' }} className='fs_28'
+                    onClick={() => nav('/user')}>TODAC</b>
+            </div>
             {/* TODO: 뒤로가기 */}
 
-            <span style={{float: 'right', paddingRight: '10px'}}>토닥 님 <Logout style={{cursor: 'pointer'}} onClick={() => {
+            <span style={{ float: 'right', paddingRight: '10px' }}>토닥 님 <Logout style={{ cursor: 'pointer' }} onClick={() => {
                 nav("/login");
-            }}/> </span>
+            }} /> </span>
         </div>
     );
 };
