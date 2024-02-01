@@ -13,7 +13,7 @@ spring:
 #스키마 생성 create:기존테이블삭제후 생성, update:변경된 부분만 반영
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     #ddl 생성시 데이타베이스 고유의 기능을 사용할 것인가
     generate-ddl: true
     #api 호출시 실행되는 sql 문을 콘솔에 보여줄것인가
