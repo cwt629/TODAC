@@ -137,21 +137,26 @@ body {
 div.app {
     background-color: #ddd;
     /* border: 1px solid black; */
-    width: 393px;
-    height: 852px;
-    margin: 50px;
+    /* width: 393px;
+    height: 852px; */
+    width: 100%;
+    height: 100vh;
+
+    /* margin: 50px; */
     position: relative;
 }
 
 div.appcontent {
     background-color: pink;
     /* border: 1px solid black; */
-    height: 692px;
+    height: 81.34vh;
+    /* height: 692px; */
     overflow-y: auto;
 }
 
 div.appcontent.nofooter {
-    height: 762px;
+    height: 89.5vh;
+    /* height: 762px; */
 }
 
 div.appcontent.startpage {
@@ -162,12 +167,15 @@ div.appcontent.startpage {
 
 div.header {
     width: 100%;
-    height: 90px;
+    height: 10.5vh;
+    /* height: 90px; */
 }
 
 div.footer {
     width: 100%;
-    height: 70px;
+    height: 8.16vh;
+    box-sizing: border-box;
+    /* height: 70px; */
     display: flex;
     position: absolute;
     bottom: 0px;
@@ -179,10 +187,10 @@ div.footer .footernav {
 }
 
 
-.footer_ico{
+.footer_ico {
     fill: #9396A6;
 }
 
-.footer_ico:hover{
+.footer_ico:hover {
     fill: #7A98FF;
 }
