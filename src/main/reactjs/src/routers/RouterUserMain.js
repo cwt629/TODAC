@@ -9,6 +9,8 @@ import BoardMain from '../components/community/board/BoardMain';
 import DonationMain from '../components/community/donation/DonationMain';
 import FaceMotionMain from '../components/community/facemotion/FaceMotionMain';
 import ChatRoomMain from '../components/chat/chattingroom/ChatRoomMain';
+import Faq from '../components/mypage/qna/Faq';
+import Inquiry from '../components/mypage/qna/Inquiry';
 
 const RouterUserMain = () => {
     return (
@@ -21,7 +23,11 @@ const RouterUserMain = () => {
                         <Route path='' element={<ChatMain />} />
                         <Route path='counsel' element={<ChatRoomMain />} />
                     </Route>
-                    <Route path='/' element={<MypageMain />} />
+                    <Route path='/'>
+                        <Route path='' element={<MypageMain />} />
+                        <Route path='faq' element={<Faq/>} />
+                        <Route path='inquiry' element={<Inquiry/>} />
+                    </Route>
                     <Route path='/community'>
                         <Route path='' element={<CommunityMain />} />
                         <Route path='board' element={<BoardMain />} />
