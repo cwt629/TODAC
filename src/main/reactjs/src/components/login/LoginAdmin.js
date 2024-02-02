@@ -76,6 +76,13 @@ const LoginAdmin = () => {
         navigate(-1);
     };
 
+    useEffect(() => {
+      // 로그인이 성공했을 때, token이 있을 경우 /admin으로 이동
+      if (token) {
+          navigate('/admin');
+      }
+  }, [token]);
+
     return (
       <div>
         {
@@ -99,18 +106,7 @@ const LoginAdmin = () => {
               style={{width : "100%"}}
               onClick={buttonLoginEvent}>로그인</CustomButton>
           </div>
-        :
-          <div>
-              <h4 className='alert alert-danger'>로그인 중입니다</h4>
-              <br/><br/>
-              <button type='button' className='btn btn-danger'
-              onClick={()=>{
-                  sessionStorage.removeItem("token");
-                  setToken(null);
-                  setUserid('');
-                  setPass('');
-              }}>로그아웃</button>
-          </div>
+          :<div/>
         }
       </div>
         
