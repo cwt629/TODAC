@@ -5,14 +5,34 @@ const SYSTEM_MESSAGE_FOR_TEST = "당신은 장난기 가득한 심리 상담사�
 
 const ChatContent = ({ log, setLog }) => {
     const [input, setInput] = useState();
+    const [loading, setLoading] = useState(false);
 
+    // log 갱신이 완료되면 그때 input과 로딩 상태를 갱신하기
     useEffect(() => {
-        console.log(process.env.REACT_APP_OPENAI_API_KEY);
-    }, []);
+        setInput('');
+        setLoading(false);
+    }, [log])
 
     const handleUserInput = () => {
-        getGPTResponse(input, SYSTEM_MESSAGE_FOR_TEST, setLog, log);
-        setInput('');
+        if (loading) {
+            alert("상담사의 답변을 로딩중입니다. 잠시 후 시도해주세요.");
+            return;
+        }
+
+        if (input.length === 0) {
+            alert("메세지를 입력해주세요.");
+            return;
+        }
+
+        setLoading(true);
+        getGPTResponse(input, SYSTEM_MESSAGE_FOR_TEST, log)
+            .then((msg) => {
+                setLog([
+                    ...log,
+                    { 'role': 'user', 'content': input },
+                    msg
+                ]);
+            });
     }
 
     return (
