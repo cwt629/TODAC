@@ -5,9 +5,9 @@ const LoginMain = () => {
     const nav = useNavigate();
 
     return (
-        <div style={{padding : "100px"}}>
-            TODAC
-            <br/><br/><br/><br/>
+        <div style={{paddingTop : "150px", paddingRight : "55px", paddingLeft : "55px"}}>
+            <h1 style={{color : "#FF494D", textAlign: "center" }}>TODAC</h1>
+            <br/><br/><br/>
             <button className='btn btn-success'
              style={{width : "100%"}}>네이버 로그인</button>
             <br/><br/>

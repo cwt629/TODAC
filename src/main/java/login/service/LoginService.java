@@ -1,10 +1,7 @@
 package login.service;
 
-import org.springframework.stereotype.Service;
-import lombok.AllArgsConstructor;
+import mypage.data.MemberDto;
 
-@Service
-@AllArgsConstructor
-public class LoginService {
-
+public interface LoginService {
+	MemberDto getLogin(String userid);
 }
