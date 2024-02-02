@@ -4,9 +4,9 @@ import LoginMain from '../components/login/LoginMain';
 
 const RouterLoginMain = () => {
     return (
-        <div>
+        <div className='app'>
             <Routes>
-                <Route path="/" element={<LoginMain/>}/>
+                <Route path="/" element={<LoginMain />} />
             </Routes>
         </div>
     );
