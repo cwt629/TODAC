@@ -99,3 +99,5 @@ local.properties
 .springSettings
 
 generated/
+
+.env
