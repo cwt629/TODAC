@@ -1,16 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.f855e6bc.css",
-    "main.js": "/static/js/main.cd8d1091.js",
+    "main.css": "/static/css/main.bb8d10f2.css",
+    "main.js": "/static/js/main.9bb30a0b.js",
     "static/js/787.f22b8f29.chunk.js": "/static/js/787.f22b8f29.chunk.js",
-    "static/media/testforpublish.jpg": "/static/media/testforpublish.b6eb433699dae468f298.jpg",
+    "static/media/todac_logo_temp.png": "/static/media/todac_logo_temp.d7a0e9977e9630b23a6e.png",
+    "static/media/ico_mypage.svg": "/static/media/ico_mypage.9bc04bd0e1f4b17786d813b22be79609.svg",
     "index.html": "/index.html",
-    "main.f855e6bc.css.map": "/static/css/main.f855e6bc.css.map",
-    "main.cd8d1091.js.map": "/static/js/main.cd8d1091.js.map",
+    "static/media/ico_chat.svg": "/static/media/ico_chat.a85f3da45c4b4b1c2616c2a037b42e31.svg",
+    "static/media/ico_community.svg": "/static/media/ico_community.4c4a314f09f6834021b4cea53a0d18ee.svg",
+    "main.bb8d10f2.css.map": "/static/css/main.bb8d10f2.css.map",
+    "main.9bb30a0b.js.map": "/static/js/main.9bb30a0b.js.map",
     "787.f22b8f29.chunk.js.map": "/static/js/787.f22b8f29.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f855e6bc.css",
-    "static/js/main.cd8d1091.js"
+    "static/css/main.bb8d10f2.css",
+    "static/js/main.9bb30a0b.js"
   ]
 }
