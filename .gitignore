@@ -97,3 +97,5 @@ local.properties
 .recommenders/
 
 .springSettings
+
+generated/
