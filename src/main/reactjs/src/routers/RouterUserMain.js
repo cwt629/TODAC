@@ -8,6 +8,7 @@ import CommunityMain from '../components/community/CommunityMain';
 import BoardMain from '../components/community/board/BoardMain';
 import DonationMain from '../components/community/donation/DonationMain';
 import FaceMotionMain from '../components/community/facemotion/FaceMotionMain';
+import Payment from "../components/mypage/Payment";
 
 const RouterUserMain = () => {
     return (
@@ -17,7 +18,11 @@ const RouterUserMain = () => {
             <div className='appcontent'>
                 <Routes>
                     <Route path='/chat' element={<ChatMain />} />
-                    <Route path='/' element={<MypageMain />} />
+                    <Route path='/'>
+                        <Route path='' element={<MypageMain />} />
+                        <Route path='payment' element={<Payment />} />
+                    </Route>
+
                     <Route path='/community'>
                         <Route path='' element={<CommunityMain />} />
                         <Route path='board' element={<BoardMain />} />

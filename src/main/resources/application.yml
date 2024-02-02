@@ -20,3 +20,7 @@ spring:
     show-sql: true
     #Mysql 상세지정
     database-platform: org.hibernate.dialect.MySQLDialect
+
+iamport:
+  key: 7035336281076508
+  secret: 10NMa46OKhzUMcRzvzIeUBlk9xkX8TMsPT8xNbr8GCvAO7Cg5KLmSvzujHnIA0YMaTk36ArKik3Rvot2

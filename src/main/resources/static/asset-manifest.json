@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.9e841ff5.css",
-    "main.js": "/static/js/main.9bb30a0b.js",
+    "main.css": "/static/css/main.bb8d10f2.css",
+    "main.js": "/static/js/main.ccb10253.js",
     "static/js/787.f22b8f29.chunk.js": "/static/js/787.f22b8f29.chunk.js",
     "static/media/todac_logo_temp.png": "/static/media/todac_logo_temp.d7a0e9977e9630b23a6e.png",
     "static/media/ico_mypage.svg": "/static/media/ico_mypage.468a29e06632abfc95ab4e90ef0e6a55.svg",
     "index.html": "/index.html",
     "static/media/ico_chat.svg": "/static/media/ico_chat.3a657451f376895d7c4f739ba9c3279b.svg",
     "static/media/ico_community.svg": "/static/media/ico_community.e4205b40dab0a385c8fd81c3217b8208.svg",
-    "main.9e841ff5.css.map": "/static/css/main.9e841ff5.css.map",
-    "main.9bb30a0b.js.map": "/static/js/main.9bb30a0b.js.map",
+    "main.bb8d10f2.css.map": "/static/css/main.bb8d10f2.css.map",
+    "main.ccb10253.js.map": "/static/js/main.ccb10253.js.map",
     "787.f22b8f29.chunk.js.map": "/static/js/787.f22b8f29.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9e841ff5.css",
-    "static/js/main.9bb30a0b.js"
+    "static/css/main.bb8d10f2.css",
+    "static/js/main.ccb10253.js"
   ]
 }
