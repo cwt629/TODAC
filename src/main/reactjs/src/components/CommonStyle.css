@@ -141,7 +141,8 @@ div.app {
     height: 852px; */
     width: 100%;
     height: 100vh;
-
+    display: flex;
+    flex-direction: column;
     /* margin: 50px; */
     position: relative;
 }
@@ -160,15 +161,17 @@ div.login {
 div.appcontent {
     background-color: pink;
     /* border: 1px solid black; */
-    height: 81.34vh;
+    /* height: 81.34vh; */
     /* height: 692px; */
     overflow-y: auto;
+    flex: 1;
+    padding-bottom: 90px;
 }
-
+/* 
 div.appcontent.nofooter {
     height: 89.5vh;
-    /* height: 762px; */
-}
+     height: 762px; 
+} */
 
 div.appcontent.startpage {
     display: flex;
@@ -178,19 +181,20 @@ div.appcontent.startpage {
 
 div.header {
     width: 100%;
-    height: 10.5vh;
-    /* height: 90px; */
+    /* height: 10.5vh; */
+    height: 90px;
 }
 
 div.footer {
     width: 100%;
-    height: 8.16vh;
+    /* height: 8.16vh; */
     box-sizing: border-box;
-    /* height: 70px; */
+    height: 70px;
     display: flex;
     position: absolute;
     bottom: 0px;
     border-top: 1px solid #EEF0F7;
+    background-color: #fff;
 }
 
 div.footer .footernav {
