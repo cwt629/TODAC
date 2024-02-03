@@ -6,8 +6,8 @@
 
 .faq.accordion{
     --bs-accordion-color: var(--bs-body-color);
-    --bs-accordion-bg: #EEF0F7;
-    --bs-accordion-border-color: #F2F5FA;
+    --bs-accordion-bg: var(--bggray);
+    --bs-accordion-border-color: var(--lightgray1);
     --bs-accordion-border-radius: 0;
     --bs-accordion-inner-border-radius: 0;
     --bs-accordion-btn-padding-x: 0.1rem;
@@ -24,7 +24,7 @@
     --bs-accordion-body-padding-x: 0.1rem;
     --bs-accordion-body-padding-y: 0.7rem;
     --bs-accordion-active-color: var(--bs-primary-text-emphasis);
-    --bs-accordion-active-bg: #F9EAEB;
+    --bs-accordion-active-bg: var(--lightred);
 }
 
 .faq button{
