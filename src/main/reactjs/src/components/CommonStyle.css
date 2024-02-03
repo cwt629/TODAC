@@ -5,6 +5,19 @@ body * {
     font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
+:root {
+    --mainblack : #536179;
+    --deepred : #FF7170;
+    --lightred : #F9EAEB;
+    --deepblue : #5279FD;
+    --midblue : #51CECE;
+    --lightblue : #E1F5F5;
+    --deepgray : #9396A6;
+    --lightgray1 : #F2F5FA;
+    --lightgray2 : #DDDFEA;
+    --bggray : #EEF0F7;
+}
+
 body {
     color: #536179;
     letter-spacing: 0;
@@ -217,55 +230,55 @@ a{
 /* 포인트컬러(폰트 color) */
 
 .col_red{
-    color: #FF7170;
+    color: var(--deepred);
 }
 
 .col_blue1{
-    color: #51CECE;
+    color: var(--midblue);
 }
 
 .col_blue2{
-    color: #5279FD;
+    color: var(--deepblue);
 }
 
-.col_grat{
-    color: #9396A6;
+.col_gray{
+    color: var(--deepgray);
 }
 
 /* 보더 border컬러 */
 
 .bor_red{
-    border: 1px solid #FF7170;
+    border: 1px solid var(--deepred);
 }
 
 .bor_blue1{
-    border: 1px solid #51CECE;
+    border: 1px solid var(--midblue);
 }
 
 .bor_blue2{
-    border: 1px solid #5279FD;
+    border: 1px solid var(--deepblue);
 }
 
 .bor_gray1{
-    border-bottom: 1px solid #F2F5FA
+    border-bottom: 1px solid var(--lightgray1);
 }
 
 .bor_gray2{
-    border-bottom: 1px solid #DDDFEA
+    border-bottom: 1px solid var(--lightgray2);
 }
 
 /* background-color백그라운드 컬러 */
 
 .bg_red{
-    background-color: #F9EAEB;
+    background-color: var(--lightred);
 }
 
 .bg_blue{
-    background-color: #E1F5F5;
+    background-color: var(--lightblue);
 }
 
 .bg_gray{
-    background-color: #EEF0F7
+    background-color: var(--bggray);
 }
 
 /* margin 마진 */
