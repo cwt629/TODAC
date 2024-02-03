@@ -44,7 +44,7 @@ const CustomButton = styled(Button)({
   });
 
 const LoginAdmin = () => {
-    const [adminid,setAdminid] = useState('');
+    const [userid,setUserid] = useState('');
     const [pass,setPass] = useState('');
     const [token,setToken] = useState(null);
 
@@ -55,7 +55,7 @@ const LoginAdmin = () => {
     },[]);//처음 시작시 한번만 호출
 
     const buttonLoginEvent = () =>{
-        axios.post("/login/auth",{adminid,pass})
+        axios.post("/login/auth",{userid,pass})
         .then(res=>{
             if(res.data.result==='noid'){
                 Swal.fire("회원아이디가 아닙니다");
@@ -77,23 +77,43 @@ const LoginAdmin = () => {
     };
 
     return (
-        <div style={{padding : "100px"}}>
+      <div>
+        {
+          token==null?
+          <div style={{paddingTop : "55px", paddingRight : "55px", paddingLeft : "55px"}}>
             <ArrowBackIcon onClick={goBack} style={{ cursor: 'pointer' }} />
+            <br/><br/><br/>
+            <h1 style={{color : "#FF494D", textAlign: "center" }}>TODAC</h1>
             <br/><br/>
-            TODAC<br/><br/>
-            관리자 로그인<br/>
-            관리자만 로그인 가능합니다.<br/><br/>
+            <h5 style={{color : "#536179"}}>관리자 로그인</h5>
+            <h6 style={{color : "#5279FD"}}>관리자만 로그인 가능합니다.</h6><br/>
             <input type='text' className='form-control'
              placeholder="아이디"
-             value={adminid} onChange={(e)=>setAdminid(e.target.value)}/>
+             value={userid} onChange={(e)=>setUserid(e.target.value)}/>
             <br/>
             <input type='password' className='form-control'
              placeholder="비밀번호"
              value={pass} onChange={(e)=>setPass(e.target.value)}/>
              <br/>
              <CustomButton variant="contained"
-              style={{width : "100%"}}>로그인</CustomButton>
-        </div>
+              style={{width : "100%"}}
+              onClick={buttonLoginEvent}>로그인</CustomButton>
+          </div>
+        :
+          <div>
+              <h4 className='alert alert-danger'>로그인 중입니다</h4>
+              <br/><br/>
+              <button type='button' className='btn btn-danger'
+              onClick={()=>{
+                  sessionStorage.removeItem("token");
+                  setToken(null);
+                  setUserid('');
+                  setPass('');
+              }}>로그아웃</button>
+          </div>
+        }
+      </div>
+        
     );
 };
 

@@ -145,6 +145,17 @@ div.app {
     /* margin: 50px; */
     position: relative;
 }
+div.login {
+    background: linear-gradient(to bottom, #FDC8C7, #E9DBF8);
+    /* border: 1px solid black; */
+    /* width: 393px;
+    height: 852px; */
+    width: 100%;
+    height: 100vh;
+
+    /* margin: 50px; */
+    position: relative;
+}
 
 div.appcontent {
     background-color: pink;
