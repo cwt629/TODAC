@@ -26,8 +26,10 @@ const RouterUserMain = () => {
                     </Route>
                     <Route path='/'>
                         <Route path='' element={<MypageMain />} />
-                        <Route path='faq' element={<Faq />} />
-                        <Route path='inquiry' element={<Inquiry />} />
+
+                        <Route path='faq' element={<Faq/>} />
+                        <Route path='inquiry' element={<Inquiry/>} />
+
                     </Route>
                     <Route path='/community'>
                         <Route path='' element={<CommunityMain />} />
