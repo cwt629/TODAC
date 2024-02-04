@@ -1,9 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ChatMain = () => {
+    const nav = useNavigate();
+
     return (
         <div>
-            <h3>채팅</h3>
+            <button className='btn btn-info'
+                onClick={() => nav('counsel')}>상담 시작</button>
         </div>
     );
 };
