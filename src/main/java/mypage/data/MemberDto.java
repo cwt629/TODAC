@@ -19,12 +19,9 @@ import java.sql.Timestamp;
 public class MemberDto {
     @Id //각 엔터티를 구별할 수 있도록 식별 아이디를 갖도록 설계
     @GeneratedValue(strategy = GenerationType.IDENTITY)//auto increment를 주기 위한거래여
-    private int usercode;
+    private long usercode;
 
-    @Column(name = "token",length = 100) //컬럼명은 변수명과 같을경우 생략가능
-    private String token;
-
-    @Column(length = 20)
+    @Column(length = 150)
     private String userid;
 
     @Column(length = 20)

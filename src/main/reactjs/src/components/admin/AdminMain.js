@@ -3,6 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const AdminMain = () => {
+
+    const handleLogout = () => {
+        sessionStorage.removeItem("token");
+        nav('/login'); // 로그아웃 후 로그인 페이지로 이동
+    };
     const nav = useNavigate();
 
     return (
@@ -18,7 +23,7 @@ const AdminMain = () => {
                     onClick={() => nav('InquiryHistory')}>문의게시판 관리</button>
                 <br /><br />
                 <button className='btn btn-danger'
-                    onClick={() => nav('LoginMain')}>로그아웃</button>
+                    onClick={handleLogout}>로그아웃</button>
             </div>
         </div>
 
