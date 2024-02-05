@@ -1,10 +1,9 @@
 package login.repository;
 
-import org.springframework.stereotype.Repository;
-import lombok.AllArgsConstructor;
+import mypage.data.MemberDto;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-@AllArgsConstructor
-public class LoginDao {
 
+public interface LoginDao extends JpaRepository<MemberDto, Integer> {
+    MemberDto findByUserid(String userid);
 }
