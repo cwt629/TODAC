@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.5436165b.css",
-    "main.js": "/static/js/main.5922f187.js",
+    "main.js": "/static/js/main.685fe776.js",
     "static/js/787.f22b8f29.chunk.js": "/static/js/787.f22b8f29.chunk.js",
     "static/media/todac_logo_temp.png": "/static/media/todac_logo_temp.d7a0e9977e9630b23a6e.png",
     "static/media/ico_mypage.svg": "/static/media/ico_mypage.468a29e06632abfc95ab4e90ef0e6a55.svg",
@@ -9,11 +9,11 @@
     "static/media/ico_chat.svg": "/static/media/ico_chat.3a657451f376895d7c4f739ba9c3279b.svg",
     "static/media/ico_community.svg": "/static/media/ico_community.e4205b40dab0a385c8fd81c3217b8208.svg",
     "main.5436165b.css.map": "/static/css/main.5436165b.css.map",
-    "main.5922f187.js.map": "/static/js/main.5922f187.js.map",
+    "main.685fe776.js.map": "/static/js/main.685fe776.js.map",
     "787.f22b8f29.chunk.js.map": "/static/js/787.f22b8f29.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5436165b.css",
-    "static/js/main.5922f187.js"
+    "static/js/main.685fe776.js"
   ]
 }
