@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InquirDetail = () => {
+const InquiryDetail = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const InquirDetail = () => {
     );
 };
 
-export default InquirDetail;
+export default InquiryDetail;

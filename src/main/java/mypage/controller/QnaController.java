@@ -13,12 +13,12 @@ import mypage.repository.QnaDao;
 public class QnaController {
 	private final QnaDao qnaDao;
 	
-	@PostMapping("/insert")
+	@PostMapping("/form")
 	public String insert(@ModelAttribute QnaDto dto)
 	{
 		//db insert
 		qnaDao.insertQna(dto);
 		
-		return "redirect:./"; //목록으로 이동
+		return "redirect:./inquiry"; //목록으로 이동
 	}
 }
