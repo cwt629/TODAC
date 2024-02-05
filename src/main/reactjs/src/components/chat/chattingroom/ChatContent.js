@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import getGPTResponse from '../api/gpt';
-import defaultProfile from '../../../image/default_profile_photo_blue.jpg';
-
+import React from 'react';
+import defaultPhoto from '../../../image/default_profile_photo_blue.jpg';
 
 const ChatContent = ({ log }) => {
     return (
-        <div>
+        <div className='chatcontent fs_14 bor_red bg_red mt_10'>
             {
                 log.map((data, index) => (
-                    <div key={index} style={{ backgroundColor: 'yellow', color: 'indigo', padding: '5px', borderRadius: '10px' }}>
-                        {data.content}
+                    <div key={index} className='chatcomponent'>
+                        <img alt='프로필사진' className='profile'
+                            src={defaultPhoto} />
+                        <div className='chat'>
+                            {data.content}
+                        </div>
                     </div>
                 ))
             }
