@@ -7,49 +7,60 @@ import { useNavigate } from 'react-router-dom';
 const LoginCallBack = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+    const [token,setToken] = useState(null);
+    const [id,setId] = useState(null);
+
+    useEffect(()=>{
+        const storedToken = sessionStorage.getItem("token");
+        const storedId = sessionStorage.getItem("id");
+        console.log("Stored t:", storedToken,", Stored id:", storedId);
+    },[]);
 
     useEffect(() => {
         const urlSearchParams = new URLSearchParams(window.location.search);
         const code = urlSearchParams.get('code');
 
-        console.log('Authorization Code:', code);
+        
+        if (code) {
+            const login = async () => {
+                try {
+                    const loginType = window.sessionStorage.getItem('loginType');
+                    let params = {
+                        code,
+                        loginType,
+                    };
 
-        const login = async () => {
-            const loginType = window.sessionStorage.getItem('loginType');
-           
-            let params = {
-                  code
-                , loginType
+                    if (loginType === 'naver') {
+                        const state = urlSearchParams.get('state');
+                        params.state = state;
+                    }
+
+                    const res = await axios.post("/login/getCallBack", params);
+                    sessionStorage.token = res.data.token;
+                    setToken(res.data.token);
+                    sessionStorage.id = res.data.id;
+                    setId(res.data.id);
+
+                    if (res.data.Signup === 'N') {
+                        if (loginType === 'naver') {
+                            window.sessionStorage.setItem("userInfo", JSON.stringify(res.data.userInfo));
+                            navigate('/login/signupnaver');
+                        } else {
+                            window.sessionStorage.setItem("userInfo", JSON.stringify(res.data.userInfo));
+                            navigate('/login/signupkakao');
+                        }
+                    } else {
+                        navigate('/user');
+                    }
+                } catch (error) {
+                    console.error('Error during login:', error);
+                    setLoading(false);
+                }
             };
 
-            if(loginType == 'naver') {
-                const state = urlSearchParams.get('state');
-                params.state = state;
-            }
-
-            axios.post("/login/getCallBack", params)
-                .then( res => {
-
-                if(res.data.Signup == 'N') {
-                    if(loginType == 'naver'){
-                        window.sessionStorage.setItem("userInfo", JSON.stringify(res.data.userInfo));
-                        navigate('/login/signupnaver');
-                    } else {
-                        window.sessionStorage.setItem("userInfo", JSON.stringify(res.data.userInfo));
-                        navigate('/login/signupkakao');
-                    }
-                        
-                } else {
-                    navigate('/user');
-                }
-            });
-
-
-        };
-
-        login();
-        
-    }, []);
+            login();
+        }
+    }, [navigate]);
 
     return (
         <div>{loading ? 'Loading 기다려주시겠습니까?' : '처리 중 오류가 발생했습니다.'}</div>

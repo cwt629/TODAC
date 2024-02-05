@@ -113,7 +113,11 @@ public class LoginServiceImpl implements LoginService {
         	retMap.put("userInfo", userInfo);//회원가입을 위한 user 정보 전달
         }  else {
 	        retMap.put("Signup", "Y");
-	        //토큰정보 전달
+	        Authentication auth = new UserAuthentication(userid, null, null);
+            String token = JwtTokenProvider.generateToken(auth, userid);
+            //System.out.println("token=" + token); //토큰 확인
+            retMap.put("token", token);//토근전달
+            retMap.put("id", userid);//id전달
         }
         return retMap;
     }
@@ -210,6 +214,7 @@ public class LoginServiceImpl implements LoginService {
             String token = JwtTokenProvider.generateToken(auth, userid);
             //System.out.println("token=" + token); //토큰 확인
             retMap.put("token", token);//토근전달
+            retMap.put("id", userid);//id전달
         }
 		
     	return retMap;
