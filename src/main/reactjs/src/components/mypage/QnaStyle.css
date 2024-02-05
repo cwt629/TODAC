@@ -41,5 +41,23 @@
 }
 
 .faq .accordion-item{
-    color: #536179;
+    color: var(--mainblack);
+}
+
+.inquiry_form>div>.form-control {
+    background-color: var(--bggray);
+    color: var(--mainblack);
+    border: 1px solid var(--lightgray2);
+    border-radius: 0;
+}
+
+.inquiry_btn>div>button{
+    background-color: var(--lightblue);
+    border: 1px solid var(--midblue);
+    border-radius: 5px;
+    font-weight: 500;
+    color: var(--mainblack);
+    width: 160px;
+    padding: 6px;
+
 }

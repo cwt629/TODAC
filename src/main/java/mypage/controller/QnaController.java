@@ -1,7 +1,7 @@
 package mypage.controller;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -13,12 +13,11 @@ import mypage.repository.QnaDao;
 public class QnaController {
 	private final QnaDao qnaDao;
 	
-	@PostMapping("/form")
-	public String insert(@ModelAttribute QnaDto dto)
-	{
-		//db insert
-		qnaDao.insertQna(dto);
-		
-		return "redirect:./inquiry"; //목록으로 이동
-	}
+	//추가
+		@PostMapping("/user/inquiry/form")
+		public void insert(@RequestBody QnaDto dto) //@RequestBody생략하면 안됨 생략하면 모델어트리뷰트로 읽음
+		{
+			//db insert
+			qnaDao.insertQna(dto);
+		}
 }

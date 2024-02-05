@@ -264,7 +264,7 @@ a{
 }
 
 .bor_gray2{
-    border-bottom: 1px solid var(--lightgray2);
+    border: 1px solid var(--lightgray2);
 }
 
 /* background-color백그라운드 컬러 */
@@ -289,6 +289,10 @@ a{
 
 .mt_10{
     margin-top: 10px;
+}
+
+.mt_25{
+    margin-top: 25px;
 }
 
 .mt_45{
