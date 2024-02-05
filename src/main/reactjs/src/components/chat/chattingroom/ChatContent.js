@@ -15,7 +15,7 @@ const ChatContent = ({ log, setLog }) => {
 
     const handleUserInput = () => {
         if (loading) {
-            alert("상담사의 답변을 로딩중입니다. 잠시 후 시도해주세요.");
+            alert("상담사가 아직 답변중입니다. 잠시 후 시도해주세요.");
             return;
         }
 
