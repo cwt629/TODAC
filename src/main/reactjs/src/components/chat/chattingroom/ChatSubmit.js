@@ -9,7 +9,7 @@ const ChatSubmit = ({ input, handleInputSubmit, handleInputChange }) => {
                 onInput={(e) => handleInputChange(e.target.value)}
                 onKeyUp={(e) => {
                     if (e.key === 'Enter') {
-                        handleInputSubmit(input);
+                        handleInputSubmit();
                     }
                 }} />
             <div className='bor_blue1 bg_blue fw_500 chatbutton'
