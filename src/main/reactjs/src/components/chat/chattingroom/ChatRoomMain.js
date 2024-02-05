@@ -23,7 +23,7 @@ const ChatRoomMain = () => {
         setInput(newInput);
     }
 
-    const handleUserInput = () => {
+    const handleInputSubmit = () => {
         if (loading) {
             alert("상담사가 아직 답변중입니다. 잠시 후 시도해주세요.");
             return;
@@ -50,7 +50,7 @@ const ChatRoomMain = () => {
             <ChatRoomHeader />
             <ChatRoomMidBar />
             <ChatContent log={log} />
-            <ChatSubmit input={input} handleInputChange={handleInputChange} handleUserInput={handleUserInput} />
+            <ChatSubmit input={input} handleInputChange={handleInputChange} handleInputSubmit={handleInputSubmit} />
         </div>
     );
 };

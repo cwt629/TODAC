@@ -60,3 +60,18 @@ div.chatbutton {
     padding: 3px 10px;
     border-radius: 5px;
 }
+
+div.chatsubmit {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+input.userinput {
+    width: 85%;
+    border-radius: 3px;
+}
+
+input.userinput:focus {
+    outline: none;
+}

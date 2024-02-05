@@ -1,12 +1,19 @@
 import React from 'react';
 
-const ChatSubmit = ({ input, handleUserInput, handleInputChange }) => {
+const ChatSubmit = ({ input, handleInputSubmit, handleInputChange }) => {
+
     return (
-        <div>
-            <input type='text' className='userinput' value={input}
-                onInput={(e) => handleInputChange(e.target.value)} />
-            <button type='button' className='btn btn-secondary'
-                onClick={handleUserInput}>전송</button>
+        <div className='chatsubmit mt_10'>
+            <input type='text' className='userinput bg_gray bor_blue1' value={input}
+                placeholder='내용을 입력하세요.'
+                onInput={(e) => handleInputChange(e.target.value)}
+                onKeyUp={(e) => {
+                    if (e.key === 'Enter') {
+                        handleInputSubmit(input);
+                    }
+                }} />
+            <div className='bor_blue1 bg_blue fw_500 chatbutton'
+                onClick={handleInputSubmit}>전송</div>
         </div>
     );
 };
