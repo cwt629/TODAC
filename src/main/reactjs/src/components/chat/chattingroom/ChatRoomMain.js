@@ -5,6 +5,7 @@ import ChatRoomMidBar from './ChatRoomMidBar';
 import './ChatRoomStyle.css'
 import getGPTResponse from '../api/gpt';
 import ChatSubmit from './ChatSubmit';
+import Swal from 'sweetalert2';
 
 const ChatRoomMain = () => {
     const [log, setLog] = useState([]);
@@ -25,12 +26,20 @@ const ChatRoomMain = () => {
 
     const handleInputSubmit = () => {
         if (loading) {
-            alert("상담사가 아직 답변중입니다. 잠시 후 시도해주세요.");
+            Swal.fire({
+                title: '상담사가 아직 답변중!',
+                text: '상담사가 아직 답변중입니다. 잠시 후 시도해주세요.',
+                icon: 'warning'
+            });
             return;
         }
 
         if (input.length === 0) {
-            alert("메세지를 입력해주세요.");
+            Swal.fire({
+                title: '입력 없음!',
+                text: '메세지를 입력해주세요.',
+                icon: 'error'
+            });
             return;
         }
 
