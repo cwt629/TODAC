@@ -47,12 +47,14 @@ const LoginAdmin = () => {
     const [userid,setUserid] = useState('');
     const [pass,setPass] = useState('');
     const [token,setToken] = useState(null);
+    const [id,setId] = useState(null);
 
     useEffect(()=>{
-        let session_token = sessionStorage.token;
-        console.log(session_token);
-        setToken(session_token);
-    },[]);
+      let session_token = sessionStorage.token;
+      setToken(session_token);
+      console.log(token);
+  },[]);
+
 
     const buttonLoginEvent = () =>{
         axios.post("/login/auth",{userid,pass})
@@ -75,6 +77,8 @@ const LoginAdmin = () => {
                 //토큰을 얻어서 세션 스토리지에 token이라는 이름으로 저장
                 sessionStorage.token=res.data.token;
                 setToken(res.data.token);
+                sessionStorage.id = userid;
+                setId(userid);
             }
         });
     }
