@@ -67,11 +67,11 @@ div.chatsubmit {
     justify-content: space-between;
 }
 
-input.userinput {
+textarea.userinput {
     width: 85%;
     border-radius: 3px;
 }
 
-input.userinput:focus {
+textarea.userinput:focus {
     outline: none;
 }

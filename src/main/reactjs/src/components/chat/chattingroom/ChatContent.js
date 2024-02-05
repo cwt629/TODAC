@@ -9,7 +9,7 @@ const ChatContent = ({ log }) => {
                     let compClass = (data.speaker > 0) ? 'chatcomponent counselor' : 'chatcomponent user';
 
                     return (
-                        <div key={index} className={compClass}>
+                        <div key={index} className={compClass} >
                             <img alt='프로필사진' className='profile'
                                 src={defaultPhoto} />
                             <div className='chat'>

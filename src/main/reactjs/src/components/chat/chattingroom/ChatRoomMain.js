@@ -7,8 +7,12 @@ import getGPTResponse from '../api/gpt';
 import ChatSubmit from './ChatSubmit';
 import Swal from 'sweetalert2';
 
+const COUNSELOR_INITIAL_MESSAGE = "안녕! 난 장난기 가득한 상담사야! 뭐가 고민이니?";
+
 const ChatRoomMain = () => {
-    const [log, setLog] = useState([]);
+    const [log, setLog] = useState([{
+        'role': 'assistant', 'content': COUNSELOR_INITIAL_MESSAGE, 'speaker': 1
+    }]);
     const [input, setInput] = useState();
     const [loading, setLoading] = useState(false);
 
