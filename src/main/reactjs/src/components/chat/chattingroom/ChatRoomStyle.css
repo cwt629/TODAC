@@ -1,4 +1,16 @@
+div.chatmain {
+    padding: 15px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+div.chatheader {
+    height: 60px;
+}
+
 div.chatmid {
+    height: 35px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -11,6 +23,7 @@ div.chatcontent {
     height: 55vh;
     padding: 0 10px;
     overflow-y: auto;
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -63,12 +76,14 @@ div.chatbutton {
 
 div.chatsubmit {
     width: 100%;
+    height: 55px;
     display: flex;
     justify-content: space-between;
 }
 
 textarea.userinput {
-    width: 80%;
+    /* width: 80%; */
+    flex: 1;
     border-radius: 3px;
     resize: none;
 }
@@ -78,7 +93,7 @@ textarea.userinput:focus {
 }
 
 div.submit-innerdiv {
-    width: 15%;
+    width: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
