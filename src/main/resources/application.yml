@@ -20,3 +20,16 @@ spring:
     show-sql: true
     #Mysql 상세지정
     database-platform: org.hibernate.dialect.MySQLDialect
+
+#Loing Setting
+react:
+  kakao:
+    login:
+      client: 0379f4e17974f898bd38887c56a6c8f7
+      secret: FylAiEmFFOofOmlpSQs806vsYm99ld67
+      redirecturl: http://localhost:3000/login/callback
+  naver:
+    login:
+      client: 64_rjB9Vr3BUXeAXii_Y
+      secret: QJvtfoXSkD
+      redirecturl: http://localhost:3000/login/callback

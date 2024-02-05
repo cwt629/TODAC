@@ -52,29 +52,46 @@ const LoginAdmin = () => {
         let session_token = sessionStorage.token;
         console.log(session_token);
         setToken(session_token);
-    },[]);//처음 시작시 한번만 호출
+    },[]);
 
     const buttonLoginEvent = () =>{
         axios.post("/login/auth",{userid,pass})
         .then(res=>{
-            if(res.data.result==='noid'){
-                Swal.fire("회원아이디가 아닙니다");
-            }else if(res.data.result==='nopass'){
-                Swal.fire("비밀번호가 맞지 않습니다");
-            }else{
+            if (res.data.result === 'noid') {
+              Swal.fire({
+                  icon: 'error',
+                  title: '<span style="font-size: 20px;">관리자 아이디가 아닙니다</span>',
+                  confirmButtonColor: '#FF7170',
+                  background: '#F9EAEB'
+              });
+            } else if (res.data.result === 'nopass') {
+              Swal.fire({
+                  icon: 'error',
+                  title: '<span style="font-size: 20px;">비밀번호가 맞지 않습니다</span>',
+                  confirmButtonColor: '#FF7170',
+                  background: '#F9EAEB'
+              });
+            } else{
                 //토큰을 얻어서 세션 스토리지에 token이라는 이름으로 저장
                 sessionStorage.token=res.data.token;
                 setToken(res.data.token);
             }
-        })
+        });
     }
 
     const navigate = useNavigate();
 
+    //이전페이지로 이동
     const goBack = () => {
-        // 이전 페이지로 이동
         navigate(-1);
     };
+
+    //로그인 성공
+    useEffect(() => {
+      if (token) {
+          navigate('/admin');
+      }
+  }, [token]);
 
     return (
       <div>
@@ -82,9 +99,11 @@ const LoginAdmin = () => {
           token==null?
           <div style={{paddingTop : "55px", paddingRight : "55px", paddingLeft : "55px"}}>
             <ArrowBackIcon onClick={goBack} style={{ cursor: 'pointer' }} />
-            <br/><br/><br/>
-            <h1 style={{color : "#FF494D", textAlign: "center" }}>TODAC</h1>
-            <br/><br/>
+            <br/><br/><br/><br/>
+            <h1 style={{color : "#FF494D", textAlign: "center",
+                        fontSize : "3em", fontWeight : "1000"
+                        }}>TODAC</h1>
+            <br/>
             <h5 style={{color : "#536179"}}>관리자 로그인</h5>
             <h6 style={{color : "#5279FD"}}>관리자만 로그인 가능합니다.</h6><br/>
             <input type='text' className='form-control'
@@ -99,18 +118,7 @@ const LoginAdmin = () => {
               style={{width : "100%"}}
               onClick={buttonLoginEvent}>로그인</CustomButton>
           </div>
-        :
-          <div>
-              <h4 className='alert alert-danger'>로그인 중입니다</h4>
-              <br/><br/>
-              <button type='button' className='btn btn-danger'
-              onClick={()=>{
-                  sessionStorage.removeItem("token");
-                  setToken(null);
-                  setUserid('');
-                  setPass('');
-              }}>로그아웃</button>
-          </div>
+          :<div/>
         }
       </div>
         

@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "react.kakao.login.client",
+    "type": "java.lang.String",
+    "description": "A description for 'react.kakao.login.client'"
+  },
+  {
+    "name": "react.kakao.login.redirecturl",
+    "type": "java.lang.String",
+    "description": "A description for 'react.kakao.login.redirecturl'"
+  },
+  {
+    "name": "react.naver.login.client",
+    "type": "java.lang.String",
+    "description": "A description for 'react.naver.login.client'"
+  },
+  {
+    "name": "react.naver.login.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'react.naver.login.secret'"
+  },
+  {
+    "name": "react.naver.login.redirecturl",
+    "type": "java.lang.String",
+    "description": "A description for 'react.naver.login.redirecturl'"
+  },
+  {
+    "name": "react.kakao.login.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'react.kakao.login.secret'"
+  }
+]}
