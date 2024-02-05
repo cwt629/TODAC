@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script>
+        var IMP = window.IMP;
+        IMP.init("imp01416815");
+
+        function requestPay() {
+            IMP.request_pay(
+                {
+                    pg: "{kakaopay}.{TC0ONETIME}", //Test는 TC0ONETIME
+                    pay_method: "card",
+                    merchant_uid: "57008833-33004",
+                    name: "테스트 상점",
+                    amount: 1004,
+                    buyer_email: 'test@naver.com',
+                    buyer_name: '코드쿡',
+                    buyer_tel: '010-1234-5678',
+                    buyer_addr: '서울특별시',
+                    buyer_postcode: '123-456',
+                },
+                function (rsp) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/verifyIamport/' + rsp.imp_uid
+                    }).done(function(data) {
+                        if(rsp.paid_amount === data.response.amount){
+                            alert("결제 성공");
+                        } else {
+                            alert("결제 실패");
+                        }
+                    });
+                });
+        }
+    </script>
+    <meta charset="UTF-8">
+    <title>Sample Payment</title>
+</head>
+<body>
+<button onclick="requestPay()">결제하기</button>
+</body>
+</html>
