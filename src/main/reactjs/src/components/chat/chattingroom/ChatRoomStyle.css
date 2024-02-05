@@ -1,0 +1,10 @@
+div.chatmid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.chatbutton {
+    padding: 3px 10px;
+    border-radius: 5px;
+}
