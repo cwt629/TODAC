@@ -81,11 +81,13 @@ const SignupNaver = () => {
         Swal.fire({
           icon: 'success',
           title: '회원가입 성공',
-          text: '회원가입이 성공적으로 완료되었습니다.',
+          text: '회원가입이 성공적으로 완료되었습니다. 다시 로그인 해 주세요.',
           confirmButtonColor: '#FF7170',
           background: '#F9EAEB'
         });
-        navigate('/user');  
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("id");
+        navigate('/login');  
       } 
       else {
         // 회원가입 실패

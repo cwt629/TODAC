@@ -7,7 +7,7 @@ export default async function getGPTResponse(userMessage, systemMessage, log = [
             model: 'gpt-3.5-turbo',
             messages: [
                 { 'role': 'system', 'content': systemMessage },
-                ...log,
+                ...log.map((data) => ({ 'role': data.role, 'content': data.content })),
                 { 'role': 'user', 'content': userMessage }
             ],
             temperature: 1,
