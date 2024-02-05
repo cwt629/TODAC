@@ -63,7 +63,27 @@ const LoginCallBack = () => {
     }, [navigate]);
 
     return (
-        <div>{loading ? 'Loading 기다려주시겠습니까?' : '처리 중 오류가 발생했습니다.'}</div>
+        <div>
+            {loading ? (
+                <h1 style={{
+                    color: "#FF494D",
+                    textAlign: "center",
+                    fontSize: "3em",
+                    paddingTop: "200px",
+                    fontWeight: "1000"
+                }}>Loading... <br/><br/> 잠시만<br/> 기다려주세요</h1>
+            ) : (
+                <h1 style={{
+                    color: "#FF494D",
+                    textAlign: "center",
+                    fontSize: "3em",
+                    paddingTop: "200px",
+                    fontWeight: "1000"
+                }}>
+                    처리 중 오류가 발생했습니다.
+                </h1>
+            )}
+        </div>
     );
 };
 
