@@ -39,8 +39,8 @@ const ChatRoomMain = () => {
             .then((msg) => {
                 setLog([
                     ...log,
-                    { 'role': 'user', 'content': input },
-                    msg
+                    { 'role': 'user', 'content': input, 'speaker': 0 },
+                    { ...msg, 'speaker': 1 }
                 ]);
             });
     }
