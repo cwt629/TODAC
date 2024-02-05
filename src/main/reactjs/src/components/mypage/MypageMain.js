@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './QnaStyle.css';
 
 const MypageMain = () => {
     const nav = useNavigate();
 
+    useEffect(()=>{
+        const storedToken = sessionStorage.getItem("token");
+        const storedId = sessionStorage.getItem("id");
+        console.log("Stored t:", storedToken,", Stored id:", storedId);
+    },[]);
+
     const handleLogout =  () => {
         // 세션에서 토큰 제거
         sessionStorage.removeItem("token");
+        sessionStorage.removeItem("id");
 
         // 로그인 페이지로 이동
         nav('/login');

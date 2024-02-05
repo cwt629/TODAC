@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const LoginMain = () => {
+    const [token,setToken] = useState(null);
     const nav = useNavigate();
+
+    useEffect(()=>{
+        const storedToken = sessionStorage.getItem("token");
+        setToken(storedToken);
+    },[]);
+
+
+    useEffect(() => {
+        if (token) {
+            const storedId = sessionStorage.getItem("id");
+            if (storedId === "todac"){
+                nav('/admin');
+            } else {
+                nav('/user');
+            }
+        }
+    }, [token]);
 
     //소셜 로그인 url
     let kakaoLoginUrl = '';
