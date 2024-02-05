@@ -59,5 +59,14 @@
     color: var(--mainblack);
     width: 160px;
     padding: 6px;
+}
 
+.inquiry_list>div>button{
+    border: none;
+    background-color: transparent;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--deepblue);
+    padding: 0;
+    cursor: pointer;
 }

@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 
 const InquiryForm = () => {
     const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+    const [inquiry, setInquiry] = useState("");
 
-    const navi = useNavigate();
+    const nav = useNavigate();
 
     //문의하기 버튼
     const addQnaEvent = () => {
-        axios.post("/inquiry/form", { title, content }).then((res) => { 
+        axios.post("/user/inquiry/form", { title, inquiry }).then((res) => { 
             //추가 성공 후 목록으로 이동
-            navi("/inquiry");
+            nav("/user/inquiry");
         });
     };
     return (
@@ -29,12 +29,14 @@ const InquiryForm = () => {
 
             <div className='mt_45'>
                 <div className='fs_18 fw_700'>제목</div>
-                <input type='text' className='form-control mt_10' />
+                <input type='text' className='form-control mt_10' onChange={(e)=>{
+                    setTitle(e.target.value)
+                }} placeholder='제목을 입력해주세요.'/>
             </div>
 
             <div className='form-group mt_25'>
-                <div className='fs_18 fw_700'>내용</div>
-                <textarea type='text' className='form-control mt_10' style={{ height: "200px" }} />
+                <div className='fs_18 fw_700'>상세 문의</div>
+                <textarea type='text' className='form-control mt_10' style={{ height: "200px" }} onChange={(e)=>setInquiry(e.target.value)} placeholder='문의하실 내용을 입력해주세요.'/>
             </div>
 
             <div className='mt_10 fs_14 text-end fw_500'>
@@ -45,12 +47,12 @@ const InquiryForm = () => {
 
             <div className='d-flex mt_45 inquiry_btn'>
                 <div className='me-auto'>
-                    <button type='button py-3'>
+                    <button type='button' onClick={() => nav('../')}>
                         문의 등록취소
                     </button>
                 </div>
                 <div className='ml-auto'>    
-                    <button type='button py-3'>
+                    <button type='button' onClick={addQnaEvent}>
                         문의 등록하기
                     </button>
                 </div>

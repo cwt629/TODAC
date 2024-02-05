@@ -13,8 +13,15 @@ const Inquiry = () => {
 
             <div className='mt_45 fw_500'>아이디 님, <br/>무엇을 도와드릴까요?</div>
 
-            <button className='btn btn-danger'
-            onClick={() => nav('form')}>1:1 문의하기</button>
+            <div className='d-flex mt_45 inquiry_list'>
+                <div className='me-auto fs_18 fw_700'>
+                    1:1 문의내역
+                </div>
+                <div className='ml-auto'>
+                    <button  onClick={() => nav('form')}>1:1 문의하기</button>
+                </div>
+            </div>
+            
         </div>
     );
 };
