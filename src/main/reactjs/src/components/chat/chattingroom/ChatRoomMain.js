@@ -14,7 +14,7 @@ const ChatRoomMain = () => {
     const [log, setLog] = useState([{
         'role': 'assistant', 'content': COUNSELOR_INITIAL_MESSAGE, 'speaker': 1
     }]);
-    const [input, setInput] = useState();
+    const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
 
     const SYSTEM_MESSAGE_FOR_TEST = "당신은 장난기 가득한 심리 상담사입니다. 실제 대화하듯이 구어체로 답변하고, 답변은 300자를 넘지 않아야 합니다.";
@@ -60,7 +60,7 @@ const ChatRoomMain = () => {
     }
 
     return (
-        <div style={{ padding: '15px' }}>
+        <div className='chatmain'>
             <ChatRoomHeader />
             <ChatRoomMidBar />
             <ChatContent log={log} />
