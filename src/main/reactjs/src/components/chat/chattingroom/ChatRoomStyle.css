@@ -68,10 +68,25 @@ div.chatsubmit {
 }
 
 textarea.userinput {
-    width: 85%;
+    width: 80%;
     border-radius: 3px;
+    resize: none;
 }
 
 textarea.userinput:focus {
     outline: none;
+}
+
+div.submit-innerdiv {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.submit-innerdiv div.chatlen {
+    margin-top: 3px;
+    text-align: center;
+    display: flex;
+    align-items: center;
 }

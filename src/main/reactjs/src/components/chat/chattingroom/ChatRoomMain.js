@@ -8,6 +8,7 @@ import ChatSubmit from './ChatSubmit';
 import Swal from 'sweetalert2';
 
 const COUNSELOR_INITIAL_MESSAGE = "안녕! 난 장난기 가득한 상담사야! 뭐가 고민이니?";
+const MAXIMUM_INPUT_LENGTH = 300;
 
 const ChatRoomMain = () => {
     const [log, setLog] = useState([{
@@ -63,7 +64,7 @@ const ChatRoomMain = () => {
             <ChatRoomHeader />
             <ChatRoomMidBar />
             <ChatContent log={log} />
-            <ChatSubmit input={input} handleInputChange={handleInputChange} handleInputSubmit={handleInputSubmit} />
+            <ChatSubmit input={input} maxlength={MAXIMUM_INPUT_LENGTH} handleInputChange={handleInputChange} handleInputSubmit={handleInputSubmit} />
         </div>
     );
 };

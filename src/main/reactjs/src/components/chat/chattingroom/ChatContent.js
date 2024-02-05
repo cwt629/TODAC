@@ -13,7 +13,13 @@ const ChatContent = ({ log }) => {
                             <img alt='프로필사진' className='profile'
                                 src={defaultPhoto} />
                             <div className='chat'>
-                                {data.content}
+                                {/* 줄바꿈의 경우 직접 split하여, 중간중간에 <br/>을 넣어준다 */}
+                                {data.content.split("\n").map((line, i) => (
+                                    <div key={i}>
+                                        {line}
+                                        {i !== data.content.split('\n').length - 1 && <br />}
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     );
