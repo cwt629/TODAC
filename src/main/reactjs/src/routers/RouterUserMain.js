@@ -11,6 +11,7 @@ import FaceMotionMain from '../components/community/facemotion/FaceMotionMain';
 import ChatRoomMain from '../components/chat/chattingroom/ChatRoomMain';
 import Faq from '../components/mypage/qna/Faq';
 import Inquiry from '../components/mypage/qna/Inquiry';
+import InquiryForm from '../components/mypage/qna/InquiryForm';
 
 const RouterUserMain = () => {
     return (
@@ -26,7 +27,10 @@ const RouterUserMain = () => {
                     <Route path='/'>
                         <Route path='' element={<MypageMain />} />
                         <Route path='faq' element={<Faq/>} />
-                        <Route path='inquiry' element={<Inquiry/>} />
+                        <Route path='inquiry'>
+                            <Route path='' element={<Inquiry/>}/>
+                            <Route path='form' element={<InquiryForm/>}/>
+                        </Route>
                     </Route>
                     <Route path='/community'>
                         <Route path='' element={<CommunityMain />} />
