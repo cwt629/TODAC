@@ -29,7 +29,7 @@ const ChatDiagnosis = () => {
             <div className='diagnosisActing fs_14 bor_blue1 bg_blue mt_10'>한강 가서 사람들 지켜보기, 클라이밍, 등산</div>
             <br />
             <div style={{ textAlign: 'center' }}>
-                <button className='btn btn-success' onClick={() => nav('../../')}>마이 홈 이동하기</button>
+                <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../../')}>마이 홈 이동하기</button>
             </div>
         </div>
     );
