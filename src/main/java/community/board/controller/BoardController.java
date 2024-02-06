@@ -4,14 +4,13 @@ import community.board.data.BoardDto;
 import community.board.repository.BoardDaoInter;
 import jdk.swing.interop.SwingInterOpUtils;
 import naver.storage.NcpObjectStorageService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import community.board.repository.BoardDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,17 +30,15 @@ public class BoardController {
 
 	//사진만 먼저 업로드하기
 	@PostMapping("/form/upload")
-	public String uploadFile (@RequestParam("upload") MultipartFile upload)
-	{
-		System.out.println("upload:"+upload.getOriginalFilename());
-		photo=storageService.uploadFile(bucketName, folderName, upload);
+	public String uploadFile(@RequestParam("upload") MultipartFile upload) {
+		System.out.println("upload:" + upload.getOriginalFilename());
+		photo = storageService.uploadFile(bucketName, folderName, upload);
 		return photo;
 	}
 
 	//사진 db 저장
 	@PostMapping("/form/insert")
-	public void insertBoard(@RequestBody BoardDto dto)
-	{
+	public void insertBoard(@RequestBody BoardDto dto) {
 		//미리 업로드한 photo 를 dto에 넣기
 		dto.setPhoto(photo);
 		//db insert
@@ -50,4 +47,8 @@ public class BoardController {
 		photo = null;
 	}
 
+	@GetMapping("/board/list")
+	public List<BoardDto> list() {
+		return boardDao.getAllBoards();
+	}
 }
