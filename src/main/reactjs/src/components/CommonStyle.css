@@ -13,9 +13,9 @@ body * {
     --midblue : #51CECE;
     --lightblue : #E1F5F5;
     --deepgray : #9396A6;
-    --lightgray1 : #F2F5FA;
+    --lightgray1 : #EEF0F7;
     --lightgray2 : #DDDFEA;
-    --bggray : #EEF0F7;
+    --bggray : #F2F5FA;
 }
 
 body {
@@ -141,10 +141,11 @@ body {
 
 
 /* placeholder style - italic */
-/* ::placeholder {
+::placeholder {
     font-style: italic;
-    color: gray;
-} */
+    color: var(--deepgray);
+    font-size: 15px;
+}
 
 
 div.app {
@@ -264,7 +265,7 @@ a{
 }
 
 .bor_gray2{
-    border-bottom: 1px solid var(--lightgray2);
+    border: 1px solid var(--lightgray2);
 }
 
 /* background-color백그라운드 컬러 */
@@ -289,6 +290,10 @@ a{
 
 .mt_10{
     margin-top: 10px;
+}
+
+.mt_25{
+    margin-top: 25px;
 }
 
 .mt_45{

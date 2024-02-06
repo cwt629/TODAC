@@ -41,5 +41,32 @@
 }
 
 .faq .accordion-item{
-    color: #536179;
+    color: var(--mainblack);
+}
+
+.inquiry_form>div>.form-control {
+    background-color: var(--bggray);
+    color: var(--mainblack);
+    border: 1px solid var(--lightgray2);
+    border-radius: 0;
+}
+
+.inquiry_btn>button{
+    background-color: var(--lightblue);
+    border: 1px solid var(--midblue);
+    border-radius: 5px;
+    font-weight: 500;
+    color: var(--mainblack);
+    padding: 6px 30px;
+}
+
+.inquiry_list>div>button{
+    border: 1px solid var(--midblue);
+    border-radius: 5px;
+    background-color: var(--lightblue);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--mainblack);
+    padding: 5px 8px;
+    cursor: pointer;
 }
