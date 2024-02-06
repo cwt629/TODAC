@@ -4,15 +4,18 @@ import RouterUserMain from './RouterUserMain';
 import RouterStartMain from './RouterStartMain';
 import RouterLoginMain from './RouterLoginMain';
 import RouterAdminMain from './RouterAdminMain';
+import Success from '../components/mypage/point/Success'
+import Fail from '../components/mypage/point/Fail'
 
 const RouterMain = () => {
     return (
         <div>
             <Routes>
-                <Route path='/' element={<RouterStartMain/>}/>
-                <Route path='/login/*' element={<RouterLoginMain/>}/>
-                <Route path='/user/*' element={<RouterUserMain/>}/>
-                <Route path='/admin/*' element={<RouterAdminMain/>}/>
+                <Route path='/' element={<RouterStartMain />} />
+                <Route path='/login/*' element={<RouterLoginMain />} />
+                <Route path='/user/*' element={<RouterUserMain />} />
+                <Route path='/admin/*' element={<RouterAdminMain />} />
+
             </Routes>
         </div>
     );

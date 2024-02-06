@@ -7,7 +7,8 @@ const Pointcheck = () => {
         <div>
             대충 포인트 내역
             <br></br>
-            <button className='btn btn-info'>충전하기</button>
+            <button className='btn btn-info'
+                    onClick={() => nav('Checkout')}>충전하기</button>
         </div>
     );
 };

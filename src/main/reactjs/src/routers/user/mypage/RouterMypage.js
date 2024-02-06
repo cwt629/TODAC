@@ -12,6 +12,7 @@ const RouterMypage = () => {
             <Route path='/faq/*' element={<RouterFAQ />} />
             <Route path='/inquiry/*' element={<RouterInquiry />} />
             <Route path='/point/*' element={<RouterPoint />} />
+
         </Routes>
     );
 };
