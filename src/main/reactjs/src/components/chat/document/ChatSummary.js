@@ -33,9 +33,9 @@ const ChatSummary = () => {
             <div className='summaryAnswerContent fs_14 bor_blue1 bg_blue mt_10'>답변 내용</div>
             <br /><br />
             <div style={{ textAlign: 'center' }}>
-                <button className='btn btn-success' onClick={() => nav('../../')}>마이 홈 이동하기</button>
+                <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../../')}>마이 홈 이동하기</button>
                 &nbsp;&nbsp;
-                <button className='btn btn-success' onClick={() => nav('../diagnosis')}>진단서 발급(500P)</button>
+                <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../diagnosis')}>진단서 발급(500P)</button>
                 &nbsp;&nbsp;
                 <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer' }} onClick={handleInfoClick}>ℹ️</span>
             </div>
