@@ -33,10 +33,4 @@ public class ChatRoomDto {
     @JoinColumn(name = "usercode") //어떤 컬럼을 참조(외래키)할 지
     @OnDelete(action = OnDeleteAction.CASCADE) //부모 테이블 지우면 댓글도 삭제한다. 혹시 변경사항이 있다면 yml 야멜 파일에서 create로 바꾸고 실행해야 된다 ~~
     private MemberDto member;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Seoul") //댓글 출력은 ajax로 처리하기 위해 포멧한다네요
-    @Column(updatable = false) //수정 시 수정컬럼에서 제외
-    @CreationTimestamp //now() 같이 현재 시간이 자동등록
-    private Timestamp registereddate;
-
 }
