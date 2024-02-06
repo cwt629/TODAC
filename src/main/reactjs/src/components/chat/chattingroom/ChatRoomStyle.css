@@ -105,3 +105,16 @@ div.submit-innerdiv div.chatlen {
     display: flex;
     align-items: center;
 }
+
+div.review-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+div.review-button {
+    padding: 10px;
+    border-radius: 5px;
+    width: auto;
+    background-color: #FF7170;
+    color: white;
+}
