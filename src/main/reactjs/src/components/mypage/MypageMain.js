@@ -20,7 +20,6 @@ const MypageMain = () => {
     useEffect(() => {
         const storedId = sessionStorage.getItem("id");
         getmember();
-        console.log("Stored t:", storedToken, ", Stored id:", storedId);
     }, [getmember]);
 
     const handleLogout = () => {
