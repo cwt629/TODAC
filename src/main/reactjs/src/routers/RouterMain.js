@@ -15,8 +15,6 @@ const RouterMain = () => {
                 <Route path='/login/*' element={<RouterLoginMain />} />
                 <Route path='/user/*' element={<RouterUserMain />} />
                 <Route path='/admin/*' element={<RouterAdminMain />} />
-                <Route path='/success/*' element={<Success />} />
-                <Route path='/fail/*' element={<Fail />} />
 
             </Routes>
         </div>
