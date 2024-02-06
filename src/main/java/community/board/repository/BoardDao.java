@@ -10,7 +10,7 @@ public class BoardDao {
     private BoardDaoInter boardDaoInter;
 
     //추가
-    public void insertBoard (BoardDto dto) {
+    public void addBoard (BoardDto dto) {
         boardDaoInter.save(dto);
     }
 }
