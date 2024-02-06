@@ -34,7 +34,9 @@ const ChatRoomMain = () => {
             Swal.fire({
                 title: '상담사가 아직 답변중!',
                 text: '상담사가 아직 답변중입니다. 잠시 후 시도해주세요.',
-                icon: 'warning'
+                icon: 'warning',
+                confirmButtonColor: '#FF7170',
+                confirmButtonText: '확인'
             });
             return;
         }
@@ -43,7 +45,9 @@ const ChatRoomMain = () => {
             Swal.fire({
                 title: '입력 없음!',
                 text: '메세지를 입력해주세요.',
-                icon: 'error'
+                icon: 'error',
+                confirmButtonColor: '#FF7170',
+                confirmButtonText: '확인'
             });
             return;
         }
