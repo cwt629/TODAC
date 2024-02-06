@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { loadPaymentWidget, ANONYMOUS } from "@tosspayments/payment-widget-sdk";
+import './tossstyle.css';
 
 const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 
