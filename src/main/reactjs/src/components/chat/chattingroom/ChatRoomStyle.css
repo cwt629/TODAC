@@ -106,6 +106,16 @@ div.submit-innerdiv div.chatlen {
     align-items: center;
 }
 
+div.review-stars {
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+div.review-stars span.review-star {
+    cursor: pointer;
+}
+
 div.review-buttons {
     display: flex;
     justify-content: space-around;
