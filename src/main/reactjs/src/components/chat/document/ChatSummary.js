@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import diagnosis from '../../../image/diagnosis.png';
+import './DocumentStyle.css';
 
 const ChatSummary = () => {
     const nav = useNavigate();
@@ -34,12 +35,12 @@ const ChatSummary = () => {
             <div className='fs_25 fw_700'>오늘의 상담 요약</div>
             <br /><br />
             <div className='fs_20 fw_700'>내 고민 요약</div>
-            <div style={{ backgroundColor: 'yellow', color: 'indigo', padding: '5px', borderRadius: '10px' }}>고민 내용</div>
+            <div className='summarycontent fs_14 bor_red bg_red mt_10'>고민 내용</div>
             <br />
             <div className='fs_20 fw_700'>상담사의 답변 요약</div>
-            <div style={{ backgroundColor: 'yellow', color: 'indigo', padding: '5px', borderRadius: '10px' }}>답변 내용</div>
+            <div className='summarycontent fs_14 bor_blue1 bg_blue mt_10'>답변 내용</div>
             <br /><br />
-            <div>
+            <div style={{ textAlign: 'center' }}>
                 <button className='btn btn-success' onClick={() => nav('../../')}>마이 홈 이동하기</button>
                 &nbsp;&nbsp;
                 <button className='btn btn-success' onClick={() => nav('../diagnosis')}>진단서 발급(500P)</button>
