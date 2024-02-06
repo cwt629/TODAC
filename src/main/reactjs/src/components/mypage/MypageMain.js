@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './QnaStyle.css';
 import axios from "axios";
 
@@ -7,6 +7,7 @@ const MypageMain = () => {
     const [member, setmember] = useState([]);
     const nav = useNavigate();
     const storedId = sessionStorage.getItem("id");
+    const storedToken = sessionStorage.getItem("token");
 
     const getmember = () => {
         const url = "/member/list?userid=" + storedId;
@@ -18,9 +19,11 @@ const MypageMain = () => {
     }
 
     useEffect(() => {
+        const storedToken = sessionStorage.getItem("token");
         const storedId = sessionStorage.getItem("id");
         getmember();
-    }, [getmember]);
+        console.log("Stored t:", storedToken, ", Stored id:", storedId);
+    }, []);
 
     const handleLogout = () => {
         // 세션에서 토큰 제거
