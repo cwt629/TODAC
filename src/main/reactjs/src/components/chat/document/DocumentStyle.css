@@ -2,7 +2,20 @@ div.summarycontent {
     box-sizing: border-box;
     border-radius: 3px;
     width: 100%;
-    height: 55vh;
+    height: 10vh;
+    padding: 0 10px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+div.summaryanswercontent {
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 100%;
+    height: 30vh;
     padding: 0 10px;
     overflow-y: auto;
     flex: 1;
