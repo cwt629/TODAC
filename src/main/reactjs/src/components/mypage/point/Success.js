@@ -39,6 +39,7 @@ const Success = () => {
                     }}
                 >
                     <img
+                        alt=""
                         src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png"
                         width="120"
                         height="120"
@@ -78,7 +79,7 @@ const Success = () => {
                                 className="btn w-100"
                                 href="https://docs.tosspayments.com/guides/payment-widget/integration"
                                 target="_blank"
-                                rel="noopner noreferer"
+                                rel="noopner noreferrer"
                             >
                                 결제 연동 문서가기
                             </a>
@@ -89,6 +90,7 @@ const Success = () => {
                 <div className="flex-column align-center confirm-loading w-100 max-w-540">
                     <div className="flex-column align-center">
                         <img
+                            alt=""
                             src="https://static.toss.im/lotties/loading-spot-apng.png"
                             width="120"
                             height="120"

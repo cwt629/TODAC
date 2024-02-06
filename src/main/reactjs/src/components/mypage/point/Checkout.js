@@ -1,25 +1,25 @@
 import { useEffect, useRef, useState } from "react";
-import { loadPaymentWidget, ANONYMOUS } from "@tosspayments/payment-widget-sdk";
+import { loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
 import './tossstyle.css';
 
 const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 
 // 구매자의 고유 아이디를 불러와서 customerKey로 설정하세요.
 // 이메일・전화번호와 같이 유추가 가능한 값은 안전하지 않습니다.
+const storedId = sessionStorage.getItem("id");
 const widgetClientKey = "test_ck_6BYq7GWPVvg4aYjdz5WwrNE5vbo1";
-const customerKey = "BBMJSyr3LnmA6EtT9Lb5q";
 // const paymentWidget = PaymentWidget(widgetClientKey, PaymentWidget.ANONYMOUS)
 
 const Checkout = () => {
     const paymentWidgetRef = useRef(null);
     const paymentMethodsWidgetRef = useRef(null);
     const agreementWidgetRef = useRef(null);
-    const [price, setPrice] = useState(1000);
+    const [price] = useState(1000);
     const storedId = sessionStorage.getItem("id");
 
     useEffect(() => {
         (async () => {
-            const paymentWidget = await loadPaymentWidget("test_ck_6BYq7GWPVvg4aYjdz5WwrNE5vbo1",  ANONYMOUS); // 비회원 customerKey
+            const paymentWidget = await loadPaymentWidget("test_ck_6BYq7GWPVvg4aYjdz5WwrNE5vbo1",  storedId); // 비회원 customerKey
 
             if (paymentWidgetRef.current == null) {
                 paymentWidgetRef.current = paymentWidget;
@@ -43,7 +43,7 @@ const Checkout = () => {
 
             paymentMethodsWidgetRef.current = paymentMethodsWidget;
         })();
-    }, []);
+    }, [price]);
 
     return (
         <div className="wrapper w-100">
