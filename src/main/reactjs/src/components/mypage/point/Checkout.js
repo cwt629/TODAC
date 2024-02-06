@@ -15,6 +15,7 @@ const Checkout = () => {
     const paymentMethodsWidgetRef = useRef(null);
     const agreementWidgetRef = useRef(null);
     const [price, setPrice] = useState(1000);
+    const storedId = sessionStorage.getItem("id");
 
     useEffect(() => {
         (async () => {
@@ -62,7 +63,7 @@ const Checkout = () => {
                                  */
                                 await paymentWidget?.requestPayment({
                                     orderId: generateRandomString(),
-                                    orderName: "토스 티셔츠 외 2건",
+                                    orderName: "토닥 포인트 충전 1000원",
                                     customerName: "김토스",
                                     customerEmail: "customer123@gmail.com",
                                     successUrl: window.location.origin + "/user/point/success" + window.location.search,
