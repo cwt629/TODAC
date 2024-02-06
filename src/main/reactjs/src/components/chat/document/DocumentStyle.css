@@ -1,8 +1,73 @@
-div.summarycontent {
+div.summaryContent {
     box-sizing: border-box;
     border-radius: 3px;
     width: 100%;
-    height: 55vh;
+    height: 10vh;
+    padding: 0 10px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+div.summaryAnswerContent {
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 100%;
+    height: 30vh;
+    padding: 0 10px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+div.diagnosisSummaryContent {
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 100%;
+    height: 5vh;
+    padding: 0 10px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+div.diagnosisSummaryAnswerContent {
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 100%;
+    height: 5vh;
+    padding: 0 10px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+div.diagnosisPsychology {
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 100%;
+    height: 10vh;
+    padding: 0 10px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+div.diagnosisActing {
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 100%;
+    height: 10vh;
     padding: 0 10px;
     overflow-y: auto;
     flex: 1;

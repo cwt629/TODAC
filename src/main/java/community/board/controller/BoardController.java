@@ -39,21 +39,15 @@ public class BoardController {
 	}
 
 	//사진 db 저장
-	@PostMapping("/guest/insert")
-	public void insert(@RequestBody BoardDto dto)
+	@PostMapping("/form/insert")
+	public void insertBoard(@RequestBody BoardDto dto)
 	{
 		//미리 업로드한 photo 를 dto에 넣기
 		dto.setPhoto(photo);
 		//db insert
-		boardDao.insertBoard(dto);
+		boardDao.addBoard(dto);
 		//photo 초기화
 		photo = null;
 	}
 
-	//추가
-//	@PostMapping
-//	public void insertBoard (@RequestBody BoardDto dto) {
-//		System.out.println("dto = " + dto);
-//		BoardDao.insertBoard(dto);
-//	}
 }
