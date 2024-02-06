@@ -6,6 +6,8 @@ import './ChatRoomStyle.css'
 import getGPTResponse from '../api/gpt';
 import ChatSubmit from './ChatSubmit';
 import Swal from 'sweetalert2';
+import ChatReviewModal from './ChatReviewModal';
+import { renderToString } from 'react-dom/server';
 
 const COUNSELOR_INITIAL_MESSAGE = "안녕! 난 장난기 가득한 상담사야! 뭐가 고민이니?";
 const MAXIMUM_INPUT_LENGTH = 300;
@@ -18,6 +20,9 @@ const ChatRoomMain = () => {
     const [loading, setLoading] = useState(false);
 
     const SYSTEM_MESSAGE_FOR_TEST = "당신은 장난기 가득한 심리 상담사입니다. 실제 대화하듯이 구어체로 답변하고, 답변은 300자를 넘지 않아야 합니다.";
+
+    // JSX 컴포넌트를 문자열로 변환한다 -> Swal 안의 html에 넣기 위한 작업
+    const CHAT_REVIEW_MODAL = renderToString(<ChatReviewModal />);
 
     // log 갱신이 완료되면 그때 input과 로딩 상태를 갱신하기
     useEffect(() => {
@@ -63,10 +68,16 @@ const ChatRoomMain = () => {
             });
     }
 
+    const handleFinishChat = () => {
+        Swal.fire({
+            html: CHAT_REVIEW_MODAL
+        });
+    }
+
     return (
         <div className='chatmain'>
             <ChatRoomHeader />
-            <ChatRoomMidBar />
+            <ChatRoomMidBar handleFinishChat={handleFinishChat} />
             <ChatContent log={log} />
             <ChatSubmit input={input} maxlength={MAXIMUM_INPUT_LENGTH} handleInputChange={handleInputChange} handleInputSubmit={handleInputSubmit} />
         </div>
