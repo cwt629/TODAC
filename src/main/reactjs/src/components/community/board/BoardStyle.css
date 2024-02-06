@@ -1,0 +1,9 @@
+.search {
+    position: relative;
+}
+
+.search button {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+}

@@ -44,7 +44,7 @@ public class BoardDto {
     @Column(length = 100)
     private String photo;
 
-    @Column(length = 10)
+    @Column
     private int counselorcode;
 
     @Column(length = 10)
