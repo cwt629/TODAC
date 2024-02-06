@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +26,17 @@ public class MemberController {
     private String bucketName = "guest-hch";  // 버켓네임 지정
     private String folderName = "TODAC";       // 저장할 폴더네임 지정
 
+
+    @PostMapping("/admin/memberlist")
+    public Map<String,Object> memberList()
+    {
+    	Map<String, Object> map=new HashMap<>();
+    	List<MemberDto> user = memberDao.getAllMember();
+    	map.put("user",user);
+    	return map;
+    }
+
+    //나혜 작성중
     @PostMapping("/login/signupinsert")
     public Map<String, Object> insert(@RequestBody MemberDto dto) throws Exception {
     	Map<String, Object> retMap = new HashMap<String, Object>();
