@@ -47,7 +47,7 @@ public class QnaController {
 
 	//dto반환
 	@GetMapping("/user/inquiry/select") 
-	public QnaDto select(@RequestParam("inquirycode") int inquirycode)
+	public QnaDto qnaSelect(@RequestParam("inquirycode") int inquirycode)
 	{
 		System.out.println("select>"+inquirycode);
 		return qnaDao.getSelectQnaData(inquirycode);
