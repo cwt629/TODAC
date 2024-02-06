@@ -33,4 +33,7 @@ public class ChatLogDto {
 
     @Column(length = 1000)
     private String content;
+    
+    @Transient
+    private String userid;
 }
