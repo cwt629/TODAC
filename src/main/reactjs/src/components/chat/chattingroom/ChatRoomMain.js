@@ -6,6 +6,8 @@ import './ChatRoomStyle.css'
 import getGPTResponse from '../api/gpt';
 import ChatSubmit from './ChatSubmit';
 import Swal from 'sweetalert2';
+import ChatReviewModal from './ChatReviewModal';
+import { renderToString } from 'react-dom/server';
 
 const COUNSELOR_INITIAL_MESSAGE = "안녕! 난 장난기 가득한 상담사야! 뭐가 고민이니?";
 const MAXIMUM_INPUT_LENGTH = 300;
@@ -18,6 +20,7 @@ const ChatRoomMain = () => {
     const [loading, setLoading] = useState(false);
 
     const SYSTEM_MESSAGE_FOR_TEST = "당신은 장난기 가득한 심리 상담사입니다. 실제 대화하듯이 구어체로 답변하고, 답변은 300자를 넘지 않아야 합니다.";
+
 
     // log 갱신이 완료되면 그때 input과 로딩 상태를 갱신하기
     useEffect(() => {
@@ -34,7 +37,9 @@ const ChatRoomMain = () => {
             Swal.fire({
                 title: '상담사가 아직 답변중!',
                 text: '상담사가 아직 답변중입니다. 잠시 후 시도해주세요.',
-                icon: 'warning'
+                icon: 'warning',
+                confirmButtonColor: '#FF7170',
+                confirmButtonText: '확인'
             });
             return;
         }
@@ -43,7 +48,9 @@ const ChatRoomMain = () => {
             Swal.fire({
                 title: '입력 없음!',
                 text: '메세지를 입력해주세요.',
-                icon: 'error'
+                icon: 'error',
+                confirmButtonColor: '#FF7170',
+                confirmButtonText: '확인'
             });
             return;
         }
@@ -59,10 +66,56 @@ const ChatRoomMain = () => {
             });
     }
 
+    const handleReviewGrant = () => {
+        // TODO: 리뷰를 작성하는 경우
+        alert("리뷰 작성은 아직 미구현입니다! 조금만 기다려주세요.");
+    }
+
+    const handleReviewPass = () => {
+        alert("리뷰 패스!");
+    }
+
+    const handleReviewClose = () => {
+        Swal.close();
+    }
+
+    // JSX 컴포넌트를 문자열로 변환한다 -> Swal 안의 html에 넣기 위한 작업
+    const CHAT_REVIEW_MODAL = renderToString(<ChatReviewModal handleReviewClose={handleReviewClose} />);
+
+    const handleFinishChat = () => {
+        Swal.fire({
+            title: '상담은 어떠셨나요?',
+            html: CHAT_REVIEW_MODAL,
+            showConfirmButton: false,
+            didOpen: () => {
+                const passButton = document.querySelector('.review-button.review-pass');
+                const grantButton = document.querySelector('.review-button.review-grant');
+                const closeButton = document.querySelector('.review-button.review-close');
+
+                // 건너뛰기 클릭 이벤트
+                passButton.addEventListener('click', () => {
+                    handleReviewPass();
+                })
+
+                // 별점주기 클릭 이벤트
+                grantButton.addEventListener('click', () => {
+                    handleReviewGrant();
+                })
+
+                // 닫기 클릭 이벤트
+                closeButton.addEventListener('click', () => {
+                    handleReviewClose();
+                })
+            }
+        });
+    }
+
+
+
     return (
         <div className='chatmain'>
             <ChatRoomHeader />
-            <ChatRoomMidBar />
+            <ChatRoomMidBar handleFinishChat={handleFinishChat} />
             <ChatContent log={log} />
             <ChatSubmit input={input} maxlength={MAXIMUM_INPUT_LENGTH} handleInputChange={handleInputChange} handleInputSubmit={handleInputSubmit} />
         </div>
