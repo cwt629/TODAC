@@ -127,4 +127,10 @@ public class MemberController {
     {
         return memberDao.getMemberList(userid);
     }
+    
+    @DeleteMapping("/member/delete")
+    public void delete(@RequestParam("userid") String userid)
+    {
+    	memberDao.deleteMember(userid);
+    }
 }

@@ -31,5 +31,10 @@ public class MemberDao {
 		{
 			return daoInter.getMemberlist(userid);
 		}
+		
+		public void deleteMember(String userid)
+		{
+			daoInter.deleteMember(userid);
+		}
 
 }
