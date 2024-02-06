@@ -25,4 +25,9 @@ public class QnaDao {
 	{
 		return qnaRepo.findAll();
 	}
+	
+	public QnaDto getSelectQnaData(int inquirycode)
+	{
+		return qnaRepo.getReferenceById(inquirycode);
+	}
 }
