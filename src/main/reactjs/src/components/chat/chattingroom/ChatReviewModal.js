@@ -1,10 +1,6 @@
 import React from 'react';
 
-const ChatReviewModal = ({ handleReviewClose }) => {
-    const handleModalClose = () => {
-        handleReviewClose();
-    };
-
+const ChatReviewModal = () => {
     return (
         <div>
             만족하셨다면 별점을 남겨주세요 :{')'}
