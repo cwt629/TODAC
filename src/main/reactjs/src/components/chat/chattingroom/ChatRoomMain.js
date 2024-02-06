@@ -21,8 +21,6 @@ const ChatRoomMain = () => {
 
     const SYSTEM_MESSAGE_FOR_TEST = "당신은 장난기 가득한 심리 상담사입니다. 실제 대화하듯이 구어체로 답변하고, 답변은 300자를 넘지 않아야 합니다.";
 
-    // JSX 컴포넌트를 문자열로 변환한다 -> Swal 안의 html에 넣기 위한 작업
-    const CHAT_REVIEW_MODAL = renderToString(<ChatReviewModal />);
 
     // log 갱신이 완료되면 그때 input과 로딩 상태를 갱신하기
     useEffect(() => {
@@ -68,11 +66,51 @@ const ChatRoomMain = () => {
             });
     }
 
+    const handleReviewGrant = () => {
+        // TODO: 리뷰를 작성하는 경우
+        alert("리뷰 작성은 아직 미구현입니다! 조금만 기다려주세요.");
+    }
+
+    const handleReviewPass = () => {
+        alert("리뷰 패스!");
+    }
+
+    const handleReviewClose = () => {
+        Swal.close();
+    }
+
+    // JSX 컴포넌트를 문자열로 변환한다 -> Swal 안의 html에 넣기 위한 작업
+    const CHAT_REVIEW_MODAL = renderToString(<ChatReviewModal handleReviewClose={handleReviewClose} />);
+
     const handleFinishChat = () => {
         Swal.fire({
-            html: CHAT_REVIEW_MODAL
+            title: '상담은 어떠셨나요?',
+            html: CHAT_REVIEW_MODAL,
+            showConfirmButton: false,
+            didOpen: () => {
+                const passButton = document.querySelector('.review-button.review-pass');
+                const grantButton = document.querySelector('.review-button.review-grant');
+                const closeButton = document.querySelector('.review-button.review-close');
+
+                // 건너뛰기 클릭 이벤트
+                passButton.addEventListener('click', () => {
+                    handleReviewPass();
+                })
+
+                // 별점주기 클릭 이벤트
+                grantButton.addEventListener('click', () => {
+                    handleReviewGrant();
+                })
+
+                // 닫기 클릭 이벤트
+                closeButton.addEventListener('click', () => {
+                    handleReviewClose();
+                })
+            }
         });
     }
+
+
 
     return (
         <div className='chatmain'>
