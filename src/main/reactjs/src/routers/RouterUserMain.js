@@ -1,13 +1,10 @@
-import React from 'react';
-import Header from '../Header';
-import Footer from '../Footer';
-import { Route, Routes } from 'react-router-dom';
-import MypageMain from '../components/mypage/MypageMain';
-import ChatMain from '../components/chat/ChatMain';
-import CommunityMain from '../components/community/CommunityMain';
-import BoardMain from '../components/community/board/BoardMain';
-import DonationMain from '../components/community/donation/DonationMain';
-import FaceMotionMain from '../components/community/facemotion/FaceMotionMain';
+import React from "react";
+import Header from "../Header";
+import Footer from "../Footer";
+import { Route, Routes } from "react-router-dom";
+import RouterChat from "./user/chat/RouterChat";
+import RouterMypage from "./user/mypage/RouterMypage";
+import RouterCommunityHome from "./user/community/RouterCommunityHome";
 
 const RouterUserMain = () => {
     return (
@@ -16,14 +13,9 @@ const RouterUserMain = () => {
 
             <div className='appcontent'>
                 <Routes>
-                    <Route path='/chat' element={<ChatMain />} />
-                    <Route path='/' element={<MypageMain />} />
-                    <Route path='/community'>
-                        <Route path='' element={<CommunityMain />} />
-                        <Route path='board' element={<BoardMain />} />
-                        <Route path='donation' element={<DonationMain />} />
-                        <Route path='face' element={<FaceMotionMain />} />
-                    </Route>
+                    <Route path='/chat/*' element={<RouterChat />} />
+                    <Route path='/*' element={<RouterMypage />} />
+                    <Route path='/community/*' element={<RouterCommunityHome />} />
                 </Routes>
             </div>
 

@@ -21,10 +21,7 @@ public class MemberDto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)//auto increment를 주기 위한거래여
     private int usercode;
 
-    @Column(name = "token",length = 100) //컬럼명은 변수명과 같을경우 생략가능
-    private String token;
-
-    @Column(length = 20)
+    @Column(length = 150)
     private String userid;
 
     @Column(length = 20)

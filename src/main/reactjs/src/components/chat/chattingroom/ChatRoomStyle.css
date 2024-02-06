@@ -1,0 +1,120 @@
+div.chatmain {
+    padding: 15px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+div.chatheader {
+    height: 60px;
+}
+
+div.chatmid {
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.chatcontent {
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 100%;
+    height: 55vh;
+    padding: 0 10px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+div.chatcontent div.chatcomponent {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 10px 0;
+    position: relative;
+}
+
+div.chatcontent div.chatcomponent.counselor {
+    display: flex;
+    justify-content: left;
+}
+
+div.chatcontent div.chatcomponent.user {
+    display: flex;
+    justify-content: right;
+    flex-direction: row-reverse;
+}
+
+div.chatcontent img.profile {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+div.chatcontent div.chat {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 20px 5px 0 5px;
+}
+
+div.chatcontent div.chatcomponent.counselor div.chat {
+    background-color: #FF7170;
+    color: white;
+}
+
+div.chatcontent div.chatcomponent.user div.chat {
+    background-color: #51CECE;
+}
+
+div.chatbutton {
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+
+div.chatsubmit {
+    width: 100%;
+    height: 55px;
+    display: flex;
+    justify-content: space-between;
+}
+
+textarea.userinput {
+    /* width: 80%; */
+    flex: 1;
+    border-radius: 3px;
+    resize: none;
+}
+
+textarea.userinput:focus {
+    outline: none;
+}
+
+div.submit-innerdiv {
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.submit-innerdiv div.chatlen {
+    margin-top: 3px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+div.review-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+div.review-button {
+    padding: 10px;
+    border-radius: 5px;
+    width: auto;
+    background-color: #FF7170;
+    color: white;
+}
