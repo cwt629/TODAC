@@ -51,22 +51,22 @@
     border-radius: 0;
 }
 
-.inquiry_btn>div>button{
+.inquiry_btn>button{
     background-color: var(--lightblue);
     border: 1px solid var(--midblue);
     border-radius: 5px;
     font-weight: 500;
     color: var(--mainblack);
-    width: 160px;
-    padding: 6px;
+    padding: 6px 30px;
 }
 
 .inquiry_list>div>button{
-    border: none;
-    background-color: transparent;
+    border: 1px solid var(--midblue);
+    border-radius: 5px;
+    background-color: var(--lightblue);
     font-size: 18px;
     font-weight: 700;
-    color: var(--deepblue);
-    padding: 0;
+    color: var(--mainblack);
+    padding: 5px 8px;
     cursor: pointer;
 }

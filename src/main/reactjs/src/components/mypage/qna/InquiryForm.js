@@ -9,9 +9,9 @@ const InquiryForm = () => {
 
     const nav = useNavigate();
 
-    //문의하기 버튼
+    //문의등록 버튼
     const addQnaEvent = () => {
-        axios.post("/user/inquiry/form", { title, inquiry }).then((res) => { 
+        axios.post("/user/inquiry/add", { title, inquiry }).then((res) => { 
             //추가 성공 후 목록으로 이동
             nav("/user/inquiry");
         });
@@ -45,17 +45,13 @@ const InquiryForm = () => {
                 <Link to="/user/inquiry" className='col_blue2'>1:1 문의'</Link>&nbsp;에서 확인 가능합니다.
             </div>
 
-            <div className='d-flex mt_45 inquiry_btn'>
-                <div className='me-auto'>
+            <div className='d-flex mt_45 inquiry_btn justify-content-evenly'>
                     <button type='button' onClick={() => nav('../')}>
-                        문의 등록취소
-                    </button>
-                </div>
-                <div className='ml-auto'>    
+                        문의  목록으로
+                    </button>  
                     <button type='button' onClick={addQnaEvent}>
                         문의 등록하기
                     </button>
-                </div>
             </div>
         </div>
     );

@@ -1,8 +1,23 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import InquiryRowItem from './InquiryRowItem';
 
 const Inquiry = () => {
+    const [list, setList] = useState([]);
+
     const nav = useNavigate(); 
+
+    const qnaList = () => {
+        axios.post("/user/inquiry").then((res)=>{
+            console.log(res.data.qna);
+            setList(res.data.qna);
+        })
+    }
+
+    useEffect(()=>{
+        qnaList();
+    }, []);
     return (
         <div className='mx_30'>
             <div className='mt-1 fs_14 col_blue2'>
@@ -13,15 +28,29 @@ const Inquiry = () => {
 
             <div className='mt_45 fw_500'>아이디 님, <br/>무엇을 도와드릴까요?</div>
 
-            <div className='d-flex mt_45 inquiry_list'>
+            <div className='d-flex mt_45 inquiry_list align-items-center'>
                 <div className='me-auto fs_18 fw_700'>
                     1:1 문의내역
                 </div>
                 <div className='ml-auto'>
-                    <button  onClick={() => nav('form')}>1:1 문의하기</button>
+                    <button  onClick={() => nav('form')}>
+                        <img alt='' src={require('../../../image/ico_inquiry.png')} className='img-fluid'/>
+                        <span className='mx-2'>1:1 문의하기</span>
+                    </button>
                 </div>
             </div>
             
+            <div className='mt_10'>
+                <div className=''>
+                {list &&
+                    list.map((row, idx) => (
+                        <InquiryRowItem
+                        key={idx}
+                        row={row}
+                        />
+                    ))}
+                </div>
+            </div>
         </div>
     );
 };
