@@ -11,12 +11,12 @@ const AdminMain = () => {
     };
     const nav = useNavigate();
 
-    useEffect(()=>{
+    useEffect(() => {
         const storedToken = sessionStorage.getItem("token");
         const storedId = sessionStorage.getItem("id");
-        console.log("Stored t:", storedToken,", Stored id:", storedId);
-    },[]);
-    
+        console.log("Stored t:", storedToken, ", Stored id:", storedId);
+    }, []);
+
     return (
         <div className='mx_30'>
             <div className='mt-1 fs_14'>
