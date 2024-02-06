@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 const MemberManage = () => {
     const nav = useNavigate();
@@ -37,19 +38,21 @@ const MemberManage = () => {
                 <Link to="/admin/MemberManage" className='col_blue2'>회원관리</Link>
             </div>
             <div className='fs_25 fw_700'>회원 관리</div>
-
-            <h6>회원 검색</h6>
+            <br /><br />
+            <h6 className='fs_16 fw_700'>회원 검색</h6>
 
             {/* 검색창 */}
             <input
                 type="text"
-                placeholder="닉네임 검색"
+                placeholder="회원 닉네임을 입력해주세요 &nbsp;🔍"
                 value={searchTerm}
                 onChange={handleSearch}
-                className="form-control mb-3"
-            />
+                className="form-control mb-3 bg_red col_gray fs_16 fw_800"
+                style={{ '::placeholder': { color: 'lightgray' } }}
 
-            <h6>회원 목록</h6>
+            />
+            <br />
+            <h6 className='fs_16 fw_700'>회원 목록</h6>
             <table className='table'>
                 <thead>
                     <tr>
@@ -58,7 +61,7 @@ const MemberManage = () => {
                         <th>가입 날짜</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className='bg_red'>
                     {filteredMembers.map(member => (
                         <tr
                             key={member.usercode}
