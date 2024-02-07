@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
-import BoardStyle from "./BoardStyle.css";
+import "./BoardStyle.css";
 import axios from "axios";
 import BoardRowItem from "./BoardRowItem";
 
