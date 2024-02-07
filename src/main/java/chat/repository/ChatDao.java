@@ -18,10 +18,11 @@ public class ChatDao {
 	// 채팅 로그 저장하기
 	public void insertChatLog(Map<String, Object> map) {
 		// 1. 채팅방 만들기
-		ChatRoomDto roomDto = roomRepository.save((ChatRoomDto)map.get("dto"));
+		ChatRoomDto roomDto = roomRepository.save((ChatRoomDto)map.get("room"));
 		
 		// 2. 만들어진 채팅방을 바탕으로 로그 저장
-		for (ChatLogDto logdto: (List<ChatLogDto>)map.get("log")) {
+		List<ChatLogDto> log = (List<ChatLogDto>)map.get("log");
+		for (ChatLogDto logdto: log) {
 			ChatLogDto chatLogDto = new ChatLogDto();
 			chatLogDto.setChatroom(roomDto);
 			chatLogDto.setSpeaker(logdto.getSpeaker());
