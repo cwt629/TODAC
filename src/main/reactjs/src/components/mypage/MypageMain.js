@@ -9,7 +9,7 @@ const MypageMain = () => {
     const storedId = sessionStorage.getItem("id");
     const loginType = sessionStorage.getItem("loginType");
     const accessToken = sessionStorage.getItem("accessToken");
-    const user = sessionStorage.getItem("usercode");
+    const user = sessionStorage.getItem("user");
 
     useEffect(() => {
         const storedToken = sessionStorage.getItem("token");

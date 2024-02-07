@@ -5,11 +5,11 @@ import InquiryRowItem from './InquiryRowItem';
 
 const Inquiry = () => {
     const [list, setList] = useState([]);
-
+    const user = sessionStorage.getItem("usercode");
     const nav = useNavigate(); 
 
     const qnaList = () => {
-        axios.post("/user/inquiry").then((res)=>{
+        axios.post("/user/inquiry?usercode="+user).then((res)=>{
             console.log(res.data.qna);
             setList(res.data.qna);
         })

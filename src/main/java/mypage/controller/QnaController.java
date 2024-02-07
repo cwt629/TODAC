@@ -11,19 +11,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import mypage.data.MemberDto;
 import mypage.data.QnaDto;
+import mypage.repository.MemberDao;
 import mypage.repository.QnaDao;
 
 @RestController
 @RequiredArgsConstructor
 public class QnaController {
+	private final MemberDao memberDao;
 	private final QnaDao qnaDao;
 
 	//추가
 	@PostMapping("/user/inquiry/add")
-	public void qnaInsert(@RequestBody QnaDto dto) //@RequestBody생략하면 안됨 생략하면 모델어트리뷰트로 읽음
+	public void qnaInsert(@RequestBody QnaDto dto,
+			@RequestParam("usercode") int usercode) //@RequestBody생략하면 안됨 생략하면 모델어트리뷰트로 읽음
 	{
+		MemberDto memdto = new MemberDto();
 		//db insert
+		memdto.setUsercode(usercode);
+		
+		dto.setMember(memdto);
+		
 		qnaDao.insertQna(dto);
 	}
 
