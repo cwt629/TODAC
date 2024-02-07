@@ -31,6 +31,7 @@ const MemberProfile = () => {
             text: '정말로 이 회원을 추방하시겠습니까?',
             icon: 'warning',
             showCancelButton: true,
+            confirmButtonColor: '#FF7170',
             confirmButtonText: '예',
             cancelButtonText: '아니오',
         }).then((result) => {
