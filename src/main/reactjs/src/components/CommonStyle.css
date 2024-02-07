@@ -299,3 +299,9 @@ a{
 .mt_45{
     margin-top: 45px;
 }
+
+
+/* border-radius */
+.br_5{
+    border-radius: 5px;
+}
