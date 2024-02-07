@@ -28,6 +28,7 @@ public class QnaDao {
 	
 	public QnaDto getSelectQnaData(int inquirycode)
 	{
+		System.out.println("getSelectQnaData 메서드 호출됨. inquirycode: " + inquirycode);
 		return qnaRepo.getReferenceById(inquirycode);
 	}
 }

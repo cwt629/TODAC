@@ -11,10 +11,12 @@ const InquiryDetail = () => {
     //inquiry에 대한 dto를 얻어서 selectQnaData에 넣는다
     const getSelectQnaData = () => {
         console.log(inquirycode);
-        const url = "/user/inquiry/select?inquirycode=" + inquirycode;
-        axios.get(url)
+        //const url = "/user/inquiry/select?inquirycode="+inquirycode;
+        //axios.post(url)
+        const url = "/user/inquiry/select";
+        axios.post(url, {inquriycode:inquirycode})
           .then(res => {
-            setSelectQnaData(res.data.qna);
+            setSelectQnaData(res.data);
           })
           .catch(error => {
             console.error("Error fetching inquiry data:", error);
@@ -38,10 +40,10 @@ const InquiryDetail = () => {
 
             <div className='mt_45'>
                 <div className='fs_18 fw_700'>
-                    Q. 나의 문의
+                    Q. {selectQnaData.title}
                 </div>
-                <div className='mt_10 bg_red bor_red br_5' style={{height:"100px"}}>
-                    {selectQnaData.title}
+                <div className='mt_10 bg_red bor_red br_5 p-2' style={{height:"200px"}}>
+                    {selectQnaData.inquiry}
                 </div>
             </div>
 
@@ -49,8 +51,8 @@ const InquiryDetail = () => {
                 <div className='fs_18 fw_700'>
                     A. 문의 답변 
                 </div>
-                <div className='mt_10 bg_blue bor_blue1 br_5' style={{height:"250px"}}>
-                    {selectQnaData.inquiry}
+                <div className='mt_10 bg_blue bor_blue1 br_5 p-2' style={{height:"200px"}}>
+                    {selectQnaData.answer ? selectQnaData.answer : '아직 답변이 달리지 않았습니다.'}
                 </div>
             </div>
 

@@ -46,20 +46,32 @@ public class QnaController {
 	//	}
 
 	//dto반환
-	@GetMapping("/user/inquiry/select") 
-	public QnaDto qnaSelect(@RequestParam("inquirycode") int inquirycode)
+	//	@GetMapping("/user/inquiry/select") 
+	//	public QnaDto qnaSelect(@RequestParam("inquirycode") int inquirycode)
+	//	{
+	//		System.out.println("select>"+inquirycode);
+	//		return qnaDao.getSelectQnaData(inquirycode);
+	//	}
+
+	//	@GetMapping("/inquiryselect") 
+	//	public Map<String, Object> qnaDetail(@RequestParam("inquirycode") int inquirycode)
+	//	{
+	//		System.out.println("select>"+inquirycode);
+	//		Map<String, Object> map=new HashMap<>();
+	//		QnaDto qna = qnaDao.getSelectQnaData(inquirycode);
+	//		map.put("qna", qna);
+	//		return map;
+	//	}
+
+	@PostMapping("/user/inquiry/select") 
+	public QnaDto qnaSelect(@RequestBody HashMap<String, Object> reqMap )
 	{
-		System.out.println("select>"+inquirycode);
-		return qnaDao.getSelectQnaData(inquirycode);
+//		System.out.println("======/user/inquiry/select select : "+reqMap);
+		Object inquiryNumObj = reqMap.get("inquriycode");
+		int inquiryNum = Integer.parseInt(inquiryNumObj.toString());
+//		System.out.println("======/user/inquiry/select inquiryNum : "+inquiryNum);
+		QnaDto dto = qnaDao.getSelectQnaData(inquiryNum);
+//		System.out.println("======/user/inquiry/select dto : "+dto);
+		return dto;
 	}
-	
-//	@GetMapping("/inquiryselect") 
-//	public Map<String, Object> qnaDetail(@RequestParam("inquirycode") int inquirycode)
-//	{
-//		System.out.println("select>"+inquirycode);
-//		Map<String, Object> map=new HashMap<>();
-//		QnaDto qna = qnaDao.getSelectQnaData(inquirycode);
-//		map.put("qna", qna);
-//		return map;
-//	}
 }
