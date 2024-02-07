@@ -15,8 +15,8 @@ public class ChatDao {
 	ChatRoomRepository roomRepository;
 	ChatLogRepository logRepository;
 	
-	// 채팅 로그 저장하기
-	public void insertChatLog(Map<String, Object> map) {
+	// 채팅 로그 저장하고, 해당 roomcode를 반환하는 함수
+	public Short insertChatLog(Map<String, Object> map) {
 		// 1. 채팅방 만들기
 		ChatRoomDto roomDto = roomRepository.save((ChatRoomDto)map.get("room"));
 		
@@ -30,6 +30,9 @@ public class ChatDao {
 			
 			logRepository.save(chatLogDto);
 		}
+		
+		// 만들어진 채팅방의 코드를 넘겨준다
+		return roomDto.getChatroomcode();
 	}
 	
 }

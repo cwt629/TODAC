@@ -83,14 +83,28 @@ const ChatRoomMain = () => {
             'content': data.content
         }));
 
-        let chatRoomCode = await axios({
-            method: 'post',
-            url: `/chat/finish/noreview?userid=${sessionStorage.getItem('id')}&counselorcode=1`,
-            data: JSON.stringify(logData),
-            headers: { 'Content-Type': 'application/json' }
-        })
+        try {
+            let response = await axios({
+                method: 'post',
+                url: `/chat/finish/noreview?userid=${sessionStorage.getItem('id')}&counselorcode=1`,
+                data: JSON.stringify(logData),
+                headers: { 'Content-Type': 'application/json' }
+            });
 
-        alert("결과는 " + chatRoomCode.data);
+            Swal.fire({
+                icon: 'success',
+                html: '채팅 내역이 저장되었습니다!<br/>요약본 페이지로 이동합니다.'
+            }).then(() => {
+                nav("/user/chat/summary?roomcode=" + response.data);
+            })
+
+        } catch (err) {
+            Swal.fire({
+                icon: 'error',
+                title: '뭔가 문제 발생!',
+                text: `Error: ${err}`
+            });
+        }
     }
 
     const handleStarClick = (index) => {
@@ -104,12 +118,13 @@ const ChatRoomMain = () => {
         alert("리뷰 작성은 아직 미구현입니다! 조금만 기다려주세요.");
     }
 
-    const handleReviewPass = () => {
-        submitLog()
-            .then(res => {
-                Swal.close();
-                nav("/user/chat");
-            })
+    const handleReviewPass = async () => {
+        Swal.fire({
+            text: '채팅 내용 저장중...',
+            showConfirmButton: false
+        });
+
+        await submitLog();
     }
 
     const handleReviewClose = () => {
