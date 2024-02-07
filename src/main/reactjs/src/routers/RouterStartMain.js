@@ -23,13 +23,6 @@ const RouterStartMain = () => {
 
                 <Footer />
             </div>
-
-            {/* 임시: 로그인버튼 / 관리자페이지 이동
-            구현 이후에는 지워주십쇼 */}
-            <button className='btn btn-danger'
-                onClick={() => nav('/login')}>로그인</button>
-            <button className='btn btn-danger'
-                onClick={() => nav('/admin')}>관리자페이지</button>
         </div>
     );
 };
