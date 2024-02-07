@@ -116,6 +116,7 @@ public class LoginServiceImpl implements LoginService {
 	        Authentication auth = new UserAuthentication(userid, null, null);
             String token = JwtTokenProvider.generateToken(auth, userid);
             //System.out.println("token=" + token); //토큰 확인
+            retMap.put("accessToken", kakaoAccessToken);
             retMap.put("token", token);//토근전달
             retMap.put("id", userid);//id전달
         }
