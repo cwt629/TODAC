@@ -80,18 +80,12 @@ const ChatRoomMain = () => {
     const submitLog = async () => {
         let logData = log.map((data) => ({
             'speaker': data.speaker,
-            'content': data.content,
-            'userid': sessionStorage.getItem('id')
+            'content': data.content
         }));
-
-        // let sendingData = {
-        //     log: logData,
-        //     userid: sessionStorage.getItem('id')
-        // };
 
         let chatRoomCode = await axios({
             method: 'post',
-            url: '/chat/finish/noreview',
+            url: `/chat/finish/noreview?userid=${sessionStorage.getItem('id')}&counselorcode=1`,
             data: JSON.stringify(logData),
             headers: { 'Content-Type': 'application/json' }
         })
