@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 @AllArgsConstructor
 public class MemberDao {
-	MemberDaoInter daoInter;
+	MemberRepository daoInter;
 	
 		//db저장
 		public void insertMember(MemberDto dto)
