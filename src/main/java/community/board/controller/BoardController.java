@@ -36,7 +36,7 @@ public class BoardController {
 		return photo;
 	}
 
-	//사진 db 저장
+	//단일한 dto 값을 저장하는 로직
 	@PostMapping("/form/insert")
 	public void insertBoard(@RequestBody BoardDto dto) {
 		//미리 업로드한 photo 를 dto에 넣기
@@ -47,6 +47,7 @@ public class BoardController {
 		photo = null;
 	}
 
+	//List 를 출력할 때 사용하는 로직
 	@GetMapping("/board/list")
 	public List<BoardDto> list() {
 		return boardDao.getAllBoards();

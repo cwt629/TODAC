@@ -127,34 +127,6 @@ public class LoginController {
 		return map;
 	}
 	
-	//로그아웃 콜백
-//		@PostMapping("/logout/getCallBack")
-//		public Map<String, Object> getLogoutCallBack(@RequestBody HashMap<String, Object> reqMap) throws Exception {
-//			Map<String, Object> map = new HashMap<String, Object>();
-//			
-//			//System.out.println(" =============================== reqMap : " + reqMap);
-//			
-//			String code		 = reqMap.get("code").toString();
-//			String loginType = reqMap.get("loginType").toString();
-//			String infoUrl	 = "";
-//			String id = "";
-//			
-//			if("kakao".equals(loginType)) {			
-//				reqMap.put("client", kakaoClient);
-//				reqMap.put("secret", kakaoSecret);
-//				reqMap.put("redirect", redirectUrl);
-//				
-//				map = loginService.getKaKaoAccessToken(reqMap);
-//				
-//			} else {
-//				reqMap.put("client", naverClient);
-//				reqMap.put("secret", naverSecret);
-//				reqMap.put("state", reqMap.get("state"));
-//				
-//				map = loginService.getNaverToken(reqMap);
-//			}
-//			
-//			return map;
-//		}
+	
 	
 }

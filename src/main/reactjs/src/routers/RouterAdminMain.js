@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../Header';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import AdminMain from '../components/admin/AdminMain';
 import MemberManage from '../components/admin/user/MemberManage';
 import InquiryHistory from '../components/admin/inquiry/InquiryHistory';
@@ -13,8 +13,21 @@ import MemberChatSearch from '../components/admin/user/MemberChatSearch';
 import MemberChatHistory from '../components/admin/user/MemberChatHistory';
 import InquiryResponse from '../components/admin/inquiry/InquiryResponse';
 import LoginMain from '../components/login/LoginMain';
+import Swal from 'sweetalert2';
 
 const RouterAdminMain = () => {
+    const nav = useNavigate();
+
+    useEffect(() => {
+        if (!sessionStorage.getItem("token") || sessionStorage.getItem("id") !== "todac") {
+            Swal.fire({
+                icon: 'error',
+                title: '관리자가 아닙니다!'
+            }).then(() => {
+                nav("/login");
+            })
+        }
+    }, [])
     return (
         <div className='app'>
             <Header />

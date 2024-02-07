@@ -7,8 +7,7 @@ import { Logout } from '@mui/icons-material';
 const AdminMain = () => {
 
     const handleLogout = () => {
-        sessionStorage.removeItem("token");
-        sessionStorage.removeItem("id");
+        sessionStorage.clear();
         nav('/login'); // 로그아웃 후 로그인 페이지로 이동
     };
     const nav = useNavigate();

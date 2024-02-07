@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/static/css/main.b18fee9c.css",
-    "main.js": "/static/js/main.3fdd587f.js",
+    "main.js": "/static/js/main.478b049b.js",
     "static/js/787.f22b8f29.chunk.js": "/static/js/787.f22b8f29.chunk.js",
     "static/media/diagnosis.png": "/static/media/diagnosis.212b00ecc60ed7a652fd.png",
     "static/media/todac_logo_temp.png": "/static/media/todac_logo_temp.d7a0e9977e9630b23a6e.png",
-    "static/media/ico_mypage.svg": "/static/media/ico_mypage.468a29e06632abfc95ab4e90ef0e6a55.svg",
+    "static/media/ico_mypage.svg": "/static/media/ico_mypage.9bc04bd0e1f4b17786d813b22be79609.svg",
     "index.html": "/index.html",
-    "static/media/ico_chat.svg": "/static/media/ico_chat.3a657451f376895d7c4f739ba9c3279b.svg",
-    "static/media/ico_community.svg": "/static/media/ico_community.e4205b40dab0a385c8fd81c3217b8208.svg",
+    "static/media/ico_chat.svg": "/static/media/ico_chat.a85f3da45c4b4b1c2616c2a037b42e31.svg",
+    "static/media/ico_community.svg": "/static/media/ico_community.4c4a314f09f6834021b4cea53a0d18ee.svg",
     "main.b18fee9c.css.map": "/static/css/main.b18fee9c.css.map",
-    "main.3fdd587f.js.map": "/static/js/main.3fdd587f.js.map",
+    "main.478b049b.js.map": "/static/js/main.478b049b.js.map",
     "787.f22b8f29.chunk.js.map": "/static/js/787.f22b8f29.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b18fee9c.css",
-    "static/js/main.3fdd587f.js"
+    "static/js/main.478b049b.js"
   ]
 }
