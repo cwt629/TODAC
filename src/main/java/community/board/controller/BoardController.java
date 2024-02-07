@@ -1,8 +1,6 @@
 package community.board.controller;
 
 import community.board.data.BoardDto;
-import community.board.repository.BoardDaoInter;
-import jdk.swing.interop.SwingInterOpUtils;
 import naver.storage.NcpObjectStorageService;
 import org.springframework.web.bind.annotation.*;
 

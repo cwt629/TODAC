@@ -24,7 +24,7 @@ const LoginCallBack = () => {
         if (code) {
             const login = async () => {
                 try {
-                    const loginType = window.sessionStorage.getItem('loginType');
+                    const loginType = sessionStorage.getItem('loginType');
                     let params = {
                         code,
                         loginType,
@@ -36,10 +36,7 @@ const LoginCallBack = () => {
                     }
 
                     const res = await axios.post("/login/getCallBack", params);
-                    sessionStorage.token = res.data.token;
-                    setToken(res.data.token);
-                    sessionStorage.id = res.data.id;
-                    setId(res.data.id);
+                    
 
                     if (res.data.Signup === 'N') {
                         if (loginType === 'naver') {
@@ -50,6 +47,12 @@ const LoginCallBack = () => {
                             navigate('/login/signupkakao');
                         }
                     } else {
+                        sessionStorage.accessToken = res.data.accessToken;
+                        sessionStorage.token = res.data.token;
+                        setToken(res.data.token);
+                        sessionStorage.id = res.data.id;
+                        setId(res.data.id);
+                        
                         navigate('/');
                     }
                 } catch (error) {

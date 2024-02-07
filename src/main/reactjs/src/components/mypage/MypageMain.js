@@ -7,7 +7,19 @@ const MypageMain = () => {
     const [member, setmember] = useState([]);
     const nav = useNavigate();
     const storedId = sessionStorage.getItem("id");
-    const storedToken = sessionStorage.getItem("token");
+    const loginType = sessionStorage.getItem("loginType");
+    const accessToken = sessionStorage.getItem("accessToken");
+    const user = sessionStorage.getItem("user");
+
+    useEffect(() => {
+        const storedToken = sessionStorage.getItem("token");
+        const storedId = sessionStorage.getItem("id");
+        const loginType = sessionStorage.getItem("loginType");
+        const accessToken = sessionStorage.getItem("accessToken");
+        const user = sessionStorage.getItem("user");
+        getmember();
+        console.log("Stored t:", storedToken, ", Stored id:", storedId, ", user:", user);
+    }, []);
 
     const getmember = () => {
         const url = "/member/info?userid=" + storedId;
@@ -18,17 +30,23 @@ const MypageMain = () => {
             })
     }
 
-    useEffect(() => {
-        const storedToken = sessionStorage.getItem("token");
-        const storedId = sessionStorage.getItem("id");
-        getmember();
-        console.log("Stored t:", storedToken, ", Stored id:", storedId);
-    }, []);
-
     const handleLogout = () => {
+        let loginType = sessionStorage.getItem("loginType");
+        let accessToken = "Bearer " + sessionStorage.getItem("accessToken");
+        console.log(accessToken);
+
+        if (loginType == "kakao") {
+          axios.post(
+            "https://kapi.kakao.com/v1/user/logout",
+            {},
+            {
+              headers: { Authorization : accessToken },
+            }
+          );
+        }
+    
         // 세션에서 토큰 제거
-        sessionStorage.removeItem("token");
-        sessionStorage.removeItem("id");
+        sessionStorage.clear();
 
         // 로그인 페이지로 이동
         nav('/login');

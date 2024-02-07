@@ -17,11 +17,11 @@ public class ChatService {
 	private ChatDao chatDao;
 	
 	// 채팅 로그 저장
-	public void insertChatLog(ChatRoomDto dto, List<ChatLogDto> log) {
+	public Short insertChatLog(ChatRoomDto dto, List<ChatLogDto> log) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("room", dto);
 		map.put("log", log);
 		
-		chatDao.insertChatLog(map);
+		return chatDao.insertChatLog(map);
 	}
 }

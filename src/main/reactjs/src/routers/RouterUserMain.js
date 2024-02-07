@@ -15,7 +15,9 @@ const RouterUserMain = () => {
             Swal.fire({
                 icon: 'error',
                 title: '로그인 필요!',
-                html: '로그인하셔야 이용할 수 있습니다. <br/> 로그인 페이지로 이동합시다.'
+                html: '로그인하셔야 이용할 수 있습니다. <br/> 로그인 페이지로 이동합니다.',
+                confirmButtonColor: '#FF7170',
+                confirmButtonText: '확인'
             }).then(() => {
                 nav("/login");
             })
