@@ -1,6 +1,8 @@
 package mypage.data;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +20,7 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class QnaDto {
     @Id //각 엔터티를 구별할 수 있도록 식별 아이디를 갖도록 설계
     @GeneratedValue(strategy = GenerationType.IDENTITY)//auto increment를 주기 위한거래여
