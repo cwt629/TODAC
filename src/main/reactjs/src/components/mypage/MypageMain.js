@@ -9,14 +9,16 @@ const MypageMain = () => {
     const storedId = sessionStorage.getItem("id");
     const loginType = sessionStorage.getItem("loginType");
     const accessToken = sessionStorage.getItem("accessToken");
+    const user = sessionStorage.getItem("user");
 
     useEffect(() => {
         const storedToken = sessionStorage.getItem("token");
         const storedId = sessionStorage.getItem("id");
         const loginType = sessionStorage.getItem("loginType");
         const accessToken = sessionStorage.getItem("accessToken");
+        const user = sessionStorage.getItem("user");
         getmember();
-        console.log("Stored t:", storedToken, ", Stored id:", storedId);
+        console.log("Stored t:", storedToken, ", Stored id:", storedId, ", user:", user);
     }, []);
 
     const getmember = () => {

@@ -26,4 +26,6 @@ public interface LoginService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> getNaverToken(HashMap<String, Object> reqMap) throws Exception;
+
+
 }
