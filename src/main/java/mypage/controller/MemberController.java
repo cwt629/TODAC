@@ -122,10 +122,10 @@ public class MemberController {
 //
 //        return (MultipartFile) parts.getFirst("file");
 //    }
-    @PostMapping("/member/list")
-    public MemberDto memberlist(@RequestParam("userid") String userid)
+    @PostMapping("/member/info")
+    public MemberDto getMemberByID(@RequestParam("userid") String userid)
     {
-        return memberDao.getMemberList(userid);
+        return memberDao.getMemberByID(userid);
     }
     
     @DeleteMapping("/member/delete")

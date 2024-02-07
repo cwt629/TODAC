@@ -1,5 +1,6 @@
 package mypage.controller;
 
+import mypage.repository.MemberDao;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -18,6 +19,8 @@ import java.util.Base64;
 
 @Controller
 public class PaymentController {
+
+    private MemberDao memberDao;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -69,7 +72,6 @@ public class PaymentController {
         Reader reader = new InputStreamReader(responseStream, StandardCharsets.UTF_8);
         JSONObject jsonObject = (JSONObject) parser.parse(reader);
         responseStream.close();
-
         return ResponseEntity.status(code).body(jsonObject);
     }
 
