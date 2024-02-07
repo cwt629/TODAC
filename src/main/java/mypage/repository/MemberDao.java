@@ -27,9 +27,9 @@ public class MemberDao {
 			return daoInter.findAll();
 		}
 
-		public MemberDto getMemberList(String userid)
+		public MemberDto getMemberByID(String userid)
 		{
-			return daoInter.getMemberlist(userid);
+			return daoInter.getMemberByID(userid);
 		}
 
 }
