@@ -35,6 +35,7 @@ public class MemberController {
     	map.put("user",user);
     	return map;
     }
+    
 
     //나혜 작성중
     @PostMapping("/login/signupinsert")
