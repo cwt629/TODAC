@@ -31,4 +31,9 @@ public class QnaDao {
 		System.out.println("getSelectQnaData 메서드 호출됨. inquirycode: " + inquirycode);
 		return qnaRepo.getReferenceById(inquirycode);
 	}
+	
+	public List<QnaDto> getQnaByCode(int usercode)
+	{
+		return qnaRepo.getQnaByCode(usercode);
+	}
 }

@@ -6,12 +6,14 @@ import { Link } from 'react-router-dom';
 const InquiryForm = () => {
     const [title, setTitle] = useState("");
     const [inquiry, setInquiry] = useState("");
+    const storedId = sessionStorage.getItem("id");
+
 
     const nav = useNavigate();
 
     //문의등록 버튼
     const addQnaEvent = () => {
-        axios.post("/user/inquiry/add", { title, inquiry }).then((res) => { 
+        axios.post("/user/inquiry/add", { title, inquiry}).then((res) => { 
             //추가 성공 후 목록으로 이동
             nav("/user/inquiry");
         });

@@ -27,16 +27,27 @@ public class QnaController {
 		qnaDao.insertQna(dto);
 	}
 
-	//출력
+	//로그인한 유저의 qna 만 출력
 	@PostMapping("/user/inquiry")
-	public Map<String,Object> qnaList()
+	public Map<String,Object> qnaList(@RequestParam("usercode") int usercode) throws Exception
 	{
 		Map<String, Object> map=new HashMap<>();
-		List<QnaDto> qna = qnaDao.getAllQna();
+		List<QnaDto> qna = qnaDao.getQnaByCode(usercode);
 		map.put("qna",qna);
 		//System.out.println("여기나오내"+qna);
 		return map;
 	}
+
+//	qna 전체출력
+//	@PostMapping("/user/inquiry")
+//	public Map<String,Object> qnaList() throws Exception
+//	{
+//		Map<String, Object> map=new HashMap<>();
+//		List<QnaDto> qna = qnaDao.getAllQna();
+//		map.put("qna",qna);
+//		//System.out.println("여기나오내"+qna);
+//		return map;
+//	}
 
 	//출력
 	//	@GetMapping("/user/inquiry")
@@ -64,7 +75,7 @@ public class QnaController {
 	//	}
 
 	@PostMapping("/user/inquiry/select") 
-	public QnaDto qnaSelect(@RequestBody HashMap<String, Object> reqMap )
+	public QnaDto qnaSelect(@RequestBody HashMap<String, Object> reqMap ) throws Exception
 	{
 //		System.out.println("======/user/inquiry/select select : "+reqMap);
 		Object inquiryNumObj = reqMap.get("inquriycode");
