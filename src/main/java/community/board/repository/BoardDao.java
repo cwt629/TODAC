@@ -9,14 +9,14 @@ import java.util.List;
 @Repository
 @AllArgsConstructor
 public class BoardDao {
-    private BoardDaoInter boardDaoInter;
+    private BoardRepository boardRepository;
 
     //추가
     public void addBoard (BoardDto dto) {
-        boardDaoInter.save(dto);
+        boardRepository.save(dto);
     }
 
     public List<BoardDto> getAllBoards() {
-        return boardDaoInter.findAll();
+        return boardRepository.findAll();
     }
 }
