@@ -36,6 +36,7 @@ public class LoginServiceImpl implements LoginService {
     public MemberDto getUser(String userid) {
         return loginDao.findByUserid(userid);
     }
+   
 
     /**
      * 인가된 코드를 가지고 카카오 token 발급받기
@@ -107,6 +108,7 @@ public class LoginServiceImpl implements LoginService {
         //ID 로 회원가입 했는지 안했는지 확인
         String userid = userInfo.get("id").toString(); 
         MemberDto user = loginDao.findByUserid(userid);
+
         
         if(user==null) {
         	retMap.put("Signup", "N"); 
@@ -119,6 +121,7 @@ public class LoginServiceImpl implements LoginService {
             retMap.put("accessToken", kakaoAccessToken);
             retMap.put("token", token);//토근전달
             retMap.put("id", userid);//id전달
+            retMap.put("user", user);//user
         }
         return retMap;
     }
