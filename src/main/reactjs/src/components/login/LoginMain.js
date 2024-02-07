@@ -21,7 +21,7 @@ const LoginMain = () => {
                 nav('/');
             }
         }
-    }, [token]);
+    }, [token,nav]);
 
     //소셜 로그인 url
     let kakaoLoginUrl = '';

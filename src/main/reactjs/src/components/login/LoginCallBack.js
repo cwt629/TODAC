@@ -7,14 +7,6 @@ import { useNavigate } from 'react-router-dom';
 const LoginCallBack = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    const [token, setToken] = useState(null);
-    const [id, setId] = useState(null);
-
-    useEffect(() => {
-        const storedToken = sessionStorage.getItem("token");
-        const storedId = sessionStorage.getItem("id");
-        console.log("Stored t:", storedToken, ", Stored id:", storedId);
-    }, []);
 
     useEffect(() => {
         const urlSearchParams = new URLSearchParams(window.location.search);
@@ -51,8 +43,6 @@ const LoginCallBack = () => {
                         sessionStorage.token = res.data.token;
                         sessionStorage.id = res.data.id;
                         sessionStorage.usercode = res.data.usercode;
-                        setToken(res.data.token);
-                        setId(res.data.id);
                         
                         navigate('/');
                     }

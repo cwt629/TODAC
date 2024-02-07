@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './QnaStyle.css';
 import axios from "axios";
 
 const MypageMain = () => {
     const [member, setmember] = useState([]);
     const nav = useNavigate();
+
     const storedId = sessionStorage.getItem("id");
     const loginType = sessionStorage.getItem("loginType");
-    const accessToken = sessionStorage.getItem("accessToken");
-    const user = sessionStorage.getItem("usercode");
+    const usercode = sessionStorage.getItem("usercode");
 
     useEffect(() => {
-        const storedToken = sessionStorage.getItem("token");
-        const storedId = sessionStorage.getItem("id");
-        const loginType = sessionStorage.getItem("loginType");
-        const accessToken = sessionStorage.getItem("accessToken");
-        const user = sessionStorage.getItem("usercode");
         getmember();
-        console.log("Stored t:", storedToken, ", Stored id:", storedId, ", user:", user);
+        console.log("storedId:", storedId, ", usercode:", usercode);
     }, []);
 
     const getmember = () => {
@@ -31,11 +26,10 @@ const MypageMain = () => {
     }
 
     const handleLogout = () => {
-        let loginType = sessionStorage.getItem("loginType");
         let accessToken = "Bearer " + sessionStorage.getItem("accessToken");
         console.log(accessToken);
 
-        if (loginType == "kakao") {
+        if (loginType === "kakao") {
           axios.post(
             "https://kapi.kakao.com/v1/user/logout",
             {},
