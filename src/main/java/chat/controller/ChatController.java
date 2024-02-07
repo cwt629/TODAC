@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import chat.data.ChatLogDto;
 import chat.data.ChatRoomDto;
-import chat.repository.ChatDao;
-import chat.repository.CounselorRepository;
 import chat.service.ChatService;
 import chat.service.CounselorService;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +28,8 @@ public class ChatController {
 		roomDto.setCounselor(counselorService.getCounselorByCode(counselorcode));
 		roomDto.setMember(memberDao.getMemberByID(userid));
 		
-		chatService.insertChatRoom(roomDto);
-		
+		// 2. 해당 채팅방에 로그 저장
+		chatService.insertChatLog(roomDto, log);
 		
 		return 0;
 	}
