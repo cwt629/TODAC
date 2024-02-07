@@ -10,33 +10,6 @@ const MemberProfile = () => {
     const storedId = sessionStorage.getItem("id");
     const storedToken = sessionStorage.getItem("token");
 
-    // 추방 로직을 처리하는 부분
-    const handleBan = () => {
-        const confirmation = window.confirm('정말로 회원을 추방하시겠습니까?');
-
-        if (confirmation) {
-            const url = `/member/delete?userid=${storedId}`;
-            axios.delete(url, {
-                headers: {
-                    Authorization: `Bearer ${storedToken}`,
-                },
-            })
-                .then(response => {
-                    console.log('회원이 성공적으로 추방되었습니다.', response);
-                    // MemberManage 페이지로 이동
-                    nav('/admin/MemberManage');
-                })
-                .catch(error => {
-                    console.error('추방 중 오류 발생:', error);
-
-                });
-        }
-    };
-
-    useEffect(() => {
-        getMember();
-    }, []);
-
     const getMember = () => {
         const url = "/member/list?userid=" + storedId;
         axios.post(url)
@@ -60,12 +33,6 @@ const MemberProfile = () => {
             </div>
             <div className='fs_25 fw_700'>회원정보</div>
 
-            {/* 추방 버튼 추가 */}
-            <button className='homebox bg_red bor_red1 fs_16 fw_600' onClick={handleBan}>
-                &emsp;{'>'} &emsp;추방
-            </button>
-            <br />
-
             <div style={{ textAlign: 'center' }}>
                 <img alt='' src={member.photo} style={{ width: '30vh', height: '30vh' }} />
                 <br /><br />
@@ -73,19 +40,19 @@ const MemberProfile = () => {
                 <br />
             </div>
             <button className='homebox bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberPost')}> &emsp;{'>'} &emsp;게시글</button>
+                onClick={() => nav('MemberPost')}> &emsp;{'>'} &emsp;{member.nickname} 님의 게시글</button>
             <br />
             <button className='homebox bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberComment')}> &emsp;{'>'} &emsp;댓글</button>
+                onClick={() => nav('MemberComment')}> &emsp;{'>'} &emsp;{member.nickname} 님의 댓글</button>
             <br />
             <button className='homebox bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberPayment')}> &emsp;{'>'} &emsp;결제 내역</button>
+                onClick={() => nav('MemberPayment')}> &emsp;{'>'} &emsp;{member.nickname} 님의 결제 내역</button>
             <br />
             <button className='homebox bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberPoint')}> &emsp;{'>'} &emsp;포인트 사용</button>
+                onClick={() => nav('MemberPoint')}> &emsp;{'>'} &emsp;{member.nickname} 님의 포인트 사용</button>
             <br />
             <button className='homebox bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberChatSearch')}> &emsp;{'>'} &emsp;채팅</button>
+                onClick={() => nav('MemberChatSearch')}> &emsp;{'>'} &emsp;{member.nickname} 님의 채팅 기록</button>
         </div>
     );
 };
