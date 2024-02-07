@@ -304,6 +304,15 @@ a {
 
 
 /* border-radius */
-.br_5{
+.br_5 {
     border-radius: 5px;
+}
+
+/* page header 관련 */
+div.pageheader {
+    /* height: 60px; */
+}
+
+span.header-clickable {
+    cursor: pointer;
 }
