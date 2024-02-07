@@ -6,7 +6,7 @@ import mypage.data.MemberDto;
 
 public interface LoginService {
 	
-	//db에 id가 있는지 확인
+	//userid로 memberDto
 	MemberDto getUser(String userid);
 	
 	/**
@@ -26,4 +26,6 @@ public interface LoginService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> getNaverToken(HashMap<String, Object> reqMap) throws Exception;
+
+
 }

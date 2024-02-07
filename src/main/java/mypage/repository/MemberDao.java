@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
 import mypage.data.MemberDto;
 
-import java.util.List;
-
 @Repository
 @AllArgsConstructor
 public class MemberDao {
@@ -36,5 +34,6 @@ public class MemberDao {
 		{
 			daoInter.deleteMember(userid);
 		}
+
 
 }

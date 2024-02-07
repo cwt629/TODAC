@@ -5,5 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface LoginDao extends JpaRepository<MemberDto, Integer> {
-    MemberDto findByUserid(String userid);
+    
+	//userid로 memberDto
+	MemberDto findByUserid(String userid);
+    
 }
