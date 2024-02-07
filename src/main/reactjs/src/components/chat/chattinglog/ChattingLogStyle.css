@@ -1,0 +1,12 @@
+div.selectCounselor {
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 50%;
+    height: 5vh;
+    padding: 0 10px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
