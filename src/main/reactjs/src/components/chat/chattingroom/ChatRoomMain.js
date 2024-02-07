@@ -93,7 +93,9 @@ const ChatRoomMain = () => {
 
             Swal.fire({
                 icon: 'success',
-                html: '채팅 내역이 저장되었습니다!<br/>요약본 페이지로 이동합니다.'
+                html: '채팅 내역이 저장되었습니다!<br/>요약본 페이지로 이동합니다.',
+                confirmButtonColor: '#FF7170',
+                confirmButtonText: '확인'
             }).then(() => {
                 nav("/user/chat/summary?roomcode=" + response.data);
             })
@@ -102,7 +104,9 @@ const ChatRoomMain = () => {
             Swal.fire({
                 icon: 'error',
                 title: '뭔가 문제 발생!',
-                text: `Error: ${err}`
+                text: `Error: ${err}`,
+                confirmButtonColor: '#FF7170',
+                confirmButtonText: '확인'
             });
         }
     }
