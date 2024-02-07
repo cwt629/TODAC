@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import chat.data.ChatLogDto;
 import chat.repository.ChatDao;
 import lombok.RequiredArgsConstructor;
+import mypage.repository.MemberDao;
 
 @RestController
 @RequiredArgsConstructor
 public class ChatController {
 	private final ChatDao chatDao;
+	private final MemberDao memberDao;
 
 	@PostMapping("/chat/finish/noreview")
 	public int insertChatWithoutReview(@RequestBody List<ChatLogDto> log) {
