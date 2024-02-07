@@ -35,6 +35,7 @@ public class MemberController {
     	map.put("user",user);
     	return map;
     }
+    
 
     @PostMapping("/login/signupinsert")
     public Map<String, Object> insert(@RequestBody MemberDto dto) throws Exception {
@@ -52,5 +53,11 @@ public class MemberController {
     public MemberDto getMemberByID(@RequestParam("userid") String userid)
     {
         return memberDao.getMemberByID(userid);
+    }
+    
+    @DeleteMapping("/member/delete")
+    public void delete(@RequestParam("userid") String userid)
+    {
+    	memberDao.deleteMember(userid);
     }
 }

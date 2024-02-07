@@ -29,6 +29,11 @@ public class MemberDao {
 		{
 			return daoInter.getMemberByID(userid);
 		}
+		
+		public void deleteMember(String userid)
+		{
+			daoInter.deleteMember(userid);
+		}
 
 
 }
