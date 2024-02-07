@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import ChatContent from './ChatContent';
-import ChatRoomHeader from './ChatRoomHeader';
 import ChatRoomMidBar from './ChatRoomMidBar';
 import './ChatRoomStyle.css'
 import getGPTResponse from '../api/gpt';
@@ -10,6 +9,7 @@ import ChatReviewModal from './ChatReviewModal';
 import { renderToString } from 'react-dom/server';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import PageHeader from '../../PageHeader';
 
 const COUNSELOR_INITIAL_MESSAGE = "반갑습니다. 고민을 말씀해주세요. 언제든 답변해드리겠습니다.";
 const MAXIMUM_INPUT_LENGTH = 300;
@@ -26,6 +26,13 @@ const ChatRoomMain = () => {
     const nav = useNavigate();
 
     const SYSTEM_MESSAGE_FOR_TEST = "당신은 AI같은 심리 상담사입니다. 실제 대화하듯이 구어체로 답변하고, 답변은 300자를 넘지 않아야 합니다.";
+
+    const CURRENT_ROUTES = [
+        { name: 'TODAC 채팅', url: '/user/chat' },
+        { name: '상담받기', url: '' }
+    ];
+
+    const PAGE_TITLE = 'TODAC 채팅';
 
     // useEffect(() => {
     //     console.log('나의 세션');
@@ -179,7 +186,7 @@ const ChatRoomMain = () => {
 
     return (
         <div className='chatmain mx_30'>
-            <ChatRoomHeader />
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <ChatRoomMidBar handleFinishChat={handleFinishChat} />
             <ChatContent log={log} />
             <ChatSubmit input={input} maxlength={MAXIMUM_INPUT_LENGTH} handleInputChange={handleInputChange} handleInputSubmit={handleInputSubmit} />
