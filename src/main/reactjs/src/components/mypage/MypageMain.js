@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './QnaStyle.css';
 import axios from "axios";
+import "./MyPageStyle.css";
 
 const MypageMain = () => {
     const [member, setmember] = useState([]);
@@ -47,24 +48,64 @@ const MypageMain = () => {
     };
 
     return (
-        <div>
-            <h3>내 정보</h3>
-            <img alt='' src={member.photo} />
-            <h1>{member.nickname}</h1>
-            <h1>포인트 : {member.point}</h1>
-            <button className='btn btn-danger'
-                onClick={() => nav('inquiry')}>1:1 문의
-            </button>
-            <button className='btn btn-danger'
-                onClick={() => nav('faq')}>도움말
-            </button>
-            <button type='button' className='btn btn-danger' onClick={handleLogout}>
+
+        <div className="mypagemain">
+            <div className='mypageheader'>
+                <div className='fs_14 fw_500 col_blue2'>
+                    <span>마이 홈</span>
+                </div>
+                <div className='fs_24 fw_700'>
+                    내 정보
+                </div>
+            </div>
+            <div className="profile">
+                <img className="profile" alt='' src={member.photo}/>
+                <h4>{member.nickname}</h4>
+            </div>
+
+            <div className="iconmenu mt-5">
+                <div onClick={() => nav('point')} className="col">
+                    <img alt="" src={require("../../image/mypageIcon/point.png")}/>
+                    <h6>포인트 <b style={{color: "#FF7170"}}>{member.point}</b></h6>
+                </div>
+                <div className="col">
+                    <img alt="" src={require("../../image/mypageIcon/board.png")}/>
+                    <h6>게시글</h6>
+                </div>
+                <div className="col">
+                    <img alt="" src={require("../../image/mypageIcon/donation.png")}/>
+                    <h6>후원하기</h6>
+                </div>
+            </div>
+
+            <div className="listmenu ">
+                <div onClick={() => nav('point')}>
+                    <img alt="" src={require("../../image/mypageIcon/info.png")}/>
+                     내 정보 관리
+                    <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
+                </div>
+                <div onClick={() => nav('inquiry')}>
+                    <img alt="" src={require("../../image/mypageIcon/11.png")}/>
+                    1:1 문의
+                    <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
+
+                </div>
+                <div onClick={() => nav('faq')}>
+                    <img alt="" src={require("../../image/mypageIcon/faq.png")}/>
+                    도움말
+                    <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
+                </div>
+            </div>
+
+            <div className="lastmenu" onClick={handleLogout}>
+            <img alt="" src={require("../../image/mypageIcon/logout.png")}/>
                 로그아웃
-            </button>
-            <button className='btn btn-info'
-                onClick={() => nav('point')}>포인트
-            </button>
+            </div>
+
+
+
         </div>
+
     );
 };
 

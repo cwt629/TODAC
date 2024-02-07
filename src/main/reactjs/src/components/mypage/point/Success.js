@@ -7,6 +7,7 @@ const Success = () => {
     const paymentKey = searchParams.get("paymentKey");
     const orderId = searchParams.get("orderId");
     const amount = searchParams.get("amount");
+    const storedId = sessionStorage.getItem("id");
 
     async function confirmPayment() {
         // TODO: API를 호출해서 서버에게 paymentKey, orderId, amount를 넘겨주세요.
@@ -20,7 +21,8 @@ const Success = () => {
             body: JSON.stringify({
                 paymentKey,
                 orderId,
-                amount
+                amount,
+                storedId
             })
         });
 
