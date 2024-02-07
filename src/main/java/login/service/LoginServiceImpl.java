@@ -108,8 +108,8 @@ public class LoginServiceImpl implements LoginService {
         //ID 로 회원가입 했는지 안했는지 확인
         String userid = userInfo.get("id").toString(); 
         MemberDto user = loginDao.findByUserid(userid);
+        int usercode = user.getUsercode();
 
-        
         if(user==null) {
         	retMap.put("Signup", "N"); 
         	retMap.put("userInfo", userInfo);//회원가입을 위한 user 정보 전달
@@ -121,7 +121,7 @@ public class LoginServiceImpl implements LoginService {
             retMap.put("accessToken", kakaoAccessToken);
             retMap.put("token", token);//토근전달
             retMap.put("id", userid);//id전달
-            retMap.put("user", user);//user
+            retMap.put("usercode", usercode);//user
         }
         return retMap;
     }

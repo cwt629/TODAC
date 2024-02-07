@@ -49,8 +49,9 @@ const LoginCallBack = () => {
                     } else {
                         sessionStorage.accessToken = res.data.accessToken;
                         sessionStorage.token = res.data.token;
-                        setToken(res.data.token);
                         sessionStorage.id = res.data.id;
+                        sessionStorage.usercode = res.data.usercode;
+                        setToken(res.data.token);
                         setId(res.data.id);
                         
                         navigate('/');
