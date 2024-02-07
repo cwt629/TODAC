@@ -20,7 +20,7 @@ const MypageMain = () => {
     }, []);
 
     const getmember = () => {
-        const url = "/member/list?userid=" + storedId;
+        const url = "/member/info?userid=" + storedId;
         axios.post(url)
             .then(res => {
                 setmember(res.data);

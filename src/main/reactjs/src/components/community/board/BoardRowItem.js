@@ -16,51 +16,7 @@ const BoardRowItem = ({ idx, data }) => {
     return (
         <div>
             <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-                <ListItem alignItems='flex-start'>
-                    <ListItemAvatar>
-                        <Avatar alt='' src={imageStorage + data.photo} />
-                    </ListItemAvatar>
-                    <ListItemText
-                        primary={data.title}
-                        secondary={
-                            <React.Fragment>
-                                <Typography
-                                    sx={{ display: "inline" }}
-                                    component='span'
-                                    variant='body2'
-                                    color='text.primary'
-                                >
-                                    {data.registereddate}
-                                </Typography>
-                                {data.content}
-                            </React.Fragment>
-                        }
-                    />
-                </ListItem>
-                <Divider variant='inset' component='li' />
-                <ListItem alignItems='flex-start'>
-                    <ListItemAvatar>
-                        <Avatar alt='' src={imageStorage + data.photo} />
-                    </ListItemAvatar>
-                    <ListItemText
-                        primary={data.title}
-                        secondary={
-                            <React.Fragment>
-                                <Typography
-                                    sx={{ display: "inline" }}
-                                    component='span'
-                                    variant='body2'
-                                    color='text.primary'
-                                >
-                                    {data.registereddate}
-                                </Typography>
-                                {data.content}
-                            </React.Fragment>
-                        }
-                    />
-                </ListItem>
-                <Divider variant='inset' component='li' />
-                <ListItem alignItems='flex-start'>
+                <ListItem alignItems='flex-start' onClick={() => navi("detail")}>
                     <ListItemAvatar>
                         <Avatar alt='' src={imageStorage + data.photo} />
                     </ListItemAvatar>
