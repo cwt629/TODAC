@@ -6,7 +6,7 @@ import mypage.data.MemberDto;
 
 public interface LoginService {
 	
-	//db에 id가 있는지 확인
+	//userid로 memberDto
 	MemberDto getUser(String userid);
 	
 	/**
