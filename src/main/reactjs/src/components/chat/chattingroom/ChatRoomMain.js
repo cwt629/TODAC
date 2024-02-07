@@ -8,8 +8,10 @@ import ChatSubmit from './ChatSubmit';
 import Swal from 'sweetalert2';
 import ChatReviewModal from './ChatReviewModal';
 import { renderToString } from 'react-dom/server';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const COUNSELOR_INITIAL_MESSAGE = "안녕! 난 장난기 가득한 상담사야! 뭐가 고민이니?";
+const COUNSELOR_INITIAL_MESSAGE = "반갑습니다. 고민을 말씀해주세요. 언제든 답변해드리겠습니다.";
 const MAXIMUM_INPUT_LENGTH = 300;
 const MAXIMUM_STARS = 5;
 
@@ -21,8 +23,15 @@ const ChatRoomMain = () => {
     const [loading, setLoading] = useState(false);
     const [star, setStar] = useState(MAXIMUM_STARS);
 
-    const SYSTEM_MESSAGE_FOR_TEST = "당신은 장난기 가득한 심리 상담사입니다. 실제 대화하듯이 구어체로 답변하고, 답변은 300자를 넘지 않아야 합니다.";
+    const nav = useNavigate();
 
+    const SYSTEM_MESSAGE_FOR_TEST = "당신은 AI같은 심리 상담사입니다. 실제 대화하듯이 구어체로 답변하고, 답변은 300자를 넘지 않아야 합니다.";
+
+    // useEffect(() => {
+    //     console.log('나의 세션');
+    //     console.log('id: ' + sessionStorage.getItem("id"));
+    //     console.log('token: ' + sessionStorage.getItem("token"));
+    // }, [])
 
     // log 갱신이 완료되면 그때 input과 로딩 상태를 갱신하기
     useEffect(() => {
@@ -68,6 +77,22 @@ const ChatRoomMain = () => {
             });
     }
 
+    const submitLog = async () => {
+        let logData = log.map((data) => ({
+            'speaker': data.speaker,
+            'content': data.content
+        }));
+
+        let chatRoomCode = await axios({
+            method: 'post',
+            url: `/chat/finish/noreview?userid=${sessionStorage.getItem('id')}&counselorcode=1`,
+            data: JSON.stringify(logData),
+            headers: { 'Content-Type': 'application/json' }
+        })
+
+        alert("결과는 " + chatRoomCode.data);
+    }
+
     const handleStarClick = (index) => {
         setStar(index + 1); // 0~4번째 별은 각각 1~5점을 의미
         alert(`${index + 1}점 주려고 함`);
@@ -80,7 +105,11 @@ const ChatRoomMain = () => {
     }
 
     const handleReviewPass = () => {
-        alert("리뷰 패스!");
+        submitLog()
+            .then(res => {
+                Swal.close();
+                nav("/user/chat");
+            })
     }
 
     const handleReviewClose = () => {
