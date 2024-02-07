@@ -178,7 +178,7 @@ const ChatRoomMain = () => {
 
 
     return (
-        <div className='chatmain'>
+        <div className='chatmain mx_30'>
             <ChatRoomHeader />
             <ChatRoomMidBar handleFinishChat={handleFinishChat} />
             <ChatContent log={log} />
