@@ -8,6 +8,7 @@ import community.board.repository.BoardDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -50,4 +51,12 @@ public class BoardController {
 	public List<BoardDto> list() {
 		return boardDao.getAllBoards();
 	}
+	
+	//관리자 게시판에서 회원 게시글 출력할때 사용하는 로직
+	@PostMapping("/admin/member/post")
+	public BoardDto getMemberPostData(@RequestParam("usercode") int usercode)
+	{
+		return boardDao.getMemberPostData(usercode);
+	}
+	
 }
