@@ -4,7 +4,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const InquiryResponse = () => {
     const { inquirycode } = useParams();
-    //const [answer,setAnswer] =useState("");
     const nav = useNavigate();
     const [selectQnaData, setSelectQnaData] = useState("");
 
@@ -20,27 +19,13 @@ const InquiryResponse = () => {
           });
     };
 
-    const addAnswer = (e) => {
-        const { name, value } = e.target;
-        setSelectQnaData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
-
     //처음 로딩시 딱 한번 호출
     useEffect(() => {
         console.log("detail,useEffect");
         getSelectQnaData();
     }, []);
 
-    const addAnsEvent = () => {
-        //axios.post("/admin/inquiryanswer/add", {answer}).then((res) => { 
-        axios.post("/admin/inquiryanswer/add", selectQnaData).then((res) => { 
-            //답변등록 성공 후 목록으로 이동
-            nav(`/admin/InquiryHistory/InquiryHistoryDetail/${inquirycode}`);
-        });
-    }; 
+ 
     return (
         <div className='mx_30'>
             <div className='mt-1 fs_14'>
@@ -59,18 +44,19 @@ const InquiryResponse = () => {
                 </div>
             </div>
 
-            <div className='form-group mt_25'>
-                <div className='fs_18 fw_700'>A. 문의 답변 </div>
-                <textarea type='text' className='form-control mt_10 bg_gray bor_gray2' style={{ height: "200px" }} onChange={addAnswer} name ="answer" value={selectQnaData.answer} placeholder='답변을 입력해주세요.'/>
+            <div className='mt_25'>
+                <div className='fs_18 fw_700'>
+                    A. 문의 답변 
+                </div>
+                <div className='mt_10 bg_blue bor_blue1 br_5 p-2' style={{height:"200px"}}>
+                    {selectQnaData.answer ? selectQnaData.answer : '답변을 달아주세요.'}
+                </div>
             </div>
 
-            <div className='d-flex mt_45 inquiry_btn justify-content-evenly'>
+            <div className='d-flex mt_45 inquiry_btn justify-content-center'>
                     <button type='button' onClick={() => nav('/admin/InquiryHistory')}>
                         문의  목록으로
                     </button>
-                    <button type='button' onClick={addAnsEvent}>
-                        답변 등록하기
-                    </button>  
             </div>
         </div>
     );
