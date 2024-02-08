@@ -28,7 +28,7 @@ iamport:
   key: 7035336281076508
   secret: 10NMa46OKhzUMcRzvzIeUBlk9xkX8TMsPT8xNbr8GCvAO7Cg5KLmSvzujHnIA0YMaTk36ArKik3Rvot2
   
---- 
+#--- 
 ##Login Setting 
 #spring:
 #  config:
@@ -53,7 +53,7 @@ iamport:
 # config:
 #    activate:
 #      on-profile: dev
-      
+#      
 react:
   kakao:
     login:
