@@ -8,8 +8,10 @@ import axios from 'axios';
 const ChatSummary = () => {
     const [summaryList, setSummaryList] = useState([]);
     const nav = useNavigate();
-    let [query, setQuery] = useSearchParams();
+    const [query, setQuery] = useSearchParams();
     const roomcode = query.get("roomcode");
+    const userLog = summaryList.filter((log) => (log.speaker === 0));
+    const counselorLog = summaryList.filter((log) => (log.speaker !== 0));
 
     const handleInfoClick = () => {
         // sweetalert2 팝업 띄우기
@@ -23,12 +25,8 @@ const ChatSummary = () => {
     const list = () => {
         axios.get("/chat/summary?chatroomcode=" + roomcode)
             .then(res => {
-                alert("ㅋ");
                 console.log(res.data);
                 setSummaryList(res.data);
-                // let userLog = res.data.filter((log) => (log.speaker == 0));
-                // let counselorLog = res.data.filter((log) => (log.speaker > 0));
-                // console.log(userLog);
             })
     }
 
@@ -46,10 +44,20 @@ const ChatSummary = () => {
             <div className='fs_25 fw_700'>오늘의 상담 요약</div>
             <br /><br />
             <div className='fs_20 fw_700'>내 고민 요약</div>
-            <div className='summaryContent fs_14 bor_red bg_red mt_10'>고민 내용<br />{summaryList[0].content}</div>
+            <div className='summaryContent fs_14 bor_red bg_red mt_10'>
+                내 고민 내용<br />
+                {userLog.map((item, index) => (
+                    <div key={index}>{item.content}</div>
+                ))}
+            </div>
             <br />
             <div className='fs_20 fw_700'>상담사의 답변 요약</div>
-            <div className='summaryAnswerContent fs_14 bor_blue1 bg_blue mt_10'>답변 내용</div>
+            <div className='summaryAnswerContent fs_14 bor_blue1 bg_blue mt_10'>
+                상담사 답변 내용<br />
+                {counselorLog.map((item, index) => (
+                    <div key={index}>{item.content}</div>
+                ))}
+            </div>
             <br /><br />
             <div style={{ textAlign: 'center' }}>
                 <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../../')}>마이 홈 이동하기</button>
