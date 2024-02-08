@@ -49,10 +49,10 @@ iamport:
 #      secret: QJvtfoXSkD
 #      redirecturl: http://localhost:3000/login/callback
 #---
-spring:
- config:
-    activate:
-      on-profile: dev
+#spring:
+# config:
+#    activate:
+#      on-profile: dev
       
 react:
   kakao:
