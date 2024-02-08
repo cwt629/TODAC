@@ -9,7 +9,8 @@ const MemberPost = () => {
     const usercode = query.get("usercode");
 
     const getBoard = () => {
-        axios.get("/admin/member/post?usercode=" + usercode)
+        console.log("usercode = " + usercode);
+        axios.post("/admin/member/post?usercode=" + usercode)
             .then(res => {
                 console.log(res.data);
                 setBoard(res.data);
@@ -18,7 +19,7 @@ const MemberPost = () => {
 
     useEffect(() => {
         getBoard();
-    }, [])
+    }, [usercode]);
 
     return (
         < div className='mx_30' >
@@ -29,8 +30,7 @@ const MemberPost = () => {
                 <Link to="/admin/MemberManage/MemberProfile/MemberPost" className='col_blue2'>회원 게시글</Link>
             </div>
             <div className='fs_25 fw_700'>회원 게시글</div>
-            {/* Display posts */}
-            {/* <table className='boardpost'>
+            <table className='table table-bordered'>
                 <thead>
                     <tr>
                         <th>제목</th>
@@ -39,19 +39,13 @@ const MemberPost = () => {
                 </thead>
                 <tbody>
                     {board.map((item, index) => (
-                        <tr key={item.usercode}>
+                        <tr key={index}>
                             <td>{item.title}</td>
                             <td>{item.registereddate}</td>
                         </tr>
                     ))}
                 </tbody>
-            </table> */}
-            <div className='summaryContent fs_14 bor_red bg_red mt_10'>
-                내 고민 내용<br />
-                {board.map((item, index) => (
-                    <div key={index}>{item.usercode}</div>
-                ))}
-            </div>
+            </table>
         </div >
     );
 };

@@ -53,7 +53,7 @@ public class BoardController {
 	
 	//관리자 게시판에서 회원 게시글 출력할때 사용하는 로직
 	@PostMapping("/admin/member/post")
-	public BoardDto getMemberPostData(@RequestParam("usercode") int usercode)
+	public List<BoardDto> getMemberPostData(@RequestParam("usercode") int usercode)
 	{
 		return boardDao.getMemberPostData(usercode);
 	}
