@@ -258,4 +258,39 @@ public class LoginServiceImpl implements LoginService {
         return retMap;
     }
     
+    /**
+     * 카카오 로그아웃
+     * 
+     * @param reqMap
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+	public HashMap<String, Object> logoutKakao(HashMap<String, Object> reqMap) throws Exception {
+    	HashMap<String, Object> retMap = new HashMap<String, Object>();
+    	
+        RestTemplate rt = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        String url = "https://kauth.kakao.com/oauth/logout?client_id=" + reqMap.get("client") + "&logout_redirect_uri=" + reqMap.get("logoutRedirectUrl");
+        
+        System.out.println("===== " + url);
+        
+        //HashMap<String, Object> accountInfoResponse = rt.getForObject(url, HashMap.class, headers);
+        
+        //ObjectMapper objectMapper = new ObjectMapper();
+        //objectMapper.registerModule(new JavaTimeModule());
+        //objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        
+        //retMap = accountInfoResponse;
+        
+    	//retMap = objectMapper.readValue(accountInfoResponse.getBody(), HashMap.class);
+    	
+    	retMap.put("url", url);
+        
+        return retMap;
+    }
+    
 }
