@@ -20,13 +20,13 @@ const InquiryResponse = () => {
           });
     };
 
-    const addAnswer =(e) => {
+    const addAnswer = (e) => {
         const { name, value } = e.target;
-        selectQnaData({
-            ...selectQnaData,
+        setSelectQnaData(prevData => ({
+            ...prevData,
             [name]: value,
-        })
-    }
+        }));
+    };
 
     //처음 로딩시 딱 한번 호출
     useEffect(() => {
@@ -59,21 +59,12 @@ const InquiryResponse = () => {
                 </div>
             </div>
 
-            {/* <div className='mt_25'>
-                <div className='fs_18 fw_700'>
-                    A. 문의 답변 
-                </div>
-                <div className='mt_10 bg_blue bor_blue1 br_5 p-2' style={{height:"200px"}}>
-                    {selectQnaData.answer ? selectQnaData.answer : '답변을 달아주세요.'}
-                </div>
-            </div> */}
-
             <div className='form-group mt_25'>
                 <div className='fs_18 fw_700'>A. 문의 답변 </div>
                 <textarea type='text' className='form-control mt_10 bg_gray bor_gray2' style={{ height: "200px" }} onChange={addAnswer} name ="answer" value={selectQnaData.answer} placeholder='답변을 입력해주세요.'/>
             </div>
 
-            <div className='d-flex mt_45 inquiry_btn'>
+            <div className='d-flex mt_45 inquiry_btn justify-content-evenly'>
                     <button type='button' onClick={() => nav('/admin/InquiryHistory')}>
                         문의  목록으로
                     </button>

@@ -53,7 +53,7 @@ const InquiryResponse = () => {
                 </div>
             </div>
 
-            <div className='d-flex mt_45 inquiry_btn'>
+            <div className='d-flex mt_45 inquiry_btn justify-content-center'>
                     <button type='button' onClick={() => nav('/admin/InquiryHistory')}>
                         문의  목록으로
                     </button>

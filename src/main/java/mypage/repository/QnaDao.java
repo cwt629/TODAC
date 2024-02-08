@@ -36,4 +36,9 @@ public class QnaDao {
 	{
 		return qnaRepo.getQnaByCode(usercode);
 	}
+	
+	public void addAnswer(QnaDto dto)
+	{
+		qnaRepo.save(dto);
+	}
 }

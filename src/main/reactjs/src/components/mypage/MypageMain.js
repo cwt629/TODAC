@@ -10,12 +10,7 @@ const MypageMain = () => {
 
     const storedId = sessionStorage.getItem("id");
     const loginType = sessionStorage.getItem("loginType");
-<<<<<<< HEAD
-    const accessToken = sessionStorage.getItem("accessToken");
-    const user = sessionStorage.getItem("user");
-=======
     const usercode = sessionStorage.getItem("usercode");
->>>>>>> develop
 
     useEffect(() => {
         getmember();

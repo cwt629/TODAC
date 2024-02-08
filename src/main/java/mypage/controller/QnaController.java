@@ -99,6 +99,6 @@ public class QnaController {
 	@PostMapping("/admin/inquiryanswer/add")
 	public void qnaAnswerInsert(@RequestBody QnaDto dto) //@RequestBody생략하면 안됨 생략하면 모델어트리뷰트로 읽음
 	{
-		qnaDao.insertQna(dto);
+		qnaDao.addAnswer(dto);
 	}
 }
