@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class BoardController {
 	private final BoardDao boardDao;
 
-	private final MemberDao memberRepository;
+	private final MemberDao memberDao;
 
 	//storage class 선언
 	private final NcpObjectStorageService storageService;
@@ -48,7 +48,7 @@ public class BoardController {
 	@PostMapping("/form/insert/{usercode}")
 	public void insertBoard(@RequestBody BoardDto dto , @PathVariable("usercode") String usercode) {
 
-		MemberDto findMember = memberRepository.getMemberByID(usercode);
+		MemberDto findMember = memberDao.getMemberByID(usercode);
 		dto.setMember(findMember);
 
 		//미리 업로드한 photo 를 dto에 넣기
