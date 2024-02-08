@@ -10,25 +10,29 @@ import mypage.data.MemberDto;
 @Repository
 @AllArgsConstructor
 public class MemberDao {
-	MemberRepository daoInter;
+	MemberRepository memberRepository;
 	
 		//db저장
 		public void insertMember(MemberDto dto)
 		{
 			//System.out.println(" ====================== " + dto);
-			daoInter.save(dto);
+			memberRepository.save(dto);
 		}
 		
 		//list
 		public List<MemberDto> getAllMember ()
 		{
-			return daoInter.findAll();
+			return memberRepository.findAll();
 		}
 
 		public MemberDto getMemberByID(String userid)
 		{
-			return daoInter.getMemberByID(userid);
+			return memberRepository.getMemberByID(userid);
 		}
 
+		public int nickNameCheck(String nickname)
+		{
+			return memberRepository.nickNameCheck(nickname);
+		}
 
 }
