@@ -6,6 +6,7 @@ const MemberPost = () => {
 
     const [board, setBoard] = useState([]);
     let [query, setQuery] = useSearchParams();
+    const [searchQuery, setSearchQuery] = useState('');
     const usercode = query.get("usercode");
 
     const getBoard = () => {
@@ -19,7 +20,10 @@ const MemberPost = () => {
 
     useEffect(() => {
         getBoard();
-    }, [usercode]);
+    }, [usercode, searchQuery]);
+
+    // 검색어와 일치하는 게시글만 필터링합니다.
+    const filteredBoard = board.filter(item => item.title.includes(searchQuery));
 
     return (
         < div className='mx_30' >
@@ -30,6 +34,19 @@ const MemberPost = () => {
                 <Link to="/admin/MemberManage/MemberProfile/MemberPost" className='col_blue2'>회원 게시글</Link>
             </div>
             <div className='fs_25 fw_700'>회원 게시글</div>
+
+            <div style={{ marginBottom: '20px' }}>
+                <label htmlFor="search" className='fs_16 fw_600 col_blue2'>검색:</label>
+                <input
+                    type="text"
+                    id="search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="게시글 제목을 검색하세요"
+                    className='commonInput fs_16 fw_600'
+                />
+            </div>
+
             <table className='table table-bordered'>
                 <thead>
                     <tr>
@@ -38,12 +55,17 @@ const MemberPost = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {board.map((item, index) => (
+                    {filteredBoard.map((item, index) => (
                         <tr key={index}>
                             <td>{item.title}</td>
                             <td>{item.registereddate}</td>
                         </tr>
                     ))}
+                    {filteredBoard.length === 0 && (
+                        <tr>
+                            <td colSpan="2">검색 결과가 없습니다.</td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
         </div >

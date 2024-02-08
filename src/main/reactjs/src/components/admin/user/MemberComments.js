@@ -4,22 +4,26 @@ import axios from "axios";
 
 const MemberComments = () => {
 
-    // const [comment, setComment] = useState([]);
-    // let [query, setQuery] = useSearchParams();
-    // const usercode = query.get("usercode");
+    const [comment, setComment] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    let [query, setQuery] = useSearchParams();
+    const usercode = query.get("usercode");
 
-    // const getComment = () => {
-    //     console.log("usercode = " + usercode);
-    //     axios.post("/admin/member/comment?usercode=" + usercode)
-    //         .then(res => {
-    //             console.log(res.data);
-    //             setComment(res.data);
-    //         })
-    // }
+    const getComment = () => {
+        //console.log("usercode = " + usercode);
+        axios.get("/admin/member/comment?usercode=" + usercode)
+            .then(res => {
+                //console.log(res.data);
+                setComment(res.data);
+            })
+    }
 
-    // useEffect(() => {
-    //     getComment();
-    // }, [usercode]);
+    useEffect(() => {
+        getComment();
+    }, [usercode, searchQuery]);
+
+    // 검색어와 일치하는 게시글만 필터링합니다.
+    const filteredBoard = comment.filter(item => item.content.includes(searchQuery));
 
     return (
         <div className='mx_30'>
@@ -30,7 +34,18 @@ const MemberComments = () => {
                 <Link to="/admin/MemberManage/MemberProfile/MemberComments" className='col_blue2'>회원 댓글</Link>
             </div>
             <div className='fs_25 fw_700'>회원 댓글</div>
-            {/* <table className='table table-bordered'>
+            <div style={{ marginBottom: '20px' }}>
+                <label htmlFor="search" className='fs_16 fw_600 col_blue2'>검색:</label>
+                <input
+                    type="text"
+                    id="search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="댓글 내용을 검색하세요"
+                    className='commonInput fs_16 fw_600'
+                />
+            </div>
+            <table className='table table-bordered'>
                 <thead>
                     <tr>
                         <th>내용</th>
@@ -38,14 +53,19 @@ const MemberComments = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {comment.map((item, index) => (
+                    {filteredBoard.map((item, index) => (
                         <tr key={index}>
                             <td>{item.content}</td>
                             <td>{item.registereddate}</td>
                         </tr>
                     ))}
+                    {filteredBoard.length === 0 && (
+                        <tr>
+                            <td colSpan="2">검색 결과가 없습니다.</td>
+                        </tr>
+                    )}
                 </tbody>
-            </table> */}
+            </table>
         </div>
     );
 };
