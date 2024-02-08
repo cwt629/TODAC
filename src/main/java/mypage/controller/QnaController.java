@@ -30,9 +30,9 @@ public class QnaController {
 		MemberDto memdto = new MemberDto();
 		//db insert
 		memdto.setUsercode(usercode);
-		
+
 		dto.setMember(memdto);
-		
+
 		qnaDao.insertQna(dto);
 	}
 
@@ -47,16 +47,16 @@ public class QnaController {
 		return map;
 	}
 
-//	qna 전체출력
-//	@PostMapping("/user/inquiry")
-//	public Map<String,Object> qnaList() throws Exception
-//	{
-//		Map<String, Object> map=new HashMap<>();
-//		List<QnaDto> qna = qnaDao.getAllQna();
-//		map.put("qna",qna);
-//		//System.out.println("여기나오내"+qna);
-//		return map;
-//	}
+	//qna 전체출력
+	@PostMapping("/admin/inquiry/list")
+	public Map<String,Object> qnaList() throws Exception
+	{
+		Map<String, Object> map=new HashMap<>();
+		List<QnaDto> qna = qnaDao.getAllQna();
+		map.put("qna",qna);
+		//System.out.println("여기나오내"+qna);
+		return map;
+	}
 
 	//출력
 	//	@GetMapping("/user/inquiry")
@@ -86,12 +86,19 @@ public class QnaController {
 	@PostMapping("/user/inquiry/select") 
 	public QnaDto qnaSelect(@RequestBody HashMap<String, Object> reqMap ) throws Exception
 	{
-//		System.out.println("======/user/inquiry/select select : "+reqMap);
+		//		System.out.println("======/user/inquiry/select select : "+reqMap);
 		Object inquiryNumObj = reqMap.get("inquriycode");
 		int inquiryNum = Integer.parseInt(inquiryNumObj.toString());
-//		System.out.println("======/user/inquiry/select inquiryNum : "+inquiryNum);
+		//		System.out.println("======/user/inquiry/select inquiryNum : "+inquiryNum);
 		QnaDto dto = qnaDao.getSelectQnaData(inquiryNum);
-//		System.out.println("======/user/inquiry/select dto : "+dto);
+		//		System.out.println("======/user/inquiry/select dto : "+dto);
 		return dto;
+	}
+
+	//answer추가
+	@PostMapping("/admin/inquiryanswer/add")
+	public void qnaAnswerInsert(@RequestBody QnaDto dto) //@RequestBody생략하면 안됨 생략하면 모델어트리뷰트로 읽음
+	{
+		qnaDao.insertQna(dto);
 	}
 }

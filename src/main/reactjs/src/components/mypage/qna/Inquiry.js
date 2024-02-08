@@ -5,7 +5,12 @@ import InquiryRowItem from './InquiryRowItem';
 
 const Inquiry = () => {
     const [list, setList] = useState([]);
+    const [memberinfo, setMemberinfo] = useState([]);
+
     const user = sessionStorage.getItem("usercode");
+    const nickname = sessionStorage.getItem("nickname");
+    const id = sessionStorage.getItem("id");
+
     const nav = useNavigate(); 
 
     const qnaList = () => {
@@ -15,8 +20,16 @@ const Inquiry = () => {
         })
     }
 
+    const getmemberinfo = () => {
+        axios.post("/member/info?userid="+id).then((res)=>{
+            console.log(res.data);
+            setMemberinfo(res.data);
+        })
+    }
+
     useEffect(()=>{
         qnaList();
+        getmemberinfo();
     }, []);
     return (
         <div className='mx_30'>
@@ -26,7 +39,7 @@ const Inquiry = () => {
             </div>
             <div className='fs_25 fw_700'>나의 문의내역</div>
 
-            <div className='mt_45 fw_500'>아이디 님, <br/>무엇을 도와드릴까요?</div>
+            <div className='mt_45 fw_500'><span className='fw_900 col_blue1'>{memberinfo.nickname}</span> 님, <br/>무엇을 도와드릴까요?</div>
 
             <div className='d-flex mt_45 inquiry_list align-items-center'>
                 <div className='me-auto fs_18 fw_700'>
