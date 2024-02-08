@@ -1,6 +1,9 @@
 package community.board.controller;
 
 import community.board.data.BoardDto;
+import community.board.data.BoardListDto;
+import mypage.data.MemberDto;
+import mypage.repository.MemberDao;
 import naver.storage.NcpObjectStorageService;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,11 +15,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 public class BoardController {
 	private final BoardDao boardDao;
+
+	private final MemberDao memberRepository;
 
 	//storage class 선언
 	private final NcpObjectStorageService storageService;
@@ -26,7 +32,8 @@ public class BoardController {
 
 	//버켓네임 지정
 	private String bucketName = "guest-hch";
-	//저장할 폴더네임 지정
+	//저장할 폴더네임
+	// 지정
 	private String folderName = "TODAC";
 
 	//사진만 먼저 업로드하기
@@ -38,8 +45,12 @@ public class BoardController {
 	}
 
 	//단일한 dto 값을 저장하는 로직
-	@PostMapping("/form/insert")
-	public void insertBoard(@RequestBody BoardDto dto) {
+	@PostMapping("/form/insert/{usercode}")
+	public void insertBoard(@RequestBody BoardDto dto , @PathVariable("usercode") String usercode) {
+
+		MemberDto findMember = memberRepository.getMemberByID(usercode);
+		dto.setMember(findMember);
+
 		//미리 업로드한 photo 를 dto에 넣기
 		dto.setPhoto(photo);
 		//db insert
@@ -49,9 +60,11 @@ public class BoardController {
 	}
 
 	//List 를 출력할 때 사용하는 로직
+	// 화면에 필요한 데이터만 핏 하게 뿌리고싶어서 dto를 새로만듬 엔티티는 데이터의 이동 통로가 되면 안된다.
 	@GetMapping("/board/list")
-	public List<BoardDto> list() {
-		return boardDao.getAllBoards();
+	public List<BoardListDto> list() {
+		List<BoardDto> allBoards = boardDao.getAllBoards();
+        return allBoards.stream().map(BoardListDto::new).toList();
 	}
 
 //	@GetMapping("/board/list")

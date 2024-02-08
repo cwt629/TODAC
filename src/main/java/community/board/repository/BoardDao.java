@@ -1,6 +1,7 @@
 package community.board.repository;
 
 import community.board.data.BoardDto;
+import community.board.data.BoardListDto;
 import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
 
@@ -24,6 +25,8 @@ public class BoardDao {
     public int getTotalCount(String search) {
         return boardRepository.getTotalCountByTitle(search);
     }
+
+
 
 //    public List<BoardDto> getAllDatas(String search, int startNum, int perPage) {
 //    }
