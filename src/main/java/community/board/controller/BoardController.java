@@ -67,6 +67,7 @@ public class BoardController {
         return allBoards.stream().map(BoardListDto::new).toList();
 	}
 
+
 //	@GetMapping("/board/list")
 //	public Map<String, Object> boardList(
 //			@RequestParam(value = "currentPage", defaultValue = "1") int currenPage,
@@ -120,4 +121,11 @@ public class BoardController {
 //
 //		return smap;
 //	}
+	
+	//관리자 게시판에서 회원 게시글 출력할때 사용하는 로직
+	@PostMapping("/admin/member/post")
+	public List<BoardDto> getMemberPostData(@RequestParam("usercode") int usercode)
+	{
+		return boardDao.getMemberPostData(usercode);
+	}
 }

@@ -22,6 +22,7 @@ public class BoardDao {
         return boardRepository.findAll();
     }
 
+
     public int getTotalCount(String search) {
         return boardRepository.getTotalCountByTitle(search);
     }
@@ -30,4 +31,12 @@ public class BoardDao {
 
 //    public List<BoardDto> getAllDatas(String search, int startNum, int perPage) {
 //    }
+
+    
+    public List<BoardDto> getMemberPostData(int usercode)
+    {
+    	System.out.println("getMemberPostData 메서드 호출됨. usercode: " + usercode);
+    	return boardRepository.getMemberPostData(usercode);
+    }
+
 }
