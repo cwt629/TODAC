@@ -24,4 +24,8 @@ public class ChatService {
 		
 		return chatDao.insertChatLog(map);
 	}
+	
+	public List<ChatLogDto> selectLog(Short chatroomcode){
+		return chatDao.selectLog(chatroomcode);
+	}
 }

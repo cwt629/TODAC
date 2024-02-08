@@ -3,6 +3,7 @@ package chat.repository;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import chat.data.ChatLogDto;
@@ -35,4 +36,7 @@ public class ChatDao {
 		return roomDto.getChatroomcode();
 	}
 	
+	public List<ChatLogDto> selectLog(Short chatroomcode){
+		return logRepository.selectLog(chatroomcode);
+	}
 }

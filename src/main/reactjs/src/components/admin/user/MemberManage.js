@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 const MemberManage = () => {
     const nav = useNavigate();
@@ -65,7 +64,7 @@ const MemberManage = () => {
                     {filteredMembers.map(member => (
                         <tr
                             key={member.usercode}
-                            onClick={() => nav(`MemberProfile`)}
+                            onClick={() => nav("MemberProfile?userid=" + member.userid)}
                             style={{ cursor: 'pointer' }}
                         >
                             <td>{member.usercode}</td>
