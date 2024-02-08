@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const LogoutCallBack = () => {
-    console.log("===================== sfdfdfafasfsd");
+    
     const nav = useNavigate();
 
     useEffect(() => {
@@ -13,7 +13,6 @@ const LogoutCallBack = () => {
         // 로그인 페이지로 이동
         nav('/login');
 
-        console.log("=======================");
     });
 
     return (
