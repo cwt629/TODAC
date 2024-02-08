@@ -32,19 +32,20 @@ const MypageMain = () => {
 
         if (loginType === "kakao") {
           axios.post(
-            "https://kapi.kakao.com/v1/user/logout",
-            {},
-            {
-              headers: { Authorization : accessToken },
-            }
-          );
+            "/logout/logoutCallBack", {}
+          ).then(res => {
+            sessionStorage.clear();
+            window.location.href = res.data.url;
+          });
         }
     
-        // 세션에서 토큰 제거
-        sessionStorage.clear();
-
-        // 로그인 페이지로 이동
-        nav('/login');
+        else{
+            //세션에서 토큰 제거
+            sessionStorage.clear();
+            //로그인 페이지로 이동
+            nav('/login');
+        }
+        
     };
 
     return (
@@ -97,7 +98,7 @@ const MypageMain = () => {
                 </div>
             </div>
 
-            <div className="lastmenu" onClick={handleLogout}>
+            <div className="lastmenu" onClick={handleLogout} style={{position : "absolute"}}>
             <img alt="" src={require("../../image/mypageIcon/logout.png")}/>
                 로그아웃
             </div>
