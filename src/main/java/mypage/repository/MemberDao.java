@@ -32,7 +32,7 @@ public class MemberDao {
 		
 		public void deleteMember(String userid)
 		{
-			daoInter.deleteMember(userid);
+			memberRepository.deleteMember(userid);
 		}
 
 		public int nickNameCheck(String nickname)
