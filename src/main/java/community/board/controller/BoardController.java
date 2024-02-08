@@ -50,4 +50,12 @@ public class BoardController {
 	public List<BoardDto> list() {
 		return boardDao.getAllBoards();
 	}
+	
+	//관리자 게시판에서 회원 게시글 출력할때 사용하는 로직
+	@PostMapping("/admin/member/post")
+	public List<BoardDto> getMemberPostData(@RequestParam("usercode") int usercode)
+	{
+		return boardDao.getMemberPostData(usercode);
+	}
+	
 }
