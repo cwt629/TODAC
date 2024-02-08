@@ -25,4 +25,10 @@ public class BoardDao {
     	System.out.println("getMemberPostData 메서드 호출됨. usercode: " + usercode);
     	return boardRepository.getMemberPostData(usercode);
     }
+    
+    public List<BoardDto> getMemberCommentData(int usercode)
+    {
+    	System.out.println("getMemberCommentData 메서드 호출됨. usercode: " + usercode);
+    	return boardRepository.getMemberCommentData(usercode);
+    }
 }

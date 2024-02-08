@@ -58,4 +58,10 @@ public class BoardController {
 		return boardDao.getMemberPostData(usercode);
 	}
 	
+	//관리자 게시판에서 회원 댓글 출력할때 사용하는 로직
+	@GetMapping("/admin/member/comment")
+	public List<BoardDto> getMemberCommentData(@RequestParam("usercode") int usercode)
+	{
+		return boardDao.getMemberPostData(usercode);
+	}
 }
