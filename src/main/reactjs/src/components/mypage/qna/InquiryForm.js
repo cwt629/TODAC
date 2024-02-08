@@ -1,21 +1,36 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
 const InquiryForm = () => {
     const [title, setTitle] = useState("");
     const [inquiry, setInquiry] = useState("");
+    const usercode = sessionStorage.getItem("usercode");
+
+    const [memberinfo, setMemberinfo] = useState([]);
+    const id = sessionStorage.getItem("id");
 
     const nav = useNavigate();
 
     //문의등록 버튼
     const addQnaEvent = () => {
-        axios.post("/user/inquiry/add", { title, inquiry }).then((res) => { 
+        axios.post("/user/inquiry/add?usercode="+usercode, { title, inquiry}).then((res) => { 
             //추가 성공 후 목록으로 이동
             nav("/user/inquiry");
         });
     };
+
+    const getmemberinfo = () => {
+        axios.post("/member/info?userid="+id).then((res)=>{
+            console.log(res.data);
+            setMemberinfo(res.data);
+        })
+    }
+
+    useEffect(()=>{
+        getmemberinfo();
+    }, []);
     return (
         <div className='mx_30 inquiry_form'>
             <div className='mt-1 fs_14 col_blue2'>
@@ -25,7 +40,7 @@ const InquiryForm = () => {
             </div>
             <div className='fs_25 fw_700'>1:1 문의하기</div>
 
-            <div className='mt_45 fw_500'>아이디 님, <br/>무엇을 도와드릴까요?</div>
+            <div className='mt_45 fw_500'><span className='fw_900 col_blue1'>{memberinfo.nickname}</span> 님, <br/>문의를 말씀해 주세요!</div>
 
             <div className='mt_45'>
                 <div className='fs_18 fw_700'>제목</div>

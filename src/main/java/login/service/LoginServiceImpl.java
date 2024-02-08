@@ -106,7 +106,7 @@ public class LoginServiceImpl implements LoginService {
         
         String userid = userInfo.get("id").toString(); //카카오정보에서 id 받아 저장
         MemberDto user = loginDao.findByUserid(userid); //그 id로 db조회해서 저장
-        int usercode = user.getUsercode();//사용편의를 위한 usercode저장
+        
 
         if(user==null) {
         	retMap.put("Signup", "N"); //회원가입해야함
@@ -118,6 +118,7 @@ public class LoginServiceImpl implements LoginService {
             //System.out.println("token=" + token); //토큰 확인
             retMap.put("accessToken", kakaoAccessToken);//카카오토근전달
             retMap.put("token", token);//토근전달
+            int usercode = user.getUsercode();//사용편의를 위한 usercode저장
             retMap.put("id", userid);//id전달
             retMap.put("usercode", usercode);//usercode전달
         }
@@ -205,7 +206,7 @@ public class LoginServiceImpl implements LoginService {
 		
 		String userid = userInfo.get("id").toString();//정보에서 id 받아 저장
         MemberDto user = loginDao.findByUserid(userid);//그 id로 db조회해서 저장
-        int usercode = user.getUsercode();//사용편의를 위한 usercode저장
+        
         
         if(user==null) {
         	retMap.put("Signup", "N");//회원가입해야함
@@ -217,6 +218,7 @@ public class LoginServiceImpl implements LoginService {
             //System.out.println("token=" + token); //토큰 확인
             retMap.put("token", token);//토근전달
             retMap.put("id", userid);//id 전달
+            int usercode = user.getUsercode();//사용편의를 위한 usercode저장
             retMap.put("usercode", usercode);//usercode 전달
         }
 		

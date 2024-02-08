@@ -52,7 +52,7 @@ public class MemberController {
     }
 
     @PostMapping("/member/info")
-    public MemberDto getMemberByID(@RequestParam("userid") String userid)
+    public MemberDto getMemberByID(@RequestParam("userid") String userid) throws Exception
     {
         return memberDao.getMemberByID(userid);
     }
