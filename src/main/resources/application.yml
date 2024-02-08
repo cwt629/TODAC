@@ -28,42 +28,42 @@ iamport:
   key: 7035336281076508
   secret: 10NMa46OKhzUMcRzvzIeUBlk9xkX8TMsPT8xNbr8GCvAO7Cg5KLmSvzujHnIA0YMaTk36ArKik3Rvot2
   
-#--- 
-##Login Setting 
-#spring:
-#  config:
-#    activate:
-#      on-profile: local
-#      
-#react:
-#  kakao:
-#    login:
-#      client: 0379f4e17974f898bd38887c56a6c8f7
-#      secret: FylAiEmFFOofOmlpSQs806vsYm99ld67
-#      redirecturl: http://localhost:3000/login/callback
-#      logoutRedirectUrl: http://localhost:3000/login/logoutcallback
-#      
-#  naver:
-#    login:
-#      client: 64_rjB9Vr3BUXeAXii_Y
-#      secret: QJvtfoXSkD
-#      redirecturl: http://localhost:3000/login/callback
+--- 
+#Login Setting 
+spring:
+  config:
+    activate:
+      on-profile: local
+      
+react:
+  kakao:
+    login:
+      client: 0379f4e17974f898bd38887c56a6c8f7
+      secret: FylAiEmFFOofOmlpSQs806vsYm99ld67
+      redirecturl: http://localhost:3000/login/callback
+      logoutRedirectUrl: http://localhost:3000/login/logoutcallback
+      
+  naver:
+    login:
+      client: 64_rjB9Vr3BUXeAXii_Y
+      secret: QJvtfoXSkD
+      redirecturl: http://localhost:3000/login/callback
 #---
 #spring:
 # config:
 #    activate:
 #      on-profile: dev
 #      
-react:
-  kakao:
-    login:
-      client: 0379f4e17974f898bd38887c56a6c8f7
-      secret: FylAiEmFFOofOmlpSQs806vsYm99ld67
-      redirecturl: http://175.45.192.182/login/callback
-      logoutRedirectUrl: http://175.45.192.182/login/logoutcallback
-      
-  naver:
-    login:
-      client: 64_rjB9Vr3BUXeAXii_Y
-      secret: QJvtfoXSkD
-      redirecturl: http://175.45.192.182/login/callback
+#react:
+#  kakao:
+#    login:
+#      client: 0379f4e17974f898bd38887c56a6c8f7
+#      secret: FylAiEmFFOofOmlpSQs806vsYm99ld67
+#      redirecturl: http://175.45.192.182/login/callback
+#      logoutRedirectUrl: http://175.45.192.182/login/logoutcallback
+#      
+#  naver:
+#    login:
+#      client: 64_rjB9Vr3BUXeAXii_Y
+#      secret: QJvtfoXSkD
+#      redirecturl: http://175.45.192.182/login/callback
