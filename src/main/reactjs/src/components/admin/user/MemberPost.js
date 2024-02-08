@@ -8,21 +8,17 @@ const MemberPost = () => {
     let [query, setQuery] = useSearchParams();
     const usercode = query.get("usercode");
 
-    useEffect(() => {
-        getBoard();
-    }, [usercode]);
-
     const getBoard = () => {
-        const url = "/admin/member/post?usercode=" + usercode;
-        console.log("usercode = " + usercode);
-        axios.post(url, {})
+        axios.get("/admin/member/post?usercode=" + usercode)
             .then(res => {
+                console.log(res.data);
                 setBoard(res.data);
             })
-            .catch(error => {
-                console.error("Error fetching data:", error);
-            });
     }
+
+    useEffect(() => {
+        getBoard();
+    }, [])
 
     return (
         < div className='mx_30' >
@@ -34,7 +30,7 @@ const MemberPost = () => {
             </div>
             <div className='fs_25 fw_700'>회원 게시글</div>
             {/* Display posts */}
-            <table className='boardpost'>
+            {/* <table className='boardpost'>
                 <thead>
                     <tr>
                         <th>제목</th>
@@ -42,14 +38,20 @@ const MemberPost = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {board.map(board => (
-                        <tr key={board.usercode}>
-                            <td>{board.title}</td>
-                            <td>{board.registereddate}</td>
+                    {board.map((item, index) => (
+                        <tr key={item.usercode}>
+                            <td>{item.title}</td>
+                            <td>{item.registereddate}</td>
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </table> */}
+            <div className='summaryContent fs_14 bor_red bg_red mt_10'>
+                내 고민 내용<br />
+                {board.map((item, index) => (
+                    <div key={index}>{item.usercode}</div>
+                ))}
+            </div>
         </div >
     );
 };
