@@ -1,9 +1,16 @@
 .search {
     position: relative;
 }
-
+/*검색버튼*/
 .search button {
     position: absolute;
     right: 5px;
     top: 3px;
+}
+/*게시글 작성 버튼*/
+.btn_add {
+    position: fixed;
+    right: 20px; /* 우측 여백 조절 */
+    bottom: 80px; /* 아래 여백 조절 */
+    z-index: 999; /* 다른 요소 위에 위치하도록 설정 */
 }
