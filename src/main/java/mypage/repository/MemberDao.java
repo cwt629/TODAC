@@ -29,6 +29,11 @@ public class MemberDao {
 		{
 			return memberRepository.getMemberByID(userid);
 		}
+		
+		public void deleteMember(String userid)
+		{
+			daoInter.deleteMember(userid);
+		}
 
 		public int nickNameCheck(String nickname)
 		{

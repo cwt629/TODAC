@@ -38,6 +38,7 @@ public class MemberController {
     	return map;
     }
 
+
     @PostMapping("/login/signupinsert")
     public Map<String, Object> insert(@RequestBody MemberDto dto) throws Exception {
     	Map<String, Object> retMap = new HashMap<String, Object>();
@@ -54,6 +55,12 @@ public class MemberController {
     public MemberDto getMemberByID(@RequestParam("userid") String userid)
     {
         return memberDao.getMemberByID(userid);
+    }
+
+    @DeleteMapping("/member/delete")
+    public void delete(@RequestParam("userid") String userid)
+    {
+    	memberDao.deleteMember(userid);
     }
 
     @PostMapping("/member/nicknamecheck")
@@ -82,5 +89,4 @@ public class MemberController {
         uploadFilename=null;
         return "success";
     }
-
 }

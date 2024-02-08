@@ -32,19 +32,20 @@ const MypageMain = () => {
 
         if (loginType === "kakao") {
           axios.post(
-            "https://kapi.kakao.com/v1/user/logout",
-            {},
-            {
-              headers: { Authorization : accessToken },
-            }
-          );
+            "/logout/logoutCallBack", {}
+          ).then(res => {
+            sessionStorage.clear();
+            window.location.href = res.data.url;
+          });
         }
     
-        // 세션에서 토큰 제거
-        sessionStorage.clear();
+        else{
+            //세션에서 토큰 제거
+            sessionStorage.clear();
+            //로그인 페이지로 이동
+            nav('/login');
+        }
 
-        // 로그인 페이지로 이동
-        nav('/login');
     };
 
     return (
@@ -79,9 +80,9 @@ const MypageMain = () => {
             </div>
 
             <div className="listmenu ">
-                <div onClick={() => nav('update')}>
+                <div onClick={() => nav('point')}>
                     <img alt="" src={require("../../image/mypageIcon/info.png")}/>
-                    내 정보 관리
+                     내 정보 관리
                     <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
                 </div>
                 <div onClick={() => nav('inquiry')}>
@@ -95,13 +96,12 @@ const MypageMain = () => {
                     도움말
                     <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
                 </div>
-
-                <div onClick={handleLogout}>
-                    <img alt="" src={require("../../image/mypageIcon/logout.png")}/>
-                    로그아웃
-                </div>
             </div>
 
+            <div className="lastmenu" onClick={handleLogout} style={{position : "absolute"}}>
+            <img alt="" src={require("../../image/mypageIcon/logout.png")}/>
+                로그아웃
+            </div>
 
 
 

@@ -19,4 +19,10 @@ public class BoardDao {
     public List<BoardDto> getAllBoards() {
         return boardRepository.findAll();
     }
+    
+    public List<BoardDto> getMemberPostData(int usercode)
+    {
+    	System.out.println("getMemberPostData 메서드 호출됨. usercode: " + usercode);
+    	return boardRepository.getMemberPostData(usercode);
+    }
 }
