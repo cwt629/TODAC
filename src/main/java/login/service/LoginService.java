@@ -26,6 +26,17 @@ public interface LoginService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> getNaverToken(HashMap<String, Object> reqMap) throws Exception;
+	
+	/**
+	 * 카카오 로그아웃
+	 * 
+	 * @param reqMap
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> logoutKakao(HashMap<String, Object> reqMap) throws Exception;
+	
+	
 
 
 }
