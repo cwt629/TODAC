@@ -7,12 +7,10 @@ import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
 import mypage.data.MemberDto;
 
-import java.util.List;
-
 @Repository
 @AllArgsConstructor
 public class MemberDao {
-	MemberDaoInter daoInter;
+	MemberRepository daoInter;
 	
 		//db저장
 		public void insertMember(MemberDto dto)
@@ -27,9 +25,15 @@ public class MemberDao {
 			return daoInter.findAll();
 		}
 
-		public MemberDto getMemberList(String userid)
+		public MemberDto getMemberByID(String userid)
 		{
-			return daoInter.getMemberlist(userid);
+			return daoInter.getMemberByID(userid);
 		}
+		
+		public void deleteMember(String userid)
+		{
+			daoInter.deleteMember(userid);
+		}
+
 
 }

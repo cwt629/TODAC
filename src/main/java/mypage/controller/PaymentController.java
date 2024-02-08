@@ -1,5 +1,8 @@
 package mypage.controller;
 
+import lombok.RequiredArgsConstructor;
+import mypage.data.MemberDto;
+import mypage.repository.MemberDao;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -17,7 +20,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 @Controller
+@RequiredArgsConstructor
 public class PaymentController {
+
+    private final MemberDao memberDao;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -28,12 +34,16 @@ public class PaymentController {
         String orderId;
         String amount;
         String paymentKey;
+        String userid;
+        int price;
+        int point;
         try {
             // 클라이언트에서 받은 JSON 요청 바디입니다.
             JSONObject requestData = (JSONObject) parser.parse(jsonBody);
             paymentKey = (String) requestData.get("paymentKey");
             orderId = (String) requestData.get("orderId");
             amount = (String) requestData.get("amount");
+            userid = (String) requestData.get("storedId");
         } catch (ParseException e) {
             throw new RuntimeException(e);
         };
@@ -69,6 +79,17 @@ public class PaymentController {
         Reader reader = new InputStreamReader(responseStream, StandardCharsets.UTF_8);
         JSONObject jsonObject = (JSONObject) parser.parse(reader);
         responseStream.close();
+
+        //포인트증가시키기
+        MemberDto memdto = memberDao.getMemberByID(userid);
+        price = Integer.parseInt(amount);
+        point = memdto.getPoint();
+        point += price;
+        memdto.setPoint(point);
+        memberDao.insertMember(memdto);
+
+        //포인트 정보 기록하기
+        
 
         return ResponseEntity.status(code).body(jsonObject);
     }

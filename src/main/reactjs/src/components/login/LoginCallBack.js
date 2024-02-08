@@ -7,24 +7,16 @@ import { useNavigate } from 'react-router-dom';
 const LoginCallBack = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    const [token,setToken] = useState(null);
-    const [id,setId] = useState(null);
-
-    useEffect(()=>{
-        const storedToken = sessionStorage.getItem("token");
-        const storedId = sessionStorage.getItem("id");
-        console.log("Stored t:", storedToken,", Stored id:", storedId);
-    },[]);
 
     useEffect(() => {
         const urlSearchParams = new URLSearchParams(window.location.search);
         const code = urlSearchParams.get('code');
 
-        
+
         if (code) {
             const login = async () => {
                 try {
-                    const loginType = window.sessionStorage.getItem('loginType');
+                    const loginType = sessionStorage.getItem('loginType');
                     let params = {
                         code,
                         loginType,
@@ -36,10 +28,7 @@ const LoginCallBack = () => {
                     }
 
                     const res = await axios.post("/login/getCallBack", params);
-                    sessionStorage.token = res.data.token;
-                    setToken(res.data.token);
-                    sessionStorage.id = res.data.id;
-                    setId(res.data.id);
+                    
 
                     if (res.data.Signup === 'N') {
                         if (loginType === 'naver') {
@@ -50,7 +39,12 @@ const LoginCallBack = () => {
                             navigate('/login/signupkakao');
                         }
                     } else {
-                        navigate('/user');
+                        sessionStorage.accessToken = res.data.accessToken;
+                        sessionStorage.token = res.data.token;
+                        sessionStorage.id = res.data.id;
+                        sessionStorage.usercode = res.data.usercode;
+                        
+                        navigate('/');
                     }
                 } catch (error) {
                     console.error('Error during login:', error);
@@ -71,7 +65,7 @@ const LoginCallBack = () => {
                     fontSize: "3em",
                     paddingTop: "200px",
                     fontWeight: "1000"
-                }}>Loading... <br/><br/> 잠시만<br/> 기다려주세요</h1>
+                }}>Loading... <br /><br /> 잠시만<br /> 기다려주세요</h1>
             ) : (
                 <h1 style={{
                     color: "#FF494D",

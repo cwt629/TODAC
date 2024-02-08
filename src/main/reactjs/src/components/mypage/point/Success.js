@@ -7,6 +7,7 @@ const Success = () => {
     const paymentKey = searchParams.get("paymentKey");
     const orderId = searchParams.get("orderId");
     const amount = searchParams.get("amount");
+    const storedId = sessionStorage.getItem("id");
 
     async function confirmPayment() {
         // TODO: API를 호출해서 서버에게 paymentKey, orderId, amount를 넘겨주세요.
@@ -20,7 +21,8 @@ const Success = () => {
             body: JSON.stringify({
                 paymentKey,
                 orderId,
-                amount
+                amount,
+                storedId
             })
         });
 
@@ -39,6 +41,7 @@ const Success = () => {
                     }}
                 >
                     <img
+                        alt=""
                         src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png"
                         width="120"
                         height="120"
@@ -78,7 +81,7 @@ const Success = () => {
                                 className="btn w-100"
                                 href="https://docs.tosspayments.com/guides/payment-widget/integration"
                                 target="_blank"
-                                rel="noopner noreferer"
+                                rel="noopner noreferrer"
                             >
                                 결제 연동 문서가기
                             </a>
@@ -89,6 +92,7 @@ const Success = () => {
                 <div className="flex-column align-center confirm-loading w-100 max-w-540">
                     <div className="flex-column align-center">
                         <img
+                            alt=""
                             src="https://static.toss.im/lotties/loading-spot-apng.png"
                             width="120"
                             height="120"

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
-import BoardStyle from "./BoardStyle.css";
+import "./BoardStyle.css";
 import axios from "axios";
 import BoardRowItem from "./BoardRowItem";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
 
 const BoardMain = () => {
     const [list, setList] = useState([]);
@@ -36,12 +38,22 @@ const BoardMain = () => {
                 </button>
             </div>
 
+            <div className='btn_add' onClick={() => navi("form")}>
+                <Fab
+                    color='secondary'
+                    sx={{
+                        position: "absolute",
+                        bottom: (theme) => theme.spacing(2),
+                        right: (theme) => theme.spacing(2),
+                    }}
+                >
+                    <AddIcon />
+                </Fab>
+            </div>
+
             <div className='mt_10'>
                 <div className=''>{list && list.map((data, idx) => <BoardRowItem key={idx} data={data} />)}</div>
             </div>
-
-            <div></div>
-            <button onClick={() => navi("form")}>글쓰기</button>
         </div>
     );
 };

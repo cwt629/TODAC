@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 const BoardForm = () => {
@@ -36,9 +36,20 @@ const BoardForm = () => {
     };
 
     // 추가 버튼
-    const addDataEvent = () => {
+    const addDataEvent = async () => {
+        const usercode = sessionStorage.getItem("id");
+        if (title === "" || content === "" || counselorcode === "") {
+            alert("필수 입력값을 입력하세요");
+            return;
+        }
+        // const
         axios
-            .post("/form/insert", { photo, title, content, counselorcode })
+            .post(`/form/insert/${usercode}`, {
+                photo: photo,
+                title: title,
+                content: content,
+                counselorcode: counselorcode,
+            })
             .then((res) => {
                 // 추가 성공 후 목록으로 이동
                 navi("/user/community/board");
