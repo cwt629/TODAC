@@ -77,6 +77,15 @@ const MyPageUpdateForm = () => {
             })
     }
 
+    const startset=()=>{
+        setNickname(member.nickname);
+        setPhoto(member.photo);
+        setType(member.type);
+        setUserid(member.userid);
+        setToken(member.token);
+        setPass(member.pass);
+        console.log("아이디는 " + member.userid);
+    }
     const saveMemberEvent=()=>{
         if(nickname.length===0){
             alert("아이디를 입력 후 중복학인을 해주세요")
@@ -105,13 +114,7 @@ const MyPageUpdateForm = () => {
 
     useEffect(() => {
         getmember();
-        setNickname(member.nickname);
-        setPhoto(member.photo);
-        setType(member.type);
-        setUserid(member.userid);
-        setToken(member.token);
-        setPass(member.pass);
-        console.log("storedId:", storedId, ", usercode:", usercode);
+
     }, []);
 
     const getmember = () => {
@@ -164,7 +167,7 @@ const MyPageUpdateForm = () => {
                     </div>
                 </div>
                 <div className="profile">
-                    <img className="profile" alt='' src={imageUrl+photo}/>
+                    <img className="profile" alt='' src={imageUrl + photo}/>
                     <h4>{member.nickname}</h4>
                     <input type='file' id='filephoto' style={{display: 'none'}}
                            onChange={uploadPhoto}/>
@@ -174,7 +177,7 @@ const MyPageUpdateForm = () => {
 
                 <h6><b>닉네임</b></h6>
                 <input className="bg_red bor_red" type={"text"} value={nickname}
-                       onChange={(e)=>{
+                       onChange={(e) => {
                            setIdcheck(false);//아이디입력시 중복체크 버튼 다시 눌러야함
                            setNickname(e.target.value);
                        }}/>
@@ -184,13 +187,17 @@ const MyPageUpdateForm = () => {
 
                 <h6><b>주소</b></h6>
                 <input className="bg_red bor_red" type={"text"} placeholder={"기존 주소"}
-                value={address}/>
+                       value={address}/>
                 <button type='button' className='btn btn-sm btn-secondary'
                         onClick={handleClickOpen}>주소검색
                 </button>
                 <input className="bg_red bor_red" type={"text"} placeholder={"상세 주소"}/>
                 <button className="bg_blue bor_blue1"
-                        onClick={saveMemberEvent}>수정 사항 저장</button>
+                        onClick={startset}>적용
+                </button>
+                <button className="bg_blue bor_blue1"
+                        onClick={saveMemberEvent}>수정 사항 저장
+                </button>
 
             </div>
         </div>
