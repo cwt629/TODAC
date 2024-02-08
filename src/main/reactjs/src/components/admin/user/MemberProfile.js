@@ -80,7 +80,7 @@ const MemberProfile = () => {
                 <br />
             </div>
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberPost')}><CommentIcon color='deepblue' />&nbsp;&nbsp;{member.nickname} 님의 게시글 &nbsp;{'>'}</button>
+                onClick={() => nav('MemberPost?usercode=' + member.usercode)}><CommentIcon color='deepblue' />&nbsp;&nbsp;{member.nickname} 님의 게시글 &nbsp;{'>'}</button>
             <br />
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
                 onClick={() => nav('MemberComment')}> <CommentIcon />&nbsp;&nbsp;{member.nickname} 님의 댓글 &nbsp; {'>'} </button>
