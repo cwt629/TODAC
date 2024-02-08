@@ -34,15 +34,18 @@ const MypageMain = () => {
           axios.post(
             "/logout/logoutCallBack", {}
           ).then(res => {
+            sessionStorage.clear();
             window.location.href = res.data.url;
           });
         }
     
-        // 세션에서 토큰 제거
-        //sessionStorage.clear();
-
-        // 로그인 페이지로 이동
-        //nav('/login');
+        else{
+            //세션에서 토큰 제거
+            sessionStorage.clear();
+            //로그인 페이지로 이동
+            nav('/login');
+        }
+        
     };
 
     return (
