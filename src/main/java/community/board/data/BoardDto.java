@@ -1,11 +1,9 @@
 package community.board.data;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import mypage.data.MemberDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
@@ -15,7 +13,8 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "board")
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,6 +22,7 @@ public class BoardDto {
     @Id //각 엔터티를 구별할 수 있도록 식별 아이디를 갖도록 설계
     @GeneratedValue(strategy = GenerationType.IDENTITY)//auto increment를 주기 위한거래여
     private int boardcode;
+
 
     @ManyToOne //섭 테이블에는 ManyToOne : 여러개가 생성 가능 참조한 컬럼을 통해.
     @JoinColumn(name = "usercode") //어떤 컬럼을 참조(외래키)할 지

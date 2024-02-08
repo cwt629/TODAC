@@ -31,7 +31,8 @@ public class LoginServiceImpl implements LoginService {
         this.loginDao = loginDao;
     }
 
-    //db에 id가 있는지 확인하는 메소드
+    
+    //userid로 memberDto
     @Override
     public MemberDto getUser(String userid) {
         return loginDao.findByUserid(userid);
@@ -100,28 +101,26 @@ public class LoginServiceImpl implements LoginService {
     public HashMap<String, Object> kakaoLogin(String kakaoAccessToken) throws Exception {
     	HashMap<String, Object> retMap = new HashMap<String, Object>();
     	
-        HashMap<String, Object> userInfo = getKakaoInfo(kakaoAccessToken);
+        HashMap<String, Object> userInfo = getKakaoInfo(kakaoAccessToken);//카카오토큰으로 정보받아 저장
         //System.out.println(" ======================= kakao userInfo : " + userInfo);
         
-    	// 회원가입 비교후 회원 가입 처리 처리 아닐 경우 로그인 시키기
+        String userid = userInfo.get("id").toString(); //카카오정보에서 id 받아 저장
+        MemberDto user = loginDao.findByUserid(userid); //그 id로 db조회해서 저장
         
-        //ID 로 회원가입 했는지 안했는지 확인
-        String userid = userInfo.get("id").toString(); 
-        MemberDto user = loginDao.findByUserid(userid);
-        int usercode = user.getUsercode();
 
         if(user==null) {
-        	retMap.put("Signup", "N"); 
+        	retMap.put("Signup", "N"); //회원가입해야함
         	retMap.put("userInfo", userInfo);//회원가입을 위한 user 정보 전달
         }  else {
-	        retMap.put("Signup", "Y");
+	        retMap.put("Signup", "Y"); //회원가입되어있음
 	        Authentication auth = new UserAuthentication(userid, null, null);
-            String token = JwtTokenProvider.generateToken(auth, userid);
+            String token = JwtTokenProvider.generateToken(auth, userid); //토큰발급
             //System.out.println("token=" + token); //토큰 확인
-            retMap.put("accessToken", kakaoAccessToken);
+            retMap.put("accessToken", kakaoAccessToken);//카카오토근전달
             retMap.put("token", token);//토근전달
+            int usercode = user.getUsercode();//사용편의를 위한 usercode저장
             retMap.put("id", userid);//id전달
-            retMap.put("usercode", usercode);//user
+            retMap.put("usercode", usercode);//usercode전달
         }
         return retMap;
     }
@@ -205,22 +204,22 @@ public class LoginServiceImpl implements LoginService {
 		userInfo = (HashMap<String, Object>) userInfo.get("response");
 		//System.out.println(" =======================naver userInfo : " + userInfo);
 		
-		//ID 로 회원가입 했는지 안했는지 확인
-		String userid = userInfo.get("id").toString();
-        MemberDto user = loginDao.findByUserid(userid);
-        int usercode = user.getUsercode();
+		String userid = userInfo.get("id").toString();//정보에서 id 받아 저장
+        MemberDto user = loginDao.findByUserid(userid);//그 id로 db조회해서 저장
+        
         
         if(user==null) {
-        	retMap.put("Signup", "N");
+        	retMap.put("Signup", "N");//회원가입해야함
         	retMap.put("userInfo", userInfo);//회원가입을 위한 user 정보 전달
         }  else {
-	        retMap.put("Signup", "Y");
+	        retMap.put("Signup", "Y");//회원가입되어있음
 	        Authentication auth = new UserAuthentication(userid, null, null);
-            String token = JwtTokenProvider.generateToken(auth, userid);
+            String token = JwtTokenProvider.generateToken(auth, userid);//토큰발급
             //System.out.println("token=" + token); //토큰 확인
             retMap.put("token", token);//토근전달
-            retMap.put("id", userid);//id전달
-            retMap.put("usercode", usercode);//user
+            retMap.put("id", userid);//id 전달
+            int usercode = user.getUsercode();//사용편의를 위한 usercode저장
+            retMap.put("usercode", usercode);//usercode 전달
         }
 		
     	return retMap;
@@ -257,6 +256,41 @@ public class LoginServiceImpl implements LoginService {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         
     	retMap = objectMapper.readValue(accountInfoResponse.getBody(), HashMap.class);
+        
+        return retMap;
+    }
+    
+    /**
+     * 카카오 로그아웃
+     * 
+     * @param reqMap
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+	public HashMap<String, Object> logoutKakao(HashMap<String, Object> reqMap) throws Exception {
+    	HashMap<String, Object> retMap = new HashMap<String, Object>();
+    	
+        RestTemplate rt = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        String url = "https://kauth.kakao.com/oauth/logout?client_id=" + reqMap.get("client") + "&logout_redirect_uri=" + reqMap.get("logoutRedirectUrl");
+        
+        System.out.println("===== " + url);
+        
+        //HashMap<String, Object> accountInfoResponse = rt.getForObject(url, HashMap.class, headers);
+        
+        //ObjectMapper objectMapper = new ObjectMapper();
+        //objectMapper.registerModule(new JavaTimeModule());
+        //objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        
+        //retMap = accountInfoResponse;
+        
+    	//retMap = objectMapper.readValue(accountInfoResponse.getBody(), HashMap.class);
+    	
+    	retMap.put("url", url);
         
         return retMap;
     }

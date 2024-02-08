@@ -28,5 +28,15 @@
     "name": "react.kakao.login.secret",
     "type": "java.lang.String",
     "description": "A description for 'react.kakao.login.secret'"
+  },
+  {
+    "name": "react.kakao.login.logoutRedirectUrl",
+    "type": "java.lang.String",
+    "description": "A description for 'react.kakao.login.logoutRedirectUrl'"
+  },
+  {
+    "name": "spring.config.active.on-profile",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.config.active.on-profile'"
   }
 ]}
