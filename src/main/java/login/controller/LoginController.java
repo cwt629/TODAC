@@ -34,6 +34,8 @@ public class LoginController {
     private String naverSecret;
     @Value("${react.kakao.login.redirecturl}")
     private String redirectUrl;
+    @Value("${react.kakao.login.logoutRedirectUrl}")
+    private String logoutRedirectUrl;
 
     //관리자 로그인 - 아이디가 없는 경우 noid, 있는 경우 비번을 비교하고 맞을때만 토큰 전달
 	@PostMapping("/login/auth")
@@ -124,6 +126,24 @@ public class LoginController {
 			map = loginService.getNaverToken(reqMap);
 		}
 		
+		return map;
+	}
+	
+	//로그아웃 url
+	@PostMapping("/logout/logoutCallBack")
+	public Map<String, Object> logoutCallBack(@RequestBody HashMap<String, Object> reqMap) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		System.out.println(" =============================== reqMap : " + reqMap);
+		
+		
+		reqMap.put("client", kakaoClient);
+		reqMap.put("secret", kakaoSecret);
+		reqMap.put("redirect", redirectUrl);
+		reqMap.put("logoutRedirectUrl", logoutRedirectUrl);
+		
+		map = loginService.logoutKakao(reqMap);
+					
 		return map;
 	}
 	

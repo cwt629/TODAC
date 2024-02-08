@@ -5,6 +5,7 @@ import LoginAdmin from '../components/login/LoginAdmin';
 import LoginCallBack from '../components/login/LoginCallBack';
 import SignupKaKao from '../components/login/SignupKaKao';
 import SignupNaver from '../components/login/SignupNaver';
+import LogoutCallBack from '../components/login/LogoutCallBack';
 
 const RouterLoginMain = () => {
     return (
@@ -17,6 +18,7 @@ const RouterLoginMain = () => {
                     <Route path='callback' element={<LoginCallBack />} />
                     <Route path='signupkakao' element={<SignupKaKao />} />
                     <Route path='signupnaver' element={<SignupNaver />} />
+                    <Route path='logoutcallback' element={<LogoutCallBack />} />
                 </Route>
             </Routes>
             
