@@ -1,35 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 const MemberComments = () => {
-
+    const nav = useNavigate();
     const [comment, setComment] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    let [query, setQuery] = useSearchParams();
-    const usercode = query.get("usercode");
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const usercode = params.get("usercode");
 
-    const getComment = () => {
-        axios.get("/admin/member/comment?usercode=" + usercode)
+    useEffect(() => {
+        if (usercode) {
+            fetchComment(usercode);
+        }
+    }, [usercode]);
+
+    const fetchComment = (usercode) => {
+        setLoading(true);
+        axios.get(`/admin/member/comment?usercode=${usercode}`)
             .then(res => {
                 setComment(res.data);
             })
+            .catch(error => {
+                console.error("Error fetching comment:", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
-    useEffect(() => {
-        getComment();
-    }, [usercode, searchQuery]);
-
-    // 검색어와 일치하는 게시글만 필터링합니다.
-    const filteredBoard = comment.filter(item => item.content.includes(searchQuery));
+    // 검색어와 일치하는 게시글만 필터링
+    const filteredComment = comment.filter(item => item.content.includes(searchQuery));
 
     return (
         <div className='mx_30'>
             <div className='mt-1 fs_14'>
                 <Link to="/admin" className='col_blue2'>관리자 홈 {'>'} </Link>
                 <Link to="/admin/MemberManage" className='col_blue2'>회원 관리 {'>'} </Link>
-                <Link to="/admin/MemberManage/MemberProfile" className='col_blue2'>회원 정보 {'>'}</Link>
-                <Link to="/admin/MemberManage/MemberProfile/MemberComments" className='col_blue2'>회원 댓글</Link>
+                <Link to={`/admin/MemberManage/MemberProfile?usercode=${usercode}`} className='col_blue2'>회원 정보 {'>'}</Link>
+                <span className='col_blue2'>&nbsp;회원 댓글</span>
             </div>
             <div className='fs_25 fw_700'>회원 댓글</div>
             <div style={{ marginBottom: '20px' }}>
@@ -51,13 +62,13 @@ const MemberComments = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredBoard.map((item, index) => (
+                    {filteredComment.map((item, index) => (
                         <tr key={index}>
                             <td>{item.content}</td>
                             <td>{item.registereddate}</td>
                         </tr>
                     ))}
-                    {filteredBoard.length === 0 && (
+                    {filteredComment.length === 0 && (
                         <tr>
                             <td colSpan="2">검색 결과가 없습니다.</td>
                         </tr>
