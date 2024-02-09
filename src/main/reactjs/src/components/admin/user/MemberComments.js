@@ -10,12 +10,23 @@ const MemberComments = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const usercode = params.get("usercode");
+    const [member, setMember] = useState([]);
 
     useEffect(() => {
         if (usercode) {
+            getMember(usercode);
             fetchComment(usercode);
         }
     }, [usercode]);
+
+    const getMember = () => {
+        const url = "/member/data?usercode=" + usercode;
+        console.log("usercode = " + usercode);
+        axios.post(url, {})
+            .then(res => {
+                setMember(res.data);
+            })
+    }
 
     const fetchComment = (usercode) => {
         setLoading(true);
@@ -43,38 +54,30 @@ const MemberComments = () => {
                 <span className='col_blue2'>&nbsp;회원 댓글</span>
             </div>
             <div className='fs_25 fw_700'>회원 댓글</div>
-            <div style={{ marginBottom: '20px' }}>
-                <label htmlFor="search" className='fs_16 fw_600 col_blue2'>검색:</label>
-                <input
-                    type="text"
-                    id="search"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="댓글 내용을 검색하세요"
-                    className='commonInput fs_16 fw_600'
-                />
+
+            <div style={{ textAlign: 'center' }}>
+                <img alt='' src={member.photo} style={{ width: '25vh', height: '25vh' }} />
+                <br /><br />
+                <h1 className='fs_25 fw_700'>{member.nickname}님</h1>
+                <br />
             </div>
-            <table className='table table-bordered'>
-                <thead>
-                    <tr>
-                        <th>내용</th>
-                        <th>등록일</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredComment.map((item, index) => (
-                        <tr key={index}>
-                            <td>{item.content}</td>
-                            <td>{item.registereddate}</td>
-                        </tr>
-                    ))}
-                    {filteredComment.length === 0 && (
-                        <tr>
-                            <td colSpan="2">검색 결과가 없습니다.</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+
+            {/* 검색창 */}
+            <input
+                type="text"
+                id="search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="댓글 내용을 검색하세요"
+                className='form-control mb-3 bg_red col_gray fs_16 fw_800'
+                style={{ '::placeholder': { color: 'lightgray' } }}
+            />
+            {filteredComment.map((item, index) => (
+                <div key={index} className='bg_gray bor_gray1 px-3 py-2'>
+                    <div>내용 : <span className='fw_600'>{item.content}</span></div>
+                    <div className='fs_14'>등록일자 : {item.registereddate}</div>
+                </div>
+            ))}
         </div>
     );
 };
