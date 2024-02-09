@@ -1,5 +1,6 @@
 package community.board.controller;
 
+import community.board.data.BoardCommentDto;
 import community.board.data.BoardDto;
 import community.board.data.BoardListDto;
 import mypage.data.MemberDto;
@@ -128,4 +129,12 @@ public class BoardController {
 	{
 		return boardDao.getMemberPostData(usercode);
 	}
+	
+	//관리자 게시판에서 회원 댓글 출력할때 사용하는 로직
+	@GetMapping("/admin/member/comment")
+	public List<BoardCommentDto> getMemberCommentData(@RequestParam("usercode") int usercode)
+	{
+		return boardDao.getMemberCommentData(usercode);
+	}
+
 }
