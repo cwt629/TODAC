@@ -10,10 +10,8 @@ const MemberComments = () => {
     const usercode = query.get("usercode");
 
     const getComment = () => {
-        //console.log("usercode = " + usercode);
         axios.get("/admin/member/comment?usercode=" + usercode)
             .then(res => {
-                //console.log(res.data);
                 setComment(res.data);
             })
     }

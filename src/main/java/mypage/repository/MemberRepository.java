@@ -17,10 +17,18 @@ public interface MemberRepository extends JpaRepository<MemberDto, Integer>{
     @Query(value = "select * from member where userid=:userid",nativeQuery = true)
     public  MemberDto getMemberByID(@Param("userid") String userid);
     
+    //서연 작성-받는 데이터값 usercode로 통일 시키려고 만들었씀
+    @Query(value = "select * from member where usercode=:usercode",nativeQuery = true)
+    public  MemberDto getMemberByData(@Param("usercode") int usercode);
+    
+    @Query(value = "SELECT * FROM member WHERE type = 'user'", nativeQuery = true)
+    public List<MemberDto> findAllUsers();
+    
     @Modifying
     @Transactional
-    @Query(value = "delete from member where userid = :userid", nativeQuery = true)
-    public void deleteMember(@Param("userid") String userid);
+    @Query(value = "delete from member where usercode = :usercode", nativeQuery = true)
+    public void deleteMember(@Param("usercode") int usercode);
 
+    
 
 }
