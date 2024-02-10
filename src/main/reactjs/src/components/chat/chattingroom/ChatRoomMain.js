@@ -148,6 +148,34 @@ const ChatRoomMain = () => {
     );
 
     const handleFinishChat = () => {
+        // 1. 아무 메세지도 적지 않은 경우
+        if (log.length <= 1) {
+            Swal.fire({
+                icon: 'warning',
+                title: '상담을 종료하시겠어요?',
+                html: '상담한 내역이 없습니다.<br/>이대로 상담을 종료하시겠습니까?',
+                showConfirmButton: true,
+                showCancelButton: true,
+                confirmButtonText: '네',
+                cancelButtonText: '아니오',
+                confirmButtonColor: '#FF7170',
+                cancelButtonColor: '#9396A6'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        html: '상담이 종료되었습니다.<br/>채팅 메인 페이지로 돌아갑니다.',
+                        confirmButtonText: '확인',
+                        confirmButtonColor: '#FF7170'
+                    }).then(() => {
+                        nav("/user/chat");
+                    })
+                }
+            })
+
+            return;
+        }
+
         Swal.fire({
             title: '상담은 어떠셨나요?',
             html: CHAT_REVIEW_MODAL,
