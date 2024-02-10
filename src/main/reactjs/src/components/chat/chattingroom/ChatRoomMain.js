@@ -148,7 +148,20 @@ const ChatRoomMain = () => {
     );
 
     const handleFinishChat = () => {
-        // 1. 아무 메세지도 적지 않은 경우
+        // 1. 상담사의 메세지를 로딩 중인 경우
+        if (loading) {
+            Swal.fire({
+                icon: 'warning',
+                title: '답변을 기다려주세요!',
+                html: '아직 상담사가 답변 중이에요!<br/>답변을 기다려 주세요!',
+                confirmButtonText: '확인',
+                confirmButtonColor: '#FF7170'
+            })
+
+            return;
+        }
+
+        // 2. 아무 메세지도 적지 않은 경우
         if (log.length <= 1) {
             Swal.fire({
                 icon: 'warning',
