@@ -1,74 +1,85 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 const MemberPost = () => {
-
+    const nav = useNavigate();
     const [board, setBoard] = useState([]);
-    let [query, setQuery] = useSearchParams();
+    const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const usercode = query.get("usercode");
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const usercode = params.get("usercode");
+    const [member, setMember] = useState([]);
 
-    const getBoard = () => {
+    useEffect(() => {
+        if (usercode) {
+            getMember(usercode);
+            fetchBoard(usercode);
+        }
+    }, [usercode]);
+
+    const getMember = () => {
+        const url = "/member/data?usercode=" + usercode;
         console.log("usercode = " + usercode);
-        axios.post("/admin/member/post?usercode=" + usercode)
+        axios.post(url, {})
             .then(res => {
-                console.log(res.data);
-                setBoard(res.data);
+                setMember(res.data);
             })
     }
 
-    useEffect(() => {
-        getBoard();
-    }, [usercode, searchQuery]);
+    const fetchBoard = (usercode) => {
+        setLoading(true);
+        axios.post(`/admin/member/post?usercode=${usercode}`)
+            .then(res => {
+                setBoard(res.data);
+            })
+            .catch(error => {
+                console.error("Error fetching board:", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }
 
-    // 검색어와 일치하는 게시글만 필터링합니다.
+    // 검색어와 일치하는 게시글만 필터링
     const filteredBoard = board.filter(item => item.title.includes(searchQuery));
 
     return (
-        < div className='mx_30' >
+        <div className='mx_30'>
             <div className='mt-1 fs_14'>
                 <Link to="/admin" className='col_blue2'>관리자 홈 {'>'} </Link>
                 <Link to="/admin/MemberManage" className='col_blue2'>회원 관리 {'>'} </Link>
-                <Link to="/admin/MemberManage/MemberProfile" className='col_blue2'>회원 정보 {'>'}</Link>
-                <Link to="/admin/MemberManage/MemberProfile/MemberPost" className='col_blue2'>회원 게시글</Link>
+                <Link to={`/admin/MemberManage/MemberProfile?usercode=${usercode}`} className='col_blue2'>회원 정보 {'>'}</Link>
+                <span className='col_blue2'>&nbsp;회원 게시글</span>
             </div>
             <div className='fs_25 fw_700'>회원 게시글</div>
 
-            <div style={{ marginBottom: '20px' }}>
-                <label htmlFor="search" className='fs_16 fw_600 col_blue2'>검색:</label>
-                <input
-                    type="text"
-                    id="search"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="게시글 제목을 검색하세요"
-                    className='commonInput fs_16 fw_600'
-                />
+            <div style={{ textAlign: 'center' }}>
+                <img alt='' src={member.photo} style={{ width: '25vh', height: '25vh' }} />
+                <br /><br />
+                <h1 className='fs_25 fw_700'>{member.nickname}님</h1>
+                <br />
             </div>
 
-            <table className='table table-bordered'>
-                <thead>
-                    <tr>
-                        <th>제목</th>
-                        <th>등록일</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredBoard.map((item, index) => (
-                        <tr key={index}>
-                            <td>{item.title}</td>
-                            <td>{item.registereddate}</td>
-                        </tr>
-                    ))}
-                    {filteredBoard.length === 0 && (
-                        <tr>
-                            <td colSpan="2">검색 결과가 없습니다.</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        </div >
+            {/* 검색창 */}
+            <input
+                type="text"
+                id="search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="게시글 제목을 검색하세요"
+                className="form-control mb-3 bg_red col_gray fs_16 fw_800"
+                style={{ '::placeholder': { color: 'lightgray' } }}
+            />
+
+            {filteredBoard.map((item, index) => (
+                <div key={index} className='bg_gray bor_gray1 px-3 py-2'>
+                    <div>제목 : <span className='fw_600'>{item.title}</span></div>
+                    <div className='fs_14'>{item.registereddate}</div>
+                </div>
+            ))}
+        </div>
     );
 };
 

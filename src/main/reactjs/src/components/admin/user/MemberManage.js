@@ -61,13 +61,13 @@ const MemberManage = () => {
                     </tr>
                 </thead>
                 <tbody className='bg_red'>
-                    {filteredMembers.map(member => (
+                    {filteredMembers.map((member, index) => (
                         <tr
-                            key={member.usercode}
-                            onClick={() => nav("MemberProfile?userid=" + member.userid)}
+                            key={index}
+                            onClick={() => nav("MemberProfile?usercode=" + member.usercode)}
                             style={{ cursor: 'pointer' }}
                         >
-                            <td>{member.usercode}</td>
+                            <td>{index + 1}</td>
                             <td>{member.nickname}</td>
                             <td>{member.registereddate}</td>
                         </tr>
