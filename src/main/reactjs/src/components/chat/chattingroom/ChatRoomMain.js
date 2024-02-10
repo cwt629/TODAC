@@ -16,7 +16,7 @@ const COUNSELOR_INITIAL_MESSAGE = "반갑습니다. 고민을 말씀해주세요
 const MAXIMUM_INPUT_LENGTH = 300;
 const MAXIMUM_STARS = 5;
 
-const MySwal = withReactContent(Swal);
+const ReactSwal = withReactContent(Swal);
 
 
 const ChatRoomMain = () => {
@@ -52,7 +52,7 @@ const ChatRoomMain = () => {
 
     const handleInputSubmit = () => {
         if (loading) {
-            Swal.fire({
+            ReactSwal.fire({
                 title: '상담사가 아직 답변중!',
                 text: '상담사가 아직 답변중입니다. 잠시 후 시도해주세요.',
                 icon: 'warning',
@@ -63,7 +63,7 @@ const ChatRoomMain = () => {
         }
 
         if (input.length === 0) {
-            Swal.fire({
+            ReactSwal.fire({
                 title: '입력 없음!',
                 text: '메세지를 입력해주세요.',
                 icon: 'error',
@@ -98,7 +98,7 @@ const ChatRoomMain = () => {
                 headers: { 'Content-Type': 'application/json' }
             });
 
-            Swal.fire({
+            ReactSwal.fire({
                 icon: 'success',
                 html: '채팅 내역이 저장되었습니다!<br/>요약본 페이지로 이동합니다.',
                 confirmButtonColor: '#FF7170',
@@ -108,7 +108,7 @@ const ChatRoomMain = () => {
             })
 
         } catch (err) {
-            Swal.fire({
+            ReactSwal.fire({
                 icon: 'error',
                 title: '뭔가 문제 발생!',
                 text: `Error: ${err}`,
@@ -138,7 +138,7 @@ const ChatRoomMain = () => {
     }
 
     const handleReviewPass = async () => {
-        Swal.fire({
+        ReactSwal.fire({
             text: '채팅 내용 저장중...',
             showConfirmButton: false
         });
@@ -148,13 +148,13 @@ const ChatRoomMain = () => {
 
     const handleReviewClose = () => {
         handleHidingReview(false);
-        MySwal.close();
+        ReactSwal.close();
     }
 
     const handleFinishChat = () => {
         // 1. 상담사의 메세지를 로딩 중인 경우
         if (loading) {
-            Swal.fire({
+            ReactSwal.fire({
                 icon: 'warning',
                 title: '답변을 기다려주세요!',
                 html: '아직 상담사가 답변 중이에요!<br/>답변을 기다려 주세요!',
@@ -167,7 +167,7 @@ const ChatRoomMain = () => {
 
         // 2. 아무 메세지도 적지 않은 경우
         if (log.length <= 1) {
-            Swal.fire({
+            ReactSwal.fire({
                 icon: 'warning',
                 title: '상담을 종료하시겠어요?',
                 html: '상담한 내역이 없습니다.<br/>이대로 상담을 종료하시겠습니까?',
@@ -179,7 +179,7 @@ const ChatRoomMain = () => {
                 cancelButtonColor: '#9396A6'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire({
+                    ReactSwal.fire({
                         icon: 'success',
                         html: '상담이 종료되었습니다.<br/>채팅 메인 페이지로 돌아갑니다.',
                         confirmButtonText: '확인',
