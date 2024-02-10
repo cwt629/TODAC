@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 const MemberPost = () => {
     const nav = useNavigate();
@@ -21,7 +22,6 @@ const MemberPost = () => {
 
     const getMember = () => {
         const url = "/member/data?usercode=" + usercode;
-        console.log("usercode = " + usercode);
         axios.post(url, {})
             .then(res => {
                 setMember(res.data);
@@ -45,6 +45,16 @@ const MemberPost = () => {
     // 검색어와 일치하는 게시글만 필터링
     const filteredBoard = board.filter(item => item.title.includes(searchQuery));
 
+    // SweetAlert2 모달 창 
+    const openModal = (post) => {
+        Swal.fire({
+            title: post.title,
+            html: `<div>${post.content}</div>`,
+            confirmButtonColor: '#FF7170',
+            confirmButtonText: '닫기',
+        });
+    };
+
     return (
         <div className='mx_30'>
             <div className='mt-1 fs_14'>
@@ -61,6 +71,7 @@ const MemberPost = () => {
                 <h1 className='fs_25 fw_700'>{member.nickname}님</h1>
                 <br />
             </div>
+            <div className='fs_17 fw_800'>{member.nickname} 님의 게시글 검색</div>
 
             {/* 검색창 */}
             <input
@@ -72,13 +83,15 @@ const MemberPost = () => {
                 className="form-control mb-3 bg_red col_gray fs_16 fw_800"
                 style={{ '::placeholder': { color: 'lightgray' } }}
             />
-
+            <div className='fs_17 fw_800'>{member.nickname} 님의 게시글 목록</div>
             {filteredBoard.map((item, index) => (
-                <div key={index} className='bg_gray bor_gray1 px-3 py-2'>
+                <div key={index} className='bg_gray bor_gray1 px-3 py-2' onClick={() => openModal(item)}
+                    style={{ cursor: 'pointer' }}>
                     <div>제목 : <span className='fw_600'>{item.title}</span></div>
                     <div className='fs_14'>{item.registereddate}</div>
                 </div>
             ))}
+
         </div>
     );
 };

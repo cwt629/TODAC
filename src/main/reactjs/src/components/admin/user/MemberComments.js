@@ -61,7 +61,7 @@ const MemberComments = () => {
                 <h1 className='fs_25 fw_700'>{member.nickname}님</h1>
                 <br />
             </div>
-
+            <div className='fs_17 fw_800'>{member.nickname} 님의 댓글 검색</div>
             {/* 검색창 */}
             <input
                 type="text"
@@ -72,6 +72,7 @@ const MemberComments = () => {
                 className='form-control mb-3 bg_red col_gray fs_16 fw_800'
                 style={{ '::placeholder': { color: 'lightgray' } }}
             />
+            <div className='fs_17 fw_800'>{member.nickname} 님의 댓글 목록</div>
             {filteredComment.map((item, index) => (
                 <div key={index} className='bg_gray bor_gray1 px-3 py-2'>
                     <div>내용 : <span className='fw_600'>{item.content}</span></div>
