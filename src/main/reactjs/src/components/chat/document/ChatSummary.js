@@ -13,6 +13,7 @@ const ChatSummary = () => {
     const roomcode = query.get("roomcode");
     const userLog = summaryList.filter((log) => (log.speaker === 0));
     const counselorLog = summaryList.filter((log) => (log.speaker !== 0));
+    const [loading, setLoading] = useState(true); // 요약본 생성 중인지 여부
 
     const handleInfoClick = () => {
         // sweetalert2 팝업 띄우기
@@ -29,6 +30,7 @@ const ChatSummary = () => {
                 console.log(res.data);
                 setSummaryList(res.data);
             })
+            .finally(() => setLoading(false)); // 요약본 생성 완료 후 loading 상태 변경
     }
 
     useEffect(() => {
@@ -37,14 +39,28 @@ const ChatSummary = () => {
 
     /// 사용자 고민 내용과 상담사의 답변 내용을 요약합니다.
     const summarizeMessages = async () => {
+        Swal.fire({
+            title: '요약본 생성중',
+            text: '잠시만 기다려주세요!',
+            icon: 'info',
+            timerProgressBar: true,
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            willOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
         const summarizedUserMessage = await summarizeContent(
             userLog.map(item => item.content).join(' '),
-            "사용자의 고민을 요약합니다."
+            "user의 고민을 요약합니다."
         );
         const summarizedCounselorMessage = await summarizeContent(
             counselorLog.map(item => item.content).join(' '),
-            "상담사의 답변을 요약합니다."
+            "counselor의 답변을 요약합니다."
         );
+
+        Swal.close(); // 요약이 완료되면 알림창 닫기
 
         return { summarizedUserMessage, summarizedCounselorMessage };
     };

@@ -16,7 +16,7 @@ async function summarizeContent(content, systemMessage) {
                     { 'role': 'system', 'content': systemMessage },
                     { 'role': 'user', 'content': content }
                 ],
-                temperature: 0.5,
+                temperature: 0.1,
                 max_tokens: 400,
                 top_p: 1,
                 frequency_penalty: 0,
