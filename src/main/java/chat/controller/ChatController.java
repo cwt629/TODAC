@@ -22,15 +22,18 @@ public class ChatController {
 	private final CounselorService counselorService;
 	private final ChatService chatService;
 
-	@PostMapping("/chat/finish/noreview")
-	public Short insertChatWithoutReview(@RequestBody List<ChatLogDto> log, @RequestParam("userid") String userid, @RequestParam("counselorcode") Short counselorcode) {
+	@PostMapping("/chat/finish")
+	public Short insertChat(@RequestBody List<ChatLogDto> log, 
+			@RequestParam("userid") String userid,
+			@RequestParam("counselorcode") Short counselorcode,
+			@RequestParam(value = "score", defaultValue = "-1") Short score) {
 		// 1. 채팅방 정보 저장
 		ChatRoomDto roomDto = new ChatRoomDto();
 		roomDto.setCounselor(counselorService.getCounselorByCode(counselorcode));
 		roomDto.setMember(memberDao.getMemberByID(userid));
 		
 		// 2. 해당 채팅방에 로그 저장
-		Short roomcode = chatService.insertChatLog(roomDto, log);
+		Short roomcode = chatService.insertChatLog(roomDto, log, score);
 		
 		return roomcode;
 	}
