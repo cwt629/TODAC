@@ -14,7 +14,6 @@ import chat.service.ChatService;
 import chat.service.CounselorService;
 import lombok.RequiredArgsConstructor;
 import mypage.repository.MemberDao;
-import net.bytebuddy.implementation.bytecode.constant.DefaultValue;
 
 @RestController
 @RequiredArgsConstructor
