@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ChatContent from './ChatContent';
 import ChatRoomMidBar from './ChatRoomMidBar';
 import './ChatRoomStyle.css'
@@ -6,14 +6,18 @@ import getGPTResponse from '../api/gpt';
 import ChatSubmit from './ChatSubmit';
 import Swal from 'sweetalert2';
 import ChatReviewModal from './ChatReviewModal';
-import { renderToString } from 'react-dom/server';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../PageHeader';
+import withReactContent from 'sweetalert2-react-content';
+import ReviewAlert from './ReviewAlert';
 
 const COUNSELOR_INITIAL_MESSAGE = "반갑습니다. 고민을 말씀해주세요. 언제든 답변해드리겠습니다.";
 const MAXIMUM_INPUT_LENGTH = 300;
 const MAXIMUM_STARS = 5;
+
+const ReactSwal = withReactContent(Swal);
+
 
 const ChatRoomMain = () => {
     const [log, setLog] = useState([{
@@ -22,6 +26,7 @@ const ChatRoomMain = () => {
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [star, setStar] = useState(MAXIMUM_STARS);
+    const [showReview, setShowReview] = useState(false);
 
     const nav = useNavigate();
 
@@ -34,11 +39,6 @@ const ChatRoomMain = () => {
 
     const PAGE_TITLE = 'TODAC 채팅';
 
-    // useEffect(() => {
-    //     console.log('나의 세션');
-    //     console.log('id: ' + sessionStorage.getItem("id"));
-    //     console.log('token: ' + sessionStorage.getItem("token"));
-    // }, [])
 
     // log 갱신이 완료되면 그때 input과 로딩 상태를 갱신하기
     useEffect(() => {
@@ -52,7 +52,7 @@ const ChatRoomMain = () => {
 
     const handleInputSubmit = () => {
         if (loading) {
-            Swal.fire({
+            ReactSwal.fire({
                 title: '상담사가 아직 답변중!',
                 text: '상담사가 아직 답변중입니다. 잠시 후 시도해주세요.',
                 icon: 'warning',
@@ -63,7 +63,7 @@ const ChatRoomMain = () => {
         }
 
         if (input.length === 0) {
-            Swal.fire({
+            ReactSwal.fire({
                 title: '입력 없음!',
                 text: '메세지를 입력해주세요.',
                 icon: 'error',
@@ -84,7 +84,7 @@ const ChatRoomMain = () => {
             });
     }
 
-    const submitLog = async () => {
+    const submitLog = async (score = -1) => {
         let logData = log.map((data) => ({
             'speaker': data.speaker,
             'content': data.content
@@ -93,14 +93,15 @@ const ChatRoomMain = () => {
         try {
             let response = await axios({
                 method: 'post',
-                url: `/chat/finish/noreview?userid=${sessionStorage.getItem('id')}&counselorcode=1`,
+                url: `/chat/finish?userid=${sessionStorage.getItem('id')}&counselorcode=1&score=${score}`,
                 data: JSON.stringify(logData),
                 headers: { 'Content-Type': 'application/json' }
             });
 
-            Swal.fire({
+            ReactSwal.fire({
                 icon: 'success',
-                html: '채팅 내역이 저장되었습니다!<br/>요약본 페이지로 이동합니다.',
+                title: `${score >= 0 ? '소중한 리뷰 감사합니다!' : ''}`,
+                html: `채팅 내역${score >= 0 ? '과 별점' : ''}이 저장되었습니다!<br/>요약본 페이지로 이동합니다.`,
                 confirmButtonColor: '#FF7170',
                 confirmButtonText: '확인'
             }).then(() => {
@@ -108,7 +109,7 @@ const ChatRoomMain = () => {
             })
 
         } catch (err) {
-            Swal.fire({
+            ReactSwal.fire({
                 icon: 'error',
                 title: '뭔가 문제 발생!',
                 text: `Error: ${err}`,
@@ -118,19 +119,31 @@ const ChatRoomMain = () => {
         }
     }
 
-    const handleStarClick = (index) => {
-        setStar(index + 1); // 0~4번째 별은 각각 1~5점을 의미
-        alert(`${index + 1}점 주려고 함`);
-        console.log(star);
-    }
+    // 리뷰 관련
 
-    const handleReviewGrant = () => {
-        // TODO: 리뷰를 작성하는 경우
-        alert("리뷰 작성은 아직 미구현입니다! 조금만 기다려주세요.");
+    const handleShowingReview = useCallback(() => {
+        setShowReview(true);
+    }, []);
+
+    const handleHidingReview = useCallback(() => {
+        setShowReview(false);
+    }, []);
+
+    const handleStarClick = useCallback((index) => {
+        setStar(index + 1);
+    }, []);
+
+    const handleReviewGrant = async () => {
+        ReactSwal.fire({
+            text: '채팅 내용 및 별점 저장중...',
+            showConfirmButton: false
+        });
+
+        await submitLog(star);
     }
 
     const handleReviewPass = async () => {
-        Swal.fire({
+        ReactSwal.fire({
             text: '채팅 내용 저장중...',
             showConfirmButton: false
         });
@@ -139,47 +152,54 @@ const ChatRoomMain = () => {
     }
 
     const handleReviewClose = () => {
-        Swal.close();
+        handleHidingReview(false);
+        ReactSwal.close();
     }
 
-    // JSX 컴포넌트를 문자열로 변환한다 -> Swal 안의 html에 넣기 위한 작업
-    const CHAT_REVIEW_MODAL = renderToString(
-        <ChatReviewModal star={star} maxStar={MAXIMUM_STARS} />
-    );
-
     const handleFinishChat = () => {
-        Swal.fire({
-            title: '상담은 어떠셨나요?',
-            html: CHAT_REVIEW_MODAL,
-            showConfirmButton: false,
-            didOpen: () => {
-                const passButton = document.querySelector('.review-button.review-pass');
-                const grantButton = document.querySelector('.review-button.review-grant');
-                const closeButton = document.querySelector('.review-button.review-close');
+        // 1. 상담사의 메세지를 로딩 중인 경우
+        if (loading) {
+            ReactSwal.fire({
+                icon: 'warning',
+                title: '답변을 기다려주세요!',
+                html: '아직 상담사가 답변 중이에요!<br/>답변을 기다려 주세요!',
+                confirmButtonText: '확인',
+                confirmButtonColor: '#FF7170'
+            })
 
-                // 별점 - 클릭 이벤트
-                document.querySelectorAll('span.review-star').forEach((stardiv, index) => {
-                    stardiv.addEventListener('click', () => {
-                        handleStarClick(index);
+            return;
+        }
+
+        // 2. 아무 메세지도 적지 않은 경우
+        if (log.length <= 1) {
+            ReactSwal.fire({
+                icon: 'warning',
+                title: '상담을 종료하시겠어요?',
+                html: '상담한 내역이 없습니다.<br/>이대로 상담을 종료하시겠습니까?',
+                showConfirmButton: true,
+                showCancelButton: true,
+                confirmButtonText: '네',
+                cancelButtonText: '아니오',
+                confirmButtonColor: '#FF7170',
+                cancelButtonColor: '#9396A6'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    ReactSwal.fire({
+                        icon: 'success',
+                        html: '상담이 종료되었습니다.<br/>채팅 메인 페이지로 돌아갑니다.',
+                        confirmButtonText: '확인',
+                        confirmButtonColor: '#FF7170'
+                    }).then(() => {
+                        nav("/user/chat");
                     })
-                })
+                }
+            })
 
-                // 건너뛰기 클릭 이벤트
-                passButton.addEventListener('click', () => {
-                    handleReviewPass();
-                })
+            return;
+        }
 
-                // 별점주기 클릭 이벤트
-                grantButton.addEventListener('click', () => {
-                    handleReviewGrant();
-                })
-
-                // 닫기 클릭 이벤트
-                closeButton.addEventListener('click', () => {
-                    handleReviewClose();
-                })
-            }
-        });
+        // 그 외: 리뷰 보여주기
+        handleShowingReview();
     }
 
 
@@ -190,6 +210,11 @@ const ChatRoomMain = () => {
             <ChatRoomMidBar handleFinishChat={handleFinishChat} />
             <ChatContent log={log} />
             <ChatSubmit input={input} maxlength={MAXIMUM_INPUT_LENGTH} handleInputChange={handleInputChange} handleInputSubmit={handleInputSubmit} />
+            {/* 리뷰창: 별점 갱신을 위해 컴포넌트로 감싼 뒤, 내부에서 portal로 관리한다 */}
+            <ReviewAlert reviewShow={showReview}>
+                <ChatReviewModal star={star} maxStar={MAXIMUM_STARS} handleStarClick={handleStarClick}
+                    handleReviewPass={handleReviewPass} handleReviewGrant={handleReviewGrant} handleReviewClose={handleReviewClose} />
+            </ReviewAlert>
         </div>
     );
 };
