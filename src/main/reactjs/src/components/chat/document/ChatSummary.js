@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import diagnosis from '../../../image/diagnosis.png';
 import './DocumentStyle.css';
 import axios from 'axios';
+import summarizeContent from '../api/summarize';
 
 const ChatSummary = () => {
     const [summaryList, setSummaryList] = useState([]);
@@ -34,6 +35,31 @@ const ChatSummary = () => {
         list();
     }, [])
 
+    /// 사용자 고민 내용과 상담사의 답변 내용을 요약합니다.
+    const summarizeMessages = async () => {
+        const summarizedUserMessage = await summarizeContent(
+            userLog.map(item => item.content).join(' '),
+            "사용자의 고민을 요약합니다."
+        );
+        const summarizedCounselorMessage = await summarizeContent(
+            counselorLog.map(item => item.content).join(' '),
+            "상담사의 답변을 요약합니다."
+        );
+
+        return { summarizedUserMessage, summarizedCounselorMessage };
+    };
+
+    const [summarizedMessages, setSummarizedMessages] = useState({ summarizedUserMessage: "", summarizedCounselorMessage: "" });
+
+    useEffect(() => {
+        const getSummarizedMessages = async () => {
+            const { summarizedUserMessage, summarizedCounselorMessage } = await summarizeMessages();
+            setSummarizedMessages({ summarizedUserMessage, summarizedCounselorMessage });
+        };
+
+        getSummarizedMessages();
+    }, [summaryList]);
+
     return (
         <div className='mx_30'>
             <div className='mt-1 fs_14'>
@@ -45,18 +71,12 @@ const ChatSummary = () => {
             <br /><br />
             <div className='fs_20 fw_700'>내 고민 요약</div>
             <div className='summaryContent fs_14 bor_red bg_red mt_10'>
-                내 고민 내용<br />
-                {userLog.map((item, index) => (
-                    <div key={index}>{item.content}</div>
-                ))}
+                {summarizedMessages.summarizedUserMessage.content}
             </div>
             <br />
             <div className='fs_20 fw_700'>상담사의 답변 요약</div>
             <div className='summaryAnswerContent fs_14 bor_blue1 bg_blue mt_10'>
-                상담사 답변 내용<br />
-                {counselorLog.map((item, index) => (
-                    <div key={index}>{item.content}</div>
-                ))}
+                {summarizedMessages.summarizedCounselorMessage.content}
             </div>
             <br /><br />
             <div style={{ textAlign: 'center' }}>
