@@ -84,7 +84,7 @@ const ChatRoomMain = () => {
             });
     }
 
-    const submitLog = async () => {
+    const submitLog = async (score = -1) => {
         let logData = log.map((data) => ({
             'speaker': data.speaker,
             'content': data.content
@@ -93,14 +93,15 @@ const ChatRoomMain = () => {
         try {
             let response = await axios({
                 method: 'post',
-                url: `/chat/finish/noreview?userid=${sessionStorage.getItem('id')}&counselorcode=1`,
+                url: `/chat/finish?userid=${sessionStorage.getItem('id')}&counselorcode=1&score=${score}`,
                 data: JSON.stringify(logData),
                 headers: { 'Content-Type': 'application/json' }
             });
 
             ReactSwal.fire({
                 icon: 'success',
-                html: '채팅 내역이 저장되었습니다!<br/>요약본 페이지로 이동합니다.',
+                title: `${score >= 0 ? '소중한 리뷰 감사합니다!' : ''}`,
+                html: `채팅 내역${score >= 0 ? '과 별점' : ''}이 저장되었습니다!<br/>요약본 페이지로 이동합니다.`,
                 confirmButtonColor: '#FF7170',
                 confirmButtonText: '확인'
             }).then(() => {
@@ -132,9 +133,13 @@ const ChatRoomMain = () => {
         setStar(index + 1);
     }, []);
 
-    const handleReviewGrant = () => {
-        // TODO: 리뷰를 작성하는 경우
-        alert("리뷰 작성은 아직 미구현입니다! 조금만 기다려주세요.\n선택한 별점: " + star);
+    const handleReviewGrant = async () => {
+        ReactSwal.fire({
+            text: '채팅 내용 및 별점 저장중...',
+            showConfirmButton: false
+        });
+
+        await submitLog(star);
     }
 
     const handleReviewPass = async () => {
