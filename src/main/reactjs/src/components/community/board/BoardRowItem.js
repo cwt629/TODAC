@@ -7,6 +7,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
+import { right } from "@popperjs/core";
 
 const BoardRowItem = ({ idx, data }) => {
     console.log(data);
@@ -31,9 +32,9 @@ const BoardRowItem = ({ idx, data }) => {
                                     variant='body2'
                                     color='text.primary'
                                 >
-                                    {data.registereddate}
+                                    {data.memberNickname}
                                 </Typography>
-                                {data.content}
+                                <Typography style={{ float: "right" }}>{data.registerDate}</Typography>
                             </React.Fragment>
                         }
                     />
