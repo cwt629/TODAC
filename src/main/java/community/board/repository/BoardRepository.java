@@ -26,26 +26,27 @@ import java.util.List;
 //public 은 적어도되고 안적어도 됨
 public interface BoardRepository extends JpaRepository<BoardDto, Integer> {
 
+//    List<Guest> findByTitleContainingIgnoreCase(String title);
+
     //검색 조건에 따른 게시물 수 조회
     //search (title)
-    @Query(value = "SELECT COUNT(*) FROM board WHERE title LIKE CONCAT('%', :search, '%')", nativeQuery = true)
-    int getTotalCountByTitle(@Param("search") String search);
-
-    @Query(value = "SELECT COUNT(*) FROM board WHERE content LIKE CONCAT('%', :search, '%')", nativeQuery = true)
-    int getTotalCountByContent(@Param("search") String search);
-
-    @Query(value = "SELECT COUNT(*) FROM board WHERE usercode = :usercode AND title LIKE CONCAT('%', :search, '%')", nativeQuery = true)
-    int getTotalCountByUserAndTitle(@Param("usercode") String usercode, @Param("search") String search);
-
-    @Query(value = "SELECT * FROM board WHERE title LIKE CONCAT('%', :search, '%')", nativeQuery = true)
-    List<BoardDto> getBoardsByTitle(@Param("search") String search);
-
-    @Query(value = "SELECT * FROM board WHERE content LIKE CONCAT('%', :search, '%')", nativeQuery = true)
-    List<BoardDto> getBoardsByContent(@Param("search") String search);
-
-    @Query(value = "SELECT * FROM board WHERE usercode = :usercode AND title LIKE CONCAT('%', :search, '%')", nativeQuery = true)
-    List<BoardDto> getBoardsByUserAndTitle(@Param("usercode") String usercode, @Param("search") String search);
-
+//    @Query(value = "SELECT COUNT(*) FROM board WHERE title LIKE CONCAT('%', :search, '%')", nativeQuery = true)
+//    int getTotalCountByTitle(@Param("search") String search);
+//
+//    @Query(value = "SELECT COUNT(*) FROM board WHERE content LIKE CONCAT('%', :search, '%')", nativeQuery = true)
+//    int getTotalCountByContent(@Param("search") String search);
+//
+//    @Query(value = "SELECT COUNT(*) FROM board WHERE usercode = :usercode AND title LIKE CONCAT('%', :search, '%')", nativeQuery = true)
+//    int getTotalCountByUserAndTitle(@Param("usercode") String usercode, @Param("search") String search);
+//
+//    @Query(value = "SELECT * FROM board WHERE title LIKE CONCAT('%', :search, '%')", nativeQuery = true)
+//    List<BoardDto> getBoardsByTitle(@Param("search") String search);
+//
+//    @Query(value = "SELECT * FROM board WHERE content LIKE CONCAT('%', :search, '%')", nativeQuery = true)
+//    List<BoardDto> getBoardsByContent(@Param("search") String search);
+//
+//    @Query(value = "SELECT * FROM board WHERE usercode = :usercode AND title LIKE CONCAT('%', :search, '%')", nativeQuery = true)
+//    List<BoardDto> getBoardsByUserAndTitle(@Param("usercode") String usercode, @Param("search") String search);
 
     //@Query : repository에 원하는 쿼리를 작성하게 해주는 어노테이션
     //value 속성 : 쿼리 작성부
