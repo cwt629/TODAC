@@ -3,9 +3,11 @@ package community.board.repository;
 import community.board.data.BoardCommentDto;
 import community.board.data.BoardDto;
 import community.board.data.BoardListDto;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -24,16 +26,8 @@ public class BoardDao {
 
     //list출력
     public List<BoardDto> getAllBoards() {
-        return boardRepository.findAll();
+        return boardRepository.findAll(Sort.by(Sort.Direction.DESC,"boardcode"));
     }
-
-
-    public int getTotalCount(String search) {
-        return boardRepository.getTotalCountByTitle(search);
-    }
-
-//    public List<BoardDto> getAllDatas(String search, int startNum, int perPage) {
-//    }
     
     public List<BoardDto> getMemberPostData(int usercode)
     {
