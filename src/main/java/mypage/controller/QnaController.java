@@ -11,25 +11,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import mypage.data.MemberDto;
 import mypage.data.QnaDto;
+import mypage.repository.MemberDao;
 import mypage.repository.QnaDao;
 
 @RestController
 @RequiredArgsConstructor
 public class QnaController {
+	private final MemberDao memberDao;
 	private final QnaDao qnaDao;
 
 	//추가
 	@PostMapping("/user/inquiry/add")
-	public void qnaInsert(@RequestBody QnaDto dto) //@RequestBody생략하면 안됨 생략하면 모델어트리뷰트로 읽음
+	public void qnaInsert(@RequestBody QnaDto dto,
+			@RequestParam("usercode") int usercode) //@RequestBody생략하면 안됨 생략하면 모델어트리뷰트로 읽음
 	{
+		MemberDto memdto = new MemberDto();
 		//db insert
+		memdto.setUsercode(usercode);
+
+		dto.setMember(memdto);
+
 		qnaDao.insertQna(dto);
 	}
 
-	//출력
+	//로그인한 유저의 qna 만 출력
 	@PostMapping("/user/inquiry")
-	public Map<String,Object> qnaList()
+	public Map<String,Object> qnaList(@RequestParam("usercode") int usercode) throws Exception
+	{
+		Map<String, Object> map=new HashMap<>();
+		List<QnaDto> qna = qnaDao.getQnaByCode(usercode);
+		map.put("qna",qna);
+		//System.out.println("여기나오내"+qna);
+		return map;
+	}
+
+	//qna 전체출력
+	@PostMapping("/admin/inquiry/list")
+	public Map<String,Object> qnaList() throws Exception
 	{
 		Map<String, Object> map=new HashMap<>();
 		List<QnaDto> qna = qnaDao.getAllQna();
@@ -64,14 +84,21 @@ public class QnaController {
 	//	}
 
 	@PostMapping("/user/inquiry/select") 
-	public QnaDto qnaSelect(@RequestBody HashMap<String, Object> reqMap )
+	public QnaDto qnaSelect(@RequestBody HashMap<String, Object> reqMap ) throws Exception
 	{
-//		System.out.println("======/user/inquiry/select select : "+reqMap);
+		//		System.out.println("======/user/inquiry/select select : "+reqMap);
 		Object inquiryNumObj = reqMap.get("inquriycode");
 		int inquiryNum = Integer.parseInt(inquiryNumObj.toString());
-//		System.out.println("======/user/inquiry/select inquiryNum : "+inquiryNum);
+		//		System.out.println("======/user/inquiry/select inquiryNum : "+inquiryNum);
 		QnaDto dto = qnaDao.getSelectQnaData(inquiryNum);
-//		System.out.println("======/user/inquiry/select dto : "+dto);
+		//		System.out.println("======/user/inquiry/select dto : "+dto);
 		return dto;
+	}
+
+	//answer추가
+	@PostMapping("/admin/inquiryanswer/add")
+	public void qnaAnswerInsert(@RequestBody QnaDto dto) //@RequestBody생략하면 안됨 생략하면 모델어트리뷰트로 읽음
+	{
+		qnaDao.addAnswer(dto);
 	}
 }

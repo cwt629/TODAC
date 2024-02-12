@@ -48,22 +48,22 @@ react:
       client: 64_rjB9Vr3BUXeAXii_Y
       secret: QJvtfoXSkD
       redirecturl: http://localhost:3000/login/callback
----
-spring:
- config:
-    activate:
-      on-profile: dev
-      
-react:
-  kakao:
-    login:
-      client: 0379f4e17974f898bd38887c56a6c8f7
-      secret: FylAiEmFFOofOmlpSQs806vsYm99ld67
-      redirecturl: http://175.45.192.182/login/callback
-      logoutRedirectUrl: http://175.45.192.182/login/logoutcallback
-      
-  naver:
-    login:
-      client: 64_rjB9Vr3BUXeAXii_Y
-      secret: QJvtfoXSkD
-      redirecturl: http://175.45.192.182/login/callback
+#---
+#spring:
+# config:
+#    activate:
+#      on-profile: dev
+#      
+#react:
+#  kakao:
+#    login:
+#      client: 0379f4e17974f898bd38887c56a6c8f7
+#      secret: FylAiEmFFOofOmlpSQs806vsYm99ld67
+#      redirecturl: http://175.45.192.182/login/callback
+#      logoutRedirectUrl: http://175.45.192.182/login/logoutcallback
+#      
+#  naver:
+#    login:
+#      client: 64_rjB9Vr3BUXeAXii_Y
+#      secret: QJvtfoXSkD
+#      redirecturl: http://175.45.192.182/login/callback

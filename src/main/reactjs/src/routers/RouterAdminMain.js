@@ -12,6 +12,7 @@ import MemberPoint from '../components/admin/user/MemberPoint';
 import MemberChatSearch from '../components/admin/user/MemberChatSearch';
 import MemberChatHistory from '../components/admin/user/MemberChatHistory';
 import InquiryResponse from '../components/admin/inquiry/InquiryResponse';
+import InquiryHistoryDetail from '../components/admin/inquiry/InquiryHistoryDetail';
 import LoginMain from '../components/login/LoginMain';
 import Swal from 'sweetalert2';
 
@@ -39,7 +40,8 @@ const RouterAdminMain = () => {
                         <Route path='' element={<AdminMain />} />
                         <Route path='MemberManage' element={<MemberManage />} />
                         <Route path='InquiryHistory' element={<InquiryHistory />} />
-                        <Route path='inquiryHistory/InquiryResponse' element={<InquiryResponse />} />
+                        <Route path='inquiryHistory/InquiryHistoryDetail/:inquirycode' element={<InquiryHistoryDetail />} />
+                        <Route path='inquiryHistory/InquiryResponse/:inquirycode' element={<InquiryResponse />} />
                         <Route path='MemberManage/MemberProfile' element={<MemberProfile />} />
                         <Route path='MemberManage/MemberProfile/MemberPost' element={<MemberPost />} />
                         <Route path='MemberManage/MemberProfile/MemberComment' element={<MemberComments />} />

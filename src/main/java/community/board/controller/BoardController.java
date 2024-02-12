@@ -1,5 +1,6 @@
 package community.board.controller;
 
+import community.board.data.BoardCommentDto;
 import community.board.data.BoardDto;
 import community.board.data.BoardListDto;
 import mypage.data.MemberDto;
@@ -73,4 +74,26 @@ public class BoardController {
 	{
 		return boardDao.getMemberPostData(usercode);
 	}
+	
+	//게시글 삭제
+	@DeleteMapping("/post/delete")
+	public void delete(@RequestParam("boardcode") int boardcode)
+	{
+		boardDao.deletePost(boardcode);
+	}
+	
+	//관리자 게시판에서 회원 댓글 출력할때 사용하는 로직
+	@PostMapping("/admin/member/comment")
+	public List<BoardCommentDto> getMemberCommentData(@RequestParam("usercode") int usercode)
+	{
+		return boardDao.getMemberCommentData(usercode);
+	}
+	
+	//게시글 댓글 삭제
+	@DeleteMapping("/comment/delete")
+	public void commentdelete(@RequestParam("commentcode") int commentcode)
+	{
+		boardDao.commentDelete(commentcode);
+	}
+
 }
