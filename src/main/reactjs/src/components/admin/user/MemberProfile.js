@@ -39,17 +39,24 @@ const MemberProfile = () => {
                 // 확인 버튼이 눌렸을 때만 삭제 요청을 보냄
                 const url = '/member/delete?usercode=' + usercode;
                 axios.delete(url)
-                    .then(res => {
-                        // 삭제 후 이전 페이지로 이동
-                        nav(-1); // -1을 전달하여 이전 페이지로 이동
+                    .then(() => {
+                        // 삭제 후 다시 게시글 목록을 불러옴
+                        getMember(usercode);
+                        Swal.fire({
+                            title: '삭제 완료',
+                            text: '해당 회원이 추방되었습니다.',
+                            icon: 'success',
+                            confirmButtonColor: '#FF7170',
+                        });
+                        //회원 삭제 후 이전 페이지로 이동
+                        nav(-1);
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         console.error('삭제 중 오류 발생:', error);
                     });
             }
         });
     };
-
 
     useEffect(() => {
         const storedToken = sessionStorage.getItem("token");
