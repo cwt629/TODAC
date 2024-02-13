@@ -1,7 +1,8 @@
 import React from 'react';
 import defaultPhoto from '../../../image/default_profile_photo_blue.jpg';
+import './ChatLoading.css';
 
-const ChatContent = ({ log }) => {
+const ChatContent = ({ log, loading }) => {
     return (
         <div className='chatcontent fs_14 bor_red bg_red mt_10'>
             {
@@ -24,6 +25,19 @@ const ChatContent = ({ log }) => {
                         </div>
                     );
                 })
+            }
+            {
+                loading ? (
+                    <div className='chatcomponent counselor'>
+                        <img alt='프로필사진' className='profile'
+                            src={defaultPhoto} />
+                        <div className='chat' >
+                            <div className='chatloader' />
+                        </div>
+                    </div>
+                )
+                    :
+                    ''
             }
         </div>
     );
