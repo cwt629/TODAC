@@ -1,8 +1,17 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const ChatMain = () => {
     const nav = useNavigate();
+    const [counselorList, setCounselorList] = useState([]);
+
+    useEffect(() => {
+        axios.get('/counselor/list')
+            .then((res) => {
+                console.log(res);
+            })
+    }, [])
 
     return (
         <div>
