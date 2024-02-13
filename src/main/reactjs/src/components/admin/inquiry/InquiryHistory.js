@@ -11,9 +11,9 @@ const InquiryHistory = () => {
     const nav = useNavigate(); 
 
     const qnaList = () => {
-        axios.post("/admin/inquiry/list").then((res)=>{
-            console.log(res.data.qna);
-            setList(res.data.qna);
+        axios.get("/inquiry/list").then((res)=>{
+            console.log(res.data);
+            setList(res.data);
         })
     }
 
@@ -51,12 +51,12 @@ const InquiryHistory = () => {
                 </div>
                 
                 {list &&
-                    list.map((row, idx) => (
+                    list.map((data, idx) => (
                     // 미답변만 보기 체크된 경우에만 미답변인 경우만 표시
-                    (!showUnansweredOnly || !row.answer) && (
+                    (!showUnansweredOnly || !data.answer) && (
                         <InquiryHistoryRowItem
                             key={idx}
-                            row={row}
+                            data={data}
                         />
                     )
                 ))}

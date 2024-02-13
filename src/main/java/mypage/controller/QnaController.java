@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import community.board.data.BoardDto;
+import community.board.data.BoardListDto;
 import lombok.RequiredArgsConstructor;
 import mypage.data.MemberDto;
+import mypage.data.QnaAdminDto;
 import mypage.data.QnaDto;
 import mypage.repository.MemberDao;
 import mypage.repository.QnaDao;
@@ -47,52 +50,17 @@ public class QnaController {
 		return map;
 	}
 
-	//qna 전체출력
-	@PostMapping("/admin/inquiry/list")
-	public Map<String,Object> qnaList() throws Exception
-	{
-		Map<String, Object> map=new HashMap<>();
-		List<QnaDto> qna = qnaDao.getAllQna();
-		map.put("qna",qna);
-		//System.out.println("여기나오내"+qna);
-		return map;
-	}
-
-	//출력
-	//	@GetMapping("/user/inquiry")
-	//	public List<QnaDto> list()
-	//	{
-	//		return qnaDao.getAllQna();
-	//	}
-
-	//dto반환
-	//	@GetMapping("/user/inquiry/select") 
-	//	public QnaDto qnaSelect(@RequestParam("inquirycode") int inquirycode)
-	//	{
-	//		System.out.println("select>"+inquirycode);
-	//		return qnaDao.getSelectQnaData(inquirycode);
-	//	}
-
-	//	@GetMapping("/inquiryselect") 
-	//	public Map<String, Object> qnaDetail(@RequestParam("inquirycode") int inquirycode)
-	//	{
-	//		System.out.println("select>"+inquirycode);
-	//		Map<String, Object> map=new HashMap<>();
-	//		QnaDto qna = qnaDao.getSelectQnaData(inquirycode);
-	//		map.put("qna", qna);
-	//		return map;
-	//	}
 
 	@PostMapping("/user/inquiry/select") 
-	public QnaDto qnaSelect(@RequestBody HashMap<String, Object> reqMap ) throws Exception
+	public QnaAdminDto qnaSelect(@RequestBody HashMap<String, Object> reqMap ) throws Exception
 	{
 		//		System.out.println("======/user/inquiry/select select : "+reqMap);
-		Object inquiryNumObj = reqMap.get("inquriycode");
+		Object inquiryNumObj = reqMap.get("inquirycode");
 		int inquiryNum = Integer.parseInt(inquiryNumObj.toString());
 		//		System.out.println("======/user/inquiry/select inquiryNum : "+inquiryNum);
 		QnaDto dto = qnaDao.getSelectQnaData(inquiryNum);
 		//		System.out.println("======/user/inquiry/select dto : "+dto);
-		return dto;
+		return new QnaAdminDto(dto);
 	}
 
 	//answer추가
@@ -101,4 +69,14 @@ public class QnaController {
 	{
 		qnaDao.addAnswer(dto);
 	}
+
+	//관리자 1:1문의 목록 를 출력할 때 사용하는 로직 (승민이 보드컨트롤러 참조)
+	// 화면에 필요한 데이터만 핏 하게 뿌리고싶어서 dto를 새로만듬 엔티티는 데이터의 이동 통로가 되면 안된다.
+	@GetMapping("/inquiry/list") 
+	public List<QnaAdminDto> list() throws Exception {
+		List<QnaDto> allInquiry = qnaDao.getAllInquiry();
+		System.out.println("여기"+allInquiry);
+		return allInquiry.stream().map(QnaAdminDto::new).toList();
+	}
+
 }

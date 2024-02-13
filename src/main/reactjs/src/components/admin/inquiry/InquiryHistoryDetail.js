@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-const InquiryResponse = () => {
+const InquiryHistoryDetail = () => {
     const { inquirycode } = useParams();
     const nav = useNavigate();
     const [selectQnaData, setSelectQnaData] = useState("");
@@ -10,7 +10,7 @@ const InquiryResponse = () => {
     //inquirycode에 대한 dto를 얻어서 selectQnaData에 넣는다
     const getSelectQnaData = () => {
         const url = "/user/inquiry/select";
-        axios.post(url, {inquriycode:inquirycode})
+        axios.post(url, {inquirycode:inquirycode})
           .then(res => {
             setSelectQnaData(res.data);
           })
@@ -25,7 +25,6 @@ const InquiryResponse = () => {
         getSelectQnaData();
     }, []);
 
- 
     return (
         <div className='mx_30'>
             <div className='mt-1 fs_14'>
@@ -35,7 +34,12 @@ const InquiryResponse = () => {
             </div>
             <div className='fs_25 fw_700'>1:1 문의답변</div>
 
-            <div className='mt_45'>
+            <div className='mt_25' style={{textAlign:"center"}}>
+                <img src={selectQnaData.memberPhoto} alt="프로필 사진" style={{width:"100px"}}/>
+                <div className='fw_800 mt_10'>{selectQnaData.memberNickname}</div>
+            </div>
+
+            <div className='mt_25'>
                 <div className='fs_18 fw_700'>
                     Q. {selectQnaData.title}
                 </div>
@@ -62,4 +66,4 @@ const InquiryResponse = () => {
     );
 };
 
-export default InquiryResponse;
+export default InquiryHistoryDetail;
