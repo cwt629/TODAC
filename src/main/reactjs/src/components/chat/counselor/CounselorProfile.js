@@ -1,7 +1,7 @@
 import React from 'react';
 import defaultPhoto from '../../../image/default_profile_photo_blue.jpg';
 
-const STORAGE_PHOTO_URL = '';
+const STORAGE_PHOTO_BASE = 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/counselors/';
 
 const CounselorProfile = ({ data }) => {
     return (
@@ -9,7 +9,7 @@ const CounselorProfile = ({ data }) => {
             {
                 data &&
                 <div>
-                    <img alt='상담사프로필' src={data.photo ? STORAGE_PHOTO_URL + data.photo : defaultPhoto}
+                    <img alt='상담사프로필' src={data.photo ? STORAGE_PHOTO_BASE + data.photo : defaultPhoto}
                         className='counselorphoto' />
                     <div className='col_blue2'>상담사 프로필</div><br />
                     <div className='fs_18 fw_600'>{data.name} 상담사</div><br /><br />

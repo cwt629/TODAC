@@ -7,15 +7,19 @@ import ChatSubmit from './ChatSubmit';
 import Swal from 'sweetalert2';
 import ChatReviewModal from './ChatReviewModal';
 import axios from 'axios';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import PageHeader from '../../PageHeader';
 import withReactContent from 'sweetalert2-react-content';
 import ReviewAlert from './ReviewAlert';
+import defaultProfilePhoto from '../../../image/default_profile_photo_blue.jpg';
 
 const MAXIMUM_INPUT_LENGTH = 300;
 const MAXIMUM_STARS = 5;
 
 const ReactSwal = withReactContent(Swal);
+
+const STORAGE_PHOTO_BASE = 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/';
+const STORAGE_COUNSELOR_FOLDER_NAME = 'counselors/';
 const SYSTEM_MESSAGE_SUFFIX = "실제 대화하듯이 구어체로 답변하고, 답변은 300자를 넘지 않아야 합니다.";
 
 const ChatRoomMain = () => {
@@ -45,7 +49,9 @@ const ChatRoomMain = () => {
             .then((res) => {
                 setCounselorData(res.data);
                 setLog([{
-                    'role': 'assistant', 'content': res.data.greeting, 'speaker': counselorcode
+                    'role': 'assistant', 'content': res.data.greeting,
+                    'speaker': counselorcode,
+                    'photo': (res.data.photo) ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + res.data.photo : defaultProfilePhoto
                 }]);
                 setSystemMessage(res.data.personality + SYSTEM_MESSAGE_SUFFIX);
             })
@@ -95,14 +101,21 @@ const ChatRoomMain = () => {
             return;
         }
 
-        const changedLog = [...log, { 'role': 'user', 'content': input, 'speaker': 0 }]; // 사용자의 입력을 미리 log에 담음
+        const changedLog = [...log, {
+            'role': 'user', 'content': input, 'speaker': 0,
+            // TODO: 사용자의 프로필 사진을 받아 넣어주기
+            'photo': defaultProfilePhoto
+        }]; // 사용자의 입력을 미리 log에 담음
         setLog(changedLog);
         setLoading(true);
         getGPTResponse(systemMessage, changedLog)
             .then((msg) => {
                 setLog([
                     ...changedLog,
-                    { ...msg, 'speaker': counselorcode }
+                    {
+                        ...msg, 'speaker': counselorcode,
+                        'photo': (counselorData.photo) ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + counselorData.photo : defaultProfilePhoto
+                    }
                 ]);
                 setLoading(false);
             });
@@ -231,7 +244,8 @@ const ChatRoomMain = () => {
         <div className='chatmain mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <ChatRoomMidBar counselorname={counselorData?.name} handleFinishChat={handleFinishChat} />
-            <ChatContent log={log} loading={loading} />
+            <ChatContent log={log} loading={loading}
+                nextCounselorPhoto={counselorData?.photo ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + counselorData.photo : defaultProfilePhoto} />
             <ChatSubmit input={input} maxlength={MAXIMUM_INPUT_LENGTH} handleInputChange={handleInputChange} handleInputSubmit={handleInputSubmit} />
             {/* 리뷰창: 별점 갱신을 위해 컴포넌트로 감싼 뒤, 내부에서 portal로 관리한다 */}
             <ReviewAlert reviewShow={showReview}>
