@@ -39,12 +39,11 @@ const ChatRoomMain = () => {
 
     const PAGE_TITLE = 'TODAC 채팅';
 
-
-    // log 갱신이 완료되면 그때 input과 로딩 상태를 갱신하기
+    // 채팅이 생길 때마다 아래로 자동 스크롤
     useEffect(() => {
-        setInput('');
-        setLoading(false);
-    }, [log])
+        let chatdiv = document.querySelector('div.chatcontent');
+        chatdiv.scrollTop = chatdiv.scrollHeight;
+    }, [log]);
 
     const handleInputChange = (newInput) => {
         setInput(newInput);
@@ -73,15 +72,18 @@ const ChatRoomMain = () => {
             return;
         }
 
+        const changedLog = [...log, { 'role': 'user', 'content': input, 'speaker': 0 }]; // 사용자의 입력을 미리 log에 담음
+        setLog(changedLog);
         setLoading(true);
-        getGPTResponse(input, SYSTEM_MESSAGE_FOR_TEST, log)
+        getGPTResponse(SYSTEM_MESSAGE_FOR_TEST, changedLog)
             .then((msg) => {
                 setLog([
-                    ...log,
-                    { 'role': 'user', 'content': input, 'speaker': 0 },
+                    ...changedLog,
                     { ...msg, 'speaker': 1 }
                 ]);
+                setLoading(false);
             });
+        setInput('');
     }
 
     const submitLog = async (score = -1) => {
@@ -208,7 +210,7 @@ const ChatRoomMain = () => {
         <div className='chatmain mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <ChatRoomMidBar handleFinishChat={handleFinishChat} />
-            <ChatContent log={log} />
+            <ChatContent log={log} loading={loading} />
             <ChatSubmit input={input} maxlength={MAXIMUM_INPUT_LENGTH} handleInputChange={handleInputChange} handleInputSubmit={handleInputSubmit} />
             {/* 리뷰창: 별점 갱신을 위해 컴포넌트로 감싼 뒤, 내부에서 portal로 관리한다 */}
             <ReviewAlert reviewShow={showReview}>
