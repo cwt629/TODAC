@@ -39,6 +39,12 @@ const ChatRoomMain = () => {
 
     const PAGE_TITLE = 'TODAC 채팅';
 
+    // 채팅이 생길 때마다 아래로 자동 스크롤
+    useEffect(() => {
+        let chatdiv = document.querySelector('div.chatcontent');
+        chatdiv.scrollTop = chatdiv.scrollHeight;
+    }, [log]);
+
     const handleInputChange = (newInput) => {
         setInput(newInput);
     }
