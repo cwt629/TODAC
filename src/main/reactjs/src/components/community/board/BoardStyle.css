@@ -14,3 +14,8 @@
     bottom: 80px; /* 아래 여백 조절 */
     z-index: 999; /* 다른 요소 위에 위치하도록 설정 */
 }
+.no_result {
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+}
