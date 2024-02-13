@@ -32,9 +32,5 @@ export default async function getGPTResponse(systemMessage, log = []) {
         }
     );
 
-    alert("답변 완료!");
-    console.log(log);
-    console.log(response);
-
     return response.data.choices[0].message; // 반환 방식: {role: 'assistant', content: 답변}
 }

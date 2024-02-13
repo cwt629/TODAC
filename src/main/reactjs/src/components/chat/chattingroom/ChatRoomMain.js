@@ -204,7 +204,7 @@ const ChatRoomMain = () => {
         <div className='chatmain mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <ChatRoomMidBar handleFinishChat={handleFinishChat} />
-            <ChatContent log={log} />
+            <ChatContent log={log} loading={loading} />
             <ChatSubmit input={input} maxlength={MAXIMUM_INPUT_LENGTH} handleInputChange={handleInputChange} handleInputSubmit={handleInputSubmit} />
             {/* 리뷰창: 별점 갱신을 위해 컴포넌트로 감싼 뒤, 내부에서 portal로 관리한다 */}
             <ReviewAlert reviewShow={showReview}>
