@@ -50,6 +50,11 @@ const InquiryResponse = () => {
             </div>
             <div className='fs_25 fw_700'>1:1 문의답변</div>
 
+            <div className='mt_25' style={{textAlign:"center"}}>
+                <img src={selectQnaData.memberPhoto} alt="프로필 사진" style={{width:"100px"}}/>
+                <div className='fw_800 mt_10'>{selectQnaData.memberNickname}</div>
+            </div>
+
             <div className='mt_45'>
                 <div className='fs_18 fw_700'>
                     Q. {selectQnaData.title}
