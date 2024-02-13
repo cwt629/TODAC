@@ -10,7 +10,7 @@ const InquiryResponse = () => {
     //inquirycode에 대한 dto를 얻어서 selectQnaData에 넣는다
     const getSelectQnaData = () => {
         const url = "/user/inquiry/select";
-        axios.post(url, {inquriycode:inquirycode})
+        axios.post(url, {inquirycode:inquirycode})
           .then(res => {
             setSelectQnaData(res.data);
           })
@@ -25,7 +25,6 @@ const InquiryResponse = () => {
         getSelectQnaData();
     }, []);
 
- 
     return (
         <div className='mx_30'>
             <div className='mt-1 fs_14'>

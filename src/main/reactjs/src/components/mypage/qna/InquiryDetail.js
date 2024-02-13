@@ -14,7 +14,7 @@ const InquiryDetail = () => {
         //const url = "/user/inquiry/select?inquirycode="+inquirycode;
         //axios.post(url)
         const url = "/user/inquiry/select";
-        axios.post(url, {inquriycode:inquirycode})
+        axios.post(url, {inquirycode:inquirycode})
           .then(res => {
             setSelectQnaData(res.data);
           })

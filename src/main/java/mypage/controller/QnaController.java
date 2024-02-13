@@ -87,7 +87,7 @@ public class QnaController {
 	public QnaDto qnaSelect(@RequestBody HashMap<String, Object> reqMap ) throws Exception
 	{
 		//		System.out.println("======/user/inquiry/select select : "+reqMap);
-		Object inquiryNumObj = reqMap.get("inquriycode");
+		Object inquiryNumObj = reqMap.get("inquirycode");
 		int inquiryNum = Integer.parseInt(inquiryNumObj.toString());
 		//		System.out.println("======/user/inquiry/select inquiryNum : "+inquiryNum);
 		QnaDto dto = qnaDao.getSelectQnaData(inquiryNum);
@@ -101,4 +101,5 @@ public class QnaController {
 	{
 		qnaDao.addAnswer(dto);
 	}
+
 }
