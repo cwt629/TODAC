@@ -31,4 +31,7 @@ public class CounselorDto {
 
     @Column(length = 40)
     private String personality;
+    
+    @Column(length = 60)
+    private String greeting;
 }
