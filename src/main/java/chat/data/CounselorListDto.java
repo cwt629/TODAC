@@ -9,8 +9,6 @@ public class CounselorListDto {
     private String briefintro;
     private String introduction;
     private String photo;
-    private String personality;
-    private String greeting;
     
     public CounselorListDto(CounselorDto counselorDto) {
     	counselorcode = counselorDto.getCounselorcode();
@@ -18,7 +16,5 @@ public class CounselorListDto {
     	briefintro = counselorDto.getBriefintro();
     	introduction = counselorDto.getIntroduction();
     	photo = counselorDto.getPhoto();
-    	personality = counselorDto.getPersonality();
-    	greeting = counselorDto.getGreeting();
     }
 }
