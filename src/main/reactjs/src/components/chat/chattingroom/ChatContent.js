@@ -1,8 +1,7 @@
 import React from 'react';
-import defaultPhoto from '../../../image/default_profile_photo_blue.jpg';
 import './ChatLoading.css';
 
-const ChatContent = ({ log, loading }) => {
+const ChatContent = ({ log, loading, nextCounselorPhoto }) => {
     return (
         <div className='chatcontent fs_14 bor_red bg_red mt_10'>
             {
@@ -12,7 +11,7 @@ const ChatContent = ({ log, loading }) => {
                     return (
                         <div key={index} className={compClass} >
                             <img alt='프로필사진' className='profile'
-                                src={defaultPhoto} />
+                                src={data.photo} />
                             <div className='chat'>
                                 {/* 줄바꿈의 경우 직접 split하여, 중간중간에 <br/>을 넣어준다 */}
                                 {data.content.split("\n").map((line, i) => (
@@ -30,7 +29,7 @@ const ChatContent = ({ log, loading }) => {
                 loading ? (
                     <div className='chatcomponent counselor'>
                         <img alt='프로필사진' className='profile'
-                            src={defaultPhoto} />
+                            src={nextCounselorPhoto} />
                         <div className='chat' >
                             <div className='chatloader' />
                         </div>
