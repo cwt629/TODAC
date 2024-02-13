@@ -7,30 +7,30 @@ import ChatSubmit from './ChatSubmit';
 import Swal from 'sweetalert2';
 import ChatReviewModal from './ChatReviewModal';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import PageHeader from '../../PageHeader';
 import withReactContent from 'sweetalert2-react-content';
 import ReviewAlert from './ReviewAlert';
 
-const COUNSELOR_INITIAL_MESSAGE = "반갑습니다. 고민을 말씀해주세요. 언제든 답변해드리겠습니다.";
 const MAXIMUM_INPUT_LENGTH = 300;
 const MAXIMUM_STARS = 5;
 
 const ReactSwal = withReactContent(Swal);
-
+const SYSTEM_MESSAGE_SUFFIX = "실제 대화하듯이 구어체로 답변하고, 답변은 300자를 넘지 않아야 합니다.";
 
 const ChatRoomMain = () => {
-    const [log, setLog] = useState([{
-        'role': 'assistant', 'content': COUNSELOR_INITIAL_MESSAGE, 'speaker': 1
-    }]);
+    const [query, setQuery] = useSearchParams();
+    const counselorcode = query.get("counselorcode");
+
+    const [log, setLog] = useState([]);
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [star, setStar] = useState(MAXIMUM_STARS);
     const [showReview, setShowReview] = useState(false);
+    const [counselorData, setCounselorData] = useState(null);
+    const [systemMessage, setSystemMessage] = useState('');
 
     const nav = useNavigate();
-
-    const SYSTEM_MESSAGE_FOR_TEST = "당신은 AI같은 심리 상담사입니다. 실제 대화하듯이 구어체로 답변하고, 답변은 300자를 넘지 않아야 합니다.";
 
     const CURRENT_ROUTES = [
         { name: 'TODAC 채팅', url: '/user/chat' },
@@ -38,6 +38,18 @@ const ChatRoomMain = () => {
     ];
 
     const PAGE_TITLE = 'TODAC 채팅';
+
+    // 초기 로딩: 상담사 데이터 로딩
+    useEffect(() => {
+        axios.get('/counselor/select/chat?counselorcode=' + counselorcode)
+            .then((res) => {
+                setCounselorData(res.data);
+                setLog([{
+                    'role': 'assistant', 'content': res.data.greeting, 'speaker': counselorcode
+                }]);
+                setSystemMessage(res.data.personality + SYSTEM_MESSAGE_SUFFIX);
+            })
+    }, [])
 
     // 채팅이 생길 때마다 아래로 자동 스크롤
     useEffect(() => {
@@ -50,6 +62,17 @@ const ChatRoomMain = () => {
     }
 
     const handleInputSubmit = () => {
+        if (!counselorData) {
+            ReactSwal.fire({
+                title: '상담사 데이터 로딩 중!',
+                text: '상담사 데이터 로딩 중입니다. 조금만 기다려주세요!',
+                icon: 'error',
+                confirmButtonColor: '#FF7170',
+                confirmButtonText: '확인'
+            });
+            return;
+        }
+
         if (loading) {
             ReactSwal.fire({
                 title: '상담사가 아직 답변중!',
@@ -75,11 +98,11 @@ const ChatRoomMain = () => {
         const changedLog = [...log, { 'role': 'user', 'content': input, 'speaker': 0 }]; // 사용자의 입력을 미리 log에 담음
         setLog(changedLog);
         setLoading(true);
-        getGPTResponse(SYSTEM_MESSAGE_FOR_TEST, changedLog)
+        getGPTResponse(systemMessage, changedLog)
             .then((msg) => {
                 setLog([
                     ...changedLog,
-                    { ...msg, 'speaker': 1 }
+                    { ...msg, 'speaker': counselorcode }
                 ]);
                 setLoading(false);
             });
@@ -95,7 +118,7 @@ const ChatRoomMain = () => {
         try {
             let response = await axios({
                 method: 'post',
-                url: `/chat/finish?userid=${sessionStorage.getItem('id')}&counselorcode=1&score=${score}`,
+                url: `/chat/finish?userid=${sessionStorage.getItem('id')}&counselorcode=${counselorcode}&score=${score}`,
                 data: JSON.stringify(logData),
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -204,12 +227,10 @@ const ChatRoomMain = () => {
         handleShowingReview();
     }
 
-
-
     return (
         <div className='chatmain mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <ChatRoomMidBar handleFinishChat={handleFinishChat} />
+            <ChatRoomMidBar counselorname={counselorData?.name} handleFinishChat={handleFinishChat} />
             <ChatContent log={log} loading={loading} />
             <ChatSubmit input={input} maxlength={MAXIMUM_INPUT_LENGTH} handleInputChange={handleInputChange} handleInputSubmit={handleInputSubmit} />
             {/* 리뷰창: 별점 갱신을 위해 컴포넌트로 감싼 뒤, 내부에서 portal로 관리한다 */}
