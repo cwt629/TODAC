@@ -20,8 +20,10 @@ const Inquiry = () => {
     const qnaList = () => {
         axios.post("/user/inquiry?usercode="+user).then((res)=>{
             console.log(res.data.qna);
+            // 최신 글을 위로 오게 역순으로 정렬
+            const reversedList = res.data.qna.reverse();
             setList(res.data.qna);
-            setTotalPages(Math.ceil(res.data.qna.length / itemsPerPage)); // 전체 페이지 수 계산
+            setTotalPages(Math.ceil(reversedList.length / itemsPerPage)); // 전체 페이지 수 계산
         })
     }
 
@@ -74,7 +76,7 @@ const Inquiry = () => {
                         row={row}
                     />
                 ))}
-                <div className='justify-content-center d-flex mt-3'>
+                <div className='justify-content-center d-flex mt-3 qnaPage_btn'>
                     <Pagination
                         page={currentPage}
                         count={totalPages}

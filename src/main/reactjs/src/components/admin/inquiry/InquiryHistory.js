@@ -27,6 +27,7 @@ const InquiryHistory = () => {
 
     const handleShowUnansweredOnlyChange = (event) => {
         setShowUnansweredOnly(event.target.checked);
+        setCurrentPage(1); // 미답변만 보기 체크 시 페이지를 1페이지로 초기화
     };
 
     const handlePageChange = (event, page) => {
@@ -35,6 +36,8 @@ const InquiryHistory = () => {
 
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
+
+    const filteredList = list.filter(data => !showUnansweredOnly || !data.answer); // 미답변 필터링
 
     return (
         <div className='mx_30'>
@@ -59,19 +62,17 @@ const InquiryHistory = () => {
                     </div>
                 </div>
                 
-                {list &&
-                    list.slice(startIndex, endIndex).map((data, idx) => (
-                        (!showUnansweredOnly || !data.answer) && (
-                            <InquiryHistoryRowItem
-                                key={idx}
-                                data={data}
-                            />
-                        )
+                {filteredList &&
+                    filteredList.slice(startIndex, endIndex).map((data, idx) => (
+                        <InquiryHistoryRowItem
+                            key={idx}
+                            data={data}
+                        />
                     ))}
-                <div className='justify-content-center d-flex mt-3'>
+                <div className='justify-content-center d-flex mt-3 qnaPage_btn'>
                     <Pagination
                         page={currentPage}
-                        count={totalPages}
+                        count={Math.ceil(filteredList.length / itemsPerPage)} // 필터링된 데이터로 페이지 수 계산
                         onChange={handlePageChange}
                     />
                 </div>
