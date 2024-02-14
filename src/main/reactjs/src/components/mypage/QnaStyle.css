@@ -70,3 +70,20 @@
     padding: 5px 8px;
     cursor: pointer;
 }
+
+.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+    background-color: var(--lightblue) !important;
+}
+
+.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected:hover {
+    background-color: var(--midblue) !important;
+}
+
+.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root:hover {
+    background-color: var(--midblue) !important;
+}
+
+.qnaPage_btn button{
+    color: var(--mainblack);
+    font-weight: 600;
+}

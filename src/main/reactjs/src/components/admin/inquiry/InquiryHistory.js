@@ -3,28 +3,41 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import InquiryHistoryRowItem from './InquiryHistoryRowItem';
+import { Pagination } from '@mui/material';
 
 const InquiryHistory = () => {
     const [list, setList] = useState([]);
-    const [showUnansweredOnly, setShowUnansweredOnly] = useState(false); // 미답변만 보기 체크 여부 상태
-    
+    const [showUnansweredOnly, setShowUnansweredOnly] = useState(false); 
+    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 추가
+    const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수 상태 추가
     const nav = useNavigate(); 
+    const itemsPerPage = 5; // 페이지당 항목 수
 
     const qnaList = () => {
-        axios.get("/inquiry/list").then((res)=>{
+        axios.get(`/inquiry/list`).then((res)=>{
             console.log(res.data);
-            setList(res.data);
-        })
-    }
+            setList(res.data); // 전체 데이터를 받아옴
+            setTotalPages(Math.ceil(res.data.length / itemsPerPage)); // 전체 페이지 수 계산
+        });
+    };
 
     useEffect(()=>{
         qnaList();
-    }, []);
+    }, []); // 페이지가 변하지 않으므로 빈 배열 전달
 
-    // 미답변만 보기 체크 이벤트 핸들러
     const handleShowUnansweredOnlyChange = (event) => {
         setShowUnansweredOnly(event.target.checked);
+        setCurrentPage(1); // 미답변만 보기 체크 시 페이지를 1페이지로 초기화
     };
+
+    const handlePageChange = (event, page) => {
+        setCurrentPage(page);
+    };
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    const filteredList = list.filter(data => !showUnansweredOnly || !data.answer); // 미답변 필터링
 
     return (
         <div className='mx_30'>
@@ -38,7 +51,6 @@ const InquiryHistory = () => {
                 <div className="mb-2 d-flex justify-content-between align-items-center">
                     <div className='fw_800'>문의 목록</div>
                     <div className='br_5 bor_blue1 bg_blue py-1 px-2'>
-                        {/* 미답변만 보기 체크박스 */}
                         <input
                             type="checkbox"
                             id="showUnansweredOnly"
@@ -50,16 +62,20 @@ const InquiryHistory = () => {
                     </div>
                 </div>
                 
-                {list &&
-                    list.map((data, idx) => (
-                    // 미답변만 보기 체크된 경우에만 미답변인 경우만 표시
-                    (!showUnansweredOnly || !data.answer) && (
+                {filteredList &&
+                    filteredList.slice(startIndex, endIndex).map((data, idx) => (
                         <InquiryHistoryRowItem
                             key={idx}
                             data={data}
                         />
-                    )
-                ))}
+                    ))}
+                <div className='justify-content-center d-flex mt-3 qnaPage_btn'>
+                    <Pagination
+                        page={currentPage}
+                        count={Math.ceil(filteredList.length / itemsPerPage)} // 필터링된 데이터로 페이지 수 계산
+                        onChange={handlePageChange}
+                    />
+                </div>
             </div>
         </div>
     );
