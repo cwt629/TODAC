@@ -30,19 +30,7 @@ public class ChatSummaryController {
     }
     
     @GetMapping("/chat/summary/check")
-    public ResponseEntity<ChatSummaryDto> checkChatSummary(@RequestParam("roomcode") Short roomcode) {
-        // 1. roomcode를 통해서 ChatRoomDto 객체 받아오기
-        ChatRoomDto roomDto = chatService.getRoomByCode(roomcode);
-        
-        // 2. 해당 roomDto를 가진 ChatSummaryDto를 찾아서 반환
-        ChatSummaryDto chatSummaryDto = chatSummaryService.findByChatroom(roomDto);
-        
-        if (chatSummaryDto != null) {
-            return ResponseEntity.ok(chatSummaryDto);
-        } else {
-            // DB에 해당 roomcode에 대한 요약본이 없을 경우에 대한 처리
-            return ResponseEntity.notFound().build();
-        }
+    public ChatSummaryDto findByChatroom(@RequestParam("chatroomcode") Short chatroomcode) {
+        return chatSummaryService.findByChatroom(chatroomcode);
     }
-
 }

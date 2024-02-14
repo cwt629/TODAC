@@ -16,7 +16,7 @@ public class ChatSummaryService {
         chatSummaryRepository.save(chatSummaryDto);
     }
     
-    public ChatSummaryDto findByChatroom(ChatRoomDto chatroom) {
-        return chatSummaryRepository.findByChatroom(chatroom);
+    public ChatSummaryDto findByChatroom(Short chatroomcode) {
+        return chatSummaryRepository.findByChatroom(chatroomcode);
     }
 }
