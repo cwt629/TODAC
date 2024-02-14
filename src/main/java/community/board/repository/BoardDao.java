@@ -28,6 +28,14 @@ public class BoardDao {
     public List<BoardDto> getAllBoards() {
         return boardRepository.findAll(Sort.by(Sort.Direction.DESC,"boardcode"));
     }
+    //조회수 로직
+    public void updateReadcount(int boardcode) {
+        boardRepository.updateReadcount(boardcode);
+    }
+    //해당페이지 로직
+    public BoardDto getSelectPage(int boardcode) {
+        return boardRepository.getSelectPage(boardcode);
+    }
     
     public List<BoardDto> getMemberPostData(int usercode)
     {
@@ -50,5 +58,7 @@ public class BoardDao {
     {
     	daoCommentInter.commentDelete(commentcode);
     }
+
+
 
 }
