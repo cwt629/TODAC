@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import chat.data.ChatInitialDto;
 import chat.data.ChatLogDto;
 import chat.data.ChatRoomDto;
+import chat.data.CounselorDto;
 import chat.service.ChatService;
 import chat.service.CounselorService;
 import lombok.RequiredArgsConstructor;
+import mypage.data.MemberDto;
 import mypage.repository.MemberDao;
 
 @RestController
@@ -21,6 +24,19 @@ public class ChatController {
 	private final MemberDao memberDao;
 	private final CounselorService counselorService;
 	private final ChatService chatService;
+	
+	@GetMapping("/chat/init")
+	public ChatInitialDto getChatInitialData(@RequestParam("counselorcode") Short counselorcode, @RequestParam("usercode") int usercode) {
+		// 1. 상담사 정보
+		CounselorDto counselorDto = counselorService.getCounselorByCode(counselorcode);
+		// 2. 멤버 정보
+		MemberDto memberDto = memberDao.getMemberByData(usercode);
+		
+		// CounselorDataDto 형태로 반환해주기
+		ChatInitialDto dto = new ChatInitialDto(counselorDto, memberDto);
+		
+		return dto;
+	}
 
 	@PostMapping("/chat/finish")
 	public Short insertChat(@RequestBody List<ChatLogDto> log, 
