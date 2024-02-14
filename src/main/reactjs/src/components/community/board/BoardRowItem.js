@@ -2,12 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { right } from "@popperjs/core";
+import "./BoardStyle.css";
 
 const BoardRowItem = ({ idx, data }) => {
     console.log(data);
@@ -15,12 +14,16 @@ const BoardRowItem = ({ idx, data }) => {
 
     const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/"; //ncloud 에서 가져옴
 
+    const handleItemClick = () => {
+        navi(`/user/community/board/detail/${data.boardcode}`);
+    };
+
     return (
         <div>
             <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-                <ListItem alignItems='flex-start' onClick={() => navi("detail")}>
+                <ListItem alignItems='flex-start' onClick={handleItemClick}>
                     <ListItemAvatar>
-                        <Avatar alt='' src={imageStorage + data.photo} />
+                        <Avatar alt='' src={imageStorage + data.photo} variant='square' />
                     </ListItemAvatar>
                     <ListItemText
                         primary={data.title}
