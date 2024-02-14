@@ -11,9 +11,8 @@ const ChatSummary = () => {
     const nav = useNavigate();
     const [query, setQuery] = useSearchParams();
     const roomcode = query.get("roomcode");
-    const userLog = summaryList.filter((log) => (log.speaker === 0));
-    const counselorLog = summaryList.filter((log) => (log.speaker !== 0));
     const [loading, setLoading] = useState(true); // 요약본 생성 중인지 여부
+    const [summarizedMessages, setSummarizedMessages] = useState({ summarizedUserMessage: "", summarizedCounselorMessage: "" });
 
     const handleInfoClick = () => {
         // sweetalert2 팝업 띄우기
@@ -24,20 +23,23 @@ const ChatSummary = () => {
             confirmButtonText: '닫기',
         });
     };
-    const list = () => {
-        axios.get("/chat/summary?chatroomcode=" + roomcode)
-            .then(res => {
-                console.log(res.data);
-                setSummaryList(res.data);
-            })
-            .finally(() => setLoading(false)); // 요약본 생성 완료 후 loading 상태 변경
-    }
+
+    const list = async () => {
+        try {
+            const response = await axios.get("/chat/summary?chatroomcode=" + roomcode);
+            setSummaryList(response.data);
+        } catch (error) {
+            console.error('Error fetching summary list:', error);
+        } finally {
+            setLoading(false); // 요약본 생성 완료 후 loading 상태 변경
+        }
+    };
 
     useEffect(() => {
         list();
-    }, [])
+    }, [roomcode]);
 
-    /// 사용자 고민 내용과 상담사의 답변 내용을 요약합니다.
+    // 사용자 고민 내용과 상담사의 답변 내용을 요약
     const summarizeMessages = async () => {
         Swal.fire({
             title: '요약본 생성중',
@@ -50,6 +52,9 @@ const ChatSummary = () => {
                 Swal.showLoading();
             }
         });
+
+        const userLog = summaryList.filter((log) => (log.speaker === 0));
+        const counselorLog = summaryList.filter((log) => (log.speaker !== 0));
 
         const summarizedUserMessage = await summarizeContent(
             userLog.map(item => item.content).join(' '),
@@ -65,15 +70,44 @@ const ChatSummary = () => {
         return { summarizedUserMessage, summarizedCounselorMessage };
     };
 
-    const [summarizedMessages, setSummarizedMessages] = useState({ summarizedUserMessage: "", summarizedCounselorMessage: "" });
 
     useEffect(() => {
+        const saveSummarizedMessages = async (summarizedUserMessage, summarizedCounselorMessage) => {
+            try {
+                const response = await axios.get("/chat/summary/check?chatroomcode=" + roomcode);
+                if (response.data.exists) {
+                    // 이미 해당 roomcode에 대한 요약이 있으면 해당 데이터를 가져옴
+                    list();
+                } else {
+                    // 해당 roomcode에 대한 요약이 없으면 새로운 요약을 생성하고 저장
+                    await axios({
+                        method: 'post',
+                        url: "/chat/summary/save?chatroomcode=" + roomcode,
+                        data: {
+                            worry: summarizedUserMessage.content,
+                            answer: summarizedCounselorMessage.content
+                        },
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    list(); // 저장 후 요약본 데이터를 다시 불러옴
+                }
+            } catch (error) {
+                console.error('Error saving or fetching summarized messages:', error);
+            }
+        };
+
         const getSummarizedMessages = async () => {
             const { summarizedUserMessage, summarizedCounselorMessage } = await summarizeMessages();
             setSummarizedMessages({ summarizedUserMessage, summarizedCounselorMessage });
+            saveSummarizedMessages(summarizedUserMessage, summarizedCounselorMessage);
         };
 
-        getSummarizedMessages();
+        if (summaryList.length > 0) {
+            getSummarizedMessages();
+            console.log(roomcode)
+        }
     }, [summaryList]);
 
     return (
