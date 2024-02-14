@@ -1,0 +1,36 @@
+div.counselormain {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+div.counseloroptions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+div.counseloroptions div.counselorcard {
+    width: 30%;
+    margin: 10px 0;
+    text-align: center;
+}
+
+div.counselorprofile {
+    width: 100%;
+    flex: 1;
+    padding: 20px;
+}
+
+div.counselorprofile img.counselorphoto {
+    width: 100px;
+    height: 100px;
+    float: right;
+}
+
+div.counselbtndiv {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+}

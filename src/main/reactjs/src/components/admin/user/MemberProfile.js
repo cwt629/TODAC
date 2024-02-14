@@ -93,13 +93,13 @@ const MemberProfile = () => {
                 onClick={() => nav('MemberComment?usercode=' + member.usercode)}> <CommentIcon />&nbsp;&nbsp;{member.nickname} 님의 댓글 &nbsp; {'>'} </button>
             <br />
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberPayment' + member.usercode)}> <PaymentOutlinedIcon />&nbsp;&nbsp;{member.nickname} 님의 결제 내역&nbsp; {'>'}</button>
+                onClick={() => nav('MemberPayment?usercode=' + member.usercode)}> <PaymentOutlinedIcon />&nbsp;&nbsp;{member.nickname} 님의 결제 내역&nbsp; {'>'}</button>
             <br />
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberPoint' + member.usercode)}> <CardGiftcardOutlinedIcon /> &nbsp;&nbsp;{member.nickname} 님의 포인트 사용 &nbsp;{'>'}</button>
+                onClick={() => nav('MemberPoint?usercode=' + member.usercode)}> <CardGiftcardOutlinedIcon /> &nbsp;&nbsp;{member.nickname} 님의 포인트 사용 &nbsp;{'>'}</button>
             <br />
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberChatSearch' + member.usercode)}><ForumOutlinedIcon />&nbsp;&nbsp;{member.nickname} 님의 채팅 기록&nbsp; {'>'}</button>
+                onClick={() => nav('MemberChatSearch?usercode=' + member.usercode)}><ForumOutlinedIcon />&nbsp;&nbsp;{member.nickname} 님의 채팅 기록&nbsp; {'>'}</button>
         </div>
     );
 };

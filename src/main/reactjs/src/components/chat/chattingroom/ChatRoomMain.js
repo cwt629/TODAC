@@ -7,30 +7,34 @@ import ChatSubmit from './ChatSubmit';
 import Swal from 'sweetalert2';
 import ChatReviewModal from './ChatReviewModal';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import PageHeader from '../../PageHeader';
 import withReactContent from 'sweetalert2-react-content';
 import ReviewAlert from './ReviewAlert';
+import defaultProfilePhoto from '../../../image/default_profile_photo_blue.jpg';
 
-const COUNSELOR_INITIAL_MESSAGE = "반갑습니다. 고민을 말씀해주세요. 언제든 답변해드리겠습니다.";
 const MAXIMUM_INPUT_LENGTH = 300;
 const MAXIMUM_STARS = 5;
 
 const ReactSwal = withReactContent(Swal);
 
+const STORAGE_PHOTO_BASE = 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/';
+const STORAGE_COUNSELOR_FOLDER_NAME = 'counselors/';
+const SYSTEM_MESSAGE_SUFFIX = "실제 대화하듯이 구어체로 답변하고, 답변은 300자를 넘지 않아야 합니다.";
 
 const ChatRoomMain = () => {
-    const [log, setLog] = useState([{
-        'role': 'assistant', 'content': COUNSELOR_INITIAL_MESSAGE, 'speaker': 1
-    }]);
+    const [query, setQuery] = useSearchParams();
+    const counselorcode = query.get("counselorcode");
+
+    const [log, setLog] = useState([]);
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [star, setStar] = useState(MAXIMUM_STARS);
     const [showReview, setShowReview] = useState(false);
+    const [counselorData, setCounselorData] = useState(null);
+    const [systemMessage, setSystemMessage] = useState('');
 
     const nav = useNavigate();
-
-    const SYSTEM_MESSAGE_FOR_TEST = "당신은 AI같은 심리 상담사입니다. 실제 대화하듯이 구어체로 답변하고, 답변은 300자를 넘지 않아야 합니다.";
 
     const CURRENT_ROUTES = [
         { name: 'TODAC 채팅', url: '/user/chat' },
@@ -39,18 +43,42 @@ const ChatRoomMain = () => {
 
     const PAGE_TITLE = 'TODAC 채팅';
 
-
-    // log 갱신이 완료되면 그때 input과 로딩 상태를 갱신하기
+    // 초기 로딩: 상담사 데이터 로딩
     useEffect(() => {
-        setInput('');
-        setLoading(false);
-    }, [log])
+        axios.get('/counselor/select/chat?counselorcode=' + counselorcode)
+            .then((res) => {
+                setCounselorData(res.data);
+                setLog([{
+                    'role': 'assistant', 'content': res.data.greeting,
+                    'speaker': counselorcode,
+                    'photo': (res.data.photo) ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + res.data.photo : defaultProfilePhoto
+                }]);
+                setSystemMessage(res.data.personality + SYSTEM_MESSAGE_SUFFIX);
+            })
+    }, [])
+
+    // 채팅이 생길 때마다 아래로 자동 스크롤
+    useEffect(() => {
+        let chatdiv = document.querySelector('div.chatcontent');
+        chatdiv.scrollTop = chatdiv.scrollHeight;
+    }, [log]);
 
     const handleInputChange = (newInput) => {
         setInput(newInput);
     }
 
     const handleInputSubmit = () => {
+        if (!counselorData) {
+            ReactSwal.fire({
+                title: '상담사 데이터 로딩 중!',
+                text: '상담사 데이터 로딩 중입니다. 조금만 기다려주세요!',
+                icon: 'error',
+                confirmButtonColor: '#FF7170',
+                confirmButtonText: '확인'
+            });
+            return;
+        }
+
         if (loading) {
             ReactSwal.fire({
                 title: '상담사가 아직 답변중!',
@@ -73,15 +101,25 @@ const ChatRoomMain = () => {
             return;
         }
 
+        const changedLog = [...log, {
+            'role': 'user', 'content': input, 'speaker': 0,
+            // TODO: 사용자의 프로필 사진을 받아 넣어주기
+            'photo': defaultProfilePhoto
+        }]; // 사용자의 입력을 미리 log에 담음
+        setLog(changedLog);
         setLoading(true);
-        getGPTResponse(input, SYSTEM_MESSAGE_FOR_TEST, log)
+        getGPTResponse(systemMessage, changedLog)
             .then((msg) => {
                 setLog([
-                    ...log,
-                    { 'role': 'user', 'content': input, 'speaker': 0 },
-                    { ...msg, 'speaker': 1 }
+                    ...changedLog,
+                    {
+                        ...msg, 'speaker': counselorcode,
+                        'photo': (counselorData.photo) ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + counselorData.photo : defaultProfilePhoto
+                    }
                 ]);
+                setLoading(false);
             });
+        setInput('');
     }
 
     const submitLog = async (score = -1) => {
@@ -93,7 +131,7 @@ const ChatRoomMain = () => {
         try {
             let response = await axios({
                 method: 'post',
-                url: `/chat/finish?userid=${sessionStorage.getItem('id')}&counselorcode=1&score=${score}`,
+                url: `/chat/finish?userid=${sessionStorage.getItem('id')}&counselorcode=${counselorcode}&score=${score}`,
                 data: JSON.stringify(logData),
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -202,13 +240,12 @@ const ChatRoomMain = () => {
         handleShowingReview();
     }
 
-
-
     return (
         <div className='chatmain mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <ChatRoomMidBar handleFinishChat={handleFinishChat} />
-            <ChatContent log={log} />
+            <ChatRoomMidBar counselorname={counselorData?.name} handleFinishChat={handleFinishChat} />
+            <ChatContent log={log} loading={loading}
+                nextCounselorPhoto={counselorData?.photo ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + counselorData.photo : defaultProfilePhoto} />
             <ChatSubmit input={input} maxlength={MAXIMUM_INPUT_LENGTH} handleInputChange={handleInputChange} handleInputSubmit={handleInputSubmit} />
             {/* 리뷰창: 별점 갱신을 위해 컴포넌트로 감싼 뒤, 내부에서 portal로 관리한다 */}
             <ReviewAlert reviewShow={showReview}>
