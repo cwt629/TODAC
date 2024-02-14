@@ -41,7 +41,6 @@ const ChatMain = () => {
     useEffect(() => {
         axios.get('/counselor/list')
             .then((res) => {
-                console.log(res);
                 setCounselorList(res.data);
             })
     }, [])

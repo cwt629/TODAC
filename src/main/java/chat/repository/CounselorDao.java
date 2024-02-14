@@ -2,10 +2,9 @@ package chat.repository;
 
 import java.util.List;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import chat.data.CounselorDetailDto;
+import chat.data.CounselorDetailInterface;
 import chat.data.CounselorDto;
 import lombok.AllArgsConstructor;
 
@@ -14,7 +13,7 @@ import lombok.AllArgsConstructor;
 public class CounselorDao {
 	CounselorRepository counselorRepository;
 	
-	public List<CounselorDetailDto> getCounselorList(){
+	public List<CounselorDetailInterface> getCounselorList(){
 		return counselorRepository.getCounselorList();
 	}
 	

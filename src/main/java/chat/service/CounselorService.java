@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import chat.data.CounselorDetailDto;
+import chat.data.CounselorDetailInterface;
 import chat.data.CounselorDto;
 import chat.repository.CounselorDao;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 public class CounselorService {
 	private CounselorDao counselorDao;
 	
-	public List<CounselorDetailDto> getCounselorList(){
+	public List<CounselorDetailInterface> getCounselorList(){
 		return counselorDao.getCounselorList();
 	}
 	
