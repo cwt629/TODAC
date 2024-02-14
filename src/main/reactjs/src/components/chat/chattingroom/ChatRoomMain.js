@@ -43,11 +43,10 @@ const ChatRoomMain = () => {
 
     const PAGE_TITLE = 'TODAC 채팅';
 
-    // 초기 로딩: 상담사 데이터 로딩
+    // 초기 데이터 로딩
     useEffect(() => {
         axios.get(`/chat/init?counselorcode=${counselorcode}&usercode=${sessionStorage.getItem("usercode")}`)
             .then((res) => {
-                console.log(res);
                 setInitialData(res.data);
                 setLog([{
                     'role': 'assistant', 'content': res.data.counselorGreeting,
