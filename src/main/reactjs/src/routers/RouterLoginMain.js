@@ -6,6 +6,7 @@ import LoginCallBack from '../components/login/LoginCallBack';
 import SignupKaKao from '../components/login/SignupKaKao';
 import SignupNaver from '../components/login/SignupNaver';
 import LogoutCallBack from '../components/login/LogoutCallBack';
+import '../components/login/Login.css';
 
 const RouterLoginMain = () => {
     return (

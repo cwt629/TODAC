@@ -8,12 +8,13 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 
 const CustomButton = styled(Button)({
-    boxShadow: 'none',
+    boxShadow: '3px 3px 3px gray',
     textTransform: 'none',
     fontSize: 16,
-    padding: '6px 12px',
+    height: '45px',
     border: '1px solid',
-    lineHeight: 1.5,
+    marginTop:"30px", 
+    fontWeight:"700",
     backgroundColor: '#FF7170', // 원하는 색상으로 변경
     borderColor: '#FF7170', // 원하는 색상으로 변경
     fontFamily: [
@@ -105,30 +106,30 @@ const LoginAdmin = () => {
 
 
   return (
-    <div style={{paddingTop : "55px", paddingRight : "55px", paddingLeft : "55px"}}>
-      <ArrowBackIcon onClick={goBack} style={{ cursor: 'pointer' }} />
-      <br/><br/><br/><br/>
-      <h1 style={{color : "#FF494D", textAlign: "center",
-                  fontSize : "3em", fontWeight : "1000"
-                  }}>TODAC</h1>
-      <br/>
-      <h5 style={{color : "#536179"}}>관리자 로그인</h5>
-      <h6 style={{color : "#5279FD"}}>관리자만 로그인 가능합니다.</h6><br/>
+    <div className='login_main2'>
+      <img alt='back' src={require('../../image/ico_back.png')} onClick={goBack} style={{ cursor: 'pointer' }}/>
+      {/* <ArrowBackIcon onClick={goBack} style={{ cursor: 'pointer' }} /> */}
+      <div className='fs_45 col_red fw_900 text-center mt_80'>
+        TODAC
+      </div>
+
+      <div className='fs_18 fw_600 mt_45'>관리자 로그인</div>
+      <div className='col_blue2 fs_15 fw_500 mt_10'>관리자만 로그인 가능합니다.</div><br/>
       <input  type='text' 
               className='form-control'
               placeholder="아이디"
               name="userid"
               value={formData.userid} 
               onChange={handleInputChange}/>
-      <br/>
+
       <input  type='password' 
-              className='form-control'
+              className='form-control mt-3'
               placeholder="비밀번호" 
               name="pass"
               autocomplete="current-password"
               value={formData.pass} 
               onChange={handleInputChange}/>
-        <br/>
+
         <CustomButton   variant="contained"
                         style={{width : "100%"}}
                         onClick={buttonLoginEvent}>로그인</CustomButton>
