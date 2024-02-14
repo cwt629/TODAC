@@ -1,13 +1,23 @@
-import { Button } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import PageHeader from "../../PageHeader";
+import exampleImg from "../../../image/todac_logo_temp.png";
 
 const BoardForm = () => {
     const [photo, setPhoto] = useState("");
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [counselorcode, setCounselorCode] = useState("");
+    const [loading, setLoading] = useState(false);
+    const CURRENT_ROUTES = [
+        { name: "커뮤니티", url: "/user/community" },
+        { name: "게시판", url: "/user/community/board" },
+        { name: "게시글 등록", url: "/user/community/board/form" },
+    ];
+
+    const PAGE_TITLE = "게시글 등록";
 
     const navi = useNavigate();
 
@@ -15,6 +25,8 @@ const BoardForm = () => {
 
     //파일 업로드 이벤트
     const onUploadEvent = (e) => {
+        setLoading(true);
+
         const uploadFile = new FormData();
         uploadFile.append("upload", e.target.files[0]);
 
@@ -24,9 +36,13 @@ const BoardForm = () => {
             url: "/form/upload",
             data: uploadFile,
             headers: { "Content-Type": "multipart/form-data" },
-        }).then((res) => {
-            setPhoto(res.data); //실제 스토리지에 올라간 사진파일명 반환
-        });
+        })
+            .then((res) => {
+                setPhoto(res.data); //실제 스토리지에 올라간 사진파일명 반환
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     };
 
     // 라디오 버튼 선택 이벤트
@@ -62,19 +78,33 @@ const BoardForm = () => {
 
     return (
         <div className='form-group mx_30'>
-            <h1 style={{ textAlign: "center", marginTop: "10px" }}>게시글 등록</h1>
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <div className='d-flex justify-content-between'>
                 <div className='col-3'>
                     <h5>사진</h5>
+                    <div
+                        style={{
+                            // backgroundImage: `url(${exampleImg})`,
+                            // backgroundPosition: "center",
+                            // backgroundSize: "cover",
+                            // backgroundRepeat: "no-repeat",
+                            width: "110px",
+                            height: "90px",
+                        }}
+                    >
+                        {loading ? (
+                            <CircularProgress size={30} /> // 로딩 스피너 표시
+                        ) : (
+                            <img alt='' src={photo ? imageUrl + photo : exampleImg} width={110} height={90} />
+                        )}
+                    </div>
                     <input type='file' className='form-control' onChange={onUploadEvent} />
-                    <img alt='' src={imageUrl + photo} width={130} />
-                    <b>{photo}</b>
                 </div>
 
                 <div className='col-8'>
-                    <h5>제목</h5>
-                    <input
-                        type='text'
+                    <TextField
+                        label='제목'
+                        placeholder='제목을 입력해 주세요.'
                         className='form-control'
                         onChange={(e) => {
                             setTitle(e.target.value);

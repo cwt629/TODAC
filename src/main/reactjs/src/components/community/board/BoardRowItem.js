@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import "./BoardStyle.css";
 
 const BoardRowItem = ({ idx, data }) => {
-    console.log(data);
     const navi = useNavigate();
 
     const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/"; //ncloud 에서 가져옴
