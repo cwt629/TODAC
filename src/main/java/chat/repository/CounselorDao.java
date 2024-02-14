@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
+import chat.data.CounselorDetailDto;
 import chat.data.CounselorDto;
 import lombok.AllArgsConstructor;
 
@@ -13,8 +14,8 @@ import lombok.AllArgsConstructor;
 public class CounselorDao {
 	CounselorRepository counselorRepository;
 	
-	public List<CounselorDto> getCounselorList(){
-		return counselorRepository.findAll(Sort.by(Sort.Direction.ASC, "counselorcode"));
+	public List<CounselorDetailDto> getCounselorList(){
+		return counselorRepository.getCounselorList();
 	}
 	
 	public CounselorDto getCounselorByCode(Short counselorcode) {
