@@ -6,7 +6,7 @@ import axios from "axios";
  * @param {string} systemMessage GPT에게 대입할 시스템 메세지(ex. 당신은 ~한 상담사입니다.)
  * @returns {string} 요약된 내용
  */
-async function summarizeContent(content, systemMessage) {
+async function summarizeContent(log, systemMessage) {
     try {
         const response = await axios.post(
             'https://api.openai.com/v1/chat/completions',
@@ -14,7 +14,7 @@ async function summarizeContent(content, systemMessage) {
                 model: 'gpt-3.5-turbo',
                 messages: [
                     { 'role': 'system', 'content': systemMessage },
-                    { 'role': 'user', 'content': content }
+                    ...log.map((data) => ({ 'role': data.speaker > 0 ? 'assistant' : 'user', 'content': data.content }))
                 ],
                 temperature: 0.1,
                 max_tokens: 400,
