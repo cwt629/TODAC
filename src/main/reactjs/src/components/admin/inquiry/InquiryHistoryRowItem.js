@@ -29,7 +29,8 @@ const InquiryHistorydataItem = (props) => {
 
     return (
         <div className='bg_gray bor_gray1 px-3 py-2' style={{ cursor: "pointer" }} onClick={handleClick}>
-            <div>제목 : <span className='fw_600'>{data.title}</span> | 작성자 : <span className='fw_600'>{data.memberNickname}</span></div>
+            <div>제목 : <span className='fw_600'>{data.title}</span></div>
+            <div>작성자 : <span className='fw_600'>{data.memberNickname}</span></div>
             <div className='fs_14'>{data.registereddate} | <span className={`fw_500 ${statusClass}`}>{completionStatus}</span></div>
         </div>
     );
