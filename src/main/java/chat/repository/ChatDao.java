@@ -51,4 +51,8 @@ public class ChatDao {
 	public List<ChatLogDto> selectLog(Short chatroomcode){
 		return logRepository.selectLog(chatroomcode);
 	}
+	
+	public ChatRoomDto getRoomByCode(Short chatroomcode) {
+		return roomRepository.getReferenceById(chatroomcode);
+	}
 }

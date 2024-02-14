@@ -31,7 +31,7 @@ const ChatRoomMain = () => {
     const [loading, setLoading] = useState(false);
     const [star, setStar] = useState(MAXIMUM_STARS);
     const [showReview, setShowReview] = useState(false);
-    const [counselorData, setCounselorData] = useState(null);
+    const [initialData, setInitialData] = useState(null);
     const [systemMessage, setSystemMessage] = useState('');
 
     const nav = useNavigate();
@@ -43,17 +43,17 @@ const ChatRoomMain = () => {
 
     const PAGE_TITLE = 'TODAC 채팅';
 
-    // 초기 로딩: 상담사 데이터 로딩
+    // 초기 데이터 로딩
     useEffect(() => {
-        axios.get('/counselor/select/chat?counselorcode=' + counselorcode)
+        axios.get(`/chat/init?counselorcode=${counselorcode}&usercode=${sessionStorage.getItem("usercode")}`)
             .then((res) => {
-                setCounselorData(res.data);
+                setInitialData(res.data);
                 setLog([{
-                    'role': 'assistant', 'content': res.data.greeting,
+                    'role': 'assistant', 'content': res.data.counselorGreeting,
                     'speaker': counselorcode,
-                    'photo': (res.data.photo) ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + res.data.photo : defaultProfilePhoto
+                    'photo': (res.data.counselorPhoto) ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + res.data.counselorPhoto : defaultProfilePhoto
                 }]);
-                setSystemMessage(res.data.personality + SYSTEM_MESSAGE_SUFFIX);
+                setSystemMessage(res.data.counselorPersonality + SYSTEM_MESSAGE_SUFFIX);
             })
     }, [])
 
@@ -68,10 +68,10 @@ const ChatRoomMain = () => {
     }
 
     const handleInputSubmit = () => {
-        if (!counselorData) {
+        if (!initialData) {
             ReactSwal.fire({
-                title: '상담사 데이터 로딩 중!',
-                text: '상담사 데이터 로딩 중입니다. 조금만 기다려주세요!',
+                title: '초기 데이터 로딩 중!',
+                text: '초기 데이터 로딩 중입니다. 조금만 기다려주세요!',
                 icon: 'error',
                 confirmButtonColor: '#FF7170',
                 confirmButtonText: '확인'
@@ -103,8 +103,7 @@ const ChatRoomMain = () => {
 
         const changedLog = [...log, {
             'role': 'user', 'content': input, 'speaker': 0,
-            // TODO: 사용자의 프로필 사진을 받아 넣어주기
-            'photo': defaultProfilePhoto
+            'photo': (initialData.userPhoto) ? initialData.userPhoto : defaultProfilePhoto
         }]; // 사용자의 입력을 미리 log에 담음
         setLog(changedLog);
         setLoading(true);
@@ -114,7 +113,7 @@ const ChatRoomMain = () => {
                     ...changedLog,
                     {
                         ...msg, 'speaker': counselorcode,
-                        'photo': (counselorData.photo) ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + counselorData.photo : defaultProfilePhoto
+                        'photo': (initialData.counselorPhoto) ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + initialData.counselorPhoto : defaultProfilePhoto
                     }
                 ]);
                 setLoading(false);
@@ -243,9 +242,9 @@ const ChatRoomMain = () => {
     return (
         <div className='chatmain mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <ChatRoomMidBar counselorname={counselorData?.name} handleFinishChat={handleFinishChat} />
+            <ChatRoomMidBar counselorname={initialData?.counselorName} handleFinishChat={handleFinishChat} />
             <ChatContent log={log} loading={loading}
-                nextCounselorPhoto={counselorData?.photo ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + counselorData.photo : defaultProfilePhoto} />
+                nextCounselorPhoto={initialData?.counselorPhoto ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + initialData.counselorPhoto : defaultProfilePhoto} />
             <ChatSubmit input={input} maxlength={MAXIMUM_INPUT_LENGTH} handleInputChange={handleInputChange} handleInputSubmit={handleInputSubmit} />
             {/* 리뷰창: 별점 갱신을 위해 컴포넌트로 감싼 뒤, 내부에서 portal로 관리한다 */}
             <ReviewAlert reviewShow={showReview}>
