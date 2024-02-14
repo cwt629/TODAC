@@ -1,6 +1,7 @@
 package community.board.controller;
 
 import community.board.data.BoardCommentDto;
+import community.board.data.BoardDetailDto;
 import community.board.data.BoardDto;
 import community.board.data.BoardListDto;
 import mypage.data.MemberDto;
@@ -12,11 +13,7 @@ import community.board.repository.BoardDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -66,6 +63,21 @@ public class BoardController {
 	public List<BoardListDto> list() {
 		List<BoardDto> allBoards = boardDao.getAllBoards();
         return allBoards.stream().map(BoardListDto::new).toList();
+	}
+
+	//특정 boardcode 의 조회수와 페이지번호 boardDetailDto mapping
+	@GetMapping("/board/detail")
+	public BoardDetailDto selectPage(@RequestParam("boardcode") int boardcode) {
+		// 조회수
+		boardDao.updateReadcount(boardcode);
+
+		// 페이지번호
+		BoardDto board = boardDao.getSelectPage(boardcode);
+
+		// BoardDto 를 BoardDetailDto 로 Mapping
+		BoardDetailDto boardDetailDto = new BoardDetailDto(board);
+
+		return boardDetailDto;
 	}
 
 	//관리자 게시판에서 회원 게시글 출력할때 사용하는 로직
