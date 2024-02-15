@@ -59,27 +59,19 @@ const Pointcheck = () => {
                 </div>
 
                 <div className="fs_17 fw_800">{member.nickname} 님의 포인트 사용내역</div>
-                    <table className="table table bordered">
-                        <th>
+                    <table className="table">
+                        <tr>
                             <td>내용</td>
                             <td>포인트</td>
                             <td>날짜</td>
-                        </th>
-                        <tr>
-                            <td>zz</td>
-                            <td>dd</td>
-                            <td>qq</td>
                         </tr>
                         {point.map((item, index) => (
-                            <div key={index} className="bg_gray bor_gray1 px-3 py-2">
-                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <div>
-                                        <span className="fw_600">{item.applieddate}</span> &ensp;
-                                        <span className="fw_600">{item.type}</span>
-                                    </div>
-                                </div>
-                                <div className="fs_14">{item.recordcode}</div>
-                            </div>
+
+                                    <tr>
+                                        <td className="fw_600">{item.type}</td>
+                                        <td className="fw_600">{item.amount}</td>
+                                        <td className="fw_600">{item.applieddate}</td>
+                                    </tr>
                         ))}
                     </table>
                 <button className="bg_blue bor_blue1"
