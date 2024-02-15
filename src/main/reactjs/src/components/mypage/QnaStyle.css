@@ -1,10 +1,10 @@
 /* FAQ 페이지 */
-.faq_q{
+.faq_q {
     cursor: pointer;
     position: relative;
 }
 
-.faq.accordion{
+.faq.accordion {
     --bs-accordion-color: var(--bs-body-color);
     --bs-accordion-bg: var(--bggray);
     --bs-accordion-border-color: var(--lightgray1);
@@ -27,20 +27,20 @@
     --bs-accordion-active-bg: var(--lightred);
 }
 
-.faq button{
+.faq button {
     font-size: 0.88rem;
 }
 
-.faq .accordion-button::after{
+.faq .accordion-button::after {
     margin-right: 0.5rem;
 }
 
-.faq .accordion-body{
+.faq .accordion-body {
     font-size: 0.88em;
     background-color: #E1F5F5;
 }
 
-.faq .accordion-item{
+.faq .accordion-item {
     color: var(--mainblack);
 }
 
@@ -51,7 +51,7 @@
     border-radius: 0;
 }
 
-.inquiry_btn>button{
+.inquiry_btn>button {
     background-color: var(--lightblue);
     border: 1px solid var(--midblue);
     border-radius: 5px;
@@ -60,7 +60,7 @@
     padding: 6px 30px;
 }
 
-.inquiry_list>div>button{
+.inquiry_list>div>button {
     border: 1px solid var(--midblue);
     border-radius: 5px;
     background-color: var(--lightblue);
@@ -83,7 +83,7 @@
     background-color: var(--midblue) !important;
 }
 
-.qnaPage_btn button{
+.qnaPage_btn button {
     color: var(--mainblack);
     font-weight: 600;
 }

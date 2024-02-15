@@ -19,6 +19,11 @@ public class PointRecordDao {
 	{
 		return pointRecordRepository.getMemberPayment(usercode);
 	}
+	
+	public List<PointRecordDto> getMemberPoint(int usercode)
+	{
+		return pointRecordRepository.getMemberPoint(usercode);
+	}
 
 	public void inserPointRecord(PointRecordDto dto){
 		pointRecordRepository.save(dto);
