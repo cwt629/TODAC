@@ -25,7 +25,7 @@ public class MemberController {
     @Autowired
     private final NcpObjectStorageService storageService;
     private String bucketName = "guest-hch";  // 버켓네임 지정
-    private String folderName = "TODAC";       // 저장할 폴더네임 지정
+    private String folderName = "TODAC/profile";       // 저장할 폴더네임 지정
     private String uploadFilename;
 
 
@@ -86,11 +86,14 @@ public class MemberController {
     }
 
     @PostMapping("/member/insert")
-    public String memberinsert(@RequestBody MemberDto dto)
+    public String memberinsert(@RequestBody MemberDto reqdto)
     {
-
+        MemberDto dto = new MemberDto();
+        dto = memberDao.getMemberByID(reqdto.getUserid());
+        dto.setAddress(reqdto.getAddress());
+        dto.setNickname(reqdto.getNickname());
         //업로드된 사진
-        String cloudimgurl = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/";
+        String cloudimgurl = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/profile/";
         dto.setPhoto(cloudimgurl+uploadFilename);
 
         memberDao.insertMember(dto);

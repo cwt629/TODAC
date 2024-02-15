@@ -15,15 +15,12 @@ const MyPageUpdateForm = () => {
     const [idcheck,setIdcheck]=useState(false);//아이디 중복확인을 했는지 체크하기 위한 변수
     const [nickname,setNickname]=useState('');
     const storedId = sessionStorage.getItem("id");
-    const usercode = sessionStorage.getItem("usercode");
+    const userid = sessionStorage.getItem("usercode");
     const [address,setAddress]=useState('');
+    const [addressplus,setAddressplus]=useState('');
     const [open, setOpen] = useState(false);//다이얼로그 open/close
     const [openPostcode,setOpenPostcode]=useState(false);//카카오 주소록 open/close
-    const [type,setType]=useState('');
-    const [pass,setPass]=useState('');
-    const [userid,setUserid]=useState('');
-    const [token,setToken]=useState('');
-    const [point,setPoint]=useState('');
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -46,7 +43,7 @@ const MyPageUpdateForm = () => {
     }
 
     //네이버 스토리지의 이미지 폴더명
-    const imageUrl="https://kr.object.ncloudstorage.com/guest-hch/TODAC/";
+    const imageUrl="https://kr.object.ncloudstorage.com/guest-hch/TODAC/profile";
 
     //파일 업로드 이벤트
     const uploadPhoto=(e)=>{
@@ -63,6 +60,12 @@ const MyPageUpdateForm = () => {
     }
 
     const buttonIdCheck=()=>{
+        if(nickname===member.nickname) {
+            alert("본인의 닉네임 입니다.");
+            setIdcheck(true);
+            return;
+        }
+
         const url="/member/nicknamecheck?nickname="+nickname;
         axios.post(url)
             .then(res=>{
@@ -77,16 +80,8 @@ const MyPageUpdateForm = () => {
             })
     }
 
-    const startset=()=>{
-        setNickname(member.nickname);
-        setPhoto(member.photo);
-        setType(member.type);
-        setUserid(member.userid);
-        setToken(member.token);
-        setPass(member.pass);
-        console.log("아이디는 " + member.userid);
-    }
     const saveMemberEvent=()=>{
+
         if(nickname.length===0){
             alert("아이디를 입력 후 중복학인을 해주세요")
             return;
@@ -103,10 +98,10 @@ const MyPageUpdateForm = () => {
         }
 
         //db에 저장
-        axios.post("/member/insert",{point,usercode,type,nickname,pass,userid,address,photo,token})
+        axios.post("/member/insert",{nickname:nickname,userid:storedId,address:address,photo:photo})
             .then(res=>{
                 //멤버 추가 후 이동할 페이지
-                navi("/member/list");
+                navi("/user");
 
             })
 
@@ -114,6 +109,10 @@ const MyPageUpdateForm = () => {
 
     useEffect(() => {
         getmember();
+        setAddress(member.address)
+        setNickname(member.nickname)
+        setPhoto(member.photo)
+
 
     }, []);
 
@@ -191,10 +190,8 @@ const MyPageUpdateForm = () => {
                 <button type='button' className='btn btn-sm btn-secondary'
                         onClick={handleClickOpen}>주소검색
                 </button>
-                <input className="bg_red bor_red" type={"text"} placeholder={"상세 주소"}/>
-                <button className="bg_blue bor_blue1"
-                        onClick={startset}>적용
-                </button>
+                <input className="bg_red bor_red" type={"text"} placeholder={"상세 주소"}
+                        value={addressplus}/>
                 <button className="bg_blue bor_blue1"
                         onClick={saveMemberEvent}>수정 사항 저장
                 </button>
