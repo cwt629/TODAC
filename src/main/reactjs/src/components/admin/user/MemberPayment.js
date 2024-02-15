@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { Pagination } from '@mui/material';
 
 const MemberPayment = () => {
     const nav = useNavigate();
@@ -11,6 +12,8 @@ const MemberPayment = () => {
     const params = new URLSearchParams(location.search);
     const usercode = params.get("usercode");
     const [member, setMember] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(4);
 
     useEffect(() => {
         if (usercode) {
@@ -34,15 +37,25 @@ const MemberPayment = () => {
                 setPay(res.data);
             })
             .catch(error => {
-                console.error("Error fetching comment:", error);
+                console.error("결제내역을 불러오는 중 오류 발생:", error);
             })
             .finally(() => {
                 setLoading(false);
             });
     }
 
-    // 검색어와 일치하는 게시글만 필터링
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
+    };
+
+    // 검색어와 일치하는 결제내역만 필터링
     const filteredPay = pay.filter(item => item.type.includes(searchQuery));
+
+    // 페이징을 위한 계산
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredPay.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(filteredPay.length / itemsPerPage);
 
     return (
         <div className='mx_30'>
@@ -73,7 +86,7 @@ const MemberPayment = () => {
                 style={{ '::placeholder': { color: 'lightgray' } }}
             />
             <div className="fs_17 fw_800">{member.nickname} 님의 결제내역</div>
-            {filteredPay.map((item, index) => (
+            {currentItems.map((item, index) => (
                 <div key={index} className="bg_gray bor_gray1 px-3 py-2">
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div>
@@ -85,7 +98,17 @@ const MemberPayment = () => {
                 </div>
             ))}
 
+            {/* Pagination */}
+            <div className="justify-content-center d-flex mt-3 qnaPage_btn">
+                <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    onChange={handlePageChange}
+                    color="primary"
+                />
+            </div>
         </div>
     );
 };
+
 export default MemberPayment;
