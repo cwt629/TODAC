@@ -31,6 +31,24 @@ div.counselorprofile img.counselorphoto {
 
 div.counselbtndiv {
     height: 40px;
+}
+
+div.counselbtn {
+    padding: 0 7px;
+    display: flex;
+    align-items: center;
+}
+
+div.counselbtndiv.counsel-start {
     display: flex;
     justify-content: center;
+}
+
+div.counselbtndiv.counsel-lognav {
+    width: 85%;
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: 112px;
+    right: 30px;
 }

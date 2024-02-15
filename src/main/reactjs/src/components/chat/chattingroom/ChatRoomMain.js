@@ -247,9 +247,9 @@ const ChatRoomMain = () => {
                 nextCounselorPhoto={initialData?.counselorPhoto ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + initialData.counselorPhoto : defaultProfilePhoto} />
             <ChatSubmit input={input} maxlength={MAXIMUM_INPUT_LENGTH} handleInputChange={handleInputChange} handleInputSubmit={handleInputSubmit} />
             {/* 리뷰창: 별점 갱신을 위해 컴포넌트로 감싼 뒤, 내부에서 portal로 관리한다 */}
-            <ReviewAlert reviewShow={showReview}>
-                <ChatReviewModal star={star} maxStar={MAXIMUM_STARS} handleStarClick={handleStarClick}
-                    handleReviewPass={handleReviewPass} handleReviewGrant={handleReviewGrant} handleReviewClose={handleReviewClose} />
+            <ReviewAlert reviewShow={showReview} handleClose={handleHidingReview}>
+                <ChatReviewModal star={star} maxStar={MAXIMUM_STARS} counselorname={initialData?.counselorName}
+                    handleStarClick={handleStarClick} handleReviewPass={handleReviewPass} handleReviewGrant={handleReviewGrant} handleReviewClose={handleReviewClose} />
             </ReviewAlert>
         </div>
     );

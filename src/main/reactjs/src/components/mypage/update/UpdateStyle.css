@@ -1,27 +1,27 @@
-div.mypagemain {
+div.myupdatemain {
     margin: 30px;
     height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-div.mypageheader {
+div.myupdateheader {
     height: 60px;
 }
 
-div.mypagemain div.profile{
+div.myupdatemain div.profile{
     align-self: center;
     text-align: center;
     margin-top: 30px;
 }
 
-div.mypagemain div.profile img{
-    width: 80px;
-    height: 80px;
+div.myupdatemain div.profile img{
+    width: 120px;
+    height: 120px;
     border-radius: 10px;
 }
 
-div.mypagemain div.iconmenu{
+div.myupdatemain div.iconmenu{
     width: 100%;
     align-self: center;
     text-align: center;
@@ -29,30 +29,30 @@ div.mypagemain div.iconmenu{
     justify-content: space-between;
 }
 
-div.mypagemain div.iconmenu div{
+div.myupdatemain div.iconmenu div{
     cursor: pointer;
 }
 
-div.mypagemain div.iconmenu h6{
+div.myupdatemain div.iconmenu h6{
     margin: 10px 0px;
 }
 
-div.mypagemain div.listmenu{
+div.myupdatemain div.listmenu{
     margin-top: 55px;
 }
 
-div.mypagemain div.listmenu div{
+div.myupdatemain div.listmenu div{
     cursor: pointer;
     margin: 30px 0px;
 }
 
-div.mypagemain div.listmenu div {
+div.myupdatemain div.listmenu div {
     cursor: pointer;
     margin: 30px 0px;
     margin-right: 10px;
 }
 
-div.mypagemain div.lastmenu{
+div.myupdatemain div.lastmenu{
     cursor: pointer;
     margin-bottom: 300px;
 
