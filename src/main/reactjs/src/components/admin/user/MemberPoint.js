@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
-import { Pagination } from '@mui/material';
+import { Pagination, InputAdornment, OutlinedInput } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 const MemberPoint = () => {
     const nav = useNavigate();
@@ -32,7 +33,7 @@ const MemberPoint = () => {
 
     const fetchPoint = (usercode) => {
         setLoading(true);
-        axios.post(`/admin/payment?usercode=${usercode}`)
+        axios.post(`/admin/point?usercode=${usercode}`)
             .then(res => {
                 setPoint(res.data);
             })
@@ -63,9 +64,9 @@ const MemberPoint = () => {
                 <Link to="/admin" className='col_blue2'>관리자 홈 {'>'} </Link>
                 <Link to="/admin/MemberManage" className='col_blue2'>회원 관리 {'>'} </Link>
                 <Link to="/admin/MemberManage/MemberProfile" className='col_blue2'>회원 정보 {'>'}</Link>
-                <Link to="/admin/MemberManage/MemberProfile/MemberPoint" className='col_blue2'>회원 포인트 사용내역</Link>
+                <Link to="/admin/MemberManage/MemberProfile/MemberPoint" className='col_blue2'> 회원 포인트 사용내역</Link>
             </div>
-            <div className='fs_25 fw_700'>회원 포인트 사용 내역</div>
+            <div className='fs_25 fw_700'>회원 포인트 사용 내역</div> <br />
 
             <div style={{ textAlign: 'center' }}>
                 <img alt='' src={member.photo} style={{ width: '25vh', height: '25vh' }} />
@@ -76,25 +77,35 @@ const MemberPoint = () => {
             <div className='fs_17 fw_800'>{member.nickname} 님의 포인트 사용내역 검색</div>
 
             {/* 검색창 */}
-            <input
-                type="text"
+            <OutlinedInput
                 id="search"
+                type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="타입을 검색하세요"
+                placeholder="검색할 타입을 입력해주세요"
                 className="form-control mb-3 bg_red col_gray fs_16 fw_800"
-                style={{ '::placeholder': { color: 'lightgray' } }}
+                style={{
+                    '::placeholder': { color: 'gray' },
+                    height: '40px',
+                    padding: '8px',
+                    borderRadius: '5px',
+                }}
+                startAdornment={
+                    <InputAdornment position="start">
+                        <SearchIcon />
+                    </InputAdornment>
+                }
             />
             <div className="fs_17 fw_800">{member.nickname} 님의 포인트 사용내역</div>
             {currentItems.map((item, index) => (
-                <div key={index} className="bg_gray bor_gray1 px-3 py-2">
+                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div>
-                            <span className="fw_600">{item.applieddate}</span> &ensp;
-                            <span className="fw_600">{item.type}</span>
+                            <span className="fw_600">{item.applieddate}</span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                            <span className="fw_600 col_blue2">{item.amount}</span><span className='fw_600'> 포인트</span>
                         </div>
                     </div>
-                    <div className="fs_14">{item.recordcode}</div>
+                    <div className="fs_15 w_500">{item.type}</div>
                 </div>
             ))}
 
@@ -104,7 +115,6 @@ const MemberPoint = () => {
                     count={totalPages}
                     page={currentPage}
                     onChange={handlePageChange}
-                    color="primary"
                 />
             </div>
         </div>
