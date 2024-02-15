@@ -33,11 +33,12 @@ public class MemberController {
     public Map<String,Object> memberList()
     {
     	Map<String, Object> map=new HashMap<>();
-    	List<MemberDto> user = memberDao.getAllMember();
+    	//List<MemberDto> user = memberDao.getAllMember();
+    	List<MemberDto> user = memberDao.getAllUser();
     	map.put("user",user);
     	return map;
     }
-
+    
 
     @PostMapping("/login/signupinsert")
     public Map<String, Object> insert(@RequestBody MemberDto dto) throws Exception {
@@ -57,10 +58,17 @@ public class MemberController {
         return memberDao.getMemberByID(userid);
     }
 
-    @DeleteMapping("/member/delete")
-    public void delete(@RequestParam("userid") String userid)
+    //서연 작성-받는 데이터값 usercode로 통일 시키려고 만들었씀
+    @PostMapping("member/data")
+    public MemberDto getMemberByData(@RequestParam("usercode") int usercode) throws Exception
     {
-    	memberDao.deleteMember(userid);
+    	return memberDao.getMemberByData(usercode);
+    }
+
+    @DeleteMapping("/member/delete")
+    public void delete(@RequestParam("usercode") int usercode)
+    {
+    	memberDao.deleteMember(usercode);
     }
 
     @PostMapping("/member/nicknamecheck")

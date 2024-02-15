@@ -13,11 +13,11 @@ const MemberProfile = () => {
     const nav = useNavigate();
     const [member, setMember] = useState([]);
     let [query, setQuery] = useSearchParams();
-    const userid = query.get("userid");
+    const usercode = query.get("usercode");
 
     const getMember = () => {
-        const url = "/member/info?userid=" + userid;
-        console.log("userid = " + userid);
+        const url = "/member/data?usercode=" + usercode;
+        console.log("usercode = " + usercode);
         axios.post(url, {})
             .then(res => {
                 setMember(res.data);
@@ -37,37 +37,44 @@ const MemberProfile = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 // 확인 버튼이 눌렸을 때만 삭제 요청을 보냄
-                const url = '/member/delete?userid=' + userid;
+                const url = '/member/delete?usercode=' + usercode;
                 axios.delete(url)
-                    .then(res => {
-                        // 삭제 후 이전 페이지로 이동
-                        nav(-1); // -1을 전달하여 이전 페이지로 이동
+                    .then(() => {
+                        // 삭제 후 다시 게시글 목록을 불러옴
+                        getMember(usercode);
+                        Swal.fire({
+                            title: '삭제 완료',
+                            text: '해당 회원이 추방되었습니다.',
+                            icon: 'success',
+                            confirmButtonColor: '#FF7170',
+                        });
+                        //회원 삭제 후 이전 페이지로 이동
+                        nav(-1);
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         console.error('삭제 중 오류 발생:', error);
                     });
             }
         });
     };
 
-
     useEffect(() => {
         const storedToken = sessionStorage.getItem("token");
         const storedId = sessionStorage.getItem("id");
         getMember();
-    }, [userid]);
+    }, [usercode]);
 
     return (
         <div className='mx_30'>
             <div className='mt-1 fs_14'>
                 <Link to="/admin" className='col_blue2'>관리자 홈 {'>'} </Link>
                 <Link to="/admin/MemberManage" className='col_blue2'>회원 관리 {'>'} </Link>
-                <Link to="/admin/MemberManage/MemberProfile" className='col_blue2'>회원 정보</Link>
+                <span className='col_blue2'>&nbsp;회원 정보</span>
             </div>
             <div className='fs_25 fw_700'>회원정보
                 <button
                     className='bor_blue2 fs_18 fw_700 col_blue2'
-                    onClick={() => onPersonDelete(userid)}
+                    onClick={() => onPersonDelete(usercode)}
                     style={{ float: 'right', borderRadius: '8px', backgroundColor: 'white' }}
                 >
                     회원 추방
@@ -80,19 +87,19 @@ const MemberProfile = () => {
                 <br />
             </div>
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberPost?usercode=' + member.usercode)}><CommentIcon color='deepblue' />&nbsp;&nbsp;{member.nickname} 님의 게시글 &nbsp;{'>'}</button>
+                onClick={() => nav('MemberPost?usercode=' + member.usercode)}><CommentIcon />&nbsp;&nbsp;{member.nickname} 님의 게시글 &nbsp;{'>'}</button>
             <br />
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberComment')}> <CommentIcon />&nbsp;&nbsp;{member.nickname} 님의 댓글 &nbsp; {'>'} </button>
+                onClick={() => nav('MemberComment?usercode=' + member.usercode)}> <CommentIcon />&nbsp;&nbsp;{member.nickname} 님의 댓글 &nbsp; {'>'} </button>
             <br />
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberPayment')}> <PaymentOutlinedIcon />&nbsp;&nbsp;{member.nickname} 님의 결제 내역&nbsp; {'>'}</button>
+                onClick={() => nav('MemberPayment?usercode=' + member.usercode)}> <PaymentOutlinedIcon />&nbsp;&nbsp;{member.nickname} 님의 결제 내역&nbsp; {'>'}</button>
             <br />
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberPoint')}> <CardGiftcardOutlinedIcon /> &nbsp;&nbsp;{member.nickname} 님의 포인트 사용 &nbsp;{'>'}</button>
+                onClick={() => nav('MemberPoint?usercode=' + member.usercode)}> <CardGiftcardOutlinedIcon /> &nbsp;&nbsp;{member.nickname} 님의 포인트 사용 &nbsp;{'>'}</button>
             <br />
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberChatSearch')}><ForumOutlinedIcon />&nbsp;&nbsp;{member.nickname} 님의 채팅 기록&nbsp; {'>'}</button>
+                onClick={() => nav('MemberChatSearch?usercode=' + member.usercode)}><ForumOutlinedIcon />&nbsp;&nbsp;{member.nickname} 님의 채팅 기록&nbsp; {'>'}</button>
         </div>
     );
 };

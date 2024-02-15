@@ -38,8 +38,8 @@ public class BoardDto {
     @Column(length = 1000)
     private String content;
 
-    @Column(length = 20)
-    private String visitcount;
+    @Column
+    private int visitcount;
 
     @Column(length = 100)
     private String photo;
