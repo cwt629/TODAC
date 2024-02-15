@@ -47,6 +47,5 @@ public class QnaDto {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Seoul") //댓글 출력은 ajax로 처리하기 위해 포멧한다네요
     @Column(updatable = false) //수정 시 수정컬럼에서 제외
-    @CreationTimestamp //now() 같이 현재 시간이 자동등록
     private Timestamp answereddate;
 }

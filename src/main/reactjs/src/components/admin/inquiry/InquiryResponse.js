@@ -14,6 +14,7 @@ const InquiryResponse = () => {
         axios.post(url, {inquirycode:inquirycode})
           .then(res => {
             setSelectQnaData(res.data);
+            console.log(res.data)
           })
           .catch(error => {
             console.error("Error fetching inquiry data:", error);

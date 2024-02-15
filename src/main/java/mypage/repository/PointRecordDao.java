@@ -2,6 +2,7 @@ package mypage.repository;
 
 import java.util.List;
 
+import mypage.data.MemberDto;
 import org.springframework.stereotype.Repository;
 
 import lombok.AllArgsConstructor;
@@ -23,5 +24,9 @@ public class PointRecordDao {
 	{
 		return pointRecordRepository.getMemberPoint(usercode);
 	}
-	
+
+	public void inserPointRecord(PointRecordDto dto){
+		pointRecordRepository.save(dto);
+	}
 }
+
