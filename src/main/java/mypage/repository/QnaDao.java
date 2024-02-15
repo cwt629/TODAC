@@ -46,6 +46,6 @@ public class QnaDao {
 	
 	public void addAnswer(QnaDto dto)
 	{
-		qnaRepo.save(dto);
+		qnaRepo.insertAnswer(dto);
 	}
 }

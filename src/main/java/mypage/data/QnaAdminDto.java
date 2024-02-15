@@ -5,10 +5,13 @@ import java.sql.Timestamp;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class QnaAdminDto {
 	private int inquirycode;
+	private int memberUsercode;
 	private String title;
 	private String inquiry;
 	private String answer;
@@ -21,6 +24,7 @@ public class QnaAdminDto {
 	
 	public QnaAdminDto(QnaDto qnaDto) {
 		inquirycode = qnaDto.getInquirycode();
+		memberUsercode = qnaDto.getMember().getUsercode();
 		title = qnaDto.getTitle();
 		inquiry = qnaDto.getInquiry();
 		answer = qnaDto.getAnswer();
