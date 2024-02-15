@@ -2,11 +2,14 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { Pagination } from '@mui/material';
 
 const MemberManage = () => {
     const nav = useNavigate();
     const [members, setMembers] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [membersPerPage] = useState(5);
 
     useEffect(() => {
         const fetchMembers = async () => {
@@ -23,12 +26,20 @@ const MemberManage = () => {
 
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
+        setCurrentPage(1);
     };
 
-    /* toLowerCase(): 대소문자에 관계없이 일치 여부를 확인할 수 있음 */
-    const filteredMembers = members.filter(member =>
-        member.nickname.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const indexOfLastMember = currentPage * membersPerPage;
+    const indexOfFirstMember = indexOfLastMember - membersPerPage;
+    const currentMembers = members
+        .filter(member => member.nickname.toLowerCase().includes(searchTerm.toLowerCase()))
+        .slice(indexOfFirstMember, indexOfLastMember);
+
+    const totalPages = Math.ceil(members.length / membersPerPage);
+
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
+    };
 
     return (
         <div className='mx_30'>
@@ -61,19 +72,29 @@ const MemberManage = () => {
                     </tr>
                 </thead>
                 <tbody className='bg_red'>
-                    {filteredMembers.map((member, index) => (
+                    {currentMembers.map((member, index) => (
                         <tr
                             key={index}
                             onClick={() => nav("MemberProfile?usercode=" + member.usercode)}
                             style={{ cursor: 'pointer' }}
                         >
-                            <td>{index + 1}</td>
+                            <td>{index + 1 + indexOfFirstMember}</td>
                             <td>{member.nickname}</td>
                             <td>{member.registereddate}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+
+            {/* Pagination */}
+            <div className="justify-content-center d-flex mt-3 qnaPage_btn">
+                <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    onChange={handlePageChange}
+                    color="primary"
+                />
+            </div>
         </div>
     );
 };

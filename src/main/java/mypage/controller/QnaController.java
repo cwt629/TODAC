@@ -1,5 +1,7 @@
 package mypage.controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,10 +67,16 @@ public class QnaController {
 
 	//answer추가
 	@PostMapping("/admin/inquiryanswer/add")
-	public void qnaAnswerInsert(@RequestBody QnaDto dto) //@RequestBody생략하면 안됨 생략하면 모델어트리뷰트로 읽음
-	{
-		qnaDao.addAnswer(dto);
+	public void qnaAnswerInsert(@RequestBody QnaAdminDto dto) {
+	    // QnaDto 객체 생성
+	    QnaDto qnadto = new QnaDto();
+	    // QnaDto 객체에 필드 값 설정
+	    qnadto.setInquirycode(dto.getInquirycode());
+	    qnadto.setAnswer(dto.getAnswer());
+	    // QnaDao를 사용하여 답변 추가
+	    qnaDao.addAnswer(qnadto);
 	}
+
 
 	//관리자 1:1문의 목록 를 출력할 때 사용하는 로직 (승민이 보드컨트롤러 참조)
 	// 화면에 필요한 데이터만 핏 하게 뿌리고싶어서 dto를 새로만듬 엔티티는 데이터의 이동 통로가 되면 안된다.

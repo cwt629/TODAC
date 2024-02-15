@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PageHeader from "../../PageHeader";
+import noImage from "../../../image/no_image_board_form.png";
+import { TextField } from "@mui/material";
 
 const BoardDetail = () => {
     const [data, setData] = useState("");
@@ -25,50 +27,58 @@ const BoardDetail = () => {
 
     return (
         <div>
-            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             {data && (
-                <div style={{ margin: "50px", width: "700px" }}>
-                    <div className='input-group' style={{ marginTop: "20px" }}>
-                        {data.photo == "" ? (
-                            ""
-                        ) : (
-                            <img alt='' src={imageStorage + data.photo} style={{ maxWidth: "100px" }} />
-                        )}
+                <div className='form-group mx_30'>
+                    <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+                    <div className='d-flex justify-content-between' style={{ marginTop: "15px" }}>
+                        <div className='col-4'>
+                            {data.photo == null ? (
+                                <img alt='' src={noImage} style={{ width: "110px", height: "90px" }} />
+                            ) : (
+                                <img
+                                    alt=''
+                                    src={imageStorage + data.photo}
+                                    style={{ width: "110px", height: "90px" }}
+                                />
+                            )}
+                        </div>
+                        <div className='col-7'>
+                            <TextField
+                                className='bg_gray'
+                                id='outlined-read-only-input'
+                                defaultValue={data.title}
+                                size='small'
+                                style={{ width: "100%" }}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                            />
+                        </div>
                     </div>
-                    <h2>
-                        <b>{data.title}</b>
-                    </h2>
-                    <div className='input-group'>
-                        <span style={{ marginLeft: "100px", color: "gray" }}>조회임 {data.memberNickname}</span>
-                        <span style={{ marginLeft: "100px", color: "gray" }}>{data.writeday}</span>
+                    <div style={{ marginTop: "10px", height: "100%" }}>
+                        <TextField
+                            className='bg_gray'
+                            multiline
+                            id='outlined-multiline-static'
+                            rows={6}
+                            defaultValue={data.content}
+                            style={{ height: "100%", width: "100%" }}
+                            InputProps={{
+                                readOnly: true,
+                            }}
+                        />
                     </div>
-                    <pre style={{ fontWeight: "bold", marginTop: "20px" }}>{data.content}</pre>
-                    <br />
-                    <br />
-                    <button
-                        type='button'
-                        className='btn btn-outline-secondary btn-sm'
-                        style={{ width: "80px" }}
-                        onClick={() => navi("")}
-                    >
-                        수정
-                    </button>
-                    <button
-                        type='button'
-                        className='btn btn-outline-secondary btn-sm'
-                        style={{ width: "80px", marginLeft: "5px" }}
-                        onClick={() => navi("")}
-                    >
-                        삭제
-                    </button>{" "}
-                    <button
-                        type='button'
-                        className='btn btn-outline-secondary btn-sm'
-                        style={{ width: "80px" }}
-                        onClick={() => navi("")}
-                    >
-                        작성완료
-                    </button>
+                    <div style={{ marginTop: "10px" }}>
+                        <TextField
+                            className='bg_blue'
+                            id='outlined-read-only-input'
+                            defaultValue={`${data.counselorCode}번 상담사`}
+                            size='small'
+                            InputProps={{
+                                readOnly: true,
+                            }}
+                        />
+                    </div>
                 </div>
             )}
         </div>
