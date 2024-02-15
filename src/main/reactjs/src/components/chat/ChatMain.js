@@ -7,6 +7,7 @@ import './counselor/CounselorStyle.css';
 import CounselStartButton from './counselor/CounselStartButton';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import LogNavigationButton from './counselor/LogNavigationButton';
 
 const ChatMain = () => {
     const [counselorList, setCounselorList] = useState([]);
@@ -19,6 +20,12 @@ const ChatMain = () => {
     ];
 
     const PAGE_TITLE = '상담사 선택';
+
+    // 나의 상담 기록 이동 버튼
+    const handleLogNavClick = () => {
+        // TODO: '현재 사용자'의 로그 리스트 구현 후, 그 쪽으로 이동해야 함
+        nav("loglist");
+    }
 
     const handleCounselorClick = (index) => {
         setSelectedCounselor(counselorList[index]);
@@ -52,6 +59,7 @@ const ChatMain = () => {
             <CounselorProfile data={selectedCounselor} />
             <CounselorOptions info={counselorList} handleClick={handleCounselorClick} />
             <CounselStartButton handleClick={handleCounselStart} />
+            <LogNavigationButton handleClick={handleLogNavClick} />
         </div>
     );
 };
