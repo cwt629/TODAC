@@ -166,7 +166,7 @@ const MyPageUpdateForm = () => {
                     </div>
                 </div>
                 <div className="profile">
-                    <img className="profile" alt='' src={imageUrl + photo}/>
+                    <img className="profile" alt='' src={member.photo}/>
                     <h4>{member.nickname}</h4>
                     <input type='file' id='filephoto' style={{display: 'none'}}
                            onChange={uploadPhoto}/>

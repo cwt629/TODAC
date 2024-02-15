@@ -2,7 +2,9 @@ package mypage.controller;
 
 import lombok.RequiredArgsConstructor;
 import mypage.data.MemberDto;
+import mypage.data.PointRecordDto;
 import mypage.repository.MemberDao;
+import mypage.repository.PointRecordDao;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -24,6 +26,7 @@ import java.util.Base64;
 public class PaymentController {
 
     private final MemberDao memberDao;
+    private final PointRecordDao pointRecordDao;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -89,7 +92,12 @@ public class PaymentController {
         memberDao.insertMember(memdto);
 
         //포인트 정보 기록하기
-        
+        PointRecordDto pdto = new PointRecordDto();
+        pdto.setAmount(price);
+        pdto.setType("충전");
+        pdto.setMember(memdto);
+        pointRecordDao.inserPointRecord(pdto);
+
 
         return ResponseEntity.status(code).body(jsonObject);
     }
