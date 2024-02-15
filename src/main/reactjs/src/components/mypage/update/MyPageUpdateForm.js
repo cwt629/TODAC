@@ -108,20 +108,32 @@ const MyPageUpdateForm = () => {
     }
 
     useEffect(() => {
-        getmember();
-        setAddress(member.address)
-        setNickname(member.nickname)
-        setPhoto(member.photo)
+        // 1. async로 정의한 경우
+        //await getmember();
 
+        // 2. then 활용하는 경우(지금 이 함수에 async 안써도됨)
+        getmember()
+            // .then((res) => {
+            //     console.log("불러왔음 ㅋ");
+            //     console.log(member);
+            //     // setAddress(member.address)
+            //     // setNickname(member.nickname)
+            //     // setPhoto(member.photo)
+            // })
+            //
+            //
 
     }, []);
 
-    const getmember = () => {
+    const getmember = async () => {
         const url = "/member/info?userid=" + storedId;
         axios.post(url)
             .then(res => {
                 setmember(res.data);
-
+                // console.log(res);
+                setAddress(res.data.address);
+                setNickname(res.data.nickname);
+                setPhoto(res.data.photo);
             })
     }
 
@@ -166,8 +178,8 @@ const MyPageUpdateForm = () => {
                     </div>
                 </div>
                 <div className="profile">
-                    <img className="profile" alt='' src={member.photo}/>
-                    <h4>{member.nickname}</h4>
+                    <img className="profile" alt='' src={photo}/>
+                    <h4>{nickname}</h4>
                     <input type='file' id='filephoto' style={{display: 'none'}}
                            onChange={uploadPhoto}/>
                     <CameraAltOutlined style={{fontSize: '2em', cursor: 'pointer'}}
