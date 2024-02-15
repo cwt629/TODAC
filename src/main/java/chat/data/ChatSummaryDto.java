@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class ChatSummaryDto {
     @Id //각 엔터티를 구별할 수 있도록 식별 아이디를 갖도록 설계
-    @GeneratedValue(strategy = GenerationType.IDENTITY)//auto increment를 주기 위한거래여
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//auto increment를 주기 위한거래
     private int summarycode;
 
     @OneToOne //섭 테이블에는 onetoone : 하나씩이욤
@@ -28,10 +28,10 @@ public class ChatSummaryDto {
     @OnDelete(action = OnDeleteAction.CASCADE) //부모 테이블 지우면 댓글도 삭제한다. 혹시 변경사항이 있다면 yml 야멜 파일에서 create로 바꾸고 실행해야 된다 ~~
     private ChatRoomDto chatroom;
 
-    @Column(length = 300)
+    @Column(length = 1000)
     private String worry;
 
-    @Column(length = 300)
+    @Column(length = 1000)
     private String answer;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Seoul") //댓글 출력은 ajax로 처리하기 위해 포멧한다네요

@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import diagnosis from '../../../image/diagnosis.png';
 import './DocumentStyle.css';
 import axios from 'axios';
+import summarizeContent from '../api/summarize';
 
 const ChatSummary = () => {
     const [summaryList, setSummaryList] = useState([]);
     const nav = useNavigate();
     const [query, setQuery] = useSearchParams();
     const roomcode = query.get("roomcode");
-    const userLog = summaryList.filter((log) => (log.speaker === 0));
-    const counselorLog = summaryList.filter((log) => (log.speaker !== 0));
+    const [loading, setLoading] = useState(true); // 요약본 생성 중인지 여부
+    const [summarizedMessages, setSummarizedMessages] = useState({ summarizedUserMessage: "", summarizedCounselorMessage: "" });
 
     const handleInfoClick = () => {
         // sweetalert2 팝업 띄우기
@@ -22,17 +23,108 @@ const ChatSummary = () => {
             confirmButtonText: '닫기',
         });
     };
-    const list = () => {
-        axios.get("/chat/summary?chatroomcode=" + roomcode)
-            .then(res => {
-                console.log(res.data);
-                setSummaryList(res.data);
-            })
+
+    const list = async () => {
+        try {
+            const response = await axios.get("/chat/summary?chatroomcode=" + roomcode);
+            console.log("로그 불러오려고 함");
+            console.log(response);
+            setSummaryList(response.data);
+            const { summarizedUserMessage, summarizedCounselorMessage } = await summarizeMessages(response.data);
+            setSummarizedMessages({ summarizedUserMessage, summarizedCounselorMessage });
+            await saveSummarizedMessages(summarizedUserMessage, summarizedCounselorMessage);
+        } catch (error) {
+            console.error('Error fetching summary list:', error);
+        }
+    };
+
+    // 사용자 고민 내용과 상담사의 답변 내용을 요약
+    const summarizeMessages = async (chatlog) => {
+        Swal.fire({
+            title: '요약본 생성중',
+            text: '잠시만 기다려주세요!',
+            icon: 'info',
+            timerProgressBar: true,
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            willOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        console.log("지금 보내고자 하는 로그");
+        console.log(chatlog);
+
+        const userLog = chatlog.filter((log) => (log.speaker === 0));
+        const counselorLog = chatlog.filter((log) => (log.speaker !== 0));
+
+        const summarizedUserMessage = await summarizeContent(
+            userLog,
+            "이 내용은 당신이 사용자와 나눈 심리 상담 내용입니다. 여기서 사용자의 고민을 요약해주세요. 요약은 짧을수록 좋으며, 길어도 300자를 넘지 않게 해주세요."
+        );
+        const summarizedCounselorMessage = await summarizeContent(
+            counselorLog,
+            "이 내용은 당신이 사용자와 나눈 심리 상담 내용입니다. 여기서 상담사인 당신의 답변을 요약해주세요. 요약은 짧을수록 좋으며, 길어도 300자를 넘지 않게 해주세요."
+        );
+
+        Swal.close(); // 요약이 완료되면 알림창 닫기
+
+        return { summarizedUserMessage, summarizedCounselorMessage };
+    };
+
+    const getSummarizedMessages = async () => {
+        await list();
+        //const { summarizedUserMessage, summarizedCounselorMessage } = await summarizeMessages();
+        // setSummarizedMessages({ summarizedUserMessage, summarizedCounselorMessage });
+        // saveSummarizedMessages(summarizedUserMessage, summarizedCounselorMessage);
+    };
+
+    const saveSummarizedMessages = async (summarizedUserMessage, summarizedCounselorMessage) => {
+        await axios({
+            method: 'post',
+            url: "/chat/summary/save?chatroomcode=" + roomcode,
+            data: {
+                worry: summarizedUserMessage.content,
+                answer: summarizedCounselorMessage.content
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
     }
 
+    const checkData = async () => {
+        try {
+            const response = await axios.get("/chat/summary/check?chatroomcode=" + roomcode);
+            if (response.data) {
+                console.log("요약본 있음")
+                console.log(response)
+                setSummarizedMessages({
+                    summarizedUserMessage: { content: response.data.worry },
+                    summarizedCounselorMessage: { content: response.data.answer }
+                });
+            }
+            else {
+                getSummarizedMessages();
+            }
+        } catch (error) {
+            console.error("Error fetching summarized messages: ", error);
+        } finally {
+            setLoading(false); // 요약본 생성 완료 후 loading 상태 변경
+        }
+    };
+
     useEffect(() => {
-        list();
-    }, [])
+        // 이 함수 안에서 할 일
+        // 첫 로드 시 이미 해당 roomcode에 대한 요약이 있으면 해당 데이터를 summarizedMessages에 set해주기
+
+        // 해당 roomcode에 대한 요약이 없으면
+        // 1. 로그 받아와서 summaryList에 넣고
+        // 2. 새로운 요약을 생성하며 summarizedMessages에 set해주고 해당 요약을 DB에 저장 (밑에 getSummarizedMessages)
+
+        // 이 함수는 말그대로, 지금 만든 요약본을 DB에 집어넣는 작업만 하도록 하자.  
+        checkData();
+    }, []);
 
     return (
         <div className='mx_30'>
@@ -45,18 +137,12 @@ const ChatSummary = () => {
             <br /><br />
             <div className='fs_20 fw_700'>내 고민 요약</div>
             <div className='summaryContent fs_14 bor_red bg_red mt_10'>
-                내 고민 내용<br />
-                {userLog.map((item, index) => (
-                    <div key={index}>{item.content}</div>
-                ))}
+                {summarizedMessages.summarizedUserMessage?.content}
             </div>
             <br />
             <div className='fs_20 fw_700'>상담사의 답변 요약</div>
             <div className='summaryAnswerContent fs_14 bor_blue1 bg_blue mt_10'>
-                상담사 답변 내용<br />
-                {counselorLog.map((item, index) => (
-                    <div key={index}>{item.content}</div>
-                ))}
+                {summarizedMessages.summarizedCounselorMessage?.content}
             </div>
             <br /><br />
             <div style={{ textAlign: 'center' }}>

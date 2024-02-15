@@ -2,8 +2,10 @@ package mypage.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
+import community.board.data.BoardDto;
 import lombok.AllArgsConstructor;
 import mypage.data.QnaDto;
 
@@ -26,9 +28,24 @@ public class QnaDao {
 		return qnaRepo.findAll();
 	}
 	
+	//admin qna list출력 (승민이 보드 dao참조)
+    public List<QnaDto> getAllInquiry() {
+        return qnaRepo.findAll();
+    }
+	
 	public QnaDto getSelectQnaData(int inquirycode)
 	{
 		System.out.println("getSelectQnaData 메서드 호출됨. inquirycode: " + inquirycode);
 		return qnaRepo.getReferenceById(inquirycode);
+	}
+	
+	public List<QnaDto> getQnaByCode(int usercode)
+	{
+		return qnaRepo.getQnaByCode(usercode);
+	}
+	
+	public void addAnswer(QnaDto dto)
+	{
+		qnaRepo.insertAnswer(dto);
 	}
 }

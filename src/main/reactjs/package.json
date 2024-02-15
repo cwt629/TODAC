@@ -22,7 +22,8 @@
     "react-scripts": "^5.0.1",
     "styled-components": "^6.1.8",
     "svgo": "^3.2.0",
-    "sweetalert2": "^11.10.4",
+    "sweetalert2": "^11.10.5",
+    "sweetalert2-react-content": "^5.0.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

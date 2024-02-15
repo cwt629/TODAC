@@ -127,3 +127,7 @@ div.review-button {
     background-color: #FF7170;
     color: white;
 }
+
+div.review-button.review-close {
+    background-color: #9396A6;
+}

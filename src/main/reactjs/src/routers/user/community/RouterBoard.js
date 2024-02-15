@@ -9,7 +9,7 @@ const RouterBoard = () => {
         <Routes>
             <Route path='' element={<BoardMain />} />
             <Route path='form' element={<BoardForm />} />
-            <Route path='detail' element={<BoardDetail />} />
+            <Route path='detail/:boardcode' element={<BoardDetail />} />
         </Routes>
     );
 };
