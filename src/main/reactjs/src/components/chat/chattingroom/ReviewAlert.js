@@ -5,7 +5,7 @@ import withReactContent from "sweetalert2-react-content";
 
 const ReactSwal = withReactContent(Swal);
 
-const ReviewAlert = ({ children, reviewShow }) => {
+const ReviewAlert = ({ children, reviewShow, handleClose }) => {
     const [container, setContainer] = useState(null);
 
     useEffect(() => {
@@ -13,7 +13,10 @@ const ReviewAlert = ({ children, reviewShow }) => {
             ReactSwal.fire({
                 title: '상담은 어떠셨나요?',
                 html: <div ref={(el) => setContainer(el)} />,
-                showConfirmButton: false
+                showConfirmButton: false,
+                didClose: () => {
+                    handleClose();
+                }
             })
         }
     }, [reviewShow]);
