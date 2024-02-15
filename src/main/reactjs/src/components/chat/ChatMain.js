@@ -42,6 +42,7 @@ const ChatMain = () => {
         axios.get('/counselor/list')
             .then((res) => {
                 setCounselorList(res.data);
+                setSelectedCounselor(res.data[0]);
             })
     }, [])
 
