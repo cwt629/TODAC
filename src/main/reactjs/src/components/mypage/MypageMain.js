@@ -45,7 +45,7 @@ const MypageMain = () => {
             //로그인 페이지로 이동
             nav('/login');
         }
-        
+
     };
 
     return (
@@ -80,7 +80,7 @@ const MypageMain = () => {
             </div>
 
             <div className="listmenu ">
-                <div onClick={() => nav('point')}>
+                <div onClick={() => nav('update')}>
                     <img alt="" src={require("../../image/mypageIcon/info.png")}/>
                      내 정보 관리
                     <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
