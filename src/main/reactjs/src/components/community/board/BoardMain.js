@@ -87,6 +87,7 @@ const BoardMain = () => {
                     width: "100%",
                     display: "flex",
                     justifyContent: "center",
+                    marginTop: "15px",
                 }}
             >
                 <Paper
