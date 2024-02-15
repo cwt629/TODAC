@@ -1,6 +1,6 @@
 import React from 'react';
-import filledStar from '../../../image/star_filled.png'
-import emptyStar from '../../../image/star_empty.png'
+import filledStar from '../../../image/star_filled_narrow.png'
+import emptyStar from '../../../image/star_empty_narrow.png'
 
 const ChatReviewModal = ({ star, maxStar, handleStarClick, handleReviewPass, handleReviewGrant, handleReviewClose }) => {
     return (
