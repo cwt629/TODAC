@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Swal from 'sweetalert2';
+import { Pagination } from '@mui/material';
 
 const MemberPost = () => {
     const nav = useNavigate();
@@ -12,6 +13,8 @@ const MemberPost = () => {
     const params = new URLSearchParams(location.search);
     const usercode = params.get("usercode");
     const [member, setMember] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(4);
 
     useEffect(() => {
         if (usercode) {
@@ -35,15 +38,25 @@ const MemberPost = () => {
                 setBoard(res.data);
             })
             .catch(error => {
-                console.error("Error fetching board:", error);
+                console.error("게시글을 불러오는 중 오류 발생:", error);
             })
             .finally(() => {
                 setLoading(false);
             });
     }
 
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
+    };
+
     // 검색어와 일치하는 게시글만 필터링
     const filteredBoard = board.filter(item => item.title.includes(searchQuery));
+
+    // 페이징을 위한 계산
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredBoard.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(filteredBoard.length / itemsPerPage);
 
     // SweetAlert2 모달 창 
     const openModal = (post) => {
@@ -116,7 +129,7 @@ const MemberPost = () => {
                 style={{ '::placeholder': { color: 'lightgray' } }}
             />
             <div className="fs_17 fw_800">{member.nickname} 님의 게시글 목록</div>
-            {filteredBoard.map((item, index) => (
+            {currentItems.map((item, index) => (
                 <div key={index} className="bg_gray bor_gray1 px-3 py-2">
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div
@@ -132,6 +145,16 @@ const MemberPost = () => {
                     <div className="fs_14">{item.registereddate}</div>
                 </div>
             ))}
+
+            {/* Pagination */}
+            <div className="justify-content-center d-flex mt-3 qnaPage_btn">
+                <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    onChange={handlePageChange}
+                    color="primary"
+                />
+            </div>
         </div>
     );
 };
