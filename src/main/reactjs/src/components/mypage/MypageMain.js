@@ -98,10 +98,6 @@ const MypageMain = () => {
                 </div>
             </div>
 
-            <div className="lastmenu" onClick={handleLogout} style={{position : "absolute"}}>
-            <img alt="" src={require("../../image/mypageIcon/logout.png")}/>
-                로그아웃
-            </div>
 
 
 

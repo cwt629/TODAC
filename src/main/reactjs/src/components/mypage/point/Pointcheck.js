@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import {CameraAltOutlined} from "@mui/icons-material";
 import axios from "axios";
 
 const Pointcheck = () => {
@@ -53,13 +52,14 @@ const Pointcheck = () => {
                         </button>
                     </div>
                 </div>
-                <div className="point">
-                    <img alt="" src={require("../../../image/pointIcon/point.png")}/>
-                    <h4>보유 포인트 : {member.point}</h4>
+                <div className="point" style={{textAlign:"center"}}>
+                    <img alt="" src={require("../../../image/pointIcon/point.png")}
+                    style={{margin:"40px 0px"}}/>
+                    <h4>보유 포인트 : <span style={{color:"#FF7170"}}>{member.point}</span></h4>
                 </div>
 
                 <div className="fs_17 fw_800">{member.nickname} 님의 포인트 사용내역</div>
-                    <table className="table">
+                    <table className="table table-bordered">
                         <tr>
                             <td>내용</td>
                             <td>포인트</td>
@@ -67,7 +67,7 @@ const Pointcheck = () => {
                         </tr>
                         {point.map((item, index) => (
 
-                                    <tr>
+                                    <tr className="bg_red">
                                         <td className="fw_600">{item.type}</td>
                                         <td className="fw_600">{item.amount}</td>
                                         <td className="fw_600">{item.applieddate}</td>
