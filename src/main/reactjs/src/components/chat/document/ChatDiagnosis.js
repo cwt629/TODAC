@@ -1,9 +1,12 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import './DocumentStyle.css';
 
 const ChatDiagnosis = () => {
+    const [summaryList, setSummaryList] = useState([]);
     const nav = useNavigate();
+    const [query, setQuery] = useSearchParams();
+    const roomcode = query.get("roomcode");
 
     return (
         <div className='mx_30'>

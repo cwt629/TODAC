@@ -7,7 +7,7 @@ import axios from 'axios';
 import summarizeContent from '../api/summarize';
 
 const ChatSummary = () => {
-    const [summaryList, setSummaryList] = useState([]);
+    const [logList, setLogList] = useState([]);
     const nav = useNavigate();
     const [query, setQuery] = useSearchParams();
     const roomcode = query.get("roomcode");
@@ -24,12 +24,12 @@ const ChatSummary = () => {
         });
     };
 
-    const list = async () => {
+    const summary = async () => {
         try {
             const response = await axios.get("/chat/summary?chatroomcode=" + roomcode);
             console.log("로그 불러오려고 함");
             console.log(response);
-            setSummaryList(response.data);
+            setLogList(response.data);
             const { summarizedUserMessage, summarizedCounselorMessage } = await summarizeMessages(response.data);
             setSummarizedMessages({ summarizedUserMessage, summarizedCounselorMessage });
             await saveSummarizedMessages(summarizedUserMessage, summarizedCounselorMessage);
@@ -73,10 +73,7 @@ const ChatSummary = () => {
     };
 
     const getSummarizedMessages = async () => {
-        await list();
-        //const { summarizedUserMessage, summarizedCounselorMessage } = await summarizeMessages();
-        // setSummarizedMessages({ summarizedUserMessage, summarizedCounselorMessage });
-        // saveSummarizedMessages(summarizedUserMessage, summarizedCounselorMessage);
+        await summary();
     };
 
     const saveSummarizedMessages = async (summarizedUserMessage, summarizedCounselorMessage) => {
@@ -119,7 +116,7 @@ const ChatSummary = () => {
         // 첫 로드 시 이미 해당 roomcode에 대한 요약이 있으면 해당 데이터를 summarizedMessages에 set해주기
 
         // 해당 roomcode에 대한 요약이 없으면
-        // 1. 로그 받아와서 summaryList에 넣고
+        // 1. 로그 받아와서 logList에 넣고
         // 2. 새로운 요약을 생성하며 summarizedMessages에 set해주고 해당 요약을 DB에 저장 (밑에 getSummarizedMessages)
 
         // 이 함수는 말그대로, 지금 만든 요약본을 DB에 집어넣는 작업만 하도록 하자.  
@@ -148,7 +145,7 @@ const ChatSummary = () => {
             <div style={{ textAlign: 'center' }}>
                 <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../../')}>마이 홈 이동하기</button>
                 &nbsp;&nbsp;
-                <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../diagnosis')}>진단서 발급(500P)</button>
+                <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../diagnosis?chatroomcode=" + roomcode')}>진단서 발급(500P)</button>
                 &nbsp;&nbsp;
                 <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer' }} onClick={handleInfoClick}>ℹ️</span>
             </div>
