@@ -92,14 +92,7 @@ public class MemberController {
         dto = memberDao.getMemberByID(reqdto.getUserid());
         dto.setAddress(reqdto.getAddress());
         dto.setNickname(reqdto.getNickname());
-        //업로드된 사진
-        if(uploadFilename==null){
-            dto.setPhoto(reqdto.getPhoto());
-        }
-        else {
-            String cloudimgurl = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/profile/";
-            dto.setPhoto(cloudimgurl + uploadFilename);
-        }
+        dto.setPhoto(reqdto.getPhoto());
 
         memberDao.insertMember(dto);
         uploadFilename=null;
