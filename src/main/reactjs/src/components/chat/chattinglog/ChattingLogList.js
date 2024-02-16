@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import './ChattingLogStyle.css';
 
 const ChattingLogList = () => {
-    const selectCounselor = ["최신순", "1번 상담사", "2번 상담사", "3번 상담사", "4번 상담사", "5번 상담사", "6번 상담사"];
-    const [selected, setSelected] = useState("");
+    const SORT_FILTERS = ["최신순", "1번 상담사", "2번 상담사", "3번 상담사", "4번 상담사", "5번 상담사", "6번 상담사"];
+    const [filter, setFilter] = useState("");
     const [showMore, setShowMore] = useState(false);
     const tableRef = useRef(null);
 
-    const handleSelect = (e) => {
-        setSelected(e.target.value);
+    const handleFilterSelect = (e) => {
+        setFilter(e.target.value);
     };
 
     const handleShowMore = () => {
@@ -30,10 +30,10 @@ const ChattingLogList = () => {
                 <div className='fs_10 fw_700'>정렬 기준</div>
                 &emsp;
                 <div>
-                    <select onChange={handleSelect} value={selected} className='selectCounselor fs_14 bor_red bg_red mt_10'>
+                    <select onChange={handleFilterSelect} value={filter} className='selectCounselor fs_14 bor_red bg_red mt_10'>
                         <option value="" disabled hidden>선택</option>
                         {
-                            selectCounselor.map((item) => (
+                            SORT_FILTERS.map((item) => (
                                 <option value={item} key={item}>
                                     {item}
                                 </option>
