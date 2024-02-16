@@ -26,7 +26,7 @@ const Pointcheck = () => {
 
     const fetchPoint = () => {
         setLoading(true);
-        axios.post(`/admin/payment?usercode=${usercode}`)
+        axios.post(`/admin/point?usercode=${usercode}`)
             .then(res => {
                 setPoint(res.data);
             })

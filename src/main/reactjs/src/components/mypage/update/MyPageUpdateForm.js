@@ -215,14 +215,16 @@ const MyPageUpdateForm = () => {
                 </div>
 
                 <h6><b>닉네임</b></h6>
-                <input className="bg_red bor_red" type={"text"} value={nickname}
-                       onChange={(e) => {
-                           setIdcheck(false);//아이디입력시 중복체크 버튼 다시 눌러야함
-                           setNickname(e.target.value);
-                       }}/>
-                <button type='button' className='btn btn-sm btn-outline-danger'
-                        onClick={buttonIdCheck}>중복확인
-                </button>
+                <div>
+                    <input className="bg_red bor_red" type={"text"} value={nickname}
+                           onChange={(e) => {
+                               setIdcheck(false);//아이디입력시 중복체크 버튼 다시 눌러야함
+                               setNickname(e.target.value);
+                           }}/>
+                    <button type='button' className='btn btn-sm btn-outline-danger'
+                            onClick={buttonIdCheck}>중복확인
+                    </button>
+                </div>
 
                 <h6><b>주소</b></h6>
                 <input className="bg_red bor_red" type={"text"} placeholder={"기존 주소"}
