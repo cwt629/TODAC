@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import chat.data.ChatInitialDto;
+import chat.data.ChatListInterface;
 import chat.data.ChatLogDto;
 import chat.data.ChatRoomDto;
 import chat.data.CounselorDto;
@@ -58,5 +59,10 @@ public class ChatController {
 	public List<ChatLogDto> selectLog(@RequestParam("chatroomcode") Short chatroomcode) {
 		
 		return chatService.selectLog(chatroomcode);
+	}
+	
+	@GetMapping("/chat/list")
+	public List<ChatListInterface> getChatroomsOfMember(@RequestParam("usercode") int usercode){
+		return chatService.getChatroomsOfMember(usercode);
 	}
 }
