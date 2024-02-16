@@ -1,5 +1,6 @@
 package community.donation.repository;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import jakarta.transaction.Transactional;
 import mypage.data.PointRecordDto;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 
 //@Query : repository에 원하는 쿼리를 작성하게 해주는 어노테이션
 //value 속성 : 쿼리 작성부
@@ -17,7 +19,14 @@ import java.util.List;
 //public 은 적어도되고 안적어도 됨
 public interface DonationRepository extends JpaRepository<PointRecordDto, Integer> {
 
-	@Query(value = "select sum(amount) from pointerecord where type=:'후원'",nativeQuery = true)
-    public  int getMemberPostData();
+	@Query(value = "select sum(amount) from pointrecord where type='후원'",nativeQuery = true)
+    public  int getTotalDonation();
 
+    @Query(value = "SELECT usercode, SUM(amount) AS total_amount\n" +
+            "FROM pointrecord\n" +
+            "WHERE type = '후원'\n" +
+            "GROUP BY usercode\n" +
+            "ORDER BY total_amount DESC\n" +
+            "LIMIT 3;\n",nativeQuery = true)
+    public Map<Object, JsonAutoDetect.Value> getTop3UserDonation();
 }
