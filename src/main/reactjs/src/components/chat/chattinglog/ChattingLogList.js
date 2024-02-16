@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './ChattingLogStyle.css';
 import axios from 'axios';
+import PageHeader from '../../PageHeader';
 
 const ChattingLogList = () => {
     const SORT_FILTERS = ["최신순", "1번 상담사", "2번 상담사", "3번 상담사", "4번 상담사", "5번 상담사", "6번 상담사"];
@@ -9,6 +10,13 @@ const ChattingLogList = () => {
     const [showMore, setShowMore] = useState(false);
     const tableRef = useRef(null);
     const [list, setList] = useState([]);
+
+    const CURRENT_ROUTES = [
+        { name: 'TODAC 채팅', url: '/user/chat' },
+        { name: '상담기록', url: '' }
+    ];
+
+    const PAGE_TITLE = '나의 상담기록';
 
     const handleFilterSelect = (e) => {
         setFilter(e.target.value);
@@ -41,12 +49,7 @@ const ChattingLogList = () => {
 
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/user/chat" className='col_blue2'>TODAC 채팅 {'>'} </Link>
-                <Link to="/user/chat/loglist" className='col_blue2'>상담기록</Link>
-            </div>
-            <div className='fs_25 fw_700'>나의 상담기록</div>
-
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <br />
 
             <div className='input-group' style={{ justifyContent: 'right', alignItems: 'center' }}>
