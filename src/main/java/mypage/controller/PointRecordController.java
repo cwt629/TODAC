@@ -26,5 +26,12 @@ public class PointRecordController {
     {
     	return pointRecordDao.getMemberPayMent(usercode);
     }
+    
+    @PostMapping("/admin/point")
+    public List<PointRecordDto> getMemberPoint(@RequestParam("usercode") int usercode)
+    {
+    	return pointRecordDao.getMemberPoint(usercode);
+    }
+    
 
 }
