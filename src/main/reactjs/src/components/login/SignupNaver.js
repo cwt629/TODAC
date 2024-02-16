@@ -31,12 +31,13 @@ const SignupNaver = () => {
   };
 
   const CustomButton = styled(Button)({
-    boxShadow: 'none',
+    boxShadow: '3px 3px 3px gray',
     textTransform: 'none',
     fontSize: 16,
-    padding: '6px 12px',
+    height: '45px',
     border: '1px solid',
-    lineHeight: 1.5,
+    marginTop:"30px", 
+    fontWeight:"700",
     backgroundColor: '#FF7170', // 원하는 색상으로 변경
     borderColor: '#FF7170', // 원하는 색상으로 변경
     fontFamily: [
@@ -103,29 +104,26 @@ const SignupNaver = () => {
   };
 
   return (
-      <div style={{paddingTop : "55px", paddingRight : "55px", paddingLeft : "55px"}}>
-          <ArrowBackIcon onClick={goBack} style={{ cursor: 'pointer' }} />
-          <br/><br/>
-          <h1 style={{color : "#FF494D", textAlign: "center",
-                          fontSize : "3em", fontWeight : "1000"
-                          }}>TODAC</h1>
-          <br/>
-          <h6 style={{textAlign: "center",color : "#536179"}}>[프로필 사진]</h6>
+    <div className='login_main2'>
+      <img alt='back' src={require('../../image/ico_back.png')} onClick={goBack} style={{ cursor: 'pointer' }}/>
+      {/* <ArrowBackIcon onClick={goBack} style={{ cursor: 'pointer' }} /> */}
+      <div className='fs_45 col_red fw_900 text-center mt_80'>
+        TODAC
+      </div>
+          <div className='text-center mt_25'>[프로필 사진]</div>
           <img alt="User Profile" src={userInfo.profile_image} 
-          style={{ width: "150px", height : "150px", display: 'block', margin: '0 auto'}}/>
-          <br/>
-          <h6 style={{textAlign: "center",color : "#536179"}}>[닉네임]</h6>
-          <input type='text' className='form-control' 
-          style={{ width: "150px",textAlign: "center",margin: '0 auto'}}
+          style={{ width: "150px", display:'block'}} className='mt_10 mx-auto img-fluid'/>
+          
+          <div className='text-center mt_25'>[닉네임]</div>
+          <input type='text' className='form-control mx-auto mt_10 text-center' 
           value={userInfo.nickname} placeholder="닉네임" readOnly />
-          <br/><br/>
           
           <CustomButton variant="contained"
               style={{width : "100%"}}
               onClick={handleSignup}
               disabled={loading}
               >{loading ? '회원가입 중...' : '회원가입'}</CustomButton>
-          <p onClick={goBack} style={{ cursor: 'pointer' }}>다른 방법으로 로그인</p>
+          <p onClick={goBack} style={{ cursor: 'pointer',marginTop:'10px' }}>다른 방법으로 로그인</p>
       </div>
       
 
