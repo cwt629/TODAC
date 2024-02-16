@@ -5,6 +5,8 @@ import RouterFAQ from './RouterFAQ';
 import RouterInquiry from './RouterInquiry';
 import RouterPoint from './RouterPoint';
 import MyPageUpdateForm from "../../../components/mypage/update/MyPageUpdateForm";
+import MyBoardMain from "../../../components/mypage/myboard/MyBoardMain";
+import DonationMain from "../../../components/mypage/donate/DonationMain";
 
 const RouterMypage = () => {
     return (
@@ -14,8 +16,8 @@ const RouterMypage = () => {
             <Route path='/inquiry/*' element={<RouterInquiry />} />
             <Route path='/point/*' element={<RouterPoint />} />
             <Route path='/update/*' element={<MyPageUpdateForm />} />
-            <Route path='/myboard/*' element={<MyPageUpdateForm />} />
-            <Route path='/donate/*' element={<MyPageUpdateForm />} />
+            <Route path='/myboard/*' element={<MyBoardMain />} />
+            <Route path='/donate/*' element={<DonationMain />} />
 
         </Routes>
     );
