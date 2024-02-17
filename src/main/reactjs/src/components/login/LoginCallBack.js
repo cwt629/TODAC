@@ -59,13 +59,18 @@ const LoginCallBack = () => {
     return (
         <div>
             {loading ? (
-                <h1 style={{
-                    color: "#FF494D",
-                    textAlign: "center",
-                    fontSize: "3em",
-                    paddingTop: "200px",
-                    fontWeight: "1000"
-                }}>Loading... <br /><br /> 잠시만<br /> 기다려주세요</h1>
+                <h1 className='col_red text-center fs_45 fw_900 login_loading'>
+                    <span>상</span>
+                    <span>담</span>
+                    <span>사</span>
+                    <span>&nbsp;</span>
+                    <span>출</span>
+                    <span>근</span>
+                    <span>&nbsp;</span>
+                    <span>중</span>
+                    {/* <span>&nbsp;<img alt='스마일' src={require('../../image/ico_heart.png')}/></span> */}
+                    <span>&nbsp;:)</span>
+                </h1>
             ) : (
                 <h1 style={{
                     color: "#FF494D",

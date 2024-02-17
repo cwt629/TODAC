@@ -29,4 +29,8 @@ public class ChatService {
 	public List<ChatLogDto> selectLog(Short chatroomcode){
 		return chatDao.selectLog(chatroomcode);
 	}
+	
+	public ChatRoomDto getRoomByCode(Short chatroomcode) {
+		return chatDao.getRoomByCode(chatroomcode);
+	}
 }

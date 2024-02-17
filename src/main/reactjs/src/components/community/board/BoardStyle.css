@@ -1,12 +1,3 @@
-.search {
-    position: relative;
-}
-/*검색버튼*/
-.search button {
-    position: absolute;
-    right: 5px;
-    top: 3px;
-}
 /*게시글 작성 버튼*/
 .btn_add {
     position: fixed;
@@ -18,4 +9,8 @@
     text-align: center;
     padding: 20px;
     border-radius: 5px;
+}
+/* form */
+.col-7 {
+    margin-top: 50px;
 }

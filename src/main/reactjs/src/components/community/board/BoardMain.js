@@ -5,7 +5,13 @@ import axios from "axios";
 import BoardRowItem from "./BoardRowItem";
 import Fab from "@mui/material/Fab";
 import CreateIcon from "@mui/icons-material/Create";
+import SearchIcon from "@mui/icons-material/Search";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+
 import {
+    IconButton,
+    InputBase,
     Paper,
     Table,
     TableBody,
@@ -16,17 +22,27 @@ import {
     Typography,
 } from "@mui/material";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
+import PageHeader from "../../PageHeader";
 
 const BoardMain = () => {
     const [list, setList] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [searchTerm, setSearchTerm] = useState(""); // 검색어를 저장하는 state
+    const [search, setSearch] = useState(""); // 검색어를 저장하는 state
+    const [filteredList, setFilteredList] = useState(list); // 검색된 목록을 저장하는 state
+    const CURRENT_ROUTES = [
+        { name: "커뮤니티", url: "/user/community" },
+        { name: "게시판", url: "/user/community/board" },
+    ];
+
+    const PAGE_TITLE = "게시판";
+
     const navi = useNavigate();
 
     const boardList = () => {
         axios.get("/board/list").then((res) => {
             setList(res.data);
+            setFilteredList(res.data); //초기 전체 리스트 출력용
         });
     };
 
@@ -43,31 +59,71 @@ const BoardMain = () => {
         setPage(0);
     };
 
-    const handleSearch = (e) => {
-        setSearchTerm(e.target.value);
+    const handleSearch = () => {
+        if (search === "") {
+            return;
+        }
+        const filteredList = list.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()));
+        setFilteredList(filteredList);
+        // 페이지를 첫 페이지로 초기화
+        setPage(0);
     };
 
-    const filteredList = list.filter((item) => item.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    const handleReset = () => {
+        // Reset the filtered list to the original list
+        setFilteredList(list);
+        // Clear the search input
+        setSearch("");
+        // Reset the page to the first page
+        setPage(0);
+    };
 
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14 col_blue2'>
-                <Link to='/user/community'>커뮤니티 {">"} </Link>
-                <Link to='/user/community/board'>게시판</Link>
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+            <div
+                className=''
+                style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "15px",
+                }}
+            >
+                <Paper
+                    component='form'
+                    sx={{
+                        p: "2px 4px",
+                        display: "flex",
+                        alignItems: "center",
+                        width: "100%",
+                    }}
+                >
+                    <IconButton type='button' sx={{ p: "10px" }} aria-label='menu'>
+                        <MenuIcon />
+                    </IconButton>
+                    <InputBase
+                        type='text'
+                        className='form-control'
+                        placeholder='검색어를 입력해 주세요.'
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                e.preventDefault();
+                            }
+                        }}
+                    />
+                    {search.length > 0 && ( // 리셋 버튼 ! 검색어 입력시 생성
+                        <IconButton type='button' sx={{ p: "10px" }} aria-label='clear' onClick={handleReset}>
+                            <CloseIcon />
+                        </IconButton>
+                    )}
+                    <IconButton type='button' sx={{ p: "10px" }} aria-label='search' onClick={handleSearch}>
+                        <SearchIcon />
+                    </IconButton>
+                </Paper>
             </div>
-
-            <div className='fs_25 fw_700'>게시판</div>
-
-            <div className='search'>
-                <input
-                    type='text'
-                    className='form-control'
-                    placeholder='검색어를 입력해 주세요.'
-                    value={searchTerm}
-                    onChange={handleSearch}
-                />
-            </div>
-
             <div className='btn_add' onClick={() => navi("form")}>
                 <Fab
                     color='secondary'
@@ -92,7 +148,7 @@ const BoardMain = () => {
                     </Typography>
                 ) : (
                     <TableContainer component={Paper}>
-                        <Table sx={{ width: "500" }} aria-label='custom pagination table'>
+                        <Table sx={{ width: "100%" }}>
                             <TableBody>
                                 {(rowsPerPage > 0
                                     ? filteredList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)

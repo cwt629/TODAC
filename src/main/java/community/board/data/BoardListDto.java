@@ -15,11 +15,13 @@ public class BoardListDto {
     private String photo;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private Timestamp registerDate;
+    private int boardcode;
     //생성자 직접 만들기 나중에 지원하는 annotation 으로 변경
     public BoardListDto(BoardDto boardDto) {
         photo = boardDto.getPhoto();
         title = boardDto.getTitle();
         memberNickname = boardDto.getMember().getNickname();
         registerDate = boardDto.getRegistereddate();
+        boardcode = boardDto.getBoardcode();
     }
 }
