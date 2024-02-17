@@ -14,7 +14,7 @@ const CommunityMain = () => {
                 onClick={() => nav('donation')}>후원의 전당</button>
             <br /><br /><br />
             <button className='btn btn-secondary'
-                onClick={() => nav('face')}>오늘의 미소</button>
+                onClick={() => nav('game')}>오늘의 미소</button>
         </div>
     );
 };

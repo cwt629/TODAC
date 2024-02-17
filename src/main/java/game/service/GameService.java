@@ -1,10 +1,10 @@
-package community.facemotion.service;
+package game.service;
 
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class FaceMotionService {
+public class GameService {
 
 }
