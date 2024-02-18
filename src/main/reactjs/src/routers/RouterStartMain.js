@@ -18,7 +18,24 @@ const RouterStartMain = () => {
             <div className='app container-fluid p-0'>
                 <Header />
                 <div className='appcontent startpage'>
-                    <img alt='' src={logo} />
+                <div class="main_ani">
+                    <div class="animation">
+                        <span class="one_text">T</span>
+                        <span class="two_text two_t">his app may</span>
+                        <br/>
+                        <span class="one_text">O</span>
+                        <span class="two_text2 two_t">ffer you</span>
+                        <br/>
+                        <span class="one_text">D</span>
+                        <span class="two_text3 two_t">ream</span>
+                        <br/>
+                        <span class="one_text">A</span>
+                        <span class="two_text4 two_t">nd</span>
+                        <br/>
+                        <span class="one_text">C</span>
+                        <span class="two_text5 two_t">omfort</span>
+                    </div>
+                    </div>
                 </div>
 
                 <Footer />
