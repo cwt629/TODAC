@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { Pagination } from '@mui/material';
+import { Pagination, InputAdornment, OutlinedInput } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 const MemberManage = () => {
     const nav = useNavigate();
@@ -45,24 +46,36 @@ const MemberManage = () => {
         <div className='mx_30'>
             <div className='mt-1 fs_14'>
                 <Link to="/admin" className='col_blue2'>관리자 홈 {'>'} </Link>
-                <Link to="/admin/MemberManage" className='col_blue2'>회원관리</Link>
+                <Link to="/admin/MemberManage" className='col_blue2'>회원 관리</Link>
             </div>
             <div className='fs_25 fw_700'>회원 관리</div>
             <br /><br />
             <h6 className='fs_16 fw_700'>회원 검색</h6>
 
             {/* 검색창 */}
-            <input
+            <OutlinedInput
                 type="text"
-                placeholder="회원 닉네임을 입력해주세요 &nbsp;🔍"
+                placeholder="회원 닉네임을 입력해주세요"
                 value={searchTerm}
                 onChange={handleSearch}
                 className="form-control mb-3 bg_red col_gray fs_16 fw_800"
-                style={{ '::placeholder': { color: 'lightgray' } }}
-
+                style={{
+                    '::placeholder': {
+                        color: 'rgba(0, 0, 0, 0.54)', // 원하는 색상으로 조절
+                        fontWeight: 'bold', // 원하는 폰트 두께로 조절
+                    },
+                    height: '40px',
+                    padding: '8px',
+                    borderRadius: '5px',
+                }}
+                startAdornment={
+                    <InputAdornment position="start">
+                        <SearchIcon />
+                    </InputAdornment>
+                }
             />
             <br />
-            <h6 className='fs_16 fw_700'>회원 목록</h6>
+            <h6 className='fs_16 fw_800'>회원 목록</h6>
             <table className='table'>
                 <thead>
                     <tr>
@@ -92,7 +105,6 @@ const MemberManage = () => {
                     count={totalPages}
                     page={currentPage}
                     onChange={handlePageChange}
-                    color="primary"
                 />
             </div>
         </div>
