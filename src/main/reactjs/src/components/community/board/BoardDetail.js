@@ -51,7 +51,7 @@ const BoardDetail = () => {
             cancelButtonText: "아니오",
         }).then((result) => {
             if (result.isConfirmed) {
-                const url = `/board/delete?boardcode=${boardcode}`;
+                const url = `/post/delete?boardcode=${boardcode}`;
                 axios
                     .delete(url)
                     .then(() => {
