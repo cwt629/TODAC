@@ -17,6 +17,9 @@
 .table {
     border-collapse: collapse;
     width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    /* 셀의 테두리를 둥글게 하기 위한 추가 속성 */
 }
 
 .table th,
@@ -24,6 +27,7 @@
     padding: 8px;
     text-align: left;
     background-color: #F2F5FA;
+    border-radius: 0px;
 }
 
 .table th {
@@ -39,4 +43,31 @@
     flex: 1;
     display: flex;
     align-items: center;
+}
+
+.user_form>div>.form-control {
+    background-color: var(--bggray);
+    color: var(--mainblack);
+    border: 1px solid var(--lightgray2);
+    border-radius: 0;
+}
+
+.user_btn>button {
+    background-color: var(--lightblue);
+    border: 1px solid var(--midblue);
+    border-radius: 5px;
+    font-weight: 500;
+    color: var(--mainblack);
+    padding: 6px 30px;
+}
+
+.user_list>div>button {
+    border: 1px solid var(--midblue);
+    border-radius: 5px;
+    background-color: var(--lightblue);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--mainblack);
+    padding: 5px 8px;
+    cursor: pointer;
 }

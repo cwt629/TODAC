@@ -69,11 +69,11 @@ const MypageMain = () => {
                     <img alt="" src={require("../../image/mypageIcon/point.png")}/>
                     <h6>포인트 <b style={{color: "#FF7170"}}>{member.point}</b></h6>
                 </div>
-                <div className="col">
+                <div onClick={() => nav('myboard')} className="col">
                     <img alt="" src={require("../../image/mypageIcon/board.png")}/>
                     <h6>게시글</h6>
                 </div>
-                <div className="col">
+                <div onClick={() => nav('donate')} className="col">
                     <img alt="" src={require("../../image/mypageIcon/donation.png")}/>
                     <h6>후원하기</h6>
                 </div>
@@ -98,10 +98,6 @@ const MypageMain = () => {
                 </div>
             </div>
 
-            <div className="lastmenu" onClick={handleLogout} style={{position : "absolute"}}>
-            <img alt="" src={require("../../image/mypageIcon/logout.png")}/>
-                로그아웃
-            </div>
 
 
 

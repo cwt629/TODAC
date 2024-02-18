@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Swal from 'sweetalert2';
-import { Pagination } from '@mui/material';
+import { Pagination, InputAdornment, OutlinedInput } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 const MemberPost = () => {
     const nav = useNavigate();
@@ -62,6 +63,7 @@ const MemberPost = () => {
     const openModal = (post) => {
         Swal.fire({
             title: post.title,
+            imageUrl: `<div>${post.photo}</div>`,
             html: `<div>${post.content}</div>`,
             confirmButtonColor: '#FF7170',
             confirmButtonText: '닫기',
@@ -108,7 +110,7 @@ const MemberPost = () => {
                 <Link to={`/admin/MemberManage/MemberProfile?usercode=${usercode}`} className='col_blue2'>회원 정보 {'>'}</Link>
                 <span className='col_blue2'>&nbsp;회원 게시글</span>
             </div>
-            <div className='fs_25 fw_700'>회원 게시글</div>
+            <div className='fs_25 fw_700'>회원 게시글</div> <br />
 
             <div style={{ textAlign: 'center' }}>
                 <img alt='' src={member.photo} style={{ width: '25vh', height: '25vh' }} />
@@ -119,18 +121,28 @@ const MemberPost = () => {
             <div className='fs_17 fw_800'>{member.nickname} 님의 게시글 검색</div>
 
             {/* 검색창 */}
-            <input
-                type="text"
+            <OutlinedInput
                 id="search"
+                type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="게시글 제목을 검색하세요"
+                placeholder="타입을 검색하세요"
                 className="form-control mb-3 bg_red col_gray fs_16 fw_800"
-                style={{ '::placeholder': { color: 'lightgray' } }}
+                style={{
+                    '::placeholder': { color: 'gray' },
+                    height: '40px',
+                    padding: '8px',
+                    borderRadius: '5px',
+                }}
+                startAdornment={
+                    <InputAdornment position="start">
+                        <SearchIcon />
+                    </InputAdornment>
+                }
             />
             <div className="fs_17 fw_800">{member.nickname} 님의 게시글 목록</div>
             {currentItems.map((item, index) => (
-                <div key={index} className="bg_gray bor_gray1 px-3 py-2">
+                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div
                             onClick={() => openModal(item)}
@@ -152,7 +164,6 @@ const MemberPost = () => {
                     count={totalPages}
                     page={currentPage}
                     onChange={handlePageChange}
-                    color="primary"
                 />
             </div>
         </div>
