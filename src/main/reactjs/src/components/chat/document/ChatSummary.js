@@ -145,7 +145,7 @@ const ChatSummary = () => {
             <div style={{ textAlign: 'center' }}>
                 <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../../')}>마이 홈 이동하기</button>
                 &nbsp;&nbsp;
-                <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../diagnosis?chatroomcode=" + roomcode')}>진단서 발급(500P)</button>
+                <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../diagnosis?chatroomcode=' + roomcode)}>진단서 발급(500P)</button>
                 &nbsp;&nbsp;
                 <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer' }} onClick={handleInfoClick}>ℹ️</span>
             </div>

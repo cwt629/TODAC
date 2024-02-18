@@ -31,7 +31,7 @@ public class ChatDiagnosisDto {
     @Column(length = 1000)
     private String deepanswer;
 
-    @Column(length = 500)
+    @Column(length = 1000)
     private String advice;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Seoul") //댓글 출력은 ajax로 처리하기 위해 포멧한다네요
