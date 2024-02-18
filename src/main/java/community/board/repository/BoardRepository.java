@@ -34,7 +34,4 @@ public interface BoardRepository extends JpaRepository<BoardDto, Integer> {
 	@Transactional
 	@Query(value = "delete from board where boardcode = :boardcode", nativeQuery = true)
 	public void deletePost(@Param("boardcode") int boardcode);
-
-
-
 }
