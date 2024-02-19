@@ -15,6 +15,7 @@ import chat.data.ChatLogDto;
 import chat.data.ChatLogInfoDto;
 import chat.data.ChatLogPageDto;
 import chat.data.ChatRoomDto;
+import chat.data.ChatSummaryDto;
 import chat.data.CounselorDto;
 import chat.service.ChatService;
 import chat.service.CounselorService;
@@ -64,6 +65,11 @@ public class ChatController {
 	public List<ChatLogDto> selectLog(@RequestParam("chatroomcode") Short chatroomcode) {
 		
 		return chatService.selectLog(chatroomcode);
+	}
+	
+	@GetMapping("/chat/diagnosis")
+	public List<ChatSummaryDto> selectSummaryDB(@RequestParam("chatroomcode") Short chatroomcode){
+		return chatService.selectSummaryDB(chatroomcode);
 	}
 	
 	@GetMapping("/chat/list")
