@@ -15,6 +15,9 @@ public class BoardDetailDto {
     private String content;
     private int visitCount;
     private int counselorCode;
+    private int userCode;
+    private int boardCode;
+
 
     public BoardDetailDto(BoardDto boardDto) {
         photo = boardDto.getPhoto();
@@ -24,6 +27,8 @@ public class BoardDetailDto {
         visitCount = boardDto.getVisitcount();
         counselorCode = boardDto.getCounselorcode();
         registerDate = boardDto.getRegistereddate();
+        userCode = boardDto.getMember().getUsercode();
+        boardCode = boardDto.getBoardcode();
     }
 
 }
