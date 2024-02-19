@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 const MyDonation = () => {
     const [member,setMember]=useState([]);
     const storedId = sessionStorage.getItem("id");
+    const usercode = sessionStorage.getItem("usercode");
     const [donationAmount,setDonationAmount]=useState();
     const ReactSwal = withReactContent(Swal);
     const nav = useNavigate();
@@ -20,7 +21,7 @@ const MyDonation = () => {
     }
 
     const donate = () => {
-        const url = "/donate?amount="+donationAmount+"&userid="+storedId;
+        const url = "/payment?amount="+donationAmount+"&usercode="+usercode+"&type=후원";
         axios.post(url)
             .then(res=>{
                 if(res.data===false){
