@@ -13,8 +13,7 @@ const ChatDiagnosis = () => {
     const roomcode = query.get("chatroomcode");
     const [loading, setLoading] = useState(true); // 요약본 생성 중인지 여부
     const [summarizedMessages, setSummarizedMessages] = useState({ summarizedUserMessage: "", summarizedCounselorMessage: "" });
-    const [analyzedMessages, setAnalyzedMessages] = useState("");
-
+    const [diagnosisMessages, setDiagnosisMessages] = useState({ analyzedUserMessage: "", recommendedActivitiesUserMessage: "" });
 
     console.log("roomcode:" + roomcode);
 
@@ -31,15 +30,16 @@ const ChatDiagnosis = () => {
         }
     };
 
-    const analyzePsychology = async () => {
+    // 심리 분석 내용 및 추천 활동 내용을 생성하고 저장
+    const diagnosis = async () => {
         try {
             const response = await axios.get("/chat/summary?chatroomcode=" + roomcode);
-            console.log("심리 분석 로그 불러오려고 함");
+            console.log("대화 로그 불러오려고 함");
             console.log(response);
             setLogList(response.data);
-            const analyzedUserMessage = await analyzeMessages(response.data);
-            setAnalyzedMessages(analyzedUserMessage.content);
-            await saveSummarizedMessages(analyzedUserMessage.content);
+            const { analyzedUserMessage, recommendedActivitiesUserMessage } = await diagnosisAiMessages(response.data);
+            setDiagnosisMessages({ analyzedUserMessage, recommendedActivitiesUserMessage });
+            await saveDiagnosisMessages(analyzedUserMessage, recommendedActivitiesUserMessage);
         } catch (error) {
             console.error('Error fetching analyze:', error);
         }
@@ -58,8 +58,8 @@ const ChatDiagnosis = () => {
         return { summarizedUserMessage: chatLogWorry, summarizedCounselorMessage: chatLogAnswer };
     };
 
-    // 사용자의 고민 내용을 바탕으로 심리 분석
-    const analyzeMessages = async (chatlog) => {
+    // 사용자의 고민 내용을 바탕으로 심리 분석 및 활동 추천
+    const diagnosisAiMessages = async (chatlog) => {
         Swal.fire({
             title: '진단서 생성중',
             text: '잠시만 기다려주세요!',
@@ -76,6 +76,7 @@ const ChatDiagnosis = () => {
         console.log(chatlog);
 
         const analyzeUserLog = chatlog.filter((log) => (log.speaker === 0));
+        const recommendedActivitiesUserLog = chatlog.filter((log) => (log.speaker === 0));
 
         console.log(analyzeUserLog);
 
@@ -84,30 +85,31 @@ const ChatDiagnosis = () => {
             "이 내용은 당신이 사용자와 나눈 심리 상담 내용입니다. 여기서 사용자의 고민을 토대로 심리 분석을 해주면 됩니다. 최대한 자세하게 심리 분석을 하되, 글자 수는 300자를 넘지 않게 해주세요."
         );
 
+        const recommendedActivitiesUserMessage = await summarizeContent(
+            recommendedActivitiesUserLog,
+            "이 내용은 당신이 사용자와 나눈 심리 상담 내용입니다. 여기서 사용자의 고민을 토대로 활동을 추천해주면 됩니다. 예를 들면, 등산, 책 읽기가 있습니다. 글자 수는 300자를 넘지 않게 해주세요."
+        );
+
         Swal.close(); // 진단서 제작이 완료되면 알림창 닫기
 
-        return analyzedUserMessage;
+        return { analyzedUserMessage: analyzedUserMessage, recommendedActivitiesUserMessage: recommendedActivitiesUserMessage };
     };
-
-
 
     const getSummarizedMessages = async () => {
         await summaryDB();
     };
 
-    const getanalyzedMessages = async () => {
-        await analyzePsychology();
+    const getDiagnosisMessages = async () => {
+        await diagnosis();
     };
 
-    const saveSummarizedMessages = async (analyzedUserMessage) => {
-        console.log("심리 분석 내용");
-        console.log(analyzedUserMessage);
+    const saveDiagnosisMessages = async (analyzedUserMessage, recommendedActivitiesUserMessage) => {
         await axios({
             method: 'post',
             url: "/chat/diagnosis/save?chatroomcode=" + roomcode,
             data: {
-                deepanswer: analyzedUserMessage,
-                advice: "임시 advice"
+                deepanswer: analyzedUserMessage.content,
+                advice: recommendedActivitiesUserMessage.content
             },
             headers: {
                 'Content-Type': 'application/json'
@@ -122,15 +124,18 @@ const ChatDiagnosis = () => {
             if (response.data) {
                 console.log("진단서 있음")
                 console.log(response)
-                setAnalyzedMessages(response.data.deepanswer);
+                setDiagnosisMessages({
+                    analyzedUserMessage: { content: response.data.deepanswer },
+                    recommendedActivitiesUserMessage: { content: response.data.advice }
+                })
             }
             else {
-                getanalyzedMessages();
+                getDiagnosisMessages();
             }
         } catch (error) {
-            console.error("Error fetching summarized messages: ", error);
+            console.error("Error fetching diagnosis messages: ", error);
         } finally {
-            setLoading(false); // 요약본 생성 완료 후 loading 상태 변경
+            setLoading(false); // 진단서 생성 완료 후 loading 상태 변경
         }
     };
 
@@ -160,11 +165,13 @@ const ChatDiagnosis = () => {
             <br />
             <div className='fs_20 fw_700'>심리 분석</div>
             <div className='diagnosisPsychology fs_14 bor_blue1 bg_blue mt_10'>
-                {analyzedMessages}
+                {diagnosisMessages.analyzedUserMessage?.content}
             </div>
             <br />
             <div className='fs_20 fw_700'>고민이 계속될 땐, 이렇게 해보세요 🤗</div>
-            <div className='diagnosisActing fs_14 bor_blue1 bg_blue mt_10'>한강 가서 사람들 지켜보기, 클라이밍, 등산</div>
+            <div className='diagnosisActing fs_14 bor_blue1 bg_blue mt_10'>
+                {diagnosisMessages.recommendedActivitiesUserMessage?.content}
+            </div>
             <br />
             <div style={{ textAlign: 'center' }}>
                 <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../../')}>마이 홈 이동하기</button>
