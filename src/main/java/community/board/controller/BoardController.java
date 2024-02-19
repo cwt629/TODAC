@@ -80,27 +80,58 @@ public class BoardController {
 		return boardDetailDto;
 	}
 
+	//dto 반환
+	@GetMapping("/board/select")
+	public BoardDto select(@RequestParam("boardcode") int boardcode)
+	{
+		System.out.println("select>>"+boardcode);
+		return boardDao.getSelectData(boardcode);
+	}
+
+	//수정
+	@PostMapping("/board/update")
+	public void update(@RequestBody BoardDto boardDto)
+	{
+		System.out.println("update>>"+boardDto);
+		boardDao.updateBoard(boardDto);
+	}
+
+
 	//관리자 게시판에서 회원 게시글 출력할때 사용하는 로직
 	@PostMapping("/admin/member/post")
 	public List<BoardDto> getMemberPostData(@RequestParam("usercode") int usercode)
 	{
 		return boardDao.getMemberPostData(usercode);
 	}
-	
-	//게시글 삭제
+
+	//게시글 삭제 [2024-02-16] 승민 수정
 	@DeleteMapping("/post/delete")
-	public void delete(@RequestParam("boardcode") int boardcode)
-	{
-		boardDao.deletePost(boardcode);
+	public void delete(@RequestParam("boardcode") int boardcode) {
+		// 사진 URL을 포함한 게시물 정보를 검색
+		BoardDto board = boardDao.getSelectPage(boardcode);
+
+		if (board != null) {
+			// 검색된 게시물에서 사진 URL을 얻기
+			String boardphoto = board.getPhoto();
+
+			// 데이터베이스에서 게시물 삭제
+			boardDao.deletePost(boardcode);
+
+			// 사진 URL이 null이 아니고 비어 있지 않은지 확인하고 스토리지에서 해당 사진 삭제
+			if (boardphoto != null && !boardphoto.isEmpty()) {
+				// 스토리지 서비스를 사용하여 스토리지에서 사진 삭제
+				storageService.deleteFile(bucketName, folderName, boardphoto);
+			}
+		}
 	}
-	
+
 	//관리자 게시판에서 회원 댓글 출력할때 사용하는 로직
 	@PostMapping("/admin/member/comment")
 	public List<BoardCommentDto> getMemberCommentData(@RequestParam("usercode") int usercode)
 	{
 		return boardDao.getMemberCommentData(usercode);
 	}
-	
+
 	//게시글 댓글 삭제
 	@DeleteMapping("/comment/delete")
 	public void commentdelete(@RequestParam("commentcode") int commentcode)

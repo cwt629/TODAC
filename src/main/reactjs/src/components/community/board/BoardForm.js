@@ -13,7 +13,7 @@ const BoardForm = () => {
     const [content, setContent] = useState("");
     const [counselorcode, setCounselorCode] = useState("");
     const [loading, setLoading] = useState(false);
-    const imageUrl = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/"; //ncloud 에서 가져옴
+    const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/"; //ncloud 에서 가져옴
     const navi = useNavigate();
 
     const CURRENT_ROUTES = [
@@ -23,18 +23,6 @@ const BoardForm = () => {
     ];
 
     const PAGE_TITLE = "게시글 등록";
-
-    const VisuallyHiddenInput = styled("input")({
-        clip: "rect(0 0 0 0)",
-        clipPath: "inset(50%)",
-        height: 1,
-        overflow: "hidden",
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        whiteSpace: "nowrap",
-        width: 1,
-    });
 
     //파일 업로드 이벤트
     const onUploadEvent = (e) => {
@@ -98,30 +86,31 @@ const BoardForm = () => {
                         style={{
                             width: "110px",
                             height: "90px",
+                            position: "relative",
+                            overflow: "hidden",
                         }}
                     >
                         {loading ? (
-                            <CircularProgress size={30} /> // 로딩 스피너 표시
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    top: "50%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)",
+                                }}
+                            >
+                                <CircularProgress size={60} />
+                            </div>
                         ) : (
-                            <img alt='' src={photo ? imageUrl + photo : noImage} width={110} height={90} />
+                            <img alt='' src={photo ? imageStorage + photo : noImage} width={110} height={90} />
                         )}
                     </div>
-
                     <div className='text-center mt-1'>
-                        <Button
-                            style={{ backgroundColor: "pink" }}
-                            component='label'
-                            role={undefined}
-                            variant='contained'
-                            tabIndex={-1}
-                        >
-                            이미지등록
-                            <VisuallyHiddenInput type='file' onChange={onUploadEvent} />
-                        </Button>
+                        <input type='file' onChange={onUploadEvent} />
                     </div>
                 </div>
 
-                <div className='col-7'>
+                <div className='col-7 form_title'>
                     <TextField
                         label='제목'
                         size='small'
