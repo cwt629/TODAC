@@ -6,6 +6,7 @@ import noImage from "../../../image/no_image_board_form.png";
 import { TextField, Button } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import Swal from "sweetalert2";
+import BoardComment from "./BoardComment";
 
 const BoardDetail = () => {
     const [data, setData] = useState(null);
@@ -13,6 +14,7 @@ const BoardDetail = () => {
     const navi = useNavigate();
     const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/";
     const [isLiked, setIsLiked] = useState(false); // 좋아요 여부 상태 추가
+    const userRole = sessionStorage.getItem("id");
 
     const CURRENT_ROUTES = [
         { name: "커뮤니티", url: "/user/community" },
@@ -131,15 +133,28 @@ const BoardDetail = () => {
                             </Button>
                         </div>
                     )}
-                    <button onClick={() => deletePost(boardcode)} style={{ cursor: "pointer" }}>
-                        삭제
-                    </button>
-                    <button onClick={() => navi(`/user/community/board/updateform/${boardcode}`)}>수정</button>
+                    {userRole === "todac" ? (
+                        // 관리자인 경우에는 삭제 기능만 표시
+                        <div>
+                            <button onClick={() => deletePost(boardcode)} style={{ cursor: "pointer" }}>
+                                삭제
+                            </button>
+                        </div>
+                    ) : // 일반 사용자인 경우 글 작성자인지 확인 후 삭제 및 수정 버튼 표시
+                    data.userCode == sessionStorage.getItem("usercode") ? (
+                        <div>
+                            <button onClick={() => deletePost(boardcode)} style={{ cursor: "pointer" }}>
+                                삭제
+                            </button>
+                            <button onClick={() => navi(`/user/community/board/updateform/${boardcode}`)}>수정</button>
+                        </div>
+                    ) : null}
                     <div className='visitcount'>
                         <VisibilityOutlinedIcon />
                         {data.visitCount}
                     </div>
                     {data.registerDate}
+                    <BoardComment />
                 </div>
             )}
         </div>
