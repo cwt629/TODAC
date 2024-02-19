@@ -45,14 +45,14 @@ const ChatDiagnosis = () => {
 
         console.log("지금 보내고자 하는 로그");
         console.log(chatlog);
-        const chatLogAnswer = chatlog[0].answer;
         const chatLogWorry = chatlog[0].worry;
+        const chatLogAnswer = chatlog[0].answer;
 
-        console.log(chatLogAnswer);
         console.log(chatLogWorry);
+        console.log(chatLogAnswer);
         Swal.close(); // 진단서 제작이 완료되면 알림창 닫기
 
-        return { chatLogWorry, chatLogAnswer };
+        return { summarizedUserMessage: chatLogWorry, summarizedCounselorMessage: chatLogAnswer };
     };
 
     const getSummarizedMessages = async () => {
@@ -64,8 +64,10 @@ const ChatDiagnosis = () => {
             method: 'post',
             url: "/chat/diagnosis/save?chatroomcode=" + roomcode,
             data: {
-                worry: chatLogWorry,
-                answer: chatLogAnswer
+                advice: chatLogWorry,
+                deepanswer: chatLogAnswer
+                // advice: "임시 advice",
+                // deepanswer: "임시 deepanswer"
             },
             headers: {
                 'Content-Type': 'application/json'
@@ -76,16 +78,17 @@ const ChatDiagnosis = () => {
     const checkData = async () => {
         try {
             const response = await axios.get("/chat/diagnosis/check?chatroomcode=" + roomcode);
+            getSummarizedMessages();
             if (response.data) {
                 console.log("진단서 있음")
                 console.log(response)
+                const { worry, answer, advice, deepanswer } = response.data;
                 setSummarizedMessages({
-                    summarizedUserMessage: { content: response.data.worry },
-                    summarizedCounselorMessage: { content: response.data.answer }
+                    summarizedUserMessage: worry,
+                    summarizedCounselorMessage: answer,
+                    // advice: advice !== null ? advice : "임시로 저장된 advice",
+                    // deepanswer: deepanswer !== null ? deepanswer : "임시로 저장된 deepanswer"
                 });
-            }
-            else {
-                getSummarizedMessages();
             }
         } catch (error) {
             console.error("Error fetching summarized messages: ", error);
@@ -110,12 +113,12 @@ const ChatDiagnosis = () => {
             <br /><br />
             <div className='fs_20 fw_700'>내 고민 요약</div>
             <div className='diagnosisSummaryContent fs_14 bor_red bg_red mt_10'>
-                {summarizedMessages.chatLogWorry}
+                {summarizedMessages.summarizedUserMessage}
             </div>
             <br />
             <div className='fs_20 fw_700'>상담사의 답변 요약</div>
             <div className='diagnosisSummaryAnswerContent fs_14 bor_blue1 bg_blue mt_10'>
-                {summarizedMessages.chatLogAnswer}
+                {summarizedMessages.summarizedCounselorMessage}
             </div>
             <br />
             <div className='fs_20 fw_700'>심리 분석</div>
