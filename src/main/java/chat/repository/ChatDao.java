@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import chat.data.ChatListInterface;
 import chat.data.ChatLogDto;
 import chat.data.ChatReviewDto;
 import chat.data.ChatRoomDto;
@@ -54,5 +55,17 @@ public class ChatDao {
 	
 	public ChatRoomDto getRoomByCode(Short chatroomcode) {
 		return roomRepository.getReferenceById(chatroomcode);
+	}
+	
+	public List<ChatListInterface> getChatroomsOfMember(int usercode) {
+		return roomRepository.getChatroomsOfMember(usercode);
+	}
+	
+	public String getCounselorNameInRoom(Short chatroomcode) {
+		return roomRepository.getCounselorNameInRoom(chatroomcode);
+	}
+	
+	public String getMemberPhotoInRoom(Short chatroomcode) {
+		return roomRepository.getMemberPhotoInRoom(chatroomcode);
 	}
 }
