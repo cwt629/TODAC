@@ -20,4 +20,8 @@ public class CounselorDao {
 	public CounselorDto getCounselorByCode(Short counselorcode) {
 		return counselorRepository.getReferenceById(counselorcode);
 	}
+	
+	public List<CounselorDto> getBasicCounselorList(){
+		return counselorRepository.findAll();
+	}
 }

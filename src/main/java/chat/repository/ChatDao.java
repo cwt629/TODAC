@@ -60,4 +60,12 @@ public class ChatDao {
 	public List<ChatListInterface> getChatroomsOfMember(int usercode) {
 		return roomRepository.getChatroomsOfMember(usercode);
 	}
+	
+	public String getCounselorNameInRoom(Short chatroomcode) {
+		return roomRepository.getCounselorNameInRoom(chatroomcode);
+	}
+	
+	public String getMemberPhotoInRoom(Short chatroomcode) {
+		return roomRepository.getMemberPhotoInRoom(chatroomcode);
+	}
 }

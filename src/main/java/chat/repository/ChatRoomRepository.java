@@ -19,4 +19,12 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoomDto, Short> {
 			where r.usercode = :usercode
 			""", nativeQuery = true)
 	public List<ChatListInterface> getChatroomsOfMember(@Param("usercode") int usercode);
+	
+	@Query(value = "select name from counselor natural join chatroom where chatroomcode = :chatroomcode"
+			, nativeQuery = true)
+	public String getCounselorNameInRoom(@Param("chatroomcode") Short chatroomcode);
+	
+	@Query(value = "select photo from member natural join chatroom where chatroomcode = :chatroomcode"
+			, nativeQuery = true)
+	public String getMemberPhotoInRoom(@Param("chatroomcode") Short chatroomcode);
 }

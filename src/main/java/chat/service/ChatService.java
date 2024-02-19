@@ -38,4 +38,12 @@ public class ChatService {
 	public List<ChatListInterface> getChatroomsOfMember(int usercode) {
 		return chatDao.getChatroomsOfMember(usercode);
 	}
+	
+	public String getCounselorNameInRoom(Short chatroomcode) {
+		return chatDao.getCounselorNameInRoom(chatroomcode);
+	}
+	
+	public String getMemberPhotoInRoom(Short chatroomcode) {
+		return chatDao.getMemberPhotoInRoom(chatroomcode);
+	}
 }
