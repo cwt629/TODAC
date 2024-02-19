@@ -1,18 +1,21 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import PageHeader from '../../PageHeader';
 
 const ChattingLogContent = () => {
     const nav = useNavigate();
 
+    const CURRENT_ROUTES = [
+        { name: 'TODAC 채팅', url: '/user/chat' },
+        { name: '상담기록', url: '/user/chat/loglist' },
+        { name: '상담일지', url: '' }
+    ];
+
+    const PAGE_TITLE = '나의 상담일지';
+
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/user/chat" className='col_blue2'>TODAC 채팅 {'>'} </Link>
-                <Link to="/user/chat/loglist" className='col_blue2'>상담기록 {'>'} </Link>
-                <Link to="/user/chat/logcontent" className='col_blue2'>상담일지</Link>
-            </div>
-            <div className='fs_25 fw_700'>나의 상담일지</div>
-            <br /><br />
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <div>
                 <span className='fs_19 col_red'>어느</span> 상담사와의 상담일지
             </div>

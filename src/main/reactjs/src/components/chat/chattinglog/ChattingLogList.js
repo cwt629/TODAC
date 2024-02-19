@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './ChattingLogStyle.css';
 import axios from 'axios';
 import PageHeader from '../../PageHeader';
@@ -10,6 +10,8 @@ const ChattingLogList = () => {
     const [showMore, setShowMore] = useState(false);
     const tableRef = useRef(null);
     const [list, setList] = useState([]);
+
+    const nav = useNavigate();
 
     const CURRENT_ROUTES = [
         { name: 'TODAC 채팅', url: '/user/chat' },
@@ -87,7 +89,7 @@ const ChattingLogList = () => {
                         {
                             list.map((data, index) => (
                                 <tr key={index}
-                                    onClick={() => alert(`${index + 1}번줄 클릭함`)}>
+                                    onClick={() => nav("../logcontent?roomcode=" + data.chatroomcode)}>
                                     <td>{index + 1}</td>
                                     <td>{data.date ? (
                                         <span>
