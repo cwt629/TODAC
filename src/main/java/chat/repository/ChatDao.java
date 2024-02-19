@@ -10,6 +10,7 @@ import chat.data.ChatListInterface;
 import chat.data.ChatLogDto;
 import chat.data.ChatReviewDto;
 import chat.data.ChatRoomDto;
+import chat.data.ChatSummaryDto;
 import lombok.AllArgsConstructor;
 
 @Repository
@@ -18,6 +19,7 @@ public class ChatDao {
 	ChatRoomRepository roomRepository;
 	ChatLogRepository logRepository;
 	ChatReviewRepository reviewRepository;
+	ChatSummaryRepository summaryRepository;
 	
 	// 채팅 로그 저장하고, 해당 roomcode를 반환하는 함수
 	public Short insertChatLog(Map<String, Object> map) {
@@ -55,6 +57,10 @@ public class ChatDao {
 	
 	public ChatRoomDto getRoomByCode(Short chatroomcode) {
 		return roomRepository.getReferenceById(chatroomcode);
+	}
+	
+	public List<ChatSummaryDto> selectSummaryDB(Short chatroomcode){
+		return summaryRepository.selectSummaryDB(chatroomcode);
 	}
 	
 	public List<ChatListInterface> getChatroomsOfMember(int usercode) {

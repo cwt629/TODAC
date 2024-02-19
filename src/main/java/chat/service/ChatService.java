@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import chat.data.ChatListInterface;
 import chat.data.ChatLogDto;
 import chat.data.ChatRoomDto;
+import chat.data.ChatSummaryDto;
 import chat.repository.ChatDao;
 import lombok.AllArgsConstructor;
 
@@ -33,6 +34,10 @@ public class ChatService {
 	
 	public ChatRoomDto getRoomByCode(Short chatroomcode) {
 		return chatDao.getRoomByCode(chatroomcode);
+	}
+	
+	public List<ChatSummaryDto> selectSummaryDB(Short chatroomcode){
+		return chatDao.selectSummaryDB(chatroomcode);
 	}
 	
 	public List<ChatListInterface> getChatroomsOfMember(int usercode) {
