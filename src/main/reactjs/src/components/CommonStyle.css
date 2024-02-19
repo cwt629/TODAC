@@ -248,6 +248,10 @@ a {
     color: var(--deepgray);
 }
 
+.col_black {
+    color: var(--mainblack);
+}
+
 /* 보더 border컬러 */
 
 .bor_red {
