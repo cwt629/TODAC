@@ -69,7 +69,7 @@ const ChatSummary = () => {
 
         Swal.close(); // 요약이 완료되면 알림창 닫기
 
-        return { summarizedUserMessage, summarizedCounselorMessage };
+        return { summarizedUserMessage: summarizedUserMessage, summarizedCounselorMessage: summarizedCounselorMessage };
     };
 
     const getSummarizedMessages = async () => {
