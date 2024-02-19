@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import "./UpdateStyle.css";
 import "../../CommonStyle.css";
@@ -198,47 +198,56 @@ const MyPageUpdateForm = () => {
             </Dialog>
             <div className="myupdatemain">
                 <div className='myupdateheader'>
-                    <div className='fs_14 fw_500 col_blue2'>
-                        <span>마이 홈</span> > <span>내 정보 관리</span>
-                    </div>
+                <div className='mt-1 fs_14 col_blue2'>
+                    <Link to="/user">마이 홈 {'>'} </Link>
+                    <Link to="/user/update">내 정보 관리 </Link>
+                </div>
                     <div className='fs_24 fw_700'>
                         내 정보 수정
                     </div>
                 </div>
                 <div className="profile">
                     <img className="profile" alt='' src={photo}/>
-                    <h4>{member.nickname}</h4>
+                    <div className='mt_10 fs_20 fw_700'>{member.nickname}</div>
                     <input type='file' id='filephoto' style={{display: 'none'}}
                            onChange={uploadPhoto}/>
-                    <CameraAltOutlined style={{fontSize: '2em', cursor: 'pointer'}}
-                                       onClick={() => document.getElementById("filephoto").click()}/>
+                    {/* <CameraAltOutlined style={{fontSize: '2em', cursor: 'pointer'}}
+                                       onClick={() => document.getElementById("filephoto").click()}/> */}
+                    <img style={{width:'30px',height:"30px",position:'absolute',top:"115px",right:'10px'}} className="img-fluid" alt='이미지변경' src={require('../../../image/ico_camera.png')} onClick={() => document.getElementById("filephoto").click()}/>
                 </div>
 
-                <h6><b>닉네임</b></h6>
-                <div>
-                    <input className="bg_red bor_red" type={"text"} value={nickname}
+                <div className='fs_20 fw_700 mt_45'>닉네임</div>
+                <div className='d-flex justify-content-between h_35 mt_10'>
+                    <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5" type={"text"} value={nickname}
                            onChange={(e) => {
                                setIdcheck(false);//아이디입력시 중복체크 버튼 다시 눌러야함
                                setNickname(e.target.value);
                            }}/>
-                    <button type='button' className='btn btn-sm btn-outline-danger'
+                    <button type='button' className='btn btn-sm btn-secondary'
                             onClick={buttonIdCheck}>중복확인
                     </button>
                 </div>
 
-                <h6><b>주소</b></h6>
-                <input className="bg_red bor_red" type={"text"} placeholder={"기존 주소"}
+                <div className='fs_20 fw_700 mt_25'>주소</div>
+                <div className='d-flex justify-content-between h_35 mt_10'>
+                    <input className="bg_gray bor_gray2 col-9 col_black p-3 br_5" type={"text"} placeholder={"기존 주소"}
                        value={address}/>
-                <button type='button' className='btn btn-sm btn-secondary'
+                    <button type='button' className='btn btn-sm btn-secondary'
                         onClick={handleClickOpen}>주소검색
-                </button>
-                <input className="bg_red bor_red" type={"text"} placeholder={"상세 주소"}
+                    </button>
+                </div>
+                
+                <input className="bg_gray bor_gray2 col_black br_5 h_35 mt_10 px-3" type={"text"} placeholder={"상세 주소"}
                         value={addressplus}/>
-                <button className="bg_blue bor_blue1"
-                        onClick={saveMemberEvent}>수정 사항 저장
-                </button>
+                
 
             </div>
+            <div className='d-flex justify-content-center mt_25'>
+                <button className="bg_blue bor_blue1 h_35 br_5 mt_25 px-3"
+                onClick={saveMemberEvent}>수정 사항 저장
+                </button>
+            </div>
+            
         </div>
     );
 };
