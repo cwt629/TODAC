@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
 const Pointcheck = () => {
     const storedId = sessionStorage.getItem("id");
@@ -9,6 +11,9 @@ const Pointcheck = () => {
     const nav = useNavigate();
     const [point, setPoint] = useState([]);
     const [loading, setLoading] = useState(false);
+    const ReactSwal = withReactContent(Swal);
+    const [price,setPrice] = useState(0);
+
 
     useEffect(() => {
         getmember();
@@ -37,6 +42,35 @@ const Pointcheck = () => {
                 setLoading(false);
             });
     }
+
+    const pay5000= () =>{
+        setPrice(5000);
+    }
+
+    const pay10000= () =>{
+        setPrice(10000);
+    }
+
+    const selectpayment =() =>{
+        ReactSwal.fire({
+            icon: 'question',
+            html: `
+                    충전할 금액을 선택해 주세요!<br/>
+                    <button onclick=${pay5000()}>5000</button>
+                    <button onclick=${pay10000()}>10000</button><br/>
+                    충전금액 : ${price}
+                  `,
+            showCancelButton:true,
+            confirmButtonText: '충전',
+            confirmButtonColor:'skyblue',
+            cancelButtonText: '취소',
+        }).then(res=>{
+            if(res.isConfirmed){
+                nav("/user/point/checkout?price="+{price});
+            }
+        });
+    }
+
     return (
         <div>
             <br></br>
@@ -48,7 +82,7 @@ const Pointcheck = () => {
                     <div className='fs_24 fw_700'>
                         나의 포인트
                         <button className="bg_blue bor_blue1"
-                                onClick={() => nav('Checkout')}>충전
+                                onClick={selectpayment}>충전
                         </button>
                     </div>
                 </div>
