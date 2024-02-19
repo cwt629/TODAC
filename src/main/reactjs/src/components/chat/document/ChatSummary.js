@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import diagnosis from '../../../image/diagnosis.png';
+import diagnosisImg from '../../../image/diagnosis.png';
 import './DocumentStyle.css';
 import axios from 'axios';
 import summarizeContent from '../api/summarize';
@@ -18,8 +18,9 @@ const ChatSummary = () => {
         // sweetalert2 팝업 띄우기
         Swal.fire({
             title: '진단서 예시 및 간단 설명',
-            html: '<div style="border: 1px solid red; border-radius: 10px; overflow: hidden;"><img src="' + diagnosis + '" alt="이미지" style="width: 80%; height: auto;"></div>',
+            html: '<div style="border: 1px solid red; border-radius: 10px; overflow: hidden;"><img src="' + diagnosisImg + '" alt="이미지" style="width: 80%; height: auto;"></div>',
             icon: 'info',
+            confirmButtonColor: '#FF7170',
             confirmButtonText: '닫기',
         });
     };
