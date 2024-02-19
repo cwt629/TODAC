@@ -76,12 +76,12 @@ const ChattingLogList = () => {
             {/* 로그 테이블 출력 */}
             <div className="table-container" style={{ maxHeight: showMore ? 'none' : '652px', overflowY: 'hidden' }}>
                 {/* TODO: bootstrap 클래스 때문에 스타일이 안먹으므로, 추후 표는 다른 방법으로 디자인 필요 */}
-                <table className='table table-bordered' ref={tableRef}>
+                <table className='chatlog-table' ref={tableRef}>
                     <thead>
                         <tr>
-                            <th className='bg_red'>번호</th>
-                            <th className='bg_red'>날짜</th>
-                            <th className='bg_red'>상담사</th>
+                            <th width='50' style={{ backgroundColor: '#F9EAEB' }}>번호</th>
+                            <th width='171' style={{ backgroundColor: '#F9EAEB' }}>날짜</th>
+                            <th width='112' style={{ backgroundColor: '#F9EAEB' }}>상담사</th>
                         </tr>
                     </thead>
                     <tbody>
