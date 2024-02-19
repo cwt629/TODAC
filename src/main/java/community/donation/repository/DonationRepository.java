@@ -22,10 +22,11 @@ public interface DonationRepository extends JpaRepository<PointRecordDto, Intege
 	@Query(value = "select sum(amount) from pointrecord where type='후원'",nativeQuery = true)
     public  int getTotalDonation();
 
-    @Query(value = "SELECT usercode, SUM(amount) AS total_amount" +
-            " FROM pointrecord" +
-            " WHERE type = '후원'" +
-            " GROUP BY usercode" +
+    @Query(value = "SELECT m.nickname, pr.usercode, SUM(pr.amount) AS total_amount" +
+            " FROM todacdb.pointrecord pr" +
+            " JOIN todacdb.member m ON pr.usercode = m.usercode" +
+            " WHERE pr.type = '후원'" +
+            " GROUP BY pr.usercode, m.nickname" +
             " ORDER BY total_amount DESC" +
             " LIMIT 3;",nativeQuery = true)
     public List<Map<String, Object>> getTop3Donor();

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import chat.data.ChatListInterface;
 import chat.data.ChatLogDto;
 import chat.data.ChatRoomDto;
 import chat.data.ChatSummaryDto;
@@ -37,5 +38,17 @@ public class ChatService {
 	
 	public List<ChatSummaryDto> selectSummaryDB(Short chatroomcode){
 		return chatDao.selectSummaryDB(chatroomcode);
+	}
+	
+	public List<ChatListInterface> getChatroomsOfMember(int usercode) {
+		return chatDao.getChatroomsOfMember(usercode);
+	}
+	
+	public String getCounselorNameInRoom(Short chatroomcode) {
+		return chatDao.getCounselorNameInRoom(chatroomcode);
+	}
+	
+	public String getMemberPhotoInRoom(Short chatroomcode) {
+		return chatDao.getMemberPhotoInRoom(chatroomcode);
 	}
 }

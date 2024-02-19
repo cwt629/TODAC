@@ -58,19 +58,21 @@ const Pointcheck = () => {
                     <h4>보유 포인트 : <span style={{color:"#FF7170"}}>{member.point}</span></h4>
                 </div>
 
-                <div className="fs_17 fw_800">{member.nickname} 님의 포인트 사용내역</div>
-                    <table className="table table-bordered">
-                        <tr>
+                <div className="fs_17 fw_800 mt_45">{member.nickname} 님의 포인트 사용내역</div>
+                    <table className="table-light table-bordered mt_10">
+                        <tr className="bg_red fw_600">
                             <td>내용</td>
                             <td>포인트</td>
                             <td>날짜</td>
                         </tr>
                         {point.map((item, index) => (
 
-                                    <tr className="bg_red">
-                                        <td className="fw_600">{item.type}</td>
-                                        <td className="fw_600">{item.amount}</td>
-                                        <td className="fw_600">{item.applieddate}</td>
+                                    <tr>
+                                        <td>{item.type}</td>
+                                        <td style={{ color: (item.type === '충전' || item.type === '수박게임') ? 'red' : 'blue' }}>
+                                            {(item.type === '충전' || item.type === '수박게임') ? `+${item.amount}` : `-${item.amount}`}
+                                        </td>
+                                        <td>{item.applieddate}</td>
                                     </tr>
                         ))}
                     </table>

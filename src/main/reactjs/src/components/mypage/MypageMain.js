@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './QnaStyle.css';
 import axios from "axios";
 import "./MyPageStyle.css";
@@ -52,8 +52,8 @@ const MypageMain = () => {
 
         <div className="mypagemain">
             <div className='mypageheader'>
-                <div className='fs_14 fw_500 col_blue2'>
-                    <span>마이 홈</span>
+            <div className='mt-1 fs_14 col_blue2'>
+                    <Link to="/user">마이 홈 </Link>
                 </div>
                 <div className='fs_24 fw_700'>
                     내 정보
@@ -61,7 +61,7 @@ const MypageMain = () => {
             </div>
             <div className="profile">
                 <img className="profile" alt='' src={member.photo}/>
-                <h4>{member.nickname}</h4>
+                <div className='mt_10 fs_20 fw_700'>{member.nickname}</div>
             </div>
 
             <div className="iconmenu mt-5">
@@ -79,21 +79,21 @@ const MypageMain = () => {
                 </div>
             </div>
 
-            <div className="listmenu ">
+            <div className="listmenu fw_600 align-items-center mt_45">
                 <div onClick={() => nav('update')}>
                     <img alt="" src={require("../../image/mypageIcon/info.png")}/>
-                     내 정보 관리
+                    <span className='mx-3'>내 정보 관리</span>
                     <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
                 </div>
-                <div onClick={() => nav('inquiry')}>
+                <div onClick={() => nav('inquiry')} className='mt-4'>
                     <img alt="" src={require("../../image/mypageIcon/11.png")}/>
-                    1:1 문의
+                    <span className='mx-3'>1:1 문의</span>
                     <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
 
                 </div>
-                <div onClick={() => nav('faq')}>
+                <div onClick={() => nav('faq')} className='mt-4'>
                     <img alt="" src={require("../../image/mypageIcon/faq.png")}/>
-                    도움말
+                    <span className='mx-3'>도움말</span>
                     <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
                 </div>
             </div>

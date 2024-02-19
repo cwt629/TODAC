@@ -1,5 +1,5 @@
 div.mypagemain {
-    margin: 30px;
+    margin: 0 30px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -16,8 +16,8 @@ div.mypagemain div.profile{
 }
 
 div.mypagemain div.profile img{
-    width: 80px;
-    height: 80px;
+    width: 150px;
+    height: 150px;
     border-radius: 10px;
 }
 
@@ -37,7 +37,7 @@ div.mypagemain div.iconmenu h6{
     margin: 10px 0px;
 }
 
-div.mypagemain div.listmenu{
+/* div.mypagemain div.listmenu{
     margin-top: 55px;
 }
 
@@ -56,4 +56,9 @@ div.mypagemain div.lastmenu{
     cursor: pointer;
     margin-bottom: 300px;
 
+} */
+
+
+.h_35{
+    height: 40px;
 }

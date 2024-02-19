@@ -248,6 +248,10 @@ a {
     color: var(--deepgray);
 }
 
+.col_black {
+    color: var(--mainblack);
+}
+
 /* 보더 border컬러 */
 
 .bor_red {
@@ -316,3 +320,98 @@ div.pageheader {
 span.header-clickable {
     cursor: pointer;
 }
+
+/* start main */
+.main_ani{
+    margin: 0 auto;
+    line-height:30px;
+  }
+  
+  .one_text{
+    color: #FF7170;
+    font-size: 35px !important;
+  }
+  
+  .animation span{
+    position: relative;
+    font-size: 23px;
+    font-weight: 600;
+  }
+  
+  .animation .two_t{
+    color: #536179;
+  }
+  
+  .two_text:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    border-left: 2px solid #AB3A2C;
+    animation: animate 3s steps(5) infinite;
+  }
+  
+  .two_text2:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    border-left: 2px solid #AB3A2C;
+    animation: animate 3s steps(5) infinite;
+    animation-delay: 3s;
+  }
+  
+  .two_text3:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    border-left: 2px solid #AB3A2C;
+    animation: animate 3s steps(5) infinite;
+    animation-delay: 6s;
+  }
+  
+  .two_text4:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    border-left: 2px solid #AB3A2C;
+    animation: animate 3s steps(5) infinite;
+    animation-delay: 9s;
+  }
+  
+  .two_text5:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    border-left: 2px solid #AB3A2C;
+    animation: animate 3s steps(5) infinite;
+    animation-delay: 12s;
+  }
+  
+  @keyframes animate{
+    40%, 60%{
+        left: calc(100% + 1px);
+    }
+  
+    100%{
+        left: 0%;
+    }
+  }
