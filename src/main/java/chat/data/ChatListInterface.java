@@ -6,4 +6,5 @@ public interface ChatListInterface {
 	Short getChatroomcode();
 	Timestamp getDate();
 	String getCounselorname();
+	String getCounselorphoto();
 }

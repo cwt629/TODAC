@@ -1,17 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import './ChattingLogStyle.css';
 import axios from 'axios';
 import PageHeader from '../../PageHeader';
+import ChatListFilter from './list/ChatListFilter';
+import ChatListTable from './list/ChatListTable';
+import ChatListButtons from './list/ChatListButtons';
 
 const ChattingLogList = () => {
     const SORT_FILTERS = ["최신순", "1번 상담사", "2번 상담사", "3번 상담사", "4번 상담사", "5번 상담사", "6번 상담사"];
-    const [filter, setFilter] = useState("");
-    const [showMore, setShowMore] = useState(false);
-    const tableRef = useRef(null);
-    const [list, setList] = useState([]);
+    const DISPLAY_PER_UNIT = 8;
 
-    const nav = useNavigate();
+    const [filter, setFilter] = useState("");
+    const [list, setList] = useState([]); // 초기에 받아오는 전체 데이터
+    const [showLength, setShowLength] = useState(DISPLAY_PER_UNIT); // 화면에 보여줄 요소의 개수
+    const [listDisplay, setListDisplay] = useState([]); // 화면에 보여줄 리스트 배열
 
     const CURRENT_ROUTES = [
         { name: 'TODAC 채팅', url: '/user/chat' },
@@ -24,9 +26,13 @@ const ChattingLogList = () => {
         setFilter(e.target.value);
     };
 
-    const handleShowMore = () => {
-        setShowMore(!showMore);
+    const handleExpandDisplay = () => {
+        setShowLength(showLength + DISPLAY_PER_UNIT);
     };
+
+    const handleShrinkDisplay = () => {
+        setShowLength(DISPLAY_PER_UNIT);
+    }
 
     // 첫 로딩 시, 현재 로그인한 유저의 채팅방 목록을 불러온다
     useEffect(() => {
@@ -43,8 +49,8 @@ const ChattingLogList = () => {
                         datePieces: datePieces
                     };
                 })
-
                 setList(data);
+                setListDisplay(data);
                 console.log(data);
             })
     }, [])
@@ -52,68 +58,14 @@ const ChattingLogList = () => {
     return (
         <div className='mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <br />
-
-            <div className='input-group' style={{ justifyContent: 'right', alignItems: 'center' }}>
-                <div className='fs_10 fw_700'>정렬 기준</div>
-                &emsp;
-                <div>
-                    <select onChange={handleFilterSelect} value={filter} className='selectCounselor fs_14 bor_red bg_red mt_10'>
-                        <option value="" disabled hidden>선택</option>
-                        {
-                            SORT_FILTERS.map((item) => (
-                                <option value={item} key={item}>
-                                    {item}
-                                </option>
-                            ))
-                        }
-                    </select>
-                </div>
-            </div>
-
-            <br /><br />
-
-            {/* 로그 테이블 출력 */}
-            <div className="table-container" style={{ maxHeight: showMore ? 'none' : '652px', overflowY: 'hidden' }}>
-                {/* TODO: bootstrap 클래스 때문에 스타일이 안먹으므로, 추후 표는 다른 방법으로 디자인 필요 */}
-                <table className='table table-bordered' ref={tableRef}>
-                    <thead>
-                        <tr>
-                            <th className='bg_red'>번호</th>
-                            <th className='bg_red'>날짜</th>
-                            <th className='bg_red'>상담사</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* 테이블 내용 */}
-                        {
-                            list.map((data, index) => (
-                                <tr key={index}
-                                    onClick={() => nav("../logcontent?roomcode=" + data.chatroomcode)}>
-                                    <td>{index + 1}</td>
-                                    <td>{data.date ? (
-                                        <span>
-                                            {data.datePieces.day}&nbsp;
-                                            <span className='col_red'>{data.datePieces.dayOfWeek}</span>&nbsp;
-                                            {data.datePieces.time}
-                                        </span>
-                                    ) : '요약본 미발급'}</td>
-                                    <td>{data.counselorname}</td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
-            </div>
-
-            <br /><br />
-
-            <div style={{ textAlign: 'center' }}>
-                <button onClick={handleShowMore} className='btn bor_blue1 bg_blue' style={{ color: '#536179' }}>
-                    {showMore ? '간략히 보기' : '더 보기'}
-                </button>
-            </div>
-        </div >
+            <ChatListFilter filter={filter} filterList={SORT_FILTERS}
+                handleFilterSelect={handleFilterSelect} />
+            <ChatListTable list={listDisplay} showLength={showLength} />
+            <ChatListButtons needToShow={listDisplay.length > DISPLAY_PER_UNIT}
+                displayedAll={listDisplay.length <= showLength}
+                handleExpandDisplay={handleExpandDisplay}
+                handleShrinkDisplay={handleShrinkDisplay} />
+        </div>
     );
 };
 
