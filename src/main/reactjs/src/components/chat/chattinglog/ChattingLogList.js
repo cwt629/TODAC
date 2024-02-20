@@ -11,7 +11,7 @@ const ChattingLogList = () => {
     const DISPLAY_PER_UNIT = 8;
 
     const [filter, setFilter] = useState("");
-    const [list, setList] = useState([]);
+    const [list, setList] = useState([]); // 초기에 받아오는 전체 데이터
     const [showLength, setShowLength] = useState(DISPLAY_PER_UNIT); // 화면에 보여줄 요소의 개수
     const [listDisplay, setListDisplay] = useState([]); // 화면에 보여줄 리스트 배열
 
@@ -60,7 +60,8 @@ const ChattingLogList = () => {
             <ChatListFilter filter={filter} filterList={SORT_FILTERS}
                 handleFilterSelect={handleFilterSelect} />
             <ChatListTable list={listDisplay} showLength={showLength} />
-            <ChatListButtons displayedAll={listDisplay.length <= showLength}
+            <ChatListButtons needToShow={listDisplay.length > DISPLAY_PER_UNIT}
+                displayedAll={listDisplay.length <= showLength}
                 handleExpandDisplay={handleExpandDisplay}
                 handleShrinkDisplay={handleShrinkDisplay} />
         </div>
