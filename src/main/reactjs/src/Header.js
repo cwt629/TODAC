@@ -14,7 +14,7 @@ const Header = () => {
 
     const getmemberinfo = () => {
         axios.post("/member/info?userid="+id).then((res)=>{
-            console.log(res.data);
+            //console.log(res.data);
             setMemberinfo(res.data);
         })
     }
