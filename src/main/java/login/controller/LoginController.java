@@ -44,6 +44,7 @@ public class LoginController {
 		//System.out.println("id="+dto.getUserid()+",pass="+dto.getPass());//아이디,비번 확인
 		Map<String, Object> map=new HashMap<>();//결과값 넣을 map
 		MemberDto user = loginService.getUser(dto.getUserid()); //해당 아이디에 대한 db값 넣기
+		int usercode = user.getUsercode();
 		
 		//아이디 비교
 		if(user==null) {
@@ -64,6 +65,7 @@ public class LoginController {
                 
                 //System.out.println("token=" + token); //토큰 확인
                 map.put("token", token);//토근전달
+                map.put("usercode", usercode);
                 
                 String userId = JwtTokenProvider.getUserIdFromJWT(token);
                 //System.out.println("userId=" + userId);
