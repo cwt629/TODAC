@@ -74,4 +74,8 @@ public class ChatDao {
 	public String getMemberPhotoInRoom(Short chatroomcode) {
 		return roomRepository.getMemberPhotoInRoom(chatroomcode);
 	}
+	
+	public String getMemberUsercodeInRoom(Short chatroomcode) {
+		return roomRepository.getMemberUsercodeInRoom(chatroomcode);
+	}
 }
