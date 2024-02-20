@@ -31,3 +31,12 @@ table.chatlog-table tbody tr>td:nth-child(1) {
 table.chatlog-table tbody tr>td:nth-child(3) {
     font-weight: bold;
 }
+
+button.chat-date span.chat-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+button.chat-date span.chat-arrow.chat-arrow-down {
+    transform: rotate(180deg);
+}
