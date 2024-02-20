@@ -11,11 +11,8 @@ import java.util.List;
 @Repository
 @AllArgsConstructor
 public class BoardDao {
-	BoardRepository daoInter;
-	BoardCommentRepository daoCommentInter;
 
     private BoardRepository boardRepository;
-    private BoardCommentRepository boardCommentRepository;
 
 
     //board추가
@@ -51,23 +48,12 @@ public class BoardDao {
     	System.out.println("getMemberPostData 메서드 호출됨. usercode: " + usercode);
     	return boardRepository.getMemberPostData(usercode);
     }
-    
-    public List<BoardCommentDto> getMemberCommentData(int usercode)
-    {
-    	System.out.println("getMemberCommentData 메서드 호출됨. usercode: " + usercode);
-    	return boardCommentRepository.getMemberCommentData(usercode);
-    }
-    
+
     public void deletePost(int boardcode)
     {
-    	daoInter.deletePost(boardcode);
+        boardRepository.deletePost(boardcode);
     }
     
-    public void commentDelete(int commentcode)
-    {
-    	daoCommentInter.commentDelete(commentcode);
-    }
-
 
 
 }

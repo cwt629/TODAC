@@ -14,6 +14,48 @@ const ChatSummary = () => {
     const [loading, setLoading] = useState(true); // 요약본 생성 중인지 여부
     const [summarizedMessages, setSummarizedMessages] = useState({ summarizedUserMessage: "", summarizedCounselorMessage: "" });
 
+    // 포인트 사용
+    const [donationAmount, setDonationAmount] = useState(500);
+    const usercode = sessionStorage.getItem("usercode");
+
+    const pointUse = () => {
+        Swal.fire({
+            title: '진단서 발급',
+            text: '진단서를 발급하시겠습니까?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#5279FD',
+            cancelButtonColor: '#FF7170',
+            confirmButtonText: '예',
+            cancelButtonText: '아니오'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const url = "/payment?amount=" + donationAmount + "&usercode=" + usercode + "&type=진단서 발급";
+                axios.post(url)
+                    .then(res => {
+                        if (res.data === false) {
+                            Swal.fire({
+                                icon: 'warning',
+                                html: '포인트가 부족합니다.',
+                                confirmButtonText: '확인',
+                                confirmButtonColor: '#FF7170'
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'warning',
+                                html: '진단서가 발급되었습니다.',
+                                confirmButtonText: '확인',
+                                confirmButtonColor: '#5279FD'
+                            }).then(() => {
+                                nav('../diagnosis?chatroomcode=' + roomcode);
+                            });
+                        }
+                    })
+            }
+        });
+    }
+
     const handleInfoClick = () => {
         // sweetalert2 팝업 띄우기
         Swal.fire({
@@ -146,7 +188,9 @@ const ChatSummary = () => {
             <div style={{ textAlign: 'center' }}>
                 <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../../')}>마이 홈 이동하기</button>
                 &nbsp;&nbsp;
-                <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../diagnosis?chatroomcode=' + roomcode)}>진단서 발급(500P)</button>
+                <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => {
+                    pointUse();
+                }}>진단서 발급(500P)</button>
                 &nbsp;&nbsp;
                 <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer' }} onClick={handleInfoClick}>ℹ️</span>
             </div>
