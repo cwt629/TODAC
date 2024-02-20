@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import './ChattingLogStyle.css';
 import axios from 'axios';
 import PageHeader from '../../PageHeader';
+import ChatListFilter from './list/ChatListFilter';
+import ChatListTable from './list/ChatListTable';
+import ChatListButtons from './list/ChatListButtons';
 
 const ChattingLogList = () => {
     const SORT_FILTERS = ["최신순", "1번 상담사", "2번 상담사", "3번 상담사", "4번 상담사", "5번 상담사", "6번 상담사"];
     const [filter, setFilter] = useState("");
     const [showMore, setShowMore] = useState(false);
-    const tableRef = useRef(null);
     const [list, setList] = useState([]);
 
     const nav = useNavigate();
@@ -52,68 +54,11 @@ const ChattingLogList = () => {
     return (
         <div className='mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <br />
-
-            <div className='input-group' style={{ justifyContent: 'right', alignItems: 'center' }}>
-                <div className='fs_10 fw_700'>정렬 기준</div>
-                &emsp;
-                <div>
-                    <select onChange={handleFilterSelect} value={filter} className='selectCounselor fs_14 bor_red bg_red mt_10'>
-                        <option value="" disabled hidden>선택</option>
-                        {
-                            SORT_FILTERS.map((item) => (
-                                <option value={item} key={item}>
-                                    {item}
-                                </option>
-                            ))
-                        }
-                    </select>
-                </div>
-            </div>
-
-            <br /><br />
-
-            {/* 로그 테이블 출력 */}
-            <div className="table-container" style={{ maxHeight: showMore ? 'none' : '652px', overflowY: 'hidden' }}>
-                {/* TODO: bootstrap 클래스 때문에 스타일이 안먹으므로, 추후 표는 다른 방법으로 디자인 필요 */}
-                <table className='chatlog-table' ref={tableRef}>
-                    <thead>
-                        <tr>
-                            <th width='50' style={{ backgroundColor: '#F9EAEB' }}>번호</th>
-                            <th width='171' style={{ backgroundColor: '#F9EAEB' }}>날짜</th>
-                            <th width='112' style={{ backgroundColor: '#F9EAEB' }}>상담사</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* 테이블 내용 */}
-                        {
-                            list.map((data, index) => (
-                                <tr key={index}
-                                    onClick={() => nav("../logcontent?roomcode=" + data.chatroomcode)}>
-                                    <td>{index + 1}</td>
-                                    <td>{data.date ? (
-                                        <span>
-                                            {data.datePieces.day}&nbsp;
-                                            <span className='col_red'>{data.datePieces.dayOfWeek}</span>&nbsp;
-                                            {data.datePieces.time}
-                                        </span>
-                                    ) : '요약본 미발급'}</td>
-                                    <td>{data.counselorname}</td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
-            </div>
-
-            <br /><br />
-
-            <div style={{ textAlign: 'center' }}>
-                <button onClick={handleShowMore} className='btn bor_blue1 bg_blue' style={{ color: '#536179' }}>
-                    {showMore ? '간략히 보기' : '더 보기'}
-                </button>
-            </div>
-        </div >
+            <ChatListFilter filter={filter} filterList={SORT_FILTERS}
+                handleFilterSelect={handleFilterSelect} />
+            <ChatListTable list={list} showMore={showMore} />
+            <ChatListButtons showMore={showMore} handleShowMore={handleShowMore} />
+        </div>
     );
 };
 
