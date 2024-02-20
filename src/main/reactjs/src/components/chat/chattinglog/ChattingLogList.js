@@ -45,9 +45,7 @@ const ChattingLogList = () => {
                         datePieces: datePieces
                     };
                 })
-
                 setList(data);
-                console.log(data);
             })
     }, [])
 
