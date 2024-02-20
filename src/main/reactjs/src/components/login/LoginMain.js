@@ -53,11 +53,11 @@ const LoginMain = () => {
             }}>TODAC</h1> */}
             <div className='d-flex justify-content-center'>
                 <div className='col_red fs_21 fw_400 lh_25'>
-                    <spam className="fs_30 fw_900">T</spam>his app may<br/>
-                    <spam className="fs_25 fw_900">O</spam>ffer you<br/>
-                    <spam className="fs_25 fw_900">D</spam>ream<br/>
-                    <spam className="fs_25 fw_900">A</spam>nd<br/>
-                    <spam className="fs_25 fw_900">C</spam>omfort<br/>
+                    <span className="fs_30 fw_900">T</span>his app may<br/>
+                    <span className="fs_25 fw_900">O</span>ffer you<br/>
+                    <span className="fs_25 fw_900">D</span>ream<br/>
+                    <span className="fs_25 fw_900">A</span>nd<br/>
+                    <span className="fs_25 fw_900">C</span>omfort<br/>
                 </div>
             </div>
 
