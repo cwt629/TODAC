@@ -15,7 +15,7 @@ const MyPageUpdateForm = () => {
     const [member, setmember] = useState([]);
     const navi = useNavigate();
     const [photo,setPhoto]=useState('');
-    const [idcheck,setIdcheck]=useState(false);//아이디 중복확인을 했는지 체크하기 위한 변수
+    const [idcheck,setIdcheck]=useState(true);//아이디 중복확인을 했는지 체크하기 위한 변수
     const [nickname,setNickname]=useState('');
     const storedId = sessionStorage.getItem("id");
     const userid = sessionStorage.getItem("usercode");

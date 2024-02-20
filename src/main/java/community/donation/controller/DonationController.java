@@ -66,7 +66,7 @@ public class DonationController {
 		dto = memberdao.getMemberByData(usercode);
 		int mypoint = dto.getPoint();
 
-			//member 포인트 차감
+			//member 포인트 증가
 			dto.setPoint(mypoint+amount);
 			memberdao.insertMember(dto);
 
