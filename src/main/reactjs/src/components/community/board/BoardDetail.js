@@ -91,7 +91,7 @@ const BoardDetail = () => {
                         </div>
                         <div className='col-7 form_title'>
                             <TextField
-                                className='bg_gray'
+                                className='bg_blue'
                                 id='outlined-read-only-input'
                                 defaultValue={data.title}
                                 size='small'
@@ -104,7 +104,7 @@ const BoardDetail = () => {
                     </div>
                     <div style={{ marginTop: "10px", height: "100%" }}>
                         <TextField
-                            className='bg_gray'
+                            className='bg_blue'
                             multiline
                             id='outlined-multiline-static'
                             rows={6}
@@ -154,6 +154,7 @@ const BoardDetail = () => {
                         {data.visitCount}
                     </div>
                     {data.registerDate}
+
                     <BoardComment />
                 </div>
             )}
