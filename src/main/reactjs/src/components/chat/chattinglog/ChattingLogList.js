@@ -1,220 +1,96 @@
-import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import './ChattingLogStyle.css';
+import axios from 'axios';
+import PageHeader from '../../PageHeader';
+import ChatListFilter from './list/ChatListFilter';
+import ChatListTable from './list/ChatListTable';
+import ChatListButtons from './list/ChatListButtons';
 
 const ChattingLogList = () => {
-    const selectCounselor = ["최신순", "1번 상담사", "2번 상담사", "3번 상담사", "4번 상담사", "5번 상담사", "6번 상담사"];
-    const [selected, setSelected] = useState("");
-    const [showMore, setShowMore] = useState(false);
-    const tableRef = useRef(null);
+    const SORT_FILTERS = ["최신순", "1번 상담사", "2번 상담사", "3번 상담사", "4번 상담사", "5번 상담사", "6번 상담사"];
+    const DISPLAY_PER_UNIT = 8;
 
-    const handleSelect = (e) => {
-        setSelected(e.target.value);
+    const [filter, setFilter] = useState("");
+    const [list, setList] = useState([]); // 초기에 받아오는 전체 데이터
+    const [showLength, setShowLength] = useState(DISPLAY_PER_UNIT); // 화면에 보여줄 요소의 개수
+    const [listDisplay, setListDisplay] = useState([]); // 화면에 보여줄 리스트 배열
+
+    const CURRENT_ROUTES = [
+        { name: 'TODAC 채팅', url: '/user/chat' },
+        { name: '상담기록', url: '' }
+    ];
+
+    const PAGE_TITLE = '나의 상담기록';
+
+    const handleFilterSelect = (e) => {
+        setFilter(e.target.value);
     };
 
-    const handleShowMore = () => {
-        setShowMore(!showMore);
+    const handleExpandDisplay = () => {
+        setShowLength(showLength + DISPLAY_PER_UNIT);
     };
+
+    const handleShrinkDisplay = () => {
+        setShowLength(DISPLAY_PER_UNIT);
+    }
+
+    // 첫 로딩 시, 현재 로그인한 유저의 채팅방 목록을 불러온다
+    useEffect(() => {
+        let usercode = sessionStorage.getItem("usercode");
+        if (!usercode) return;
+
+        axios.get("/chat/list?usercode=" + usercode)
+            .then((res) => {
+                // 저장할 리스트(날/요일/시간을 구분지어 넣어준다)
+                let data = res.data.map((info) => {
+                    const datePieces = getDateFormatPieces(info.date);
+                    return {
+                        ...info,
+                        datePieces: datePieces
+                    };
+                })
+                setList(data);
+                setListDisplay(data);
+                console.log(data);
+            })
+    }, [])
 
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/user/chat" className='col_blue2'>TODAC 채팅 {'>'} </Link>
-                <Link to="/user/chat/loglist" className='col_blue2'>상담기록</Link>
-            </div>
-            <div className='fs_25 fw_700'>나의 상담기록</div>
-
-            <br />
-
-            <div className='input-group' style={{ justifyContent: 'right', alignItems: 'center' }}>
-                <div className='fs_10 fw_700'>정렬 기준</div>
-                &emsp;
-                <div>
-                    <select onChange={handleSelect} value={selected} className='selectCounselor fs_14 bor_red bg_red mt_10'>
-                        <option value="" disabled hidden>선택</option>
-                        {
-                            selectCounselor.map((item) => (
-                                <option value={item} key={item}>
-                                    {item}
-                                </option>
-                            ))
-                        }
-                    </select>
-                </div>
-            </div>
-
-            <br /><br />
-
-            {/* 로그 테이블 출력 */}
-            <div className="table-container" style={{ maxHeight: showMore ? 'none' : '652px', overflowY: 'hidden' }}>
-                <table className='table table-bordered' ref={tableRef}>
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>날짜</th>
-                            <th>상담사</th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2024.02.07</td>
-                            <td>상담사</td>
-                        </tr>
-                    </thead>
-                    <tbody className='bg_red'>
-                        {/* 테이블 내용 */}
-                    </tbody>
-                </table>
-            </div>
-
-            <br /><br />
-
-            <div style={{ textAlign: 'center' }}>
-                <button onClick={handleShowMore} className='btn bor_blue1 bg_blue' style={{ color: '#536179' }}>
-                    {showMore ? '간략히 보기' : '더 보기'}
-                </button>
-            </div>
-        </div >
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+            <ChatListFilter filter={filter} filterList={SORT_FILTERS}
+                handleFilterSelect={handleFilterSelect} />
+            <ChatListTable list={listDisplay} showLength={showLength} />
+            <ChatListButtons needToShow={listDisplay.length > DISPLAY_PER_UNIT}
+                displayedAll={listDisplay.length <= showLength}
+                handleExpandDisplay={handleExpandDisplay}
+                handleShrinkDisplay={handleShrinkDisplay} />
+        </div>
     );
 };
 
+// 날짜를 로그에 맞게 포매팅하는 함수
+function getDateFormatPieces(str) {
+    if (!str) return null;
+
+    const date = new Date(str);
+
+    // 년, 월, 일, 시, 분, 초 추출
+    const year = date.getFullYear().toString().slice(-2);
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
+    const hour = ("0" + date.getHours()).slice(-2);
+    const minute = ("0" + date.getMinutes()).slice(-2);
+    const second = ("0" + date.getSeconds()).slice(-2);
+
+    // 요일
+    const DAYS_OF_WEEK = ["일", "월", "화", "수", "목", "금", "토"];
+    const dayOfWeek = DAYS_OF_WEEK[date.getDay()];
+
+    return {
+        day: `${year}/${month}/${day}`,
+        dayOfWeek: dayOfWeek,
+        time: `${hour}:${minute}:${second}`
+    };
+}
 export default ChattingLogList;

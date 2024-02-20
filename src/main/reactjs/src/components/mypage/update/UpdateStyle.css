@@ -1,5 +1,5 @@
 div.myupdatemain {
-    margin: 30px;
+    margin: 0 30px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -13,12 +13,13 @@ div.myupdatemain div.profile{
     align-self: center;
     text-align: center;
     margin-top: 30px;
+    position: relative;
 }
 
 div.myupdatemain div.profile img{
-    width: 120px;
-    height: 120px;
-    border-radius: 10px;
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
 }
 
 div.myupdatemain div.iconmenu{

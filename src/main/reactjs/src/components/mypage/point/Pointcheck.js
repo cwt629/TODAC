@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
 const Pointcheck = () => {
     const storedId = sessionStorage.getItem("id");
@@ -9,6 +11,9 @@ const Pointcheck = () => {
     const nav = useNavigate();
     const [point, setPoint] = useState([]);
     const [loading, setLoading] = useState(false);
+    const ReactSwal = withReactContent(Swal);
+    const [price,setPrice] = useState(0);
+
 
     useEffect(() => {
         getmember();
@@ -37,6 +42,35 @@ const Pointcheck = () => {
                 setLoading(false);
             });
     }
+
+    const pay5000= () =>{
+        setPrice(5000);
+    }
+
+    const pay10000= () =>{
+        setPrice(10000);
+    }
+
+    const selectpayment =() =>{
+        ReactSwal.fire({
+            icon: 'question',
+            html: `
+                    충전할 금액을 선택해 주세요!<br/>
+                    <button onclick=${pay5000()}>5000</button>
+                    <button onclick=${pay10000()}>10000</button><br/>
+                    충전금액 : ${price}
+                  `,
+            showCancelButton:true,
+            confirmButtonText: '충전',
+            confirmButtonColor:'skyblue',
+            cancelButtonText: '취소',
+        }).then(res=>{
+            if(res.isConfirmed){
+                nav("/user/point/checkout?price="+{price});
+            }
+        });
+    }
+
     return (
         <div>
             <br></br>
@@ -48,7 +82,7 @@ const Pointcheck = () => {
                     <div className='fs_24 fw_700'>
                         나의 포인트
                         <button className="bg_blue bor_blue1"
-                                onClick={() => nav('Checkout')}>충전
+                                onClick={selectpayment}>충전
                         </button>
                     </div>
                 </div>
@@ -58,19 +92,21 @@ const Pointcheck = () => {
                     <h4>보유 포인트 : <span style={{color:"#FF7170"}}>{member.point}</span></h4>
                 </div>
 
-                <div className="fs_17 fw_800">{member.nickname} 님의 포인트 사용내역</div>
-                    <table className="table table-bordered">
-                        <tr>
+                <div className="fs_17 fw_800 mt_45">{member.nickname} 님의 포인트 사용내역</div>
+                    <table className="table-light table-bordered mt_10">
+                        <tr className="bg_red fw_600">
                             <td>내용</td>
                             <td>포인트</td>
                             <td>날짜</td>
                         </tr>
                         {point.map((item, index) => (
 
-                                    <tr className="bg_red">
-                                        <td className="fw_600">{item.type}</td>
-                                        <td className="fw_600">{item.amount}</td>
-                                        <td className="fw_600">{item.applieddate}</td>
+                                    <tr>
+                                        <td>{item.type}</td>
+                                        <td style={{ color: (item.type === '충전' || item.type === '수박게임') ? 'red' : 'blue' }}>
+                                            {(item.type === '충전' || item.type === '수박게임') ? `+${item.amount}` : `-${item.amount}`}
+                                        </td>
+                                        <td>{item.applieddate}</td>
                                     </tr>
                         ))}
                     </table>
