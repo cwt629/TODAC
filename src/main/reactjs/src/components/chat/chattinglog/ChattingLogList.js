@@ -51,6 +51,7 @@ const ChattingLogList = () => {
                 })
                 setList(data);
                 setListDisplay(data);
+                console.log(data);
             })
     }, [])
 

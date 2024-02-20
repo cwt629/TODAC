@@ -28,7 +28,11 @@ const ChatListTable = ({ list, showLength }) => {
                                         {data.datePieces.time}
                                     </span>
                                 ) : '요약본 미발급'}</td>
-                                <td>{data.counselorname}</td>
+                                <td>
+                                    {/* <img alt={data.counselorname} src={data.counselorphoto}
+                                        width={20} height={20} /> */}
+                                    {data.counselorname}
+                                </td>
                             </tr>
                         ))
                     }
