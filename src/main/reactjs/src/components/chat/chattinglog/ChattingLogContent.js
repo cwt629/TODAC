@@ -6,6 +6,7 @@ import ChatLogMidbar from './content/ChatLogMidbar';
 import ChatLogContent from './content/ChatLogContent';
 import ChatLogButtons from './content/ChatLogButtons';
 import axios from 'axios';
+import MemberChatLog from '../../admin/user/MemberChatLog';
 
 const ChattingLogContent = () => {
     const [info, setInfo] = useState(null);
@@ -35,6 +36,7 @@ const ChattingLogContent = () => {
             <ChatLogMidbar counselorname={info?.counselorname} />
             <ChatLogContent log={info?.log} />
             <ChatLogButtons />
+            <MemberChatLog log={info?.log} />
         </div>
     );
 };
