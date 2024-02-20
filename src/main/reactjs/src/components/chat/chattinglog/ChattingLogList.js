@@ -7,10 +7,11 @@ import ChatListTable from './list/ChatListTable';
 import ChatListButtons from './list/ChatListButtons';
 
 const ChattingLogList = () => {
-    const SORT_FILTERS = ["최신순", "1번 상담사", "2번 상담사", "3번 상담사", "4번 상담사", "5번 상담사", "6번 상담사"];
     const DISPLAY_PER_UNIT = 8;
 
-    const [filter, setFilter] = useState("");
+    const [dateOrderAsc, setDateOrderAsc] = useState(true); // 날짜에 대해 오름차순이면 true, 내림차순이면 false
+    const [counselor, setCounselor] = useState("모든 상담사");
+    const [counselorFilters, setCounselorFilters] = useState(["모든 상담사"]);
     const [list, setList] = useState([]); // 초기에 받아오는 전체 데이터
     const [showLength, setShowLength] = useState(DISPLAY_PER_UNIT); // 화면에 보여줄 요소의 개수
     const [listDisplay, setListDisplay] = useState([]); // 화면에 보여줄 리스트 배열
@@ -22,8 +23,13 @@ const ChattingLogList = () => {
 
     const PAGE_TITLE = '나의 상담기록';
 
-    const handleFilterSelect = (e) => {
-        setFilter(e.target.value);
+    const handleDateOrderClick = () => {
+        setDateOrderAsc(!dateOrderAsc);
+        console.log(dateOrderAsc);
+    }
+
+    const handleCounselorSelect = (e) => {
+        setCounselor(e.target.value);
     };
 
     const handleExpandDisplay = () => {
@@ -34,10 +40,15 @@ const ChattingLogList = () => {
         setShowLength(DISPLAY_PER_UNIT);
     }
 
-    // 첫 로딩 시, 현재 로그인한 유저의 채팅방 목록을 불러온다
+    // 첫 로딩 시, 상담사 목록과 현재 로그인한 유저의 채팅방 목록을 불러온다
     useEffect(() => {
         let usercode = sessionStorage.getItem("usercode");
         if (!usercode) return;
+
+        axios.get("/counselor/list")
+            .then((res) => {
+                setCounselorFilters(["모든 상담사", ...res.data.map((counselor) => (counselor.name))])
+            })
 
         axios.get("/chat/list?usercode=" + usercode)
             .then((res) => {
@@ -51,15 +62,15 @@ const ChattingLogList = () => {
                 })
                 setList(data);
                 setListDisplay(data);
-                console.log(data);
             })
     }, [])
 
     return (
         <div className='mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <ChatListFilter filter={filter} filterList={SORT_FILTERS}
-                handleFilterSelect={handleFilterSelect} />
+            <ChatListFilter dateOrderAsc={dateOrderAsc} handleDateOrderClick={handleDateOrderClick}
+                counselor={counselor} filterList={counselorFilters}
+                handleCounselorSelect={handleCounselorSelect} />
             <ChatListTable list={listDisplay} showLength={showLength} />
             <ChatListButtons needToShow={listDisplay.length > DISPLAY_PER_UNIT}
                 displayedAll={listDisplay.length <= showLength}
