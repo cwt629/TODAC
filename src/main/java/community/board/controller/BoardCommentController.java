@@ -53,9 +53,21 @@ public void addComment(@RequestParam("usercode") int usercode,
 }
 
     //특정글에 달린 댓글 반환
+//    @GetMapping("/commentlist")
+//    public List<BoardCommentDto> getCommentData(@RequestParam("boardcode") int boardcode)
+//    {
+//        return boardCommentDao.getAllComments(boardcode);
+//    }
+
     @GetMapping("/commentlist")
-    public List<CommentListDto> list() {
-        List<BoardCommentDto> allComments = boardCommentDao.getAllComments();
-        return allComments.stream().map(CommentListDto::new).toList();
+    public List<CommentListDto> getCommentData(@RequestParam("boardcode") int boardcode) {
+        List<BoardCommentDto> allComments = boardCommentDao.getAllComments(boardcode);
+
+        // Convert to CommentListDto
+        List<CommentListDto> commentListDtoList = allComments.stream()
+                .map(CommentListDto::new)
+                .toList();
+
+        return commentListDtoList;
     }
 }

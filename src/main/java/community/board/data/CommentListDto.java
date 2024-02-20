@@ -10,7 +10,7 @@ public class CommentListDto {
     private int boardCode;
     private String memberNickname;
     private String memberPhoto;
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private Timestamp registerDate;
     private String content;
     private int userCode;
