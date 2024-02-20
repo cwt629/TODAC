@@ -25,7 +25,6 @@ const ChattingLogList = () => {
 
     const handleDateOrderClick = () => {
         setDateOrderAsc(!dateOrderAsc);
-        console.log(dateOrderAsc);
     }
 
     const handleCounselorSelect = (e) => {
@@ -64,6 +63,23 @@ const ChattingLogList = () => {
                 setListDisplay(data);
             })
     }, [])
+
+    // 날짜순 정렬 기준이 변경될 때마다 display를 변경해준다
+    useEffect(() => {
+        let newDisplay = [...listDisplay];
+        const NUM_FOR_SORT = (dateOrderAsc) ? 1 : -1;
+
+        newDisplay.sort((a, b) => {
+            // 날짜가 null인 경우가 생길 수도 있으므로 처리가 따로 필요하다.
+            if (a && b) {
+                return (new Date(a.date) - new Date(b.date)) * NUM_FOR_SORT;
+            }
+            // 날짜가 하나라도 null인 경우 : room code에 대해 정렬
+            return (a.chatroomcode - b.chatroomcode) * NUM_FOR_SORT;
+        })
+
+        setListDisplay(newDisplay); // 정렬된 새 배열로 디스플레이 설정
+    }, [dateOrderAsc])
 
     return (
         <div className='mx_30'>
