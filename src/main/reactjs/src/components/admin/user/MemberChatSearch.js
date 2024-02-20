@@ -99,7 +99,8 @@ const MemberChatSearch = () => {
             />
             <div className="fs_17 fw_800">{member.nickname} 님의 채팅 기록</div>
             {currentItems.map((item, index) => (
-                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
+                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}
+                    onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberChatSearch/MemberChatHistory?usercode=` + member.usercode)}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div>
                             <span className="fw_600">{item.counselorname} 상담사</span>
@@ -117,9 +118,6 @@ const MemberChatSearch = () => {
                     onChange={handlePageChange}
                 />
             </div>
-
-            <button className='btn btn-danger'
-                onClick={() => nav('MemberChatHistory')}>채팅기록</button>
         </div>
     );
 };
