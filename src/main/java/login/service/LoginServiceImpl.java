@@ -119,7 +119,7 @@ public class LoginServiceImpl implements LoginService {
             retMap.put("accessToken", kakaoAccessToken);//카카오토근전달
             retMap.put("token", token);//토근전달
             int usercode = user.getUsercode();//사용편의를 위한 usercode저장
-            retMap.put("id", userid);//id전달
+            retMap.put("userid", userid);//id전달
             retMap.put("usercode", usercode);//usercode전달
         }
         return retMap;
@@ -280,16 +280,6 @@ public class LoginServiceImpl implements LoginService {
         
         System.out.println("===== " + url);
         
-        //HashMap<String, Object> accountInfoResponse = rt.getForObject(url, HashMap.class, headers);
-        
-        //ObjectMapper objectMapper = new ObjectMapper();
-        //objectMapper.registerModule(new JavaTimeModule());
-        //objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        
-        //retMap = accountInfoResponse;
-        
-    	//retMap = objectMapper.readValue(accountInfoResponse.getBody(), HashMap.class);
-    	
     	retMap.put("url", url);
         
         return retMap;
