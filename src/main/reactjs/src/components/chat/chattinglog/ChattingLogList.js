@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import './ChattingLogStyle.css';
 import axios from 'axios';
 import PageHeader from '../../PageHeader';
@@ -9,11 +8,12 @@ import ChatListButtons from './list/ChatListButtons';
 
 const ChattingLogList = () => {
     const SORT_FILTERS = ["최신순", "1번 상담사", "2번 상담사", "3번 상담사", "4번 상담사", "5번 상담사", "6번 상담사"];
-    const [filter, setFilter] = useState("");
-    const [showMore, setShowMore] = useState(false);
-    const [list, setList] = useState([]);
+    const DISPLAY_PER_UNIT = 8;
 
-    const nav = useNavigate();
+    const [filter, setFilter] = useState("");
+    const [list, setList] = useState([]);
+    const [showLength, setShowLength] = useState(DISPLAY_PER_UNIT); // 화면에 보여줄 요소의 개수
+    const [listDisplay, setListDisplay] = useState([]); // 화면에 보여줄 리스트 배열
 
     const CURRENT_ROUTES = [
         { name: 'TODAC 채팅', url: '/user/chat' },
@@ -26,9 +26,13 @@ const ChattingLogList = () => {
         setFilter(e.target.value);
     };
 
-    const handleShowMore = () => {
-        setShowMore(!showMore);
+    const handleExpandDisplay = () => {
+        setShowLength(showLength + DISPLAY_PER_UNIT);
     };
+
+    const handleShrinkDisplay = () => {
+        setShowLength(DISPLAY_PER_UNIT);
+    }
 
     // 첫 로딩 시, 현재 로그인한 유저의 채팅방 목록을 불러온다
     useEffect(() => {
@@ -46,6 +50,7 @@ const ChattingLogList = () => {
                     };
                 })
                 setList(data);
+                setListDisplay(data);
             })
     }, [])
 
@@ -54,8 +59,10 @@ const ChattingLogList = () => {
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <ChatListFilter filter={filter} filterList={SORT_FILTERS}
                 handleFilterSelect={handleFilterSelect} />
-            <ChatListTable list={list} showMore={showMore} />
-            <ChatListButtons showMore={showMore} handleShowMore={handleShowMore} />
+            <ChatListTable list={listDisplay} showLength={showLength} />
+            <ChatListButtons displayedAll={listDisplay.length <= showLength}
+                handleExpandDisplay={handleExpandDisplay}
+                handleShrinkDisplay={handleShrinkDisplay} />
         </div>
     );
 };

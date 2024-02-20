@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const ChatListTable = ({ list, showMore }) => {
+const ChatListTable = ({ list, showLength }) => {
     const nav = useNavigate();
 
     return (
-        <div className="table-container mt_45" style={{ maxHeight: showMore ? 'none' : '652px', overflowY: 'hidden' }}>
+        <div className="table-container mt_45" style={{ overflowY: 'hidden' }}>
             <table className='chatlog-table'>
                 <thead>
                     <tr>
@@ -17,7 +17,7 @@ const ChatListTable = ({ list, showMore }) => {
                 <tbody>
                     {/* 테이블 내용 */}
                     {
-                        list.map((data, index) => (
+                        list.slice(0, showLength).map((data, index) => (
                             <tr key={index}
                                 onClick={() => nav("../logcontent?roomcode=" + data.chatroomcode)}>
                                 <td>{index + 1}</td>
