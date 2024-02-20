@@ -39,7 +39,7 @@ const MemberChatSearch = () => {
                 setChat(res.data);
             })
             .catch(error => {
-                console.error("포인트 사용내역을 불러오는 중 오류 발생:", error);
+                console.error("채팅 내역을 불러오는 중 오류 발생:", error);
             })
             .finally(() => {
                 setLoading(false);
