@@ -101,12 +101,18 @@ const MemberChatSearch = () => {
             {currentItems.map((item, index) => (
                 <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}
                     onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberChatSearch/MemberChatHistory?usercode=` + member.usercode)}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div className='input-group'>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div>
+                                <span><img alt='' src={item.counselorphoto} style={{ width: '40px', height: '40px', borderRadius: '50px' }} /></span>&nbsp;
+                            </div>
+                        </div>
+                        &nbsp;
                         <div>
                             <span className="fw_600">{item.counselorname} 상담사</span>
+                            <div className="fs_14">{getDateFormatPieces(item.date).day}</div>
                         </div>
                     </div>
-                    <div className="fs_14">{item.date}</div>
                 </div>
             ))}
 
@@ -121,5 +127,30 @@ const MemberChatSearch = () => {
         </div>
     );
 };
+
+// 날짜를 로그에 맞게 포매팅하는 함수
+function getDateFormatPieces(str) {
+    if (!str) return { day: '', dayOfWeek: '', time: '' }; // 날짜가 null인 경우 빈 객체 반환
+
+    const date = new Date(str);
+
+    // 년, 월, 일, 시, 분, 초 추출
+    const year = date.getFullYear().toString();
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
+    const hour = ("0" + date.getHours()).slice(-2);
+    const minute = ("0" + date.getMinutes()).slice(-2);
+    const second = ("0" + date.getSeconds()).slice(-2);
+
+    // 요일
+    const DAYS_OF_WEEK = ["일", "월", "화", "수", "목", "금", "토"];
+    const dayOfWeek = DAYS_OF_WEEK[date.getDay()];
+
+    return {
+        day: `${year}-${month}-${day}`,
+        dayOfWeek: dayOfWeek,
+        time: `${hour}:${minute}:${second}`
+    };
+}
 
 export default MemberChatSearch;
