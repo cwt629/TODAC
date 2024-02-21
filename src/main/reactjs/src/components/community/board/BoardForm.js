@@ -80,7 +80,7 @@ const BoardForm = () => {
     return (
         <div className='form-group mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <div className='d-flex justify-content-between' style={{ marginTop: "15px" }}>
+            <div className='d-flex justify-content-around' style={{ marginTop: "15px" }}>
                 <div className='col-4 '>
                     <div
                         style={{

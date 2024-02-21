@@ -30,11 +30,7 @@ public class BoardCommentDao {
     }
 
     //list 출력
-    public List<BoardCommentDto> getAllComments() {
-        return boardCommentRepository.findAll(Sort.by(Sort.Direction.DESC, "commentcode"));
-    }
-
-    public BoardCommentDto getSelectData(int boardcode) {
-        return boardCommentRepository.getReferenceById(boardcode);
+    public List<BoardCommentDto> getAllComments(int boardcode) {
+        return boardCommentRepository.getBoardCommentList(boardcode);
     }
 }

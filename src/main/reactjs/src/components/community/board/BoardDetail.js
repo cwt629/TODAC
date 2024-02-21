@@ -77,7 +77,7 @@ const BoardDetail = () => {
             {data && (
                 <div className='form-group mx_30'>
                     <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-                    <div className='d-flex justify-content-between' style={{ marginTop: "15px" }}>
+                    <div className='d-flex justify-content-around' style={{ marginTop: "15px" }}>
                         <div className='col-4'>
                             {data.photo == null ? (
                                 <img alt='' src={noImage} style={{ width: "110px", height: "90px" }} />
@@ -91,7 +91,7 @@ const BoardDetail = () => {
                         </div>
                         <div className='col-7 form_title'>
                             <TextField
-                                className='bg_blue'
+                                className='bg_gray'
                                 id='outlined-read-only-input'
                                 defaultValue={data.title}
                                 size='small'
@@ -104,7 +104,7 @@ const BoardDetail = () => {
                     </div>
                     <div style={{ marginTop: "10px", height: "100%" }}>
                         <TextField
-                            className='bg_blue'
+                            className='bg_gray'
                             multiline
                             id='outlined-multiline-static'
                             rows={6}
@@ -154,7 +154,6 @@ const BoardDetail = () => {
                         {data.visitCount}
                     </div>
                     {data.registerDate}
-
                     <BoardComment />
                 </div>
             )}
