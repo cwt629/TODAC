@@ -49,7 +49,7 @@ const Header = () => {
     const showBackButton = location.pathname !== '/' && location.pathname !== '/admin';
 
     return (
-        <div className='header'>
+        <div className='header fixed-top bg-white'>
                 <div className='text-center mt_25'>
                     <span style={{cursor:'pointer'}} className='fs_24 fw_900 col_red' onClick={() => nav('/user')}>TODAC</span>
                 </div>
