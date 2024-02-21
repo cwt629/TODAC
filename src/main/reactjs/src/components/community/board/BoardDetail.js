@@ -3,18 +3,21 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PageHeader from "../../PageHeader";
 import noImage from "../../../image/no_image_board_form.png";
-import { TextField, Button } from "@mui/material";
+import { TextField } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import Swal from "sweetalert2";
 import BoardComment from "./BoardComment";
+import GradeOutlinedIcon from "@mui/icons-material/GradeOutlined";
+import GradeIcon from "@mui/icons-material/Grade";
 
 const BoardDetail = () => {
     const [data, setData] = useState(null);
     const { boardcode } = useParams();
-    const navi = useNavigate();
-    const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/";
+    const [likeCount, setLikeCount] = useState(0); // 좋아요 수 상태 추가
     const [isLiked, setIsLiked] = useState(false); // 좋아요 여부 상태 추가
     const userRole = sessionStorage.getItem("id");
+    const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/";
+    const navi = useNavigate();
 
     const CURRENT_ROUTES = [
         { name: "커뮤니티", url: "/user/community" },
@@ -30,14 +33,36 @@ const BoardDetail = () => {
             setIsLiked(res.data.liked); // 서버에서 받아온 데이터에서 좋아요 여부를 설정
             console.log(res.data);
         });
+        // 좋아요 수 가져오기
+        axios.get(`/post/like/count?boardcode=${boardcode}`).then((res) => {
+            setLikeCount(res.data);
+        });
+        // 좋아요 상태 확인
+        axios
+            .get(`/post/checkLikeStatus?boardcode=${boardcode}&usercode=${sessionStorage.getItem("usercode")}`)
+            .then((res) => {
+                setIsLiked(res.data);
+            });
     }, [boardcode]);
 
+    //Like
     const handleLike = async () => {
         try {
-            await axios.post(`/board/like?boardcode=${boardcode}`);
-            setIsLiked(true); // 좋아요를 눌렀으니 상태 업데이트
+            await axios.post(`/post/like?boardcode=${boardcode}&usercode=${sessionStorage.getItem("usercode")}`);
+            setIsLiked(true);
+            setLikeCount((prev) => prev + 1); // 좋아요 수 증가
         } catch (error) {
             console.error("Error liking board:", error);
+        }
+    };
+    //unLike
+    const handleUnlike = async () => {
+        try {
+            await axios.post(`/post/like?boardcode=${boardcode}&usercode=${sessionStorage.getItem("usercode")}`);
+            setIsLiked(false);
+            setLikeCount((prev) => prev - 1); // 좋아요 수 감소
+        } catch (error) {
+            console.error("Error unliking board:", error);
         }
     };
 
@@ -72,6 +97,7 @@ const BoardDetail = () => {
             }
         });
     };
+
     return (
         <div>
             {data && (
@@ -88,6 +114,9 @@ const BoardDetail = () => {
                                     style={{ width: "110px", height: "90px" }}
                                 />
                             )}
+                        </div>
+                        <div className='boardLikes'>
+                            {likeCount} {/* 좋아요 수 표시 */}
                         </div>
                         <div className='col-7 form_title'>
                             <TextField
@@ -126,13 +155,17 @@ const BoardDetail = () => {
                             }}
                         />
                     </div>
-                    {!isLiked && (
-                        <div style={{ marginTop: "10px" }}>
-                            <Button variant='contained' color='primary' onClick={handleLike}>
-                                좋아요
-                            </Button>
-                        </div>
-                    )}
+                    <div className='boardLikes'>
+                        <span
+                            style={{ marginRight: "16px", cursor: "pointer" }}
+                            onClick={isLiked ? handleUnlike : handleLike}
+                        >
+                            {isLiked ? <GradeIcon /> : <GradeOutlinedIcon />}
+                            <span className='comment-action' style={{ marginLeft: "8px" }}>
+                                {likeCount}
+                            </span>
+                        </span>
+                    </div>
                     {userRole === "todac" ? (
                         // 관리자인 경우에는 삭제 기능만 표시
                         <div>

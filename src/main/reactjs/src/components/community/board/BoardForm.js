@@ -1,6 +1,6 @@
-import { Button, CircularProgress, TextField, styled } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import PageHeader from "../../PageHeader";
 import noImage from "../../../image/no_image_board_form.png";
@@ -13,8 +13,8 @@ const BoardForm = () => {
     const [content, setContent] = useState("");
     const [counselorcode, setCounselorCode] = useState("");
     const [loading, setLoading] = useState(false);
-    const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/"; //ncloud 에서 가져옴
     const navi = useNavigate();
+    const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/"; //ncloud 에서 가져옴
 
     const CURRENT_ROUTES = [
         { name: "커뮤니티", url: "/user/community" },
