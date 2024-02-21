@@ -11,6 +11,11 @@ div.selectCounselor {
     align-items: flex-start;
 }
 
+div.chatlistfilter {
+    display: flex;
+    justify-content: flex-start;
+}
+
 table.chatlog-table {
     width: 100%;
     border: 1px solid #eeeeff;
