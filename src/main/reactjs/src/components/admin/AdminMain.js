@@ -14,8 +14,9 @@ const AdminMain = () => {
 
     useEffect(() => {
         const storedToken = sessionStorage.getItem("token");
-        const storedId = sessionStorage.getItem("id");
-        console.log("Stored t:", storedToken, ", Stored id:", storedId);
+        const storedId = sessionStorage.getItem("id"); 
+        const usercode = sessionStorage.getItem("usercode"); 
+        console.log("Stored t:", storedToken, ", Stored id:", storedId, ",usercode:",usercode);
     }, []);
 
     return (

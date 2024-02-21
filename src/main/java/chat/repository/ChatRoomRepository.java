@@ -12,7 +12,8 @@ import chat.data.ChatRoomDto;
 public interface ChatRoomRepository extends JpaRepository<ChatRoomDto, Short> {
 	@Query(value = 
 			"""
-			select r.chatroomcode, s.publisheddate as date, c.name as counselorname
+			select r.chatroomcode, s.publisheddate as date, c.name as counselorname, 
+			CONCAT('https://kr.object.ncloudstorage.com/guest-hch/TODAC/counselors/', c.photo) as counselorphoto
 			from chatroom r
 			left join counselor c on r.counselorcode = c.counselorcode
 			left join chatsummary s on r.chatroomcode = s.chatroomcode
@@ -27,4 +28,9 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoomDto, Short> {
 	@Query(value = "select photo from member natural join chatroom where chatroomcode = :chatroomcode"
 			, nativeQuery = true)
 	public String getMemberPhotoInRoom(@Param("chatroomcode") Short chatroomcode);
+	
+	@Query(value = "select usercode from member natural join chatroom where chatroomcode = :chatroomcode"
+			, nativeQuery = true)
+	public String getMemberUsercodeInRoom(@Param("chatroomcode") Short chatroomcode);
+	
 }

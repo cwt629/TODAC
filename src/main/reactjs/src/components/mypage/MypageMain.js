@@ -12,7 +12,7 @@ const MypageMain = () => {
     const storedId = sessionStorage.getItem("id");
     const loginType = sessionStorage.getItem("loginType");
     const usercode = sessionStorage.getItem("usercode");
-
+ 
     useEffect(() => {
         getmember();
         console.log("storedId:", storedId, ", usercode:", usercode);
