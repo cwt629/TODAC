@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './QnaStyle.css';
 import axios from "axios";
 import "./MyPageStyle.css";
+import Swal from "sweetalert2";
 
 const MypageMain = () => {
     const [member, setmember] = useState([]);
@@ -46,6 +47,42 @@ const MypageMain = () => {
             nav('/login');
         }
 
+    };
+
+    const onPersonDelete = () => {
+        // SweetAlert를 사용하여 삭제 여부 확인
+        Swal.fire({
+            title: '회원 탈퇴',
+            text: '정말로 탈퇴하시겠습니까?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#FF7170',
+            confirmButtonText: '예',
+            cancelButtonText: '아니오',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // 확인 버튼이 눌렸을 때만 삭제 요청을 보냄
+                const url = '/member/delete?usercode=' + usercode;
+                axios.delete(url)
+                    .then(() => {
+                        // 삭제 후 다시 게시글 목록을 불러옴
+                        Swal.fire({
+                            title: '탈퇴 완료',
+                            text: '정상적으로 탈퇴되었습니다..',
+                            icon: 'success',
+                            confirmButtonColor: '#FF7170',
+                        });
+                        //회원 삭제 후 이전 페이지로 이동
+                        //세션에서 토큰 제거
+                        sessionStorage.clear();
+                        //로그인 페이지로 이동
+                        nav("/login");
+                    })
+                    .catch((error) => {
+                        console.error('삭제 중 오류 발생:', error);
+                    });
+            }
+        });
     };
 
     return (
@@ -96,9 +133,13 @@ const MypageMain = () => {
                     <span className='mx-3'>도움말</span>
                     <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
                 </div>
+
+                <div onClick={onPersonDelete} className='mt-4'>
+                    <img alt="" src={require("../../image/mypageIcon/faq.png")}/>
+                    <span style={{color:"#FF7170"}}  className='mx-3'>회원 탈퇴</span>
+                    <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
+                </div>
             </div>
-
-
 
 
         </div>

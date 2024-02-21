@@ -69,23 +69,7 @@ const Success = () => {
                     </div>
 
                     <div className="w-100 button-group">
-                        <a class="btn primary" href='/my/payment-logs' target="_blank" rel="noreferrer noopener">테스트 결제내역 확인하기</a>
-                        <div className="flex" style={{ gap: "16px" }}>
-                            <a
-                                className="btn w-100"
-                                href="https://developers.tosspayments.com/sandbox"
-                            >
-                                다시 테스트하기
-                            </a>
-                            <a
-                                className="btn w-100"
-                                href="https://docs.tosspayments.com/guides/payment-widget/integration"
-                                target="_blank"
-                                rel="noopner noreferrer"
-                            >
-                                결제 연동 문서가기
-                            </a>
-                        </div>
+                        <a class="btn primary" href='/user/point' target="_self" rel="noreferrer noopener">내 포인트 확인하기</a>
                     </div>
                 </div>
             ) : (
