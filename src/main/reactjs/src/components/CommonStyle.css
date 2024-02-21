@@ -356,7 +356,7 @@ span.header-clickable {
     bottom: 0;
     top: 0;
     background: #fff;
-    opacity: 0.8; }
+    opacity: 0.3; }
   
   /**
    * Hero
@@ -527,6 +527,6 @@ span.header-clickable {
     background: #0E0F34;
     padding: 20px 0 40px 0; }
   
-    .mb_150i{
-        margin-bottom: 150px !important;
+    .mb_300i{
+        margin-bottom: 400px !important;
     }

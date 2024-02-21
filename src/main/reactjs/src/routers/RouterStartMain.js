@@ -5,6 +5,7 @@ import logo from '../image/todac_logo_temp.png';
 import { useNavigate } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import background from "../image/bg_startmain.jpg";
 
 const RouterStartMain = () => {
     const nav = useNavigate(); // TODO : 임시로 만든 것으로, 아래 버튼 삭제 시 같이 지우기
@@ -37,7 +38,7 @@ const RouterStartMain = () => {
                 <div className='startpage'>
 
                 <div className='backgrounds overlay'>
-                    <div className='background' data-aos='fade-in' data-aos-duration='1500' data-aos-anchor='.section--hero' style={{backgroundImage: `url('../image/bg_startmain.jpg')`}}></div>
+                    <div className='background' data-aos='fade-in' data-aos-duration='1500' data-aos-anchor='.section--hero' style={{backgroundImage: `url(${background})`,backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center 87%'}}></div>
                 </div>
 
                 <header className='hero' data-aos='fade-in' data-aos-duration='1500'>
@@ -78,7 +79,7 @@ const RouterStartMain = () => {
                             <div className='code code--small code--right' data-aos='fade-down-left'>
                                 1
                             </div>
-                            <div className='code code--small code--left mb_150i' data-aos='fade-up'>
+                            <div className='code code--small code--left mb_300i' data-aos='fade-up'>
                                 1
                             </div>
                         </div>
