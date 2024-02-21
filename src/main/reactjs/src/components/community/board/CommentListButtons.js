@@ -1,4 +1,5 @@
 import React from "react";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 const CommentListButtons = ({ needToShow, displayedAll, handleExpandDisplay, handleShrinkDisplay }) => {
     return (
@@ -8,7 +9,14 @@ const CommentListButtons = ({ needToShow, displayedAll, handleExpandDisplay, han
                 style={{ color: "#536179" }}
                 onClick={displayedAll ? handleShrinkDisplay : handleExpandDisplay}
             >
-                {displayedAll ? "간략히 보기" : "댓글 더보기"}
+                {displayedAll ? (
+                    "간략히 보기"
+                ) : (
+                    <React.Fragment>
+                        댓글 더보기
+                        <KeyboardArrowRightIcon style={{ marginLeft: "1px" }} />
+                    </React.Fragment>
+                )}
             </button>
         </div>
     );

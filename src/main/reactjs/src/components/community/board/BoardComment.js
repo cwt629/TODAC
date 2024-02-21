@@ -4,8 +4,9 @@ import { useParams } from "react-router";
 import CommentRowItem from "./CommentRowItem";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import { IconButton, InputBase, Paper } from "@mui/material";
-import ChatListButtons from "../../chat/chattinglog/list/ChatListButtons";
 import CommentListButtons from "./CommentListButtons";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import commentImg from "../../../image/comment.svg";
 
 const BoardComment = () => {
     const [commentList, setCommentList] = useState([]);
@@ -25,7 +26,6 @@ const BoardComment = () => {
             setCommentList(res.data);
             setListDisplay(res.data);
             console.log(res.data);
-            console.log("길이" + res.data.length);
         });
     };
 
@@ -58,15 +58,13 @@ const BoardComment = () => {
 
     return (
         <div>
-            {commentList.length <= DISPLAY_PER_UNIT ? (
-                // 댓글이 DISPLAY_PER_UNIT보다 작을 때
-                <div>댓글 {commentList.length}개</div>
-            ) : (
-                // 댓글이 DISPLAY_PER_UNIT보다 클 때
-                <div>
-                    총 {commentList.length}개 댓글 중 최신 {DISPLAY_PER_UNIT}개
-                </div>
-            )}
+            <div className='mt_25'>
+                <h5>
+                    댓글
+                    <img alt='' src={commentImg} />
+                    {commentList.length}
+                </h5>
+            </div>
             {commentList &&
                 commentList.slice(0, showLength).map((data, idx) => {
                     return <CommentRowItem key={idx} data={data} idx={idx} />;
@@ -77,37 +75,39 @@ const BoardComment = () => {
                 handleExpandDisplay={handleExpandDisplay}
                 handleShrinkDisplay={handleShrinkDisplay}
             />
-            <Paper
-                component='form'
-                sx={{
-                    p: "2px 4px",
-                    display: "flex",
-                    alignItems: "center",
-                    width: "100%",
-                }}
-            >
-                <InputBase
-                    type='text'
-                    className='form-control'
-                    placeholder='댓글을 입력해 주세요.'
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                            e.preventDefault();
-                        }
+            <div className='mt_25'>
+                <Paper
+                    component='form'
+                    sx={{
+                        p: "2px 4px",
+                        display: "flex",
+                        alignItems: "center",
+                        width: "100%",
                     }}
-                />
-                <IconButton
-                    type='button'
-                    sx={{ p: "10px" }}
-                    aria-label='input-text'
-                    style={{ transform: "rotate(90deg)" }}
-                    onClick={addComment}
                 >
-                    <NavigationIcon />
-                </IconButton>
-            </Paper>
+                    <InputBase
+                        type='text'
+                        className='form-control'
+                        placeholder='댓글을 입력해 주세요.'
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                e.preventDefault();
+                            }
+                        }}
+                    />
+                    <IconButton
+                        type='button'
+                        sx={{ p: "10px" }}
+                        aria-label='input-text'
+                        style={{ transform: "rotate(90deg)" }}
+                        onClick={addComment}
+                    >
+                        <NavigationIcon />
+                    </IconButton>
+                </Paper>
+            </div>
         </div>
     );
 };
