@@ -49,21 +49,39 @@ const CommentRowItem = ({ idx, data }) => {
                 <List sx={{ width: "100%", maxWidth: "100%", bgcolor: "background.paper" }}>
                     <ListItem alignItems='flex-start' style={{ paddingLeft: "0", borderBottom: "1px solid gray" }}>
                         <ListItemAvatar>
-                            <Avatar alt='' src={data.photo} sx={{ width: 49, height: 49 }} />
+                            <Avatar alt='' src={data.memberPhoto} sx={{ width: 49, height: 49 }} />
                         </ListItemAvatar>
                         <ListItemText
-                            primary={data.memberNickname}
+                            style={{ marginTop: "-3px" }}
+                            primary={
+                                <Typography
+                                    sx={{ display: "inline", fontWeight: "650", fontSize: "14.8px" }}
+                                    component='span'
+                                    variant='body1' //크기 조절 가능 mui
+                                    color='text.primary'
+                                >
+                                    {data.memberNickname}
+                                </Typography>
+                            }
                             secondary={
                                 <React.Fragment>
                                     <Typography
-                                        sx={{ display: "inline" }}
+                                        sx={{ display: "inline", fontSize: "12px" }}
                                         component='span'
-                                        variant='body3'
+                                        variant='body2'
                                         color='text.primary'
                                     >
                                         {`${datePieces.year}. ${datePieces.month}. ${datePieces.day}. ${datePieces.ampm} ${datePieces.hour}:${datePieces.minute}`}
                                     </Typography>
-                                    <Typography>{data.content}</Typography>
+                                    <br />
+                                    <Typography
+                                        sx={{ display: "inline", fontWeight: "600", fontSize: "14.5px" }}
+                                        component='span'
+                                        variant='body1'
+                                        color='text.primary'
+                                    >
+                                        {data.content}
+                                    </Typography>
                                 </React.Fragment>
                             }
                         />
