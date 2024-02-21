@@ -119,7 +119,7 @@ public class LoginServiceImpl implements LoginService {
             retMap.put("accessToken", kakaoAccessToken);//카카오토근전달
             retMap.put("token", token);//토근전달
             int usercode = user.getUsercode();//사용편의를 위한 usercode저장
-            retMap.put("userid", userid);//id전달
+            retMap.put("id", userid);//id전달
             retMap.put("usercode", usercode);//usercode전달
         }
         return retMap;
