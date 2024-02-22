@@ -90,10 +90,10 @@ const RouterStartMain = () => {
                                 "정말 친한 친구가 있었는데 최근에 소원해졌어요. <br/>별일이 있었던 것도 아닌데.. 어떡하죠?"
                             </div>
                             <div className='code code--small code--left mb_300i' data-aos='fade-up'>
-                                <div className='fw_700 col_red'>당신도 고민이 있나요?</div>
+                                <div className='fw_900 col_blue2'>당신도 고민이 있나요?</div>
                                 <br/>"뭐든 좋아요!<br/>
                                 지금 물어볼까요?"<br/><br/>
-                                <div className='text-center'><Link to="/user/chat" className='bor_blue2 p-2 br_5 text-white bg_blue2 fs_14'>토닥봇 만나러가기</Link></div>
+                                <div className='text-center'><Link to="/user/chat" className='p-2 br_5 text-white bg_blue2 fs_16'>토닥봇 만나러가기</Link></div>
                             </div>
                         </div>
                     </section>

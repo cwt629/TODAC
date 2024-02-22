@@ -538,25 +538,32 @@ span.header-clickable {
     width: 45%;
     clear: both;
     /* height: 200px; */
-    background: var(--bggray);
-    border: 1px solid var(--deepblue);
+    background: #d7f3ffde;
+    /* border: 1px solid #cbd7ff; */
     border-radius: 10px;
     margin: 7vh 0;
     padding: 10px;
+    position: relative;
 }
 
-.code pre,
-.code code {
-    height: 100%;
-    margin: 0;
+.code--left::before {
+    content: '';
+    position: absolute;
+    top: 30%; /* 말풍선 세로 위치 조정 */
+    left: -30px; /* 말풍선 가로 위치 조정 */
+    transform: translateY(-50%); /* 세로 가운데 정렬을 위한 위치 이동 */
+    border: 15px solid transparent; /* 말풍선 삼각형 만들기 */
+    border-right-color: #d7f3ffde; /* 말풍선 배경색과 동일하게 설정 */
 }
 
-.code code {
-    padding: 20px 0 0 20px;
-}
-
-.code--small code {
-    padding-top: 75px;
+.code--right::before {
+    content: '';
+    position: absolute;
+    top: 30%; /* 말풍선 세로 위치 조정 */
+    right: -30px; /* 말풍선 가로 위치 조정 */
+    transform: translateY(-50%); /* 세로 가운데 정렬을 위한 위치 이동 */
+    border: 15px solid transparent; /* 말풍선 삼각형 만들기 */
+    border-left-color: #d7f3ffde; /* 말풍선 배경색과 동일하게 설정 */
 }
 
 .code--left {
