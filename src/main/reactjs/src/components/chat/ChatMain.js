@@ -55,11 +55,11 @@ const ChatMain = () => {
 
     return (
         <div className='counselormain mx_30'>
+            <LogNavigationButton handleClick={handleLogNavClick} />
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <CounselorProfile data={selectedCounselor} />
             <CounselorOptions info={counselorList} handleClick={handleCounselorClick} />
             <CounselStartButton handleClick={handleCounselStart} />
-            <LogNavigationButton handleClick={handleLogNavClick} />
         </div>
     );
 };

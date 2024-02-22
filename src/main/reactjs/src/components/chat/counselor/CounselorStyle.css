@@ -45,7 +45,7 @@ div.counselbtndiv.counsel-start {
 }
 
 div.counselbtndiv.counsel-lognav {
-    width: 85%;
+    width: 110px;
     display: flex;
     justify-content: flex-end;
     position: absolute;
