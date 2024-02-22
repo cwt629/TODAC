@@ -135,7 +135,7 @@ const MemberPost = () => {
             <div className="fs_17 fw_800">{member.nickname} 님의 게시글 목록</div>
             {currentItems.map((item, index) => (
                 <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}
-                    onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberPost/MemberPostDetail?usercode=` + member.usercode)}>
+                    onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberPost/MemberPostDetail?usercode=${usercode}&boardcode=${item.boardcode}`)}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div>
                             <span className="fw_600">{item.title}</span>
