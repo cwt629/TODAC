@@ -8,6 +8,9 @@ import CounselStartButton from './counselor/CounselStartButton';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import LogNavigationButton from './counselor/LogNavigationButton';
+import withReactContent from 'sweetalert2-react-content';
+
+const ReactSwal = withReactContent(Swal);
 
 const ChatMain = () => {
     const [counselorList, setCounselorList] = useState([]);
@@ -27,22 +30,21 @@ const ChatMain = () => {
         nav("loglist");
     }
 
-    const handleCounselorClick = (index) => {
-        setSelectedCounselor(counselorList[index]);
-    }
-
-    const handleCounselStart = () => {
-        if (!selectedCounselor) {
-            Swal.fire({
-                title: '상담사를 선택해주세요!',
-                icon: 'error',
-                confirmButtonText: '확인',
-                confirmButtonColor: '#FF7170'
-            });
-            return;
-        }
-
-        nav('counsel?counselorcode=' + selectedCounselor.counselorcode);
+    const handleCounselClick = (data) => {
+        ReactSwal.fire({
+            html: (<div>
+                <span className='col_red fs_20 fw_600'>{data.name}</span> 상담사와<br />상담을 시작하시겠습니까?
+            </div>),
+            confirmButtonText: '네',
+            confirmButtonColor: '#FF7170',
+            showCancelButton: true,
+            cancelButtonText: '아니오',
+            cancelButtonColor: '#9396A6'
+        }).then(res => {
+            if (res.isConfirmed) {
+                nav('counsel?counselorcode=' + data.counselorcode)
+            }
+        })
     }
 
     useEffect(() => {
@@ -58,7 +60,7 @@ const ChatMain = () => {
             <LogNavigationButton handleClick={handleLogNavClick} />
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             {/* <CounselorProfile data={selectedCounselor} /> */}
-            <CounselorOptions info={counselorList} handleClick={handleCounselorClick} />
+            <CounselorOptions info={counselorList} handleCounselClick={handleCounselClick} />
             {/* <CounselStartButton handleClick={handleCounselStart} /> */}
         </div>
     );

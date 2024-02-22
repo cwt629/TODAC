@@ -23,10 +23,14 @@ div.counselorprofile {
     padding: 20px;
 }
 
-div.counselorprofile img.counselorphoto {
+div.counselorcard img.counselorphoto {
     width: 100px;
     height: 100px;
-    float: right;
+}
+
+div.counselorcard img.counselorphoto.frontphoto {
+    width: 80%;
+    height: auto;
 }
 
 div.counselbtndiv {
@@ -65,9 +69,6 @@ div.counselbtndiv.counsel-lognav {
     align-items: center;
     justify-content: center;
     border-radius: 18px;
-    font-size: 22px;
-    font-weight: bold;
-    color: #fff;
     /* 카드 뒤집기 시도 */
     perspective: 1000px;
 }
@@ -76,9 +77,11 @@ div.counselbtndiv.counsel-lognav {
     width: 100%;
     height: 80%;
     border-radius: 20px;
+    padding: 30px;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
+    flex-direction: column;
     backface-visibility: hidden;
     transition: transform 0.5s;
     transform-style: preserve-3d;
@@ -92,7 +95,7 @@ div.counselbtndiv.counsel-lognav {
 
 .swiper-slide .counselorcard.card-front {
     position: absolute;
-    background-color: #5279FD;
+    /* color: #fff; */
     transform: rotateY(0deg);
 }
 
@@ -107,6 +110,14 @@ div.counselbtndiv.counsel-lognav {
 
 .swiper-slide.counselor-card-flipped .counselorcard.card-back {
     transform: rotateY(0deg);
+}
+
+.swiper-slide .counselorcard.card-front:nth-child(odd) {
+    background-color: #5279FD;
+}
+
+.swiper-slide .counselorcard.card-front:nth-child(even) {
+    background-color: #FF7170;
 }
 
 /* .swiper-slide:nth-child(1n) {

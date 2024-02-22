@@ -8,8 +8,13 @@ import 'swiper/css/effect-cards';
 
 // import required modules
 import { EffectCards } from 'swiper/modules';
+import CounselorCardFront from './CounselorCardFront';
+import CounselorCardBack from './CounselorCardBack';
 
-const CounselorOptions = ({ info, handleClick }) => {
+const CARD_COLORS = ["rgb(174, 227, 227)", "rgb(249, 211, 142)", "rgb(189 136 130)", "rgb(179 113 191)"
+    , "rgb(243 179 162)", "rgb(178 188 223)"];
+
+const CounselorOptions = ({ info, handleCounselClick }) => {
     const [flip, setFlip] = useState(false);
 
     const handleCardClick = (e) => {
@@ -31,18 +36,17 @@ const CounselorOptions = ({ info, handleClick }) => {
                 modules={[EffectCards]}
                 className="mySwiper"
             >
-                <SwiperSlide onClick={(e) => handleCardClick(e)}>
-                    <div className='counselorcard card-front'>앞</div>
-                    <div className='counselorcard card-back'>뒤</div>
-                </SwiperSlide>
-                <SwiperSlide onClick={(e) => handleCardClick(e)}>
-                    <div className='counselorcard card-front'>앞2</div>
-                    <div className='counselorcard card-back'>뒤2</div>
-                </SwiperSlide>
-                <SwiperSlide onClick={(e) => handleCardClick(e)}>
-                    <div className='counselorcard card-front'>앞2</div>
-                    <div className='counselorcard card-back'>뒤2</div>
-                </SwiperSlide>
+                {
+                    info.map((data, idx) => (
+                        <SwiperSlide key={idx} onClick={(e) => handleCardClick(e)}>
+                            <CounselorCardFront bgcolor={CARD_COLORS[idx % CARD_COLORS.length]} data={data} />
+                            <CounselorCardBack borcolor={CARD_COLORS[idx % CARD_COLORS.length]} data={data}
+                                handleCounselClick={handleCounselClick} />
+                        </SwiperSlide>
+                    ))
+
+                }
+
             </Swiper>
         </div>
     );
