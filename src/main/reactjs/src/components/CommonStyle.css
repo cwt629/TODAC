@@ -287,6 +287,10 @@ a {
     background-color: var(--lightblue);
 }
 
+.bg_blue2 {
+    background-color: var(--deepblue);
+}
+
 .bg_gray {
     background-color: var(--bggray);
 }
@@ -530,11 +534,11 @@ span.header-clickable {
 }
 
 .code {
-    width: 40%;
+    width: 45%;
     clear: both;
-    height: 200px;
-    background: var(--lightgray1);
-    border: 1px solid var(--deepgray);
+    /* height: 200px; */
+    background: var(--bggray);
+    border: 1px solid var(--deepblue);
     border-radius: 10px;
     margin: 7vh 0;
     padding: 10px;
