@@ -23,9 +23,16 @@ div.counselorprofile {
     padding: 20px;
 }
 
-div.counselorcard img.counselorphoto {
+div.counselorcard.card-back div.profile-simple {
+    width: 100%;
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+div.counselorcard img.counselorphoto.backphoto {
     width: 100px;
     height: 100px;
+    margin-right: 10px;
 }
 
 div.counselorcard img.counselorphoto.frontphoto {
@@ -110,14 +117,6 @@ div.counselbtndiv.counsel-lognav {
 
 .swiper-slide.counselor-card-flipped .counselorcard.card-back {
     transform: rotateY(0deg);
-}
-
-.swiper-slide .counselorcard.card-front:nth-child(odd) {
-    background-color: #5279FD;
-}
-
-.swiper-slide .counselorcard.card-front:nth-child(even) {
-    background-color: #FF7170;
 }
 
 /* .swiper-slide:nth-child(1n) {

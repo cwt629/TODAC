@@ -11,8 +11,14 @@ import { EffectCards } from 'swiper/modules';
 import CounselorCardFront from './CounselorCardFront';
 import CounselorCardBack from './CounselorCardBack';
 
-const CARD_COLORS = ["rgb(174, 227, 227)", "rgb(249, 211, 142)", "rgb(209 161 155)", "rgb(218 168 227)"
-    , "rgb(243 179 162)", "rgb(178 188 223)"];
+const CARD_COLORS = [
+    "#D4F0F0", // 토닥봇
+    "#FFC8A2", // 설리반
+    "#FED7C3", // 금공감
+    "#ECD5E3", // 너티야
+    "#FEE1E8", // 키키
+    "#C6DBDA" // 츤데레
+];
 
 const CounselorOptions = ({ info, handleCounselClick }) => {
     const [flip, setFlip] = useState(false);
