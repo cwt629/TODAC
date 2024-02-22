@@ -4,17 +4,15 @@ import { useNavigate, useParams } from "react-router";
 import noImage from "../../../image/no_image_board_form.png";
 import PageHeader from "../../PageHeader";
 import { CircularProgress, TextField } from "@mui/material";
-import { Button } from "@mui/base";
-import styled from "styled-components";
 
 const BoardUpdateForm = () => {
     const [photo, setPhoto] = useState("");
     const { boardcode } = useParams();
-    const navi = useNavigate();
     const [selectData, setSelectData] = useState({});
-    const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/";
-    const [loading, setLoading] = useState(false);
     const [counselorcode, setCounselorCode] = useState("");
+    const [loading, setLoading] = useState(false);
+    const navi = useNavigate();
+    const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/";
 
     const CURRENT_ROUTES = [
         { name: "커뮤니티", url: "/user/community" },
@@ -24,55 +22,10 @@ const BoardUpdateForm = () => {
 
     const PAGE_TITLE = "상세 페이지";
 
-    //수정 기능 추가
-    const getSelectData = () => {
-        axios
-            .get(`/board/select?boardcode=${boardcode}`)
-            .then((res) => {
-                setSelectData(res.data);
-                console.log(res.data);
-            })
-            .catch((error) => {
-                console.error("data select 중 오류", error);
-            });
-    };
-
-    const changeData = (e) => {
-        const { name, value } = e.target;
-
-        // 라디오 버튼인 경우 상담사 코드 업데이트
-        if (name === "counselorcode") {
-            setCounselorCode(Number(value));
-        }
-
-        setSelectData({
-            ...selectData,
-            [name]: value,
-        });
-    };
-
     //처음 로딩 시 딱 한번 호출
     useEffect(() => {
         getSelectData();
     }, []);
-
-    //수정 버튼
-    const updateDataEvent = () => {
-        axios
-            .post("/board/update", selectData)
-            .then((res) => {
-                navi(`/user/community/board/detail/${selectData.boardcode}`);
-            })
-            .catch((error) => {
-                console.error("update중 오류", error);
-            });
-    };
-
-    // // 라디오 버튼 선택 이벤트
-    // const onCounselorRadioChange = (counselorcode) => {
-    //     // 라디오 버튼이 선택될 때만 상담사 코드 설정
-    //     setCounselorCode(Number(counselorcode));
-    // };
 
     //파일 업로드 이벤트
     const onUploadEvent = (e) => {
@@ -94,6 +47,44 @@ const BoardUpdateForm = () => {
             })
             .finally(() => {
                 setLoading(false);
+            });
+    };
+
+    //boardcode 로 dto 가져오는 코드
+    const getSelectData = () => {
+        axios
+            .get(`/board/select?boardcode=${boardcode}`)
+            .then((res) => {
+                setSelectData(res.data);
+                console.log(res.data);
+            })
+            .catch((error) => {
+                console.error("data select 중 오류", error);
+            });
+    };
+
+    const changeData = (e) => {
+        const { name, value } = e.target;
+
+        // 라디오 버튼인 경우 상담사 코드 업데이트
+        if (name === "counselorcode") {
+            setCounselorCode(Number(value));
+        }
+        setSelectData({
+            ...selectData,
+            [name]: value,
+        });
+    };
+
+    //수정 버튼
+    const updateDataEvent = () => {
+        axios
+            .post("/board/update", selectData)
+            .then((res) => {
+                navi(`/user/community/board/detail/${selectData.boardcode}`);
+            })
+            .catch((error) => {
+                console.error("update중 오류", error);
             });
     };
 
