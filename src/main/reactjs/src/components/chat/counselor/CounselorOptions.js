@@ -11,7 +11,7 @@ import { EffectCards } from 'swiper/modules';
 import CounselorCardFront from './CounselorCardFront';
 import CounselorCardBack from './CounselorCardBack';
 
-const CARD_COLORS = ["rgb(174, 227, 227)", "rgb(249, 211, 142)", "rgb(189 136 130)", "rgb(179 113 191)"
+const CARD_COLORS = ["rgb(174, 227, 227)", "rgb(249, 211, 142)", "rgb(209 161 155)", "rgb(218 168 227)"
     , "rgb(243 179 162)", "rgb(178 188 223)"];
 
 const CounselorOptions = ({ info, handleCounselClick }) => {
