@@ -8,16 +8,17 @@ const GameMain = () => {
 
     let urlSet = 'http://175.45.192.182:7777?usercode=' + usercode;
     urlSet = 'http://localhost:7777?usercode=' + usercode;
-    console.log(' ======================= urlSet : ', urlSet);
+    //console.log(' ======================= urlSet : ', urlSet);
 
     useEffect(() => {
         const receiveMessage = (event) => {
-            // 이벤트 객체의 origin 속성을 사용하여 메시지의 출처를 확인합니다.
+            // 이벤트 객체의 origin 속성을 사용하여 메시지의 출처를 확인
             if (event.origin !== 'http://localhost:7777') return; // 원하는 출처 확인
             if(event.data.gameDone) {
+                const score = event.data.score;
+                const point = score >= 800 ? 100 : 10;
                 Swal.fire({
-                    icon: 'warning',
-                    title: '<span style="font-size: 20px;">게임끝</span>',
+                    title: `<span style="font-size: 20px;">축하합니다! ${score} 점수를 획득하여 ${point} 포인트가 적립되었습니다!</span>`,
                     confirmButtonColor: '#FF7170',
                     background: '#F9EAEB'
                 });
@@ -28,7 +29,7 @@ const GameMain = () => {
         // 이벤트 리스너 등록
         window.addEventListener('message', receiveMessage);
     
-        // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거합니다.
+        // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
           window.removeEventListener('message', receiveMessage);
         };
