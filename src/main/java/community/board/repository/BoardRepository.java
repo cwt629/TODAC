@@ -27,6 +27,16 @@ public interface BoardRepository extends JpaRepository<BoardDto, Integer> {
 	@Query(value = "select * from board where boardcode=:boardcode",nativeQuery = true)
 	BoardDto getSelectPage(@Param(("boardcode")) int boardcode);
 
+	//조인 컬럼
+//	@Query(value = "SELECT board.*, COUNT(DISTINCT boardcomment.commentcode) AS comment_count, " +
+//			"COUNT(DISTINCT boardlikes.likecode) AS like_count " +
+//			"FROM board " +
+//			"LEFT JOIN boardcomment ON board.boardcode = boardcomment.boardcode " +
+//			"LEFT JOIN boardlikes ON board.boardcode = boardlikes.boardcode " +
+//			"WHERE board.boardcode = :boardcode " +
+//			"GROUP BY board.boardcode", nativeQuery = true)
+//	List<MainListInterface> getSelectPage(@Param(("usercode")) int usercode);
+
 	@Query(value = "select * from board where usercode=:usercode",nativeQuery = true)
     public  List<BoardDto> getMemberPostData(@Param("usercode") int usercode);
 	
@@ -34,7 +44,4 @@ public interface BoardRepository extends JpaRepository<BoardDto, Integer> {
 	@Transactional
 	@Query(value = "delete from board where boardcode = :boardcode", nativeQuery = true)
 	public void deletePost(@Param("boardcode") int boardcode);
-
-
-
 }

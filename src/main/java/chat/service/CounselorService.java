@@ -21,4 +21,8 @@ public class CounselorService {
 	public CounselorDto getCounselorByCode(Short counselorcode) {
 		return counselorDao.getCounselorByCode(counselorcode);
 	}
+	
+	public List<CounselorDto> getBasicCounselorList(){
+		return counselorDao.getBasicCounselorList();
+	}
 }

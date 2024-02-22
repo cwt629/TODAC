@@ -51,13 +51,16 @@ const LoginAdmin = () => {
   });
 
   const [token, setToken] = useState(sessionStorage.token);
+  const [usercode, setUsercode] = useState(sessionStorage.usercode);
   
   const navigate = useNavigate();
 
   useEffect(() => {
     let session_token = sessionStorage.token;
     setToken(session_token);
-    console.log(token);
+    let session_usercode = sessionStorage.usercode;
+    setUsercode(session_usercode);
+    //console.log(token);
   }, []);
 
   //이전페이지로 이동
@@ -100,6 +103,7 @@ const LoginAdmin = () => {
             sessionStorage.token = res.data.token;
             setToken(res.data.token);
             sessionStorage.id = formData.userid;
+            sessionStorage.usercode= res.data.usercode;
           }
       });
   }

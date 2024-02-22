@@ -8,7 +8,8 @@ import CreateIcon from "@mui/icons-material/Create";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-
+import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
+import PageHeader from "../../PageHeader";
 import {
     IconButton,
     InputBase,
@@ -21,8 +22,6 @@ import {
     TableRow,
     Typography,
 } from "@mui/material";
-import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
-import PageHeader from "../../PageHeader";
 
 const BoardMain = () => {
     const [list, setList] = useState([]);
@@ -30,14 +29,13 @@ const BoardMain = () => {
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [search, setSearch] = useState(""); // 검색어를 저장하는 state
     const [filteredList, setFilteredList] = useState(list); // 검색된 목록을 저장하는 state
+    const navi = useNavigate();
     const CURRENT_ROUTES = [
         { name: "커뮤니티", url: "/user/community" },
         { name: "게시판", url: "/user/community/board" },
     ];
 
     const PAGE_TITLE = "게시판";
-
-    const navi = useNavigate();
 
     const boardList = () => {
         axios.get("/board/list").then((res) => {

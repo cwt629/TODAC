@@ -14,7 +14,7 @@ const Header = () => {
 
     const getmemberinfo = () => {
         axios.post("/member/info?userid="+id).then((res)=>{
-            console.log(res.data);
+            //console.log(res.data);
             setMemberinfo(res.data);
         })
     }
@@ -49,9 +49,9 @@ const Header = () => {
     const showBackButton = location.pathname !== '/' && location.pathname !== '/admin';
 
     return (
-        <div className='header'>
+        <div className='header fixed-top bg-white'>
                 <div className='text-center mt_25'>
-                    <span style={{cursor:'pointer'}} className='fs_24 fw_900 col_red' onClick={() => nav('/user')}>TODAC</span>
+                    <span style={{cursor:'pointer'}} className='fs_24 fw_900 col_red' onClick={() => nav('/')}>TODAC</span>
                 </div>
             
             {/* <span style={{ float: 'right', paddingRight: '10px' }}><span className='fw_900 col_blue1'>{memberinfo.nickname}</span> 님 <Logout style={{ cursor: 'pointer', width:'16px' }} onClick={() => {

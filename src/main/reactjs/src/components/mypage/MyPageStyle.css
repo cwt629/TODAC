@@ -1,6 +1,6 @@
 div.mypagemain {
-    margin: 30px;
-    height: 100%;
+    margin: 0 30px;
+    /* height: 100%; */
     display: flex;
     flex-direction: column;
 }
@@ -9,19 +9,19 @@ div.mypageheader {
     height: 60px;
 }
 
-div.mypagemain div.profile{
+div.mypagemain div.profile {
     align-self: center;
     text-align: center;
     margin-top: 30px;
 }
 
-div.mypagemain div.profile img{
-    width: 80px;
-    height: 80px;
+div.mypagemain div.profile img {
+    width: 150px;
+    height: 150px;
     border-radius: 10px;
 }
 
-div.mypagemain div.iconmenu{
+div.mypagemain div.iconmenu {
     width: 100%;
     align-self: center;
     text-align: center;
@@ -29,15 +29,15 @@ div.mypagemain div.iconmenu{
     justify-content: space-between;
 }
 
-div.mypagemain div.iconmenu div{
+div.mypagemain div.iconmenu div {
     cursor: pointer;
 }
 
-div.mypagemain div.iconmenu h6{
+div.mypagemain div.iconmenu h6 {
     margin: 10px 0px;
 }
 
-div.mypagemain div.listmenu{
+/* div.mypagemain div.listmenu{
     margin-top: 55px;
 }
 
@@ -56,4 +56,9 @@ div.mypagemain div.lastmenu{
     cursor: pointer;
     margin-bottom: 300px;
 
+} */
+
+
+.h_35 {
+    height: 40px;
 }

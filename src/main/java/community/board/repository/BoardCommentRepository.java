@@ -18,4 +18,8 @@ public interface BoardCommentRepository extends JpaRepository<BoardCommentDto, I
 	@Transactional
 	@Query(value= "delete from boardcomment where commentcode = :commentcode", nativeQuery = true)
 	public void commentDelete(@Param("commentcode") int commentcode);
+
+	//usercode 에 해당하는 댓글 목록 출력하는 메서드
+	@Query(value = "SELECT * FROM boardcomment WHERE boardcode=:boardcode",nativeQuery = true)
+	List<BoardCommentDto> getBoardCommentList(@Param("boardcode") int boardcode);
 }

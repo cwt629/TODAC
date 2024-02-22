@@ -29,12 +29,13 @@ public class DonationController {
 		return donationDao.getTotalDonation();
 	}
 
-	@PostMapping("/donate")
-	public boolean donation(@RequestParam("amount") int amount,
-							@RequestParam("userid") String userid)
+	@PostMapping("/payment")
+	public boolean payment(@RequestParam("amount") int amount,
+							@RequestParam("usercode") int usercode,
+							@RequestParam("type") String type)
 	{
 		MemberDto dto = new MemberDto();
-		dto = memberdao.getMemberByID(userid);
+		dto = memberdao.getMemberByData(usercode);
 		int mypoint = dto.getPoint();
 
 		//포인트, 기부금 계산
@@ -49,11 +50,34 @@ public class DonationController {
 			PointRecordDto Pdto = new PointRecordDto();
 			Pdto.setMember(dto);
 			Pdto.setAmount(amount);
-			Pdto.setType("후원");
+			Pdto.setType(type);
 			pointRecordDao.inserPointRecord(Pdto);
 
 			return true;
 		}
+	}
+
+	@PostMapping("/deposit")
+	public boolean deposit(@RequestParam("amount") int amount,
+							@RequestParam("usercode") int usercode,
+							@RequestParam("type") String type)
+	{
+		MemberDto dto = new MemberDto();
+		dto = memberdao.getMemberByData(usercode);
+		int mypoint = dto.getPoint();
+
+			//member 포인트 증가
+			dto.setPoint(mypoint+amount);
+			memberdao.insertMember(dto);
+
+			//pointrecord에 기록
+			PointRecordDto Pdto = new PointRecordDto();
+			Pdto.setMember(dto);
+			Pdto.setAmount(amount);
+			Pdto.setType(type);
+			pointRecordDao.inserPointRecord(Pdto);
+
+			return true;
 	}
 
 	@GetMapping("/get/top3Donor")

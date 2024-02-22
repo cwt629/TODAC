@@ -51,13 +51,22 @@ const LoginMain = () => {
                 color: "#FF494D", textAlign: "center",
                 fontSize: "3em", fontWeight: "1000"
             }}>TODAC</h1> */}
-            <div className='d-flex justify-content-center'>
-                <div className='col_red fs_21 fw_400 lh_25'>
-                    <span className="fs_30 fw_900">T</span>his app may<br/>
-                    <span className="fs_25 fw_900">O</span>ffer you<br/>
-                    <span className="fs_25 fw_900">D</span>ream<br/>
-                    <span className="fs_25 fw_900">A</span>nd<br/>
-                    <span className="fs_25 fw_900">C</span>omfort<br/>
+            <div class="main_ani">
+                <div class="animation">
+                    <span class="one_text">T</span>
+                    <span class="two_t typewriter">&nbsp;his app may</span>
+                    <br/>
+                    <span class="one_text">O</span>
+                    <span class="two_t typewriter2">&nbsp;ffer you</span>
+                    <br/>
+                    <span class="one_text">D</span>
+                    <span class="two_t typewriter3">&nbsp;ream</span>
+                    <br/>
+                    <span class="one_text">A</span>
+                    <span class="two_t typewriter4">&nbsp;nd</span>
+                    <br/>
+                    <span class="one_text">C</span>
+                    <span class="two_t typewriter5">&nbsp;omfort</span>
                 </div>
             </div>
 

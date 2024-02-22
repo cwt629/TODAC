@@ -13,7 +13,7 @@ const Checkout = () => {
     const paymentWidgetRef = useRef(null);
     const paymentMethodsWidgetRef = useRef(null);
     const agreementWidgetRef = useRef(null);
-    const [price] = useState(1000);
+    const [price] = useState(10000);
     const storedId = sessionStorage.getItem("id");
 
     useEffect(() => {

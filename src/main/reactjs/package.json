@@ -12,6 +12,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@tosspayments/payment-widget-sdk": "^0.10.2",
+    "aos": "^3.0.0-beta.6",
     "axios": "^1.6.7",
     "debug": "^4.3.4",
     "kakao-js-sdk": "^1.2.3",
@@ -24,6 +25,7 @@
     "svgo": "^3.2.0",
     "sweetalert2": "^11.10.5",
     "sweetalert2-react-content": "^5.0.7",
+    "swiper": "^11.0.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

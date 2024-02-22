@@ -10,3 +10,38 @@ div.selectCounselor {
     flex-direction: column;
     align-items: flex-start;
 }
+
+div.chatlistfilter {
+    display: flex;
+    justify-content: flex-start;
+}
+
+table.chatlog-table {
+    width: 100%;
+    border: 1px solid #eeeeff;
+    border-collapse: collapse;
+}
+
+table.chatlog-table th,
+table.chatlog-table td {
+    border: 1px solid #eeeeff;
+    padding: 10px 16px;
+    text-align: center;
+}
+
+table.chatlog-table tbody tr>td:nth-child(1) {
+    font-weight: bold;
+}
+
+table.chatlog-table tbody tr>td:nth-child(3) {
+    font-weight: bold;
+}
+
+button.chat-date span.chat-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+button.chat-date span.chat-arrow.chat-arrow-down {
+    transform: rotate(180deg);
+}

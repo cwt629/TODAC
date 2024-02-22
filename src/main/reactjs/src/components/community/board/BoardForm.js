@@ -1,6 +1,6 @@
-import { Button, CircularProgress, TextField, styled } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import PageHeader from "../../PageHeader";
 import noImage from "../../../image/no_image_board_form.png";
@@ -13,8 +13,8 @@ const BoardForm = () => {
     const [content, setContent] = useState("");
     const [counselorcode, setCounselorCode] = useState("");
     const [loading, setLoading] = useState(false);
-    const imageUrl = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/"; //ncloud 에서 가져옴
     const navi = useNavigate();
+    const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/"; //ncloud 에서 가져옴
 
     const CURRENT_ROUTES = [
         { name: "커뮤니티", url: "/user/community" },
@@ -23,18 +23,6 @@ const BoardForm = () => {
     ];
 
     const PAGE_TITLE = "게시글 등록";
-
-    const VisuallyHiddenInput = styled("input")({
-        clip: "rect(0 0 0 0)",
-        clipPath: "inset(50%)",
-        height: 1,
-        overflow: "hidden",
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        whiteSpace: "nowrap",
-        width: 1,
-    });
 
     //파일 업로드 이벤트
     const onUploadEvent = (e) => {
@@ -92,36 +80,37 @@ const BoardForm = () => {
     return (
         <div className='form-group mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <div className='d-flex justify-content-between' style={{ marginTop: "15px" }}>
+            <div className='d-flex justify-content-around' style={{ marginTop: "15px" }}>
                 <div className='col-4 '>
                     <div
                         style={{
                             width: "110px",
                             height: "90px",
+                            position: "relative",
+                            overflow: "hidden",
                         }}
                     >
                         {loading ? (
-                            <CircularProgress size={30} /> // 로딩 스피너 표시
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    top: "50%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)",
+                                }}
+                            >
+                                <CircularProgress size={60} />
+                            </div>
                         ) : (
-                            <img alt='' src={photo ? imageUrl + photo : noImage} width={110} height={90} />
+                            <img alt='' src={photo ? imageStorage + photo : noImage} width={110} height={90} />
                         )}
                     </div>
-
                     <div className='text-center mt-1'>
-                        <Button
-                            style={{ backgroundColor: "pink" }}
-                            component='label'
-                            role={undefined}
-                            variant='contained'
-                            tabIndex={-1}
-                        >
-                            이미지등록
-                            <VisuallyHiddenInput type='file' onChange={onUploadEvent} />
-                        </Button>
+                        <input type='file' onChange={onUploadEvent} />
                     </div>
                 </div>
 
-                <div className='col-7'>
+                <div className='col-7 form_title'>
                     <TextField
                         label='제목'
                         size='small'

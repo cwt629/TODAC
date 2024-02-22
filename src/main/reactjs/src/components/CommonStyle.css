@@ -180,7 +180,9 @@ div.appcontent {
     /* height: 692px; */
     overflow-y: auto;
     flex: 1;
+    padding-top: 100px;
     padding-bottom: 90px;
+    position: relative;
 }
 
 /* 
@@ -189,11 +191,12 @@ div.appcontent.nofooter {
      height: 762px; 
 } */
 
-div.appcontent.startpage {
+/* div.appcontent.startpage {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+    flex-direction: column;
+} */
 
 div.header {
     width: 100%;
@@ -207,10 +210,11 @@ div.footer {
     box-sizing: border-box;
     height: 70px;
     display: flex;
-    position: absolute;
+    /* position: absolute; */
     bottom: 0px;
     border-top: 1px solid #EEF0F7;
     background-color: #fff;
+    align-self: flex-end;
 }
 
 div.footer .footernav {
@@ -248,6 +252,10 @@ a {
     color: var(--deepgray);
 }
 
+.col_black {
+    color: var(--mainblack);
+}
+
 /* 보더 border컬러 */
 
 .bor_red {
@@ -280,6 +288,10 @@ a {
     background-color: var(--lightblue);
 }
 
+.bg_blue2 {
+    background-color: var(--deepblue);
+}
+
 .bg_gray {
     background-color: var(--bggray);
 }
@@ -302,6 +314,10 @@ a {
     margin-top: 45px;
 }
 
+.mt_100p {
+    margin-top: 100%;
+}
+
 
 /* border-radius */
 .br_5 {
@@ -315,4 +331,263 @@ div.pageheader {
 
 span.header-clickable {
     cursor: pointer;
+}
+
+/* start main */
+
+/**
+   * Backgrounds
+   */
+.backgrounds {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    z-index: -1;
+}
+
+.backgrounds .background {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-attachment: fixed;
+}
+
+.overlay:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: #fff;
+    opacity: 0.3;
+}
+
+/**
+   * Hero
+   */
+.hero {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    color: var(--mainblack);
+    text-align: center;
+}
+
+.hero-center {
+    width: 100%;
+    position: absolute;
+    top: 47%;
+    left: 0;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+}
+
+.hero__logo {
+    font-size: 60px;
+    color: var(--deepred);
+    font-weight: 800;
+}
+
+.hero__text {
+    font-weight: 600;
+    opacity: 0.8;
+    font-size: 25px;
+}
+
+.hero__scroll {
+    position: absolute;
+    bottom: 75px;
+    width: 200px;
+    margin: auto;
+    display: block;
+    cursor: pointer;
+    padding-bottom: 40px;
+    left: 0;
+    right: 0;
+    text-transform: uppercase;
+}
+
+.hero__scroll .chevron {
+    margin-top: 20px;
+    display: block;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse 2s infinite;
+    color: var(--deepred);
+}
+
+@-webkit-keyframes pulse {
+    0% {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+
+    50% {
+        -webkit-transform: translate(0, 10px);
+        transform: translate(0, 10px);
+    }
+
+    100% {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+
+    50% {
+        -webkit-transform: translate(0, 10px);
+        transform: translate(0, 10px);
+    }
+
+    100% {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+}
+
+.octocat {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 80px;
+}
+
+.octocat img {
+    display: block;
+    width: 100%;
+}
+
+.chevron::before {
+    border-style: solid;
+    border-width: 0.25em 0.25em 0 0;
+    content: '';
+    display: inline-block;
+    height: 20px;
+    position: relative;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    vertical-align: top;
+    width: 20px;
+}
+
+.chevron.right:before {
+    left: 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.chevron.bottom:before {
+    top: 0;
+    -webkit-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    transform: rotate(135deg);
+}
+
+.chevron.left:before {
+    left: 0.25em;
+    -webkit-transform: rotate(-135deg);
+    -ms-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+}
+
+/**
+   * Sections
+   */
+.section {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+}
+
+.section-title {
+    text-align: center;
+    color: var(--mainblack);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 100px;
+    padding: 15px 0;
+    border-top: 3px solid #2778c46e;
+    border-bottom: 3px solid #2778c46e;
+    width: 100%;
+    clear: both;
+}
+
+.container {
+    width: 970px;
+    margin: 0 auto;
+    max-width: 90%;
+    -webkit-transform: translateZ(1000px);
+    transform: translateZ(1000px);
+}
+
+.code {
+    width: 45%;
+    clear: both;
+    /* height: 200px; */
+    background: #d7f3ffde;
+    /* border: 1px solid #cbd7ff; */
+    border-radius: 10px;
+    margin: 7vh 0;
+    padding: 10px;
+    position: relative;
+}
+
+.code--left::before {
+    content: '';
+    position: absolute;
+    top: 30%; /* 말풍선 세로 위치 조정 */
+    left: -30px; /* 말풍선 가로 위치 조정 */
+    transform: translateY(-50%); /* 세로 가운데 정렬을 위한 위치 이동 */
+    border: 15px solid transparent; /* 말풍선 삼각형 만들기 */
+    border-right-color: #d7f3ffde; /* 말풍선 배경색과 동일하게 설정 */
+}
+
+.code--right::before {
+    content: '';
+    position: absolute;
+    top: 30%; /* 말풍선 세로 위치 조정 */
+    right: -30px; /* 말풍선 가로 위치 조정 */
+    transform: translateY(-50%); /* 세로 가운데 정렬을 위한 위치 이동 */
+    border: 15px solid transparent; /* 말풍선 삼각형 만들기 */
+    border-left-color: #d7f3ffde; /* 말풍선 배경색과 동일하게 설정 */
+}
+
+.code--left {
+    float: left;
+}
+
+.code--right {
+    float: right;
+}
+
+.code--wider {
+    width: 60%;
+}
+
+.code--wider code {
+    padding-top: 60px;
+}
+
+.section--more {
+    color: #FFF;
+    background: #0E0F34;
+    padding: 20px 0 40px 0;
+}
+
+.mb_300i {
+    margin-bottom: 400px !important;
 }

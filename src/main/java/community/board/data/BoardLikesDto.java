@@ -29,7 +29,7 @@ public class BoardLikesDto {
     @OnDelete(action = OnDeleteAction.CASCADE) //부모 테이블 지우면 댓글도 삭제한다. 혹시 변경사항이 있다면 yml 야멜 파일에서 create로 바꾸고 실행해야 된다 ~~
     private BoardDto board;
 
-    @OneToOne //섭 테이블에는 OneToOne 하나당 하나
+    @ManyToOne //섭 테이블에는 OneToOne 하나당 하나
     @JoinColumn(name = "usercode") //어떤 컬럼을 참조(외래키)할 지
     @OnDelete(action = OnDeleteAction.CASCADE) //부모 테이블 지우면 댓글도 삭제한다. 혹시 변경사항이 있다면 yml 야멜 파일에서 create로 바꾸고 실행해야 된다 ~~
     private MemberDto member;
