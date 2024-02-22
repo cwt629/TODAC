@@ -59,17 +59,6 @@ const MemberPost = () => {
     const currentItems = filteredBoard.slice(indexOfFirstItem, indexOfLastItem);
     const totalPages = Math.ceil(filteredBoard.length / itemsPerPage);
 
-    // SweetAlert2 모달 창 
-    const openModal = (post) => {
-        Swal.fire({
-            title: post.title,
-            imageUrl: `<div>${post.photo}</div>`,
-            html: `<div>${post.content}</div>`,
-            confirmButtonColor: '#FF7170',
-            confirmButtonText: '닫기',
-        });
-    };
-
     // 게시글 삭제
     const deletePost = (boardcode) => {
         Swal.fire({
@@ -86,13 +75,15 @@ const MemberPost = () => {
                 axios
                     .delete(url)
                     .then(() => {
-                        // 삭제 후 다시 게시글 목록을 불러옴
+                        // 삭제 후 MemberPost 페이지로 이동
                         fetchBoard(usercode);
                         Swal.fire({
                             title: '삭제 완료',
                             text: '게시글이 성공적으로 삭제되었습니다.',
                             icon: 'success',
                             confirmButtonColor: '#FF7170',
+                        }).then(() => {
+                            nav(`/admin/MemberManage/MemberProfile/MemberPost?usercode=` + member.usercode);
                         });
                     })
                     .catch((error) => {
@@ -101,6 +92,7 @@ const MemberPost = () => {
             }
         });
     };
+
 
     return (
         <div className='mx_30'>
@@ -142,12 +134,10 @@ const MemberPost = () => {
             />
             <div className="fs_17 fw_800">{member.nickname} 님의 게시글 목록</div>
             {currentItems.map((item, index) => (
-                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
+                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}
+                    onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberPost/MemberPostDetail?usercode=` + member.usercode)}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div
-                            onClick={() => openModal(item)}
-                            style={{ cursor: 'pointer', width: '90%', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
-                        >
+                        <div>
                             <span className="fw_600">{item.title}</span>
                         </div>
                         <button onClick={() => deletePost(item.boardcode)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>

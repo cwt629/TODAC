@@ -7,4 +7,5 @@ public interface ChatListInterface {
 	Timestamp getDate();
 	String getCounselorname();
 	String getCounselorphoto();
+	Short getDiagnosiscode();
 }

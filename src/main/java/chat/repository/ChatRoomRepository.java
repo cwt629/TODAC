@@ -12,12 +12,22 @@ import chat.data.ChatRoomDto;
 public interface ChatRoomRepository extends JpaRepository<ChatRoomDto, Short> {
 	@Query(value = 
 			"""
-			select r.chatroomcode, s.publisheddate as date, c.name as counselorname, 
-			CONCAT('https://kr.object.ncloudstorage.com/guest-hch/TODAC/counselors/', c.photo) as counselorphoto
-			from chatroom r
-			left join counselor c on r.counselorcode = c.counselorcode
-			left join chatsummary s on r.chatroomcode = s.chatroomcode
+			SELECT 
+			    r.chatroomcode, 
+			    s.publisheddate AS date, 
+			    c.name AS counselorname,  
+			    CONCAT('https://kr.object.ncloudstorage.com/guest-hch/TODAC/counselors/', c.photo) AS counselorphoto,
+			    d.diagnosiscode as diagnosiscode
+			FROM 
+			    chatroom r
+			LEFT JOIN 
+			    counselor c ON r.counselorcode = c.counselorcode
+			LEFT JOIN 
+			    chatsummary s ON r.chatroomcode = s.chatroomcode
+			LEFT JOIN 
+			    chatdiagnosis d ON r.chatroomcode = d.chatroomcode
 			where r.usercode = :usercode
+			
 			""", nativeQuery = true)
 	public List<ChatListInterface> getChatroomsOfMember(@Param("usercode") int usercode);
 	
