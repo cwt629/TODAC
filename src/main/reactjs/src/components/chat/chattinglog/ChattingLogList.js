@@ -28,8 +28,8 @@ const ChattingLogList = () => {
         setDateOrderAsc(!dateOrderAsc);
     }
 
-    const handleCounselorSelect = (e) => {
-        setCounselor(e.target.value);
+    const handleCounselorSelect = (item) => {
+        setCounselor(item);
     };
 
     const handleExpandDisplay = () => {
