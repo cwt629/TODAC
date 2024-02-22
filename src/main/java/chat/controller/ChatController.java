@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import chat.data.ChatDiagnosisDto;
 import chat.data.ChatInitialDto;
 import chat.data.ChatListInterface;
 import chat.data.ChatLogDto;
@@ -17,6 +18,7 @@ import chat.data.ChatLogPageDto;
 import chat.data.ChatRoomDto;
 import chat.data.ChatSummaryDto;
 import chat.data.CounselorDto;
+import chat.service.ChatDiagnosisService;
 import chat.service.ChatService;
 import chat.service.CounselorService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,7 @@ public class ChatController {
 	private final MemberDao memberDao;
 	private final CounselorService counselorService;
 	private final ChatService chatService;
+	private final ChatDiagnosisService diagnosisService;
 	
 	private String COUNSELOR_PHOTO_PREFIX = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/counselors/";
 	
@@ -110,8 +113,9 @@ public class ChatController {
 		dto.setLog(chatLogInfo);
 		
 		// TODO: 3. 진단서 발급 유무
-		int diagnosisCode = 0;
-		dto.setDiagnosiscode(diagnosisCode);
+		ChatDiagnosisDto diagnosisDto = diagnosisService.findByChatroom(chatroomcode);
+		int diagnosisCount = (diagnosisDto != null)? 1 : 0;
+		dto.setDiagnosisCount(diagnosisCount);
 		
 		return dto;
 	}

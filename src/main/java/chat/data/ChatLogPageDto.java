@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class ChatLogPageDto {
 	private String counselorname;
 	private List<ChatLogInfoDto> log;
-	private int diagnosiscode;
+	private int diagnosisCount;
 }

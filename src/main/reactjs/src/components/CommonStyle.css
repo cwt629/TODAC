@@ -182,6 +182,7 @@ div.appcontent {
     flex: 1;
     padding-top: 100px;
     padding-bottom: 90px;
+    position: relative;
 }
 
 /* 

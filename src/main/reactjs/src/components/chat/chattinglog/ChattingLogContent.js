@@ -8,6 +8,7 @@ import ChatLogButtons from './content/ChatLogButtons';
 import axios from 'axios';
 
 const ChattingLogContent = () => {
+    const nav = useNavigate();
     const [info, setInfo] = useState(null);
 
     const [query, setQuery] = useSearchParams();
@@ -28,12 +29,17 @@ const ChattingLogContent = () => {
             })
     }, []);
 
+    const handleDiagnosisClick = () => {
+        nav("../diagnosis?chatroomcode=" + roomcode);
+    }
+
     return (
         <div className='mx_30 chatmain'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <ChatLogMidbar counselorname={info?.counselorname} />
             <ChatLogContent log={info?.log} />
-            <ChatLogButtons />
+            <ChatLogButtons hasDiagnosis={info && info.diagnosisCount > 0}
+                handleDiagnosisClick={handleDiagnosisClick} />
         </div>
     );
 };
