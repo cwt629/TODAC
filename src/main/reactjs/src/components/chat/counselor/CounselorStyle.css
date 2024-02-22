@@ -40,6 +40,10 @@ div.counselorcard img.counselorphoto.frontphoto {
     height: auto;
 }
 
+div.counselorcard.counselor-last-card {
+    background-color: #EEF0F7;
+}
+
 div.counselbtndiv {
     height: 40px;
 }

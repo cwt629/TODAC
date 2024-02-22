@@ -10,6 +10,7 @@ import 'swiper/css/effect-cards';
 import { EffectCards } from 'swiper/modules';
 import CounselorCardFront from './CounselorCardFront';
 import CounselorCardBack from './CounselorCardBack';
+import CounselorCardLast from './CounselorCardLast';
 
 const CARD_COLORS = [
     "#D4F0F0", // 토닥봇
@@ -50,9 +51,10 @@ const CounselorOptions = ({ info, handleCounselClick }) => {
                                 handleCounselClick={handleCounselClick} />
                         </SwiperSlide>
                     ))
-
                 }
-
+                <SwiperSlide>
+                    <CounselorCardLast />
+                </SwiperSlide>
             </Swiper>
         </div>
     );
