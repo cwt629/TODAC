@@ -1,7 +1,9 @@
 package community.board.controller;
 
+import chat.data.CounselorDetailInterface;
 import community.board.data.*;
 import community.board.repository.BoardLikesDao;
+import community.board.service.BoardService;
 import mypage.data.MemberDto;
 import mypage.repository.MemberDao;
 import naver.storage.NcpObjectStorageService;
@@ -21,6 +23,8 @@ public class BoardController {
 	private final MemberDao memberDao;
 
 	private final BoardLikesDao boardLikesDao;
+
+	private final BoardService boardService;
 
 	//storage class 선언
 	private final NcpObjectStorageService storageService;
@@ -169,10 +173,9 @@ public class BoardController {
 		return boardLikesDao.countByBoard(board);
 	}
 
-//	//좋아요 수만 조회 list 에서 사용
-//	@GetMapping("/post/like/count")
-//	public int getLikeCount(@RequestParam("boardcode") int boardcode) {
-//		return boardLikesDao.countByBoardCode(boardcode);
-//	}
+	@GetMapping("main/list")
+	public List<MainListInterface> getList(){
+		return boardService.getBoardList();
+	}
 
 }
