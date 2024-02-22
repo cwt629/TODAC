@@ -1,12 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { Divider } from "@mui/material";
 
 // 날짜를 로그에 맞게 포매팅하는 함수
 function getDateFormatPieces(str) {
@@ -38,8 +36,6 @@ function getDateFormatPieces(str) {
 }
 
 const CommentRowItem = ({ idx, data }) => {
-    console.log("data는 무엇이?" + data);
-
     // 날짜 포맷팅
     const datePieces = getDateFormatPieces(data.registerDate);
 

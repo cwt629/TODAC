@@ -5,21 +5,16 @@ import CommentRowItem from "./CommentRowItem";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import { IconButton, InputBase, Paper } from "@mui/material";
 import CommentListButtons from "./CommentListButtons";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import commentImg from "../../../image/comment.svg";
 
 const BoardComment = () => {
     const [commentList, setCommentList] = useState([]);
     const { boardcode } = useParams();
-    const DISPLAY_PER_UNIT = 5;
-    const [content, setContent] = useState(""); // Comment content state
-    const [showLength, setShowLength] = useState(DISPLAY_PER_UNIT); // 화면에 보여줄 요소의 개수
+    const [content, setContent] = useState(""); // 댓글 저장
     const [listDisplay, setListDisplay] = useState([]); // 화면에 보여줄 리스트 배열
     const usercode = sessionStorage.getItem("usercode");
-
-    useEffect(() => {
-        axios.get(`/board/detail?boardcode=${boardcode}`).then((res) => {});
-    }, [boardcode]);
+    const DISPLAY_PER_UNIT = 5;
+    const [showLength, setShowLength] = useState(DISPLAY_PER_UNIT); // 화면에 보여줄 요소의 개수
 
     const boardCommentList = () => {
         axios.get(`/commentlist?boardcode=${boardcode}`).then((res) => {
@@ -30,8 +25,18 @@ const BoardComment = () => {
     };
 
     useEffect(() => {
+        axios.get(`/board/detail?boardcode=${boardcode}`).then((res) => {});
         boardCommentList();
-    }, []);
+    }, [boardcode]);
+
+    //댓글 더보기, 간결히
+    const handleExpandDisplay = () => {
+        setShowLength(showLength + DISPLAY_PER_UNIT);
+    };
+
+    const handleShrinkDisplay = () => {
+        setShowLength(DISPLAY_PER_UNIT);
+    };
 
     // 추가 버튼
     const addComment = async () => {
@@ -48,17 +53,9 @@ const BoardComment = () => {
             });
     };
 
-    const handleExpandDisplay = () => {
-        setShowLength(showLength + DISPLAY_PER_UNIT);
-    };
-
-    const handleShrinkDisplay = () => {
-        setShowLength(DISPLAY_PER_UNIT);
-    };
-
     return (
         <div>
-            <div className='mt_25'>
+            <div className='mt_10'>
                 <h5>
                     댓글
                     <img alt='' src={commentImg} />

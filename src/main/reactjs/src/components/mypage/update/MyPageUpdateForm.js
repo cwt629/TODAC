@@ -15,7 +15,7 @@ const MyPageUpdateForm = () => {
     const [member, setmember] = useState([]);
     const navi = useNavigate();
     const [photo,setPhoto]=useState('');
-    const [idcheck,setIdcheck]=useState(false);//아이디 중복확인을 했는지 체크하기 위한 변수
+    const [idcheck,setIdcheck]=useState(true);//아이디 중복확인을 했는지 체크하기 위한 변수
     const [nickname,setNickname]=useState('');
     const storedId = sessionStorage.getItem("id");
     const userid = sessionStorage.getItem("usercode");
@@ -66,8 +66,14 @@ const MyPageUpdateForm = () => {
 
     const buttonIdCheck=()=>{
         if(nickname===member.nickname) {
-            alert("본인의 닉네임 입니다.");
-            setIdcheck(true);
+            ReactSwal.fire({
+                icon: 'success',
+                html: '사용가능한 아이디입니다.',
+                confirmButtonText: '확인',
+                confirmButtonColor: '#FF7170'
+            }).then(()=>{
+                setIdcheck(true);
+            })
             return;
         }
 
@@ -120,7 +126,7 @@ const MyPageUpdateForm = () => {
         }
 
         //db에 저장
-        axios.post("/member/insert",{nickname:nickname,userid:storedId,address:address,photo:photo})
+        axios.post("/member/insert",{nickname:nickname,userid:storedId,address:address+" "+addressplus,photo:photo})
             .then(res=>{
                 //멤버 추가 후 이동할 페이지
                 ReactSwal.fire({
@@ -238,7 +244,10 @@ const MyPageUpdateForm = () => {
                 </div>
                 
                 <input className="bg_gray bor_gray2 col_black br_5 h_35 mt_10 px-3" type={"text"} placeholder={"상세 주소"}
-                        value={addressplus}/>
+                       value={addressplus}
+                       onChange={(e) => {
+                           setAddressplus(e.target.value);
+                       }}/>
                 
 
             </div>
