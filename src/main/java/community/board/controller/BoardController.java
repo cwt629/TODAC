@@ -1,9 +1,7 @@
 package community.board.controller;
 
-import community.board.data.BoardCommentDto;
-import community.board.data.BoardDetailDto;
-import community.board.data.BoardDto;
-import community.board.data.BoardListDto;
+import community.board.data.*;
+import community.board.repository.BoardLikesDao;
 import mypage.data.MemberDto;
 import mypage.repository.MemberDao;
 import naver.storage.NcpObjectStorageService;
@@ -21,6 +19,8 @@ public class BoardController {
 	private final BoardDao boardDao;
 
 	private final MemberDao memberDao;
+
+	private final BoardLikesDao boardLikesDao;
 
 	//storage class 선언
 	private final NcpObjectStorageService storageService;
@@ -125,6 +125,54 @@ public class BoardController {
 		}
 	}
 
+	// 사용자가 해당 게시물에 좋아요를 눌렀는지 확인하는 로직
+	@GetMapping("/post/checkLikeStatus")
+	public boolean checkLikeStatus(@RequestParam("boardcode") int boardcode, @RequestParam("usercode") int usercode) {
+		BoardDto board = boardDao.getSelectData(boardcode);
+		MemberDto member = memberDao.getMemberByData(usercode);
 
+		// 사용자가 이미 좋아요를 눌렀는지 확인
+		BoardLikesDto existingLike = boardLikesDao.findByBoardAndMember(board, member);
+
+		return existingLike != null;
+	}
+
+	// 좋아요 기능 추가 또는 취소
+	@PostMapping("/post/like")
+	public String likePost(@RequestParam("boardcode") int boardcode, @RequestParam("usercode") int usercode) {
+		BoardDto board = boardDao.getSelectData(boardcode);
+		MemberDto member = memberDao.getMemberByData(usercode);
+
+		// 사용자가 이미 좋아요를 눌렀는지 확인
+		BoardLikesDto existingLike = boardLikesDao.findByBoardAndMember(board, member);
+
+		if (existingLike != null) {
+			// 사용자가 이미 좋아요를 눌렀다면 좋아요 취소
+			boardLikesDao.delete(existingLike);
+			return "unliked";
+		} else {
+			// 사용자가 좋아요를 누르지 않았다면 좋아요 추가
+			BoardLikesDto newLike = BoardLikesDto.builder()
+					.board(board)
+					.member(member)
+					.build();
+
+			boardLikesDao.save(newLike);
+			return "liked";
+		}
+	}
+	
+	// 게시글의 좋아요 개수 조회
+	@GetMapping("/post/like/count")
+	public int getLikeCount(@RequestParam("boardcode") int boardcode) {
+		BoardDto board = boardDao.getSelectData(boardcode);
+		return boardLikesDao.countByBoard(board);
+	}
+
+//	//좋아요 수만 조회 list 에서 사용
+//	@GetMapping("/post/like/count")
+//	public int getLikeCount(@RequestParam("boardcode") int boardcode) {
+//		return boardLikesDao.countByBoardCode(boardcode);
+//	}
 
 }

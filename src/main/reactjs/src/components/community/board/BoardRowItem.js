@@ -20,7 +20,7 @@ const BoardRowItem = ({ idx, data }) => {
     return (
         <div>
             <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-                <ListItem alignItems='flex-start' onClick={handleItemClick}>
+                <ListItem alignItems='flex-start' onClick={handleItemClick} style={{ borderBottom: "1px solid gray" }}>
                     <ListItemAvatar>
                         <Avatar alt='' src={imageStorage + data.photo} variant='square' />
                     </ListItemAvatar>
