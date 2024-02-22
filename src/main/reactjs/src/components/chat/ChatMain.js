@@ -57,9 +57,9 @@ const ChatMain = () => {
         <div className='counselormain mx_30'>
             <LogNavigationButton handleClick={handleLogNavClick} />
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <CounselorProfile data={selectedCounselor} />
+            {/* <CounselorProfile data={selectedCounselor} /> */}
             <CounselorOptions info={counselorList} handleClick={handleCounselorClick} />
-            <CounselStartButton handleClick={handleCounselStart} />
+            {/* <CounselStartButton handleClick={handleCounselStart} /> */}
         </div>
     );
 };
