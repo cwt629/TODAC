@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import CommunityMain from '../../../components/community/CommunityMain';
 import RouterBoard from './RouterBoard';
 import RouterDonation from './RouterDonation';
-import RouterFace from './RouterFace';
+import RouterGame from './RouterGame';
 
 const RouterCommunityHome = () => {
     return (
@@ -11,7 +11,7 @@ const RouterCommunityHome = () => {
             <Route path='/' element={<CommunityMain />} />
             <Route path='/board/*' element={<RouterBoard />} />
             <Route path='/donation/*' element={<RouterDonation />} />
-            <Route path='/face/*' element={<RouterFace />} />
+            <Route path='/game/*' element={<RouterGame />} />
         </Routes>
     );
 };
