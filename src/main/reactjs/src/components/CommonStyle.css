@@ -384,7 +384,7 @@ span.header-clickable {
 .hero-center {
     width: 100%;
     position: absolute;
-    top: 47%;
+    top: 43%;
     left: 0;
     -webkit-transform: translate(0, -50%);
     -ms-transform: translate(0, -50%);
@@ -647,6 +647,55 @@ button.start_btn:active::before {
     transform: translate3d(0, 0, -1em);
 }
 
-.pb_25{
-    padding-bottom: 25px;
-}
+.click_ani {
+    margin: 0 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 110px;
+  }
+  
+.click_ani span {
+    position: relative;
+    font-size: 45px;
+    top: -15px;
+    display: inline-block;
+    animation: bounce .3s ease infinite alternate;
+    text-shadow: 0 1px 0 transparent, 
+             0 2px 0 transparent, 
+             0 3px 0 transparent, 
+             0 4px 0 transparent, 
+             0 5px 0 transparent, 
+             0 6px 0 transparent, 
+             0 7px 0 transparent, 
+             0 8px 0 transparent, 
+             0 9px 0 transparent, 
+             0 10px 10px rgba(0, 0, 0, 0.4);
+  }
+  
+  .click_ani span:nth-child(2) { animation-delay: .1s; }
+  .click_ani span:nth-child(3) { animation-delay: .2s; }
+  .click_ani span:nth-child(4) { animation-delay: .3s; }
+  .click_ani span:nth-child(5) { animation-delay: .4s; }
+  .click_ani span:nth-child(6) { animation-delay: .5s; }
+  .click_ani span:nth-child(7) { animation-delay: .6s; }
+  
+  @keyframes bounce {
+    100% {
+      top: -20px;
+      text-shadow: 0 1px 0 transparent, 
+             0 2px 0 transparent, 
+             0 3px 0 transparent, 
+             0 4px 0 transparent, 
+             0 5px 0 transparent, 
+             0 6px 0 transparent, 
+             0 7px 0 transparent, 
+             0 8px 0 transparent, 
+             0 9px 0 transparent, 
+             0 50px 25px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .pt_20{
+    padding-top: 40px;
+  }
