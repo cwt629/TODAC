@@ -1,7 +1,9 @@
 package community.board.repository;
 
+import chat.data.CounselorDetailInterface;
 import community.board.data.BoardCommentDto;
 import community.board.data.BoardDto;
+import community.board.data.MainListInterface;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
@@ -41,6 +43,10 @@ public class BoardDao {
 
     public void updateBoard(BoardDto boardDto) {
         boardRepository.save(boardDto);
+    }
+
+    public List<MainListInterface> getBoardList(){
+        return boardRepository.getBoardList();
     }
     
     public List<BoardDto> getMemberPostData(int usercode)

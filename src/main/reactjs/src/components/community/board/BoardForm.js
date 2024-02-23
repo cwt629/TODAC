@@ -1,4 +1,15 @@
-import { Button, CircularProgress, TextField } from "@mui/material";
+import {
+    Avatar,
+    Button,
+    CircularProgress,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemButton,
+    ListItemText,
+    Radio,
+    TextField,
+} from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
@@ -72,59 +83,70 @@ const BoardForm = () => {
     };
 
     // 라디오 버튼 선택 이벤트
-    const onCounselorRadioChange = (counselor) => {
+    const onCounselorRadioChange = (value) => {
         // 라디오 버튼이 선택될 때만 상담사 코드 설정
-        setCounselorCode(counselor);
+        setCounselorCode(value);
     };
 
     return (
         <div className='form-group mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <div className='d-flex justify-content-around' style={{ marginTop: "15px" }}>
-                <div className='col-4 '>
-                    <div
-                        style={{
-                            width: "110px",
-                            height: "90px",
-                            position: "relative",
-                            overflow: "hidden",
-                        }}
-                    >
-                        {loading ? (
-                            <div
+            <div
+                className='col-4'
+                style={{
+                    marginTop: "15px",
+                    width: "100%",
+                    height: "100%",
+                }}
+            >
+                <div
+                    style={{
+                        width: "100%",
+                        height: "198px",
+                    }}
+                >
+                    {loading ? (
+                        <div
+                            style={{
+                                position: "relative",
+                            }}
+                        >
+                            <CircularProgress
+                                size={50}
                                 style={{
                                     position: "absolute",
-                                    top: "50%",
-                                    left: "50%",
+                                    top: "40%",
+                                    left: "40%",
                                     transform: "translate(-50%, -50%)",
                                 }}
-                            >
-                                <CircularProgress size={60} />
-                            </div>
-                        ) : (
-                            <img alt='' src={photo ? imageStorage + photo : noImage} width={110} height={90} />
-                        )}
-                    </div>
-                    <div className='text-center mt-1'>
-                        <input type='file' onChange={onUploadEvent} />
-                    </div>
-                </div>
-
-                <div className='col-7 form_title'>
-                    <TextField
-                        label='제목'
-                        size='small'
-                        placeholder='제목을 입력해 주세요.'
-                        className='bg_gray'
-                        style={{ width: "100%" }}
-                        onChange={(e) => {
-                            setTitle(e.target.value);
-                        }}
-                    />
+                            />
+                        </div>
+                    ) : (
+                        <img
+                            alt=''
+                            src={photo ? imageStorage + photo : noImage}
+                            width='100%'
+                            height={198}
+                            style={{ borderRadius: "0.8rem" }}
+                        />
+                    )}
                 </div>
             </div>
 
-            <div style={{ marginTop: "10px", height: "100%" }}>
+            <div className='mt_10'>
+                <TextField
+                    label='제목'
+                    size='small'
+                    placeholder='제목을 입력해 주세요.'
+                    className='bg_gray'
+                    style={{ width: "100%" }}
+                    onChange={(e) => {
+                        setTitle(e.target.value);
+                    }}
+                />
+            </div>
+
+            <div className='mt-3'>
                 <TextField
                     multiline
                     id='outlined-multiline-static'
@@ -142,17 +164,35 @@ const BoardForm = () => {
             <div className='form-group' style={{ marginTop: "10px" }}>
                 <h6>상담사</h6>
                 <div style={{ display: "flex" }}>
-                    {Array.from(Array(5).keys()).map((index) => (
-                        <label key={index}>
-                            <input
-                                type='radio'
-                                name='counselor'
-                                onChange={() => onCounselorRadioChange(`${index + 1}`)}
-                            />
-                            상담사{index + 1}
-                        </label>
-                    ))}
+                    <List dense sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+                        {Array.from(Array(5).keys()).map((index) => (
+                            <ListItem key={index} disablePadding>
+                                <ListItemButton
+                                    role={undefined}
+                                    onClick={() => onCounselorRadioChange(`${index + 1}`)}
+                                    dense
+                                >
+                                    <ListItemAvatar>
+                                        <Avatar
+                                            alt={`Avatar n°${index + 1}`}
+                                            src={`/static/images/avatar/${index + 1}.jpg`}
+                                        />
+                                    </ListItemAvatar>
+                                    <ListItemText primary={`상담사${index + 1}`} />
+                                    <Radio
+                                        edge='end'
+                                        checked={counselorcode === `${index + 1}`}
+                                        tabIndex={-1}
+                                        disableRipple
+                                    />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
                 </div>
+            </div>
+            <div className='text-center mt-1'>
+                <input type='file' onChange={onUploadEvent} />
             </div>
             <Button
                 type='button'

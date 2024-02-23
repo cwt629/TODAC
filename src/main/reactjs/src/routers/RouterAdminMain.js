@@ -22,14 +22,15 @@ const RouterAdminMain = () => {
 
     useEffect(() => {
         if (!sessionStorage.getItem("token") || sessionStorage.getItem("id") !== "todac") {
-            Swal.fire({
-                icon: 'error',
-                title: '관리자가 아닙니다!',
-                confirmButtonColor: '#FF7170',
-                confirmButtonText: '확인'
-            }).then(() => {
-                nav("/login");
-            })
+            // Swal.fire({
+            //     icon: 'error',
+            //     title: '관리자가 아닙니다!',
+            //     confirmButtonColor: '#FF7170',
+            //     confirmButtonText: '확인'
+            // }).then(() => {
+            //     nav("/login");
+            // })
+            nav("/login");
         }
     }, [])
     return (
