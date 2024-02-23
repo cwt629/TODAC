@@ -59,7 +59,6 @@ const MemberPostDetail = () => {
             {data.photo &&
                 <img alt='' src={imageStorage + data.photo} style={{ width: '25vh', height: '25vh' }} />
             }
-            {console.log("Image URL:", data.photo)}
             <div className='mt_10 bg_red bor_red br_5 p-2'>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div>

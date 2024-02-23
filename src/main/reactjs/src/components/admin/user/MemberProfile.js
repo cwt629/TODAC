@@ -17,7 +17,6 @@ const MemberProfile = () => {
 
     const getMember = () => {
         const url = "/member/data?usercode=" + usercode;
-        console.log("usercode = " + usercode);
         axios.post(url, {})
             .then(res => {
                 setMember(res.data);
