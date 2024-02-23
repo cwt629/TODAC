@@ -91,7 +91,7 @@ const RouterStartMain = () => {
                                 "정말 친한 친구가 있었는데 최근에 소원해졌어요. <br />별일이 있었던 것도 아닌데.. 어떡하죠?"
                             </div>
                             <div className='code code--small code--left mb_300i' data-aos='fade-up'>
-                                "당신도 고민이 있나요?
+                                "당신도 고민이 있나요?<br/>
                                 &nbsp;뭐든 좋아요!<br />
                                 &nbsp;지금 물어볼까요?"<br /><br />
                                 <div className='text-center'>
