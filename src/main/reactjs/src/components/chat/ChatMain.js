@@ -23,7 +23,6 @@ const ChatMain = () => {
 
     // 나의 상담 기록 이동 버튼
     const handleLogNavClick = () => {
-        // TODO: '현재 사용자'의 로그 리스트 구현 후, 그 쪽으로 이동해야 함
         nav("loglist");
     }
 
