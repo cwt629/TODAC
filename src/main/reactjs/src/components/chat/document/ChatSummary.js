@@ -5,7 +5,6 @@ import diagnosisImg from '../../../image/diagnosis.png';
 import './DocumentStyle.css';
 import axios from 'axios';
 import summarizeContent from '../api/summarize';
-import { response } from 'express';
 
 const ChatSummary = () => {
     const [logList, setLogList] = useState([]);
