@@ -3,7 +3,8 @@ import logo from '../image/todac_logo_temp.png';
 import { Link, useNavigate } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import background from "../image/bg_startmain.jpg";
+//import background from "../image/bg_startmain.jpg";
+import background2 from "../image/bg_startmain2.png";
 
 const RouterStartMain = () => {
     const nav = useNavigate(); // TODO : 임시로 만든 것으로, 아래 버튼 삭제 시 같이 지우기
@@ -35,13 +36,16 @@ const RouterStartMain = () => {
                 <div className='startpage'>
 
                     <div className='backgrounds overlay'>
-                        <div className='background' data-aos='fade-in' data-aos-duration='1500' data-aos-anchor='.section--hero' style={{ backgroundImage: `url(${background})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center 87%' }}></div>
+                        <div className='background' data-aos='fade-in' data-aos-duration='1500' data-aos-anchor='.section--hero' style={{ backgroundImage: `url(${background2})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center 87%' }}></div>
                     </div>
 
                     <header className='hero' data-aos='fade-in' data-aos-duration='1500'>
                         <div className='hero-center'>
-                            <h1 className='hero__logo' data-aos='zoom-in'>TODAC</h1>
-                            <div className='hero__text' data-aos='fade-up' data-aos-easing='ease' data-aos-delay='400'>우리가 <span>궁금하신가요?</span></div>
+                            <div className='babytodac_bubble'>
+                                <h1 className='hero__logo' data-aos='zoom-in'>TODAC</h1>
+                                <div className='hero__text' data-aos='fade-up' data-aos-easing='ease' data-aos-delay='400'>우리가 <span>궁금하신가요?</span></div>
+                            </div>
+                            <img alt='토닥베이비봇' src={require('../image/ico_babytodac2.png')} className='img-fluid mt_45' style={{width:"45%"}}/>
                         </div>
                         <span className='hero__scroll fw_500' data-aos='fade-up' data-aos-easing='ease' data-aos-delay='800' onClick={handleScroll}>
                             궁금증 해결을 위해 스크롤<br />
@@ -51,7 +55,7 @@ const RouterStartMain = () => {
 
                     <section className='section section--code' data-aos='fade-up'>
                         <div className='container'>
-                            <h2 className='section-title'>고민이 많으셨나요?</h2>
+                            <h2 className='section-title'>요즘 고민 많으셨죠?</h2>
                             <div className='code code--small code--left' data-aos='fade-up'>
                                 <div className='fw_700 col_blue2'>취업이 어려우신가요?</div><br />
                                 "취업이 어려워서 미래가 불안한 거야.<br />
@@ -87,10 +91,16 @@ const RouterStartMain = () => {
                                 "정말 친한 친구가 있었는데 최근에 소원해졌어요. <br />별일이 있었던 것도 아닌데.. 어떡하죠?"
                             </div>
                             <div className='code code--small code--left mb_300i' data-aos='fade-up'>
-                                <div className='fw_900 col_blue2'>당신도 고민이 있나요?</div>
-                                <br />"뭐든 좋아요!<br />
-                                지금 물어볼까요?"<br /><br />
-                                <div className='text-center'><Link to="/user/chat" className='p-2 br_5 text-white bg_blue2 fs_16'>토닥봇 만나러가기</Link></div>
+                                "당신도 고민이 있나요?
+                                &nbsp;뭐든 좋아요!<br />
+                                &nbsp;지금 물어볼까요?"<br /><br />
+                                <div className='text-center'>
+                                     {/* <Link to="/user/chat"><button className='text-center start_btn bg_blue2 br_5 text-white fs_14'>토닥봇 만나러가기</button></Link> */}
+                                     <Link to="/user/chat" className='col_blue2 fw_700 fs_14'>
+                                        토닥봇 만나려면
+                                        <br/><span className='fw_900 fs_18'>"Click"</span>
+                                     </Link>
+                                </div>
                             </div>
                         </div>
                     </section>
