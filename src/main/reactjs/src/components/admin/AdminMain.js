@@ -33,12 +33,11 @@ const AdminMain = () => {
                 <br /><br /><br /><br />
 
                 <span>
-
+                    <Logout style={{ cursor: 'pointer' }} onClick={handleLogout} />
                     <button
                         style={{ cursor: 'pointer', border: 'none', background: 'none' }}
                         onClick={handleLogout}
                     >
-                        <Logout style={{ cursor: 'pointer' }} />
                         로그아웃
                     </button>
                 </span>
