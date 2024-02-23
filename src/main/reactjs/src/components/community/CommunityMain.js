@@ -47,7 +47,7 @@ const CommunityMain = () => {
             </button>
             
             <button className='bor_blue2 mt_45 w_100p br_5 p_15'
-                onClick={() => nav('face')}>
+                onClick={() => nav('game')}>
                 <div className='d-flex'>
                     <div className=''>
                         <span className='col_blue2 fw_700 fs_20'>오늘의 미소</span>

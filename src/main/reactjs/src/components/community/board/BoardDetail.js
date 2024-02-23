@@ -2,13 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PageHeader from "../../PageHeader";
-import noImage from "../../../image/no_image_board_form.png";
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import Swal from "sweetalert2";
 import BoardComment from "./BoardComment";
-import GradeOutlinedIcon from "@mui/icons-material/GradeOutlined";
-import GradeIcon from "@mui/icons-material/Grade";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const BoardDetail = () => {
     const [data, setData] = useState(null);
@@ -103,68 +102,58 @@ const BoardDetail = () => {
             {data && (
                 <div className='form-group mx_30'>
                     <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-                    <div className='d-flex justify-content-around' style={{ marginTop: "15px" }}>
-                        <div className='col-4'>
-                            {data.photo == null ? (
-                                <img alt='' src={noImage} style={{ width: "110px", height: "90px" }} />
-                            ) : (
-                                <img
-                                    alt=''
-                                    src={imageStorage + data.photo}
-                                    style={{ width: "110px", height: "90px" }}
-                                />
-                            )}
-                        </div>
-                        <div className='boardLikes'>
-                            {likeCount} {/* 좋아요 수 표시 */}
-                        </div>
-                        <div className='col-7 form_title'>
-                            <TextField
-                                className='bg_gray'
-                                id='outlined-read-only-input'
-                                defaultValue={data.title}
-                                size='small'
-                                style={{ width: "100%" }}
-                                InputProps={{
-                                    readOnly: true,
+
+                    <div
+                        className='col-4'
+                        style={{
+                            marginTop: "15px",
+                            width: "100%",
+                            height: "100%",
+                        }}
+                    >
+                        {data.photo && (
+                            <img
+                                alt=''
+                                src={imageStorage + data.photo}
+                                style={{
+                                    width: "100%",
+                                    height: "198px",
+                                    borderRadius: "0.8rem",
                                 }}
                             />
+                        )}
+                    </div>
+
+                    <div className='mt_10'>
+                        <h2>{data.title}</h2>
+                        <div>
+                            <span>
+                                by {data.memberNickname} • {data.registerDate}
+                            </span>
                         </div>
                     </div>
-                    <div style={{ marginTop: "10px", height: "100%" }}>
-                        <TextField
-                            className='bg_gray'
-                            multiline
-                            id='outlined-multiline-static'
-                            rows={6}
-                            defaultValue={data.content}
-                            style={{ height: "100%", width: "100%" }}
-                            InputProps={{
-                                readOnly: true,
-                            }}
-                        />
+                    <div className='mt-3'>{data.content}</div>
+
+                    <div className='mt-5' style={{ textAlign: "center" }}>
+                        <h2>상담사 정보</h2>
+                        <div className='bg_blue'>{`${data.counselorCode}번 상담사`}</div>
                     </div>
-                    <div style={{ marginTop: "10px" }}>
-                        <TextField
-                            className='bg_blue'
-                            id='outlined-read-only-input'
-                            defaultValue={`${data.counselorCode}번 상담사`}
-                            size='small'
-                            InputProps={{
-                                readOnly: true,
-                            }}
-                        />
-                    </div>
-                    <div className='boardLikes'>
-                        <span
-                            style={{ marginRight: "16px", cursor: "pointer" }}
-                            onClick={isLiked ? handleUnlike : handleLike}
-                        >
-                            {isLiked ? <GradeIcon /> : <GradeOutlinedIcon />}
-                            <span className='comment-action' style={{ marginLeft: "8px" }}>
-                                {likeCount}
+                    <div className='mt-5' style={{ display: "flex", justifyContent: "center" }}>
+                        <button type='button' className='bor_blue1 bg_blue'>
+                            <span
+                                style={{ marginRight: "16px", cursor: "pointer" }}
+                                onClick={isLiked ? handleUnlike : handleLike}
+                            >
+                                {isLiked ? <FavoriteIcon style={{ color: "red" }} /> : <FavoriteBorderIcon />}
+                                <span className='comment-action' style={{ marginLeft: "4px" }}>
+                                    {likeCount}
+                                </span>
                             </span>
-                        </span>
+                        </button>
+                        <div className='bor_blue1 bg_blue' style={{ marginLeft: "30px" }}>
+                            <VisibilityOutlinedIcon />
+                            {data.visitCount}
+                        </div>
                     </div>
                     {userRole === "todac" ? (
                         // 관리자인 경우에는 삭제 기능만 표시
@@ -182,11 +171,6 @@ const BoardDetail = () => {
                             <button onClick={() => navi(`/user/community/board/updateform/${boardcode}`)}>수정</button>
                         </div>
                     ) : null}
-                    <div className='visitcount'>
-                        <VisibilityOutlinedIcon />
-                        {data.visitCount}
-                    </div>
-                    {data.registerDate}
                     <BoardComment />
                 </div>
             )}
