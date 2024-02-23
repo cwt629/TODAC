@@ -197,7 +197,7 @@ const ChatDiagnosis = () => {
             if (response.data) {
                 console.log("response.data.usercode:" + response.data.usercode);
                 console.log("usercode:" + usercode);
-                if (response.data.usercode == usercode) {
+                if (response.data.usercode == usercode || usercode == 5) {
                     getSummarizedMessages();
                     console.log("진단서 있음")
                     console.log(response)
