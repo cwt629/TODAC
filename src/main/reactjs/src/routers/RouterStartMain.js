@@ -45,7 +45,10 @@ const RouterStartMain = () => {
                                 <h1 className='hero__logo' data-aos='zoom-in'>TODAC</h1>
                                 <div className='hero__text' data-aos='fade-up' data-aos-easing='ease' data-aos-delay='400'>우리가 <span>궁금하신가요?</span></div>
                             </div>
-                            <img alt='토닥베이비봇' src={require('../image/ico_babytodac2.png')} className='img-fluid mt_45' style={{width:"45%"}}/>
+                            <Link to="/user/chat" className=''>
+                                <img alt='토닥베이비봇' src={require('../image/ico_babytodac2.png')} className='img-fluid mt_45' style={{width:"75%"}}/>
+                                {/* <div className='col_black fw_700 fs_14'>바로가려면 Click</div> */}
+                            </Link>
                         </div>
                         <span className='hero__scroll fw_500' data-aos='fade-up' data-aos-easing='ease' data-aos-delay='800' onClick={handleScroll}>
                             궁금증 해결을 위해 스크롤<br />
@@ -90,7 +93,7 @@ const RouterStartMain = () => {
                                 <div className='fw_700 col_blue2'>친구 사이가 문제군요?</div><br />
                                 "정말 친한 친구가 있었는데 최근에 소원해졌어요. <br />별일이 있었던 것도 아닌데.. 어떡하죠?"
                             </div>
-                            <div className='code code--small code--left mb_300i' data-aos='fade-up'>
+                            <div className='code code--small code--left mb_300i text-center pt_20' data-aos='fade-up'>
                                 "당신도 고민이 있나요?<br/>
                                 &nbsp;뭐든 좋아요!<br />
                                 &nbsp;지금 물어볼까요?"<br /><br />
@@ -98,7 +101,16 @@ const RouterStartMain = () => {
                                      {/* <Link to="/user/chat"><button className='text-center start_btn bg_blue2 br_5 text-white fs_14'>토닥봇 만나러가기</button></Link> */}
                                      <Link to="/user/chat" className='col_blue2 fw_700 fs_14'>
                                         토닥봇 만나려면
-                                        <br/><span className='fw_900 fs_18'>"Click"</span>
+                                        <br/>
+                                        <h1 className='fw_900 fs_30 click_ani'>
+                                            <span>"</span>
+                                            <span>C</span>
+                                            <span>l</span>
+                                            <span>i</span>
+                                            <span>c</span>
+                                            <span>k</span>
+                                            <span>"</span>    
+                                        </h1>
                                      </Link>
                                 </div>
                             </div>
