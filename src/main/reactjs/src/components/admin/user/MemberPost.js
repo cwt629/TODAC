@@ -118,7 +118,7 @@ const MemberPost = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="타입을 검색하세요"
+                placeholder="검색할 게시글 제목을 입력하세요"
                 className="form-control mb-3 bg_red col_gray fs_16 fw_800"
                 style={{
                     '::placeholder': { color: 'gray' },

@@ -12,6 +12,7 @@ const MemberPostDetail = () => {
     const [member, setMember] = useState([]);
     const [data, setData] = useState([]);
     const [board, setBoard] = useState([]);
+    const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/";
 
     const fetchBoardDetail = (usercode, boardcode) => {
         setLoading(true);
@@ -55,17 +56,18 @@ const MemberPostDetail = () => {
                 <span className='col_blue2'>&nbsp;회원 게시글</span>
             </div>
             <div className='fs_25 fw_700'>제목: {data.title}</div>
-            <img alt='' src={data.photo} style={{ width: '25vh', height: '25vh' }} />
+            {data.photo &&
+                <img alt='' src={imageStorage + data.photo} style={{ width: '25vh', height: '25vh' }} />
+            }
             {console.log("Image URL:", data.photo)}
-            <div className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
+            <div className='mt_10 bg_red bor_red br_5 p-2'>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div>
                         <span className="fw_600">{data.content}</span>
                     </div>
                 </div>
             </div>
-        </div >
-
+        </div>
     );
 };
 
