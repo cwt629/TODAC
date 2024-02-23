@@ -11,7 +11,8 @@ import chat.data.CounselorDto;
 public interface CounselorRepository extends JpaRepository<CounselorDto, Short> {
 	@Query(value =
 			"""
-			select c.counselorcode, c.name, c.briefintro, c.introduction, c.photo,
+			select c.counselorcode, c.name, c.briefintro, 
+			c.introduction, c.photo, c.cardcolor,
 			COUNT(w.score) as reviewcount, IFNULL(AVG(w.score), 0) as averagescore
 			from counselor c
 			left join chatroom r on c.counselorcode = r.counselorcode
