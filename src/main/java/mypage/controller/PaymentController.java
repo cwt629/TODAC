@@ -83,21 +83,23 @@ public class PaymentController {
         JSONObject jsonObject = (JSONObject) parser.parse(reader);
         responseStream.close();
 
-        //포인트증가시키기
-        MemberDto memdto = memberDao.getMemberByID(userid);
-        price = Integer.parseInt(amount);
-        point = memdto.getPoint();
-        point += price;
-        memdto.setPoint(point);
-        memberDao.insertMember(memdto);
+        if(isSuccess)
+        {
+            //포인트증가시키기
+            MemberDto memdto = memberDao.getMemberByID(userid);
+            price = Integer.parseInt(amount);
+            point = memdto.getPoint();
+            point += price;
+            memdto.setPoint(point);
+            memberDao.insertMember(memdto);
 
-        //포인트 정보 기록하기
-        PointRecordDto pdto = new PointRecordDto();
-        pdto.setAmount(price);
-        pdto.setType("충전");
-        pdto.setMember(memdto);
-        pointRecordDao.inserPointRecord(pdto);
-
+            //포인트 정보 기록하기
+            PointRecordDto pdto = new PointRecordDto();
+            pdto.setAmount(price);
+            pdto.setType("충전");
+            pdto.setMember(memdto);
+            pointRecordDao.inserPointRecord(pdto);
+        }
 
         return ResponseEntity.status(code).body(jsonObject);
     }

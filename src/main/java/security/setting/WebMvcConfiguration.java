@@ -14,7 +14,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         //모든 요청에 대한 예외 등록
         registry.addMapping("/**")
                 //예외로 동작할 주소 지정
-                .allowedOrigins("http://localhost:3000")
+                .allowedOrigins("http://localhost:3000", "http://localhost:7777")
                 //허용될 요청방식
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 //허용될 요청 헤더

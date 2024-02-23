@@ -1,21 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.55af125e.css",
-    "main.js": "/static/js/main.1cfdf708.js",
-    "static/js/787.f22b8f29.chunk.js": "/static/js/787.f22b8f29.chunk.js",
+    "main.css": "/static/css/main.8ce00afa.css",
+    "main.js": "/static/js/main.ce80a05c.js",
+    "static/js/453.fcbfcfec.chunk.js": "/static/js/453.fcbfcfec.chunk.js",
+    "static/media/bg_startmain.jpg": "/static/media/bg_startmain.592f5a5521f0e9fa0ad6.jpg",
     "static/media/rotating_star.gif": "/static/media/rotating_star.26b4ea478ff318afca03.gif",
-    "static/media/diagnosis.png": "/static/media/diagnosis.212b00ecc60ed7a652fd.png",
+    "static/media/diagnosis.png": "/static/media/diagnosis.1c0d161b4899f6f2d4ce.png",
+    "static/media/no_image_board_form.png": "/static/media/no_image_board_form.9083c6c7c550c9e71319.png",
     "static/media/todac_logo_temp.png": "/static/media/todac_logo_temp.d7a0e9977e9630b23a6e.png",
     "static/media/ico_mypage.svg": "/static/media/ico_mypage.468a29e06632abfc95ab4e90ef0e6a55.svg",
+    "static/media/comment.svg": "/static/media/comment.6cb13660c96a25e31fd42a48d8e38207.svg",
     "index.html": "/index.html",
     "static/media/ico_chat.svg": "/static/media/ico_chat.3a657451f376895d7c4f739ba9c3279b.svg",
     "static/media/ico_community.svg": "/static/media/ico_community.e4205b40dab0a385c8fd81c3217b8208.svg",
-    "main.55af125e.css.map": "/static/css/main.55af125e.css.map",
-    "main.1cfdf708.js.map": "/static/js/main.1cfdf708.js.map",
-    "787.f22b8f29.chunk.js.map": "/static/js/787.f22b8f29.chunk.js.map"
+    "main.8ce00afa.css.map": "/static/css/main.8ce00afa.css.map",
+    "main.ce80a05c.js.map": "/static/js/main.ce80a05c.js.map",
+    "453.fcbfcfec.chunk.js.map": "/static/js/453.fcbfcfec.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.55af125e.css",
-    "static/js/main.1cfdf708.js"
+    "static/css/main.8ce00afa.css",
+    "static/js/main.ce80a05c.js"
   ]
 }

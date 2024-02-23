@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import "./UpdateStyle.css";
 import "../../CommonStyle.css";
@@ -7,12 +7,15 @@ import Button from "@mui/material/Button";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import {CameraAltOutlined} from "@mui/icons-material";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+
 
 const MyPageUpdateForm = () => {
     const [member, setmember] = useState([]);
     const navi = useNavigate();
     const [photo,setPhoto]=useState('');
-    const [idcheck,setIdcheck]=useState(false);//아이디 중복확인을 했는지 체크하기 위한 변수
+    const [idcheck,setIdcheck]=useState(true);//아이디 중복확인을 했는지 체크하기 위한 변수
     const [nickname,setNickname]=useState('');
     const storedId = sessionStorage.getItem("id");
     const userid = sessionStorage.getItem("usercode");
@@ -20,6 +23,7 @@ const MyPageUpdateForm = () => {
     const [addressplus,setAddressplus]=useState('');
     const [open, setOpen] = useState(false);//다이얼로그 open/close
     const [openPostcode,setOpenPostcode]=useState(false);//카카오 주소록 open/close
+    const ReactSwal = withReactContent(Swal);
 
 
     const handleClickOpen = () => {
@@ -55,14 +59,21 @@ const MyPageUpdateForm = () => {
             data:uploadFile,
             headers:{'Content-Type':'multipart/form-data'}
         }).then(res=>{
-            setPhoto(res.data);//사진 변경-스토리지에 업로드된 파일명을 서버가 반환
+            const cloudimgurl = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/profile/";
+            setPhoto(cloudimgurl+res.data);//사진 변경-스토리지에 업로드된 파일명을 서버가 반환
         })
     }
 
     const buttonIdCheck=()=>{
         if(nickname===member.nickname) {
-            alert("본인의 닉네임 입니다.");
-            setIdcheck(true);
+            ReactSwal.fire({
+                icon: 'success',
+                html: '사용가능한 아이디입니다.',
+                confirmButtonText: '확인',
+                confirmButtonColor: '#FF7170'
+            }).then(()=>{
+                setIdcheck(true);
+            })
             return;
         }
 
@@ -70,12 +81,24 @@ const MyPageUpdateForm = () => {
         axios.post(url)
             .then(res=>{
                 if(Number(res.data)===0){
-                    alert("사용 가능한 아이디입니다");
-                    setIdcheck(true);
+                    ReactSwal.fire({
+                        icon: 'success',
+                        html: '사용가능한 아이디입니다.',
+                        confirmButtonText: '확인',
+                        confirmButtonColor: '#FF7170'
+                    }).then(()=>{
+                        setIdcheck(true);
+                    })
                 }else{
-                    alert("이미 사용중인 아이디입니다");
-                    setNickname('');
-                    setIdcheck(false);
+                    ReactSwal.fire({
+                        icon: 'warning',
+                        html: '이미 사용중인 아이디입니다.',
+                        cancelButtonText: '확인',
+                        cancelButtonColor: '#9396A6'
+                    }).then(()=>{
+                        setNickname('');
+                        setIdcheck(false);
+                    })
                 }
             })
     }
@@ -83,45 +106,78 @@ const MyPageUpdateForm = () => {
     const saveMemberEvent=()=>{
 
         if(nickname.length===0){
-            alert("아이디를 입력 후 중복학인을 해주세요")
+            ReactSwal.fire({
+                icon: 'warning',
+                html: '닉네임을 입력해주세요',
+                cancelButtonText: '확인',
+                confirmButtonColor: '#FF7170'
+            })
+            return;
+        }
+
+        if(nickname.length>8){
+            ReactSwal.fire({
+                icon: 'warning',
+                html: '닉네임을 8자이내로 해주세요',
+                cancelButtonText: '확인',
+                confirmButtonColor: '#FF7170'
+            })
             return;
         }
 
         if(!idcheck){
-            alert("아이디 중복확인 버튼을 눌러주세요");
-            return;
-        }
-
-        if(nickname.length===0){
-            alert("이름를 입력 후 중복학인을 해주세요")
+            ReactSwal.fire({
+                icon: 'warning',
+                html: '중복체크 버튼을 눌러주세요',
+                cancelButtonText: '확인',
+                confirmButtonColor: '#FF7170'
+            })
             return;
         }
 
         //db에 저장
-        axios.post("/member/insert",{nickname:nickname,userid:storedId,address:address,photo:photo})
+        axios.post("/member/insert",{nickname:nickname,userid:storedId,address:address+" "+addressplus,photo:photo})
             .then(res=>{
                 //멤버 추가 후 이동할 페이지
-                navi("/user");
+                ReactSwal.fire({
+                    icon: 'success',
+                    html: '성공적으로 변경되었습니다',
+                    confirmButtonText: '확인',
+                    confirmButtonColor: '#FF7170'
+                }).then(()=>{
+                    navi("/user");
+                })
 
             })
-
     }
 
     useEffect(() => {
-        getmember();
-        setAddress(member.address)
-        setNickname(member.nickname)
-        setPhoto(member.photo)
+        // 1. async로 정의한 경우
+        //await getmember();
 
+        // 2. then 활용하는 경우(지금 이 함수에 async 안써도됨)
+        getmember()
+            // .then((res) => {
+            //     console.log("불러왔음 ㅋ");
+            //     console.log(member);
+            //     // setAddress(member.address)
+            //     // setNickname(member.nickname)
+            //     // setPhoto(member.photo)
+            // })
+            //
+            //
 
     }, []);
 
-    const getmember = () => {
+    const getmember = async () => {
         const url = "/member/info?userid=" + storedId;
         axios.post(url)
             .then(res => {
                 setmember(res.data);
-
+                // console.log(res);
+                setAddress(res.data.address);
+                setNickname(res.data.nickname);
+                setPhoto(res.data.photo);
             })
     }
 
@@ -158,45 +214,59 @@ const MyPageUpdateForm = () => {
             </Dialog>
             <div className="myupdatemain">
                 <div className='myupdateheader'>
-                    <div className='fs_14 fw_500 col_blue2'>
-                        <span>마이 홈</span> > <span>내 정보 관리</span>
-                    </div>
+                <div className='mt-1 fs_14 col_blue2'>
+                    <Link to="/user">마이 홈 {'>'} </Link>
+                    <Link to="/user/update">내 정보 관리 </Link>
+                </div>
                     <div className='fs_24 fw_700'>
                         내 정보 수정
                     </div>
                 </div>
                 <div className="profile">
-                    <img className="profile" alt='' src={member.photo}/>
-                    <h4>{member.nickname}</h4>
+                    <img className="profile" alt='' src={photo}/>
+                    <div className='mt_10 fs_20 fw_700'>{member.nickname}</div>
                     <input type='file' id='filephoto' style={{display: 'none'}}
                            onChange={uploadPhoto}/>
-                    <CameraAltOutlined style={{fontSize: '2em', cursor: 'pointer'}}
-                                       onClick={() => document.getElementById("filephoto").click()}/>
+                    {/* <CameraAltOutlined style={{fontSize: '2em', cursor: 'pointer'}}
+                                       onClick={() => document.getElementById("filephoto").click()}/> */}
+                    <img style={{width:'30px',height:"30px",position:'absolute',top:"115px",right:'10px'}} className="img-fluid" alt='이미지변경' src={require('../../../image/ico_camera.png')} onClick={() => document.getElementById("filephoto").click()}/>
                 </div>
 
-                <h6><b>닉네임</b></h6>
-                <input className="bg_red bor_red" type={"text"} value={nickname}
-                       onChange={(e) => {
-                           setIdcheck(false);//아이디입력시 중복체크 버튼 다시 눌러야함
-                           setNickname(e.target.value);
-                       }}/>
-                <button type='button' className='btn btn-sm btn-outline-danger'
-                        onClick={buttonIdCheck}>중복확인
-                </button>
+                <div className='fs_20 fw_700 mt_45'>닉네임</div>
+                <div className='d-flex justify-content-between h_35 mt_10'>
+                    <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5" type={"text"} value={nickname}
+                           onChange={(e) => {
+                               setIdcheck(false);//아이디입력시 중복체크 버튼 다시 눌러야함
+                               setNickname(e.target.value);
+                           }}/>
+                    <button type='button' className='btn btn-sm btn-secondary'
+                            onClick={buttonIdCheck}>중복확인
+                    </button>
+                </div>
 
-                <h6><b>주소</b></h6>
-                <input className="bg_red bor_red" type={"text"} placeholder={"기존 주소"}
+                <div className='fs_20 fw_700 mt_25'>주소</div>
+                <div className='d-flex justify-content-between h_35 mt_10'>
+                    <input className="bg_gray bor_gray2 col-9 col_black p-3 br_5" type={"text"} placeholder={"기존 주소"}
                        value={address}/>
-                <button type='button' className='btn btn-sm btn-secondary'
+                    <button type='button' className='btn btn-sm btn-secondary'
                         onClick={handleClickOpen}>주소검색
-                </button>
-                <input className="bg_red bor_red" type={"text"} placeholder={"상세 주소"}
-                        value={addressplus}/>
-                <button className="bg_blue bor_blue1"
-                        onClick={saveMemberEvent}>수정 사항 저장
-                </button>
+                    </button>
+                </div>
+                
+                <input className="bg_gray bor_gray2 col_black br_5 h_35 mt_10 px-3" type={"text"} placeholder={"상세 주소"}
+                       value={addressplus}
+                       onChange={(e) => {
+                           setAddressplus(e.target.value);
+                       }}/>
+                
 
             </div>
+            <div className='d-flex justify-content-center mt_25'>
+                <button className="bg_blue bor_blue1 h_35 br_5 mt_25 px-3"
+                onClick={saveMemberEvent}>수정 사항 저장
+                </button>
+            </div>
+            
         </div>
     );
 };
