@@ -14,7 +14,6 @@ const ReactSwal = withReactContent(Swal);
 
 const ChatMain = () => {
     const [counselorList, setCounselorList] = useState([]);
-    const [selectedCounselor, setSelectedCounselor] = useState(null);
 
     const nav = useNavigate();
 
@@ -32,6 +31,7 @@ const ChatMain = () => {
 
     const handleCounselClick = (data) => {
         ReactSwal.fire({
+            icon: 'info',
             html: (<div>
                 <span className='col_red fs_20 fw_600'>{data.name}</span> 상담사와<br />상담을 시작하시겠습니까?
             </div>),
@@ -51,7 +51,6 @@ const ChatMain = () => {
         axios.get('/counselor/list')
             .then((res) => {
                 setCounselorList(res.data);
-                setSelectedCounselor(res.data[0]);
             })
     }, [])
 
