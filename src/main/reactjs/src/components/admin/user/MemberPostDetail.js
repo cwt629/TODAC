@@ -10,7 +10,7 @@ const MemberPostDetail = () => {
     const usercode = params.get("usercode");
     const boardcode = params.get("boardcode");
     const [member, setMember] = useState([]);
-    const [data, setData] = useState(null);
+    const [data, setData] = useState([]);
     const [board, setBoard] = useState([]);
 
     const fetchBoardDetail = (usercode, boardcode) => {
@@ -18,9 +18,9 @@ const MemberPostDetail = () => {
         axios.post(`/admin/member/post?usercode=${usercode}`)
             .then(res => {
                 const boardList = res.data;
-                setBoard(boardList);
 
-                const selectedBoard = boardList.find(item => item.boardcode === boardcode);
+                setBoard(boardList);
+                const selectedBoard = boardList.find(item => item.boardcode == boardcode);
                 setData(selectedBoard);
             })
             .catch(error => {
@@ -31,13 +31,6 @@ const MemberPostDetail = () => {
             });
     }
 
-    useEffect(() => {
-        if (usercode) {
-            getMember(usercode);
-            fetchBoardDetail(usercode, boardcode);
-        }
-    }, [usercode, boardcode]);
-
     const getMember = () => {
         const url = "/member/data?usercode=" + usercode;
         axios.post(url, {})
@@ -46,6 +39,12 @@ const MemberPostDetail = () => {
             })
     }
 
+    useEffect(() => {
+        if (usercode) {
+            getMember(usercode);
+            fetchBoardDetail(usercode, boardcode);
+        }
+    }, [usercode, boardcode]);
 
     return (
         <div className='mx_30'>
@@ -55,19 +54,16 @@ const MemberPostDetail = () => {
                 <Link to={`/admin/MemberManage/MemberProfile?usercode=${usercode}`} className='col_blue2'>회원 정보 {'>'}</Link>
                 <span className='col_blue2'>&nbsp;회원 게시글</span>
             </div>
-            <div className='fs_25 fw_700'>회원 게시글</div> <br />
-            {board.map((item, index) => {
-                console.log("board item" + item);
-                return (
-                    <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <div>
-                                <span className="fw_600">{item.content}</span>
-                            </div>
-                        </div>
+            <div className='fs_25 fw_700'>제목: {data.title}</div>
+            <img alt='' src={data.photo} style={{ width: '25vh', height: '25vh' }} />
+            {console.log("Image URL:", data.photo)}
+            <div className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div>
+                        <span className="fw_600">{data.content}</span>
                     </div>
-                );
-            })}
+                </div>
+            </div>
         </div >
 
     );
