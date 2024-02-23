@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import CounselorCard from './CounselorCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles

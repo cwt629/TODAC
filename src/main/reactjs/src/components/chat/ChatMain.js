@@ -2,9 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import PageHeader from '../PageHeader';
 import CounselorOptions from './counselor/CounselorOptions';
-import CounselorProfile from './counselor/CounselorProfile';
 import './counselor/CounselorStyle.css';
-import CounselStartButton from './counselor/CounselStartButton';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import LogNavigationButton from './counselor/LogNavigationButton';
@@ -58,9 +56,7 @@ const ChatMain = () => {
         <div className='counselormain mx_30'>
             <LogNavigationButton handleClick={handleLogNavClick} />
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            {/* <CounselorProfile data={selectedCounselor} /> */}
             <CounselorOptions info={counselorList} handleCounselClick={handleCounselClick} />
-            {/* <CounselStartButton handleClick={handleCounselStart} /> */}
         </div>
     );
 };
