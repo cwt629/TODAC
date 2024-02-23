@@ -88,16 +88,16 @@ const MemberProfile = () => {
             </div>
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
                 onClick={() => nav('MemberPost?usercode=' + member.usercode)}><CommentIcon />&nbsp;&nbsp;{member.nickname} 님의 게시글 &nbsp;{'>'}</button>
-            <br />
+            <br /><br />
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
                 onClick={() => nav('MemberComment?usercode=' + member.usercode)}> <CommentIcon />&nbsp;&nbsp;{member.nickname} 님의 댓글 &nbsp; {'>'} </button>
-            <br />
+            <br /><br />
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
                 onClick={() => nav('MemberPayment?usercode=' + member.usercode)}> <PaymentOutlinedIcon />&nbsp;&nbsp;{member.nickname} 님의 결제 내역&nbsp; {'>'}</button>
-            <br />
+            <br /><br />
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
                 onClick={() => nav('MemberPoint?usercode=' + member.usercode)}> <CardGiftcardOutlinedIcon /> &nbsp;&nbsp;{member.nickname} 님의 포인트 사용 &nbsp;{'>'}</button>
-            <br />
+            <br /><br />
             <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
                 onClick={() => nav('MemberChatSearch?usercode=' + member.usercode)}><ForumOutlinedIcon />&nbsp;&nbsp;{member.nickname} 님의 채팅 기록&nbsp; {'>'}</button>
         </div>
