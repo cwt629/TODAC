@@ -18,6 +18,24 @@ const ChatSummary = () => {
     const [donationAmount, setDonationAmount] = useState(500);
     const usercode = sessionStorage.getItem("usercode");
 
+    const pointCheck = () => {
+        // 진단서 발급을 시도하기 전에 진단서가 이미 발급되었는지 확인
+        axios.get("/chat/diagnosis/check?chatroomode=" + roomcode)
+            .then(response => {
+                if (response.data) {
+                    // 이미 진단서가 발급된 경우 알림 후 진단서 페이지로 이동
+                    Swal.fire({
+                        icon: 'warning',
+                        html: '이미 진단서가 발급되었습니다.',
+                        confirmButtonText: '확인',
+                        confirmButtonColor: '#5279FD'
+                    }).then(() => {
+                        nav("../diagnosis?chatroomcode=" + roomcode);
+                    });
+                }
+            })
+    }
+
     const pointUse = () => {
         Swal.fire({
             title: '진단서 발급',
