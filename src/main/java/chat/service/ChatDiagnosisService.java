@@ -4,6 +4,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import chat.data.ChatDiagnosisDto;
+import chat.data.ChatDiagnosisInterface;
 import chat.repository.ChatDiagnosisRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +17,7 @@ public class ChatDiagnosisService {
 		chatDiagnosisRepository.save(chatDiagnosisDto);
 	}
 	
-	public ChatDiagnosisDto findByChatroom(Short chatroomcode) {
+	public ChatDiagnosisInterface findByChatroom(Short chatroomcode) {
 		return chatDiagnosisRepository.findByChatroom(chatroomcode);
 	}
 }

@@ -1,18 +1,41 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import '../../chat/chattingroom/ChatRoomStyle.css';
+import ChatLogMidbar from '../../chat/chattinglog/content/ChatLogMidbar';
+import ChatLogContent from '../../chat/chattinglog/content/ChatLogContent';
+import axios from 'axios';
 
 const MemberChatHistory = () => {
-    return (
-        <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/admin" className='col_blue2'>관리자 홈 {'>'} </Link>
-                <Link to="/admin/MemberManage" className='col_blue2'>회원 관리 {'>'} </Link>
-                <Link to="/admin/MemberManage/MemberProfile" className='col_blue2'>회원 정보 {'>'}</Link>
-                <Link to="/admin/MemberManage/MemberProfile/MemberChatSearch" className='col_blue2'>회원 채팅기록{'>'} </Link>
-                <Link to="/admin/MemberManage/MemberProfile/MemberChatSearch/MemberChatHistory" className='col_blue2'>채팅 기록</Link>
+    const [info, setInfo] = useState(null);
+    const [roomcode, setRoomcode] = useState(null);
+    const location = useLocation();
 
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const roomcodeFromParams = params.get("chatroomcode");
+        if (roomcodeFromParams) {
+            setRoomcode(roomcodeFromParams);
+        }
+    }, [location]);
+
+    useEffect(() => {
+        if (roomcode) {
+            axios.get("/chat/loginfo?chatroomcode=" + roomcode)
+                .then((res) => {
+                    setInfo(res.data);
+                })
+                .catch((error) => {
+                    console.error("Error fetching chat log:", error);
+                });
+        }
+    }, [roomcode]);
+
+    return (
+        <div>
+            <div className='mx_30 chatmain'>
+                <ChatLogMidbar counselorname={info?.counselorname} />
+                <ChatLogContent log={info?.log} />
             </div>
-            <div className='fs_25 fw_700'>채팅 기록</div>
         </div>
     );
 };
