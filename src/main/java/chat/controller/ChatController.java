@@ -112,7 +112,6 @@ public class ChatController {
 		}
 		dto.setLog(chatLogInfo);
 		
-		// TODO: 3. 진단서 발급 유무
 		ChatDiagnosisDto diagnosisDto = diagnosisService.findByChatroom(chatroomcode);
 		int diagnosisCount = (diagnosisDto != null)? 1 : 0;
 		dto.setDiagnosisCount(diagnosisCount);
