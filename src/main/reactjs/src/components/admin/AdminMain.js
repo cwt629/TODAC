@@ -16,7 +16,6 @@ const AdminMain = () => {
         const storedToken = sessionStorage.getItem("token");
         const storedId = sessionStorage.getItem("id");
         const usercode = sessionStorage.getItem("usercode");
-        console.log("Stored t:", storedToken, ", Stored id:", storedId, ",usercode:", usercode);
     }, []);
 
     return (
