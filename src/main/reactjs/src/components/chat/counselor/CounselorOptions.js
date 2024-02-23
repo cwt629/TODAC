@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import CounselorCard from './CounselorCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -14,7 +13,7 @@ import CounselorCardLast from './CounselorCardLast';
 
 const CARD_COLORS = [
     "#D4F0F0", // 토닥봇
-    "#FFC8A2", // 설리반
+    "#FFD09E", // 설리반
     "#FED7C3", // 금공감
     "#ECD5E3", // 너티야
     "#FEE1E8", // 키키
