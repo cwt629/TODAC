@@ -104,7 +104,7 @@ const MemberPayment = () => {
                 <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div>
-                            <span className="fw_700">{item.applieddate}</span> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                            <span className="fw_700">{item.applieddate}</span> &emsp;&emsp;&emsp;&nbsp;&nbsp;
                             <span className="fw_600 col_red">{item.amount}</span><span className='fw_600'>원 결제</span>
                         </div>
                     </div>
