@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import chat.data.ChatDiagnosisDto;
+import chat.data.ChatDiagnosisInterface;
 import chat.data.ChatInitialDto;
 import chat.data.ChatListInterface;
 import chat.data.ChatLogDto;
@@ -112,7 +113,8 @@ public class ChatController {
 		}
 		dto.setLog(chatLogInfo);
 		
-		ChatDiagnosisDto diagnosisDto = diagnosisService.findByChatroom(chatroomcode);
+		// 3. 진단서 발급 여부 받기
+		ChatDiagnosisInterface diagnosisDto = diagnosisService.findByChatroom(chatroomcode);
 		int diagnosisCount = (diagnosisDto != null)? 1 : 0;
 		dto.setDiagnosisCount(diagnosisCount);
 		

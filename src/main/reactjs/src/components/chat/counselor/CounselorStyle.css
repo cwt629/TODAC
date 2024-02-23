@@ -40,10 +40,6 @@ div.counselorcard img.counselorphoto.frontphoto {
     height: auto;
 }
 
-div.counselorcard.counselor-last-card {
-    background-color: #EEF0F7;
-}
-
 div.counselbtndiv {
     height: 40px;
 }
@@ -116,12 +112,19 @@ div.counselbtndiv.counsel-lognav {
 }
 
 .swiper-slide .counselorcard.card-back {
-    background-color: #51CECE;
     transform: rotateY(180deg);
 }
 
 .swiper-slide.counselor-card-flipped .counselorcard.card-back {
     transform: rotateY(0deg);
+}
+
+.swiper-slide .counselor-last-card {
+    background-color: #EEF0F7;
+    background-image: url('../../../image/ico_babytodac2.png');
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: 80% auto;
 }
 
 /* .swiper-slide:nth-child(1n) {
