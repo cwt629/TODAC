@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
 import './tossstyle.css';
+import {useSearchParams} from "react-router-dom";
 
 const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 
@@ -13,8 +14,9 @@ const Checkout = () => {
     const paymentWidgetRef = useRef(null);
     const paymentMethodsWidgetRef = useRef(null);
     const agreementWidgetRef = useRef(null);
-    const [price] = useState(1000);
+    const [price] = useState(10000);
     const storedId = sessionStorage.getItem("id");
+    const [serchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         (async () => {
@@ -30,7 +32,7 @@ const Checkout = () => {
              */
             const paymentMethodsWidget = paymentWidgetRef.current.renderPaymentMethods(
                 "#payment-method",
-                { value: price },
+                { value: serchParams.get("price") },
                 { variantKey: "DEFAULT" }
             );
 

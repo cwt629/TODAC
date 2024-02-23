@@ -1,9 +1,9 @@
 package community.board.controller;
 
-import community.board.data.BoardCommentDto;
-import community.board.data.BoardDetailDto;
-import community.board.data.BoardDto;
-import community.board.data.BoardListDto;
+import chat.data.CounselorDetailInterface;
+import community.board.data.*;
+import community.board.repository.BoardLikesDao;
+import community.board.service.BoardService;
 import mypage.data.MemberDto;
 import mypage.repository.MemberDao;
 import naver.storage.NcpObjectStorageService;
@@ -21,6 +21,10 @@ public class BoardController {
 	private final BoardDao boardDao;
 
 	private final MemberDao memberDao;
+
+	private final BoardLikesDao boardLikesDao;
+
+	private final BoardService boardService;
 
 	//storage class 선언
 	private final NcpObjectStorageService storageService;
@@ -80,32 +84,98 @@ public class BoardController {
 		return boardDetailDto;
 	}
 
+	//dto 반환
+	@GetMapping("/board/select")
+	public BoardDto select(@RequestParam("boardcode") int boardcode)
+	{
+		System.out.println("select>>"+boardcode);
+		return boardDao.getSelectData(boardcode);
+	}
+
+	//수정
+	@PostMapping("/board/update")
+	public void update(@RequestBody BoardDto boardDto)
+	{
+		System.out.println("update>>"+boardDto);
+		boardDao.updateBoard(boardDto);
+	}
+
+
 	//관리자 게시판에서 회원 게시글 출력할때 사용하는 로직
 	@PostMapping("/admin/member/post")
 	public List<BoardDto> getMemberPostData(@RequestParam("usercode") int usercode)
 	{
 		return boardDao.getMemberPostData(usercode);
 	}
-	
-	//게시글 삭제
+
+	//게시글 삭제 [2024-02-16] 승민 수정
 	@DeleteMapping("/post/delete")
-	public void delete(@RequestParam("boardcode") int boardcode)
-	{
-		boardDao.deletePost(boardcode);
+	public void delete(@RequestParam("boardcode") int boardcode) {
+		// 사진 URL을 포함한 게시물 정보를 검색
+		BoardDto board = boardDao.getSelectPage(boardcode);
+
+		if (board != null) {
+			// 검색된 게시물에서 사진 URL을 얻기
+			String boardphoto = board.getPhoto();
+
+			// 데이터베이스에서 게시물 삭제
+			boardDao.deletePost(boardcode);
+
+			// 사진 URL이 null이 아니고 비어 있지 않은지 확인하고 스토리지에서 해당 사진 삭제
+			if (boardphoto != null && !boardphoto.isEmpty()) {
+				// 스토리지 서비스를 사용하여 스토리지에서 사진 삭제
+				storageService.deleteFile(bucketName, folderName, boardphoto);
+			}
+		}
+	}
+
+	// 사용자가 해당 게시물에 좋아요를 눌렀는지 확인하는 로직
+	@GetMapping("/post/checkLikeStatus")
+	public boolean checkLikeStatus(@RequestParam("boardcode") int boardcode, @RequestParam("usercode") int usercode) {
+		BoardDto board = boardDao.getSelectData(boardcode);
+		MemberDto member = memberDao.getMemberByData(usercode);
+
+		// 사용자가 이미 좋아요를 눌렀는지 확인
+		BoardLikesDto existingLike = boardLikesDao.findByBoardAndMember(board, member);
+
+		return existingLike != null;
+	}
+
+	// 좋아요 기능 추가 또는 취소
+	@PostMapping("/post/like")
+	public String likePost(@RequestParam("boardcode") int boardcode, @RequestParam("usercode") int usercode) {
+		BoardDto board = boardDao.getSelectData(boardcode);
+		MemberDto member = memberDao.getMemberByData(usercode);
+
+		// 사용자가 이미 좋아요를 눌렀는지 확인
+		BoardLikesDto existingLike = boardLikesDao.findByBoardAndMember(board, member);
+
+		if (existingLike != null) {
+			// 사용자가 이미 좋아요를 눌렀다면 좋아요 취소
+			boardLikesDao.delete(existingLike);
+			return "unliked";
+		} else {
+			// 사용자가 좋아요를 누르지 않았다면 좋아요 추가
+			BoardLikesDto newLike = BoardLikesDto.builder()
+					.board(board)
+					.member(member)
+					.build();
+
+			boardLikesDao.save(newLike);
+			return "liked";
+		}
 	}
 	
-	//관리자 게시판에서 회원 댓글 출력할때 사용하는 로직
-	@PostMapping("/admin/member/comment")
-	public List<BoardCommentDto> getMemberCommentData(@RequestParam("usercode") int usercode)
-	{
-		return boardDao.getMemberCommentData(usercode);
+	// 게시글의 좋아요 개수 조회
+	@GetMapping("/post/like/count")
+	public int getLikeCount(@RequestParam("boardcode") int boardcode) {
+		BoardDto board = boardDao.getSelectData(boardcode);
+		return boardLikesDao.countByBoard(board);
 	}
-	
-	//게시글 댓글 삭제
-	@DeleteMapping("/comment/delete")
-	public void commentdelete(@RequestParam("commentcode") int commentcode)
-	{
-		boardDao.commentDelete(commentcode);
+
+	@GetMapping("main/list")
+	public List<MainListInterface> getList(){
+		return boardService.getBoardList();
 	}
 
 }

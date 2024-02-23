@@ -2,6 +2,7 @@ package community.board.repository;
 
 import community.board.data.BoardDto;
 
+import community.board.data.MainListInterface;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -27,6 +28,25 @@ public interface BoardRepository extends JpaRepository<BoardDto, Integer> {
 	@Query(value = "select * from board where boardcode=:boardcode",nativeQuery = true)
 	BoardDto getSelectPage(@Param(("boardcode")) int boardcode);
 
+	//조인 컬럼
+	@Query(value =
+   		"""
+   			SELECT
+          board.boardcode, board.counselorcode, board.usercode, member.nickname,
+    	  board.registereddate, board.state, board.category, board.photo, board.title,
+          IFNULL(board.visitcount, 0) AS visitcount,
+          IFNULL(COUNT(DISTINCT boardcomment.commentcode), 0) AS commentcount,
+          IFNULL(COUNT(DISTINCT boardlikes.likecode), 0) AS likecount
+      		FROM board
+      	  LEFT JOIN boardcomment ON board.boardcode = boardcomment.boardcode
+     	  LEFT JOIN boardlikes ON board.boardcode = boardlikes.boardcode
+     	  LEFT JOIN member ON board.usercode = member.usercode
+      	  GROUP BY board.boardcode
+      	  ORDER BY board.boardcode DESC;
+		"""
+			, nativeQuery = true)
+	public List<MainListInterface> getBoardList();
+
 	@Query(value = "select * from board where usercode=:usercode",nativeQuery = true)
     public  List<BoardDto> getMemberPostData(@Param("usercode") int usercode);
 	
@@ -34,7 +54,4 @@ public interface BoardRepository extends JpaRepository<BoardDto, Integer> {
 	@Transactional
 	@Query(value = "delete from board where boardcode = :boardcode", nativeQuery = true)
 	public void deletePost(@Param("boardcode") int boardcode);
-
-
-
 }

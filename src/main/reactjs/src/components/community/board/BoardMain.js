@@ -8,9 +8,11 @@ import CreateIcon from "@mui/icons-material/Create";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-
+import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
+import PageHeader from "../../PageHeader";
 import {
     IconButton,
+    ImageList,
     InputBase,
     Paper,
     Table,
@@ -21,15 +23,14 @@ import {
     TableRow,
     Typography,
 } from "@mui/material";
-import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
-import PageHeader from "../../PageHeader";
 
 const BoardMain = () => {
     const [list, setList] = useState([]);
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(6);
     const [search, setSearch] = useState(""); // 검색어를 저장하는 state
     const [filteredList, setFilteredList] = useState(list); // 검색된 목록을 저장하는 state
+    const navi = useNavigate();
     const CURRENT_ROUTES = [
         { name: "커뮤니티", url: "/user/community" },
         { name: "게시판", url: "/user/community/board" },
@@ -37,12 +38,11 @@ const BoardMain = () => {
 
     const PAGE_TITLE = "게시판";
 
-    const navi = useNavigate();
-
     const boardList = () => {
-        axios.get("/board/list").then((res) => {
+        axios.get("/main/list").then((res) => {
             setList(res.data);
             setFilteredList(res.data); //초기 전체 리스트 출력용
+            console.log(res);
         });
     };
 
@@ -150,18 +150,27 @@ const BoardMain = () => {
                     <TableContainer component={Paper}>
                         <Table sx={{ width: "100%" }}>
                             <TableBody>
-                                {(rowsPerPage > 0
-                                    ? filteredList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    : filteredList
-                                ).map((data, idx) => (
-                                    <BoardRowItem key={idx} data={data} />
-                                ))}
+                                <ImageList
+                                    sx={{
+                                        width: "100%",
+                                        maxWidth: 360,
+                                        bgcolor: "background.paper",
+                                    }}
+                                    cols={2}
+                                >
+                                    {(rowsPerPage > 0
+                                        ? filteredList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        : filteredList
+                                    ).map((data, idx) => (
+                                        <BoardRowItem key={idx} data={data} />
+                                    ))}
+                                </ImageList>
                             </TableBody>
                             <TableFooter>
                                 <TableRow className='tool_bar' style={{ display: "flex" }}>
                                     <TablePagination
                                         labelRowsPerPage={""}
-                                        rowsPerPageOptions={[5, 10]}
+                                        rowsPerPageOptions={[6, 12]}
                                         colSpan={3}
                                         count={filteredList.length}
                                         rowsPerPage={rowsPerPage}

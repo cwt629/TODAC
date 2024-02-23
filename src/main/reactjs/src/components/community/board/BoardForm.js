@@ -1,6 +1,17 @@
-import { Button, CircularProgress, TextField, styled } from "@mui/material";
+import {
+    Avatar,
+    Button,
+    CircularProgress,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemButton,
+    ListItemText,
+    Radio,
+    TextField,
+} from "@mui/material";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import PageHeader from "../../PageHeader";
 import noImage from "../../../image/no_image_board_form.png";
@@ -13,8 +24,8 @@ const BoardForm = () => {
     const [content, setContent] = useState("");
     const [counselorcode, setCounselorCode] = useState("");
     const [loading, setLoading] = useState(false);
-    const imageUrl = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/"; //ncloud 에서 가져옴
     const navi = useNavigate();
+    const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/"; //ncloud 에서 가져옴
 
     const CURRENT_ROUTES = [
         { name: "커뮤니티", url: "/user/community" },
@@ -23,18 +34,6 @@ const BoardForm = () => {
     ];
 
     const PAGE_TITLE = "게시글 등록";
-
-    const VisuallyHiddenInput = styled("input")({
-        clip: "rect(0 0 0 0)",
-        clipPath: "inset(50%)",
-        height: 1,
-        overflow: "hidden",
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        whiteSpace: "nowrap",
-        width: 1,
-    });
 
     //파일 업로드 이벤트
     const onUploadEvent = (e) => {
@@ -84,58 +83,70 @@ const BoardForm = () => {
     };
 
     // 라디오 버튼 선택 이벤트
-    const onCounselorRadioChange = (counselor) => {
+    const onCounselorRadioChange = (value) => {
         // 라디오 버튼이 선택될 때만 상담사 코드 설정
-        setCounselorCode(counselor);
+        setCounselorCode(value);
     };
 
     return (
         <div className='form-group mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <div className='d-flex justify-content-between' style={{ marginTop: "15px" }}>
-                <div className='col-4 '>
-                    <div
-                        style={{
-                            width: "110px",
-                            height: "90px",
-                        }}
-                    >
-                        {loading ? (
-                            <CircularProgress size={30} /> // 로딩 스피너 표시
-                        ) : (
-                            <img alt='' src={photo ? imageUrl + photo : noImage} width={110} height={90} />
-                        )}
-                    </div>
-
-                    <div className='text-center mt-1'>
-                        <Button
-                            style={{ backgroundColor: "pink" }}
-                            component='label'
-                            role={undefined}
-                            variant='contained'
-                            tabIndex={-1}
+            <div
+                className='col-4'
+                style={{
+                    marginTop: "15px",
+                    width: "100%",
+                    height: "100%",
+                }}
+            >
+                <div
+                    style={{
+                        width: "100%",
+                        height: "198px",
+                    }}
+                >
+                    {loading ? (
+                        <div
+                            style={{
+                                position: "relative",
+                            }}
                         >
-                            이미지등록
-                            <VisuallyHiddenInput type='file' onChange={onUploadEvent} />
-                        </Button>
-                    </div>
-                </div>
-
-                <div className='col-7'>
-                    <TextField
-                        label='제목'
-                        size='small'
-                        placeholder='제목을 입력해 주세요.'
-                        className='bg_gray'
-                        style={{ width: "100%" }}
-                        onChange={(e) => {
-                            setTitle(e.target.value);
-                        }}
-                    />
+                            <CircularProgress
+                                size={50}
+                                style={{
+                                    position: "absolute",
+                                    top: "40%",
+                                    left: "40%",
+                                    transform: "translate(-50%, -50%)",
+                                }}
+                            />
+                        </div>
+                    ) : (
+                        <img
+                            alt=''
+                            src={photo ? imageStorage + photo : noImage}
+                            width='100%'
+                            height={198}
+                            style={{ borderRadius: "0.8rem" }}
+                        />
+                    )}
                 </div>
             </div>
 
-            <div style={{ marginTop: "10px", height: "100%" }}>
+            <div className='mt_10'>
+                <TextField
+                    label='제목'
+                    size='small'
+                    placeholder='제목을 입력해 주세요.'
+                    className='bg_gray'
+                    style={{ width: "100%" }}
+                    onChange={(e) => {
+                        setTitle(e.target.value);
+                    }}
+                />
+            </div>
+
+            <div className='mt-3'>
                 <TextField
                     multiline
                     id='outlined-multiline-static'
@@ -153,17 +164,35 @@ const BoardForm = () => {
             <div className='form-group' style={{ marginTop: "10px" }}>
                 <h6>상담사</h6>
                 <div style={{ display: "flex" }}>
-                    {Array.from(Array(5).keys()).map((index) => (
-                        <label key={index}>
-                            <input
-                                type='radio'
-                                name='counselor'
-                                onChange={() => onCounselorRadioChange(`${index + 1}`)}
-                            />
-                            상담사{index + 1}
-                        </label>
-                    ))}
+                    <List dense sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+                        {Array.from(Array(5).keys()).map((index) => (
+                            <ListItem key={index} disablePadding>
+                                <ListItemButton
+                                    role={undefined}
+                                    onClick={() => onCounselorRadioChange(`${index + 1}`)}
+                                    dense
+                                >
+                                    <ListItemAvatar>
+                                        <Avatar
+                                            alt={`Avatar n°${index + 1}`}
+                                            src={`/static/images/avatar/${index + 1}.jpg`}
+                                        />
+                                    </ListItemAvatar>
+                                    <ListItemText primary={`상담사${index + 1}`} />
+                                    <Radio
+                                        edge='end'
+                                        checked={counselorcode === `${index + 1}`}
+                                        tabIndex={-1}
+                                        disableRipple
+                                    />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
                 </div>
+            </div>
+            <div className='text-center mt-1'>
+                <input type='file' onChange={onUploadEvent} />
             </div>
             <Button
                 type='button'

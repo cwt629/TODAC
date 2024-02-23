@@ -1,6 +1,7 @@
 package login.controller;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import login.service.LoginService;
@@ -37,6 +40,18 @@ public class LoginController {
     @Value("${react.kakao.login.logoutRedirectUrl}")
     private String logoutRedirectUrl;
 
+    
+    
+    @PostMapping("/game/testresult")
+	public @ResponseBody Map<String, Object> test(@RequestParam HashMap<String, Object> reqMap) {
+		Map<String, Object> map=new HashMap<>();
+		map.put("result", "success");
+		return map;
+	}
+    
+
+	
+    
     //관리자 로그인 - 아이디가 없는 경우 noid, 있는 경우 비번을 비교하고 맞을때만 토큰 전달
 	@PostMapping("/login/auth")
 	public Map<String, Object> login(@RequestBody MemberDto dto)
@@ -44,6 +59,7 @@ public class LoginController {
 		//System.out.println("id="+dto.getUserid()+",pass="+dto.getPass());//아이디,비번 확인
 		Map<String, Object> map=new HashMap<>();//결과값 넣을 map
 		MemberDto user = loginService.getUser(dto.getUserid()); //해당 아이디에 대한 db값 넣기
+		int usercode = user.getUsercode();
 		
 		//아이디 비교
 		if(user==null) {
@@ -64,6 +80,7 @@ public class LoginController {
                 
                 //System.out.println("token=" + token); //토큰 확인
                 map.put("token", token);//토근전달
+                map.put("usercode", usercode);
                 
                 String userId = JwtTokenProvider.getUserIdFromJWT(token);
                 //System.out.println("userId=" + userId);

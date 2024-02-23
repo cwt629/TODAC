@@ -15,7 +15,8 @@ const AdminMain = () => {
     useEffect(() => {
         const storedToken = sessionStorage.getItem("token");
         const storedId = sessionStorage.getItem("id");
-        console.log("Stored t:", storedToken, ", Stored id:", storedId);
+        const usercode = sessionStorage.getItem("usercode");
+        console.log("Stored t:", storedToken, ", Stored id:", storedId, ",usercode:", usercode);
     }, []);
 
     return (
@@ -32,9 +33,7 @@ const AdminMain = () => {
                 <br /><br /><br /><br />
 
                 <span>
-                    <Logout style={{ cursor: 'pointer' }} onClick={() => {
-                        nav("/login");
-                    }} />
+                    <Logout style={{ cursor: 'pointer' }} onClick={handleLogout} />
                     <button
                         style={{ cursor: 'pointer', border: 'none', background: 'none' }}
                         onClick={handleLogout}

@@ -1,35 +1,78 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import diagnosis from '../../../image/diagnosis.png';
+import diagnosisImg from '../../../image/diagnosis.png';
 import './DocumentStyle.css';
 import axios from 'axios';
 import summarizeContent from '../api/summarize';
 
 const ChatSummary = () => {
-    const [summaryList, setSummaryList] = useState([]);
+    const [logList, setLogList] = useState([]);
     const nav = useNavigate();
     const [query, setQuery] = useSearchParams();
     const roomcode = query.get("roomcode");
     const [loading, setLoading] = useState(true); // 요약본 생성 중인지 여부
     const [summarizedMessages, setSummarizedMessages] = useState({ summarizedUserMessage: "", summarizedCounselorMessage: "" });
 
+    // 포인트 사용
+    const [donationAmount, setDonationAmount] = useState(500);
+    const usercode = sessionStorage.getItem("usercode");
+
+    const pointUse = () => {
+        Swal.fire({
+            title: '진단서 발급',
+            text: '진단서를 발급하시겠습니까?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#5279FD',
+            cancelButtonColor: '#FF7170',
+            confirmButtonText: '예',
+            cancelButtonText: '아니오'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const url = "/payment?amount=" + donationAmount + "&usercode=" + usercode + "&type=진단서 발급";
+                axios.post(url)
+                    .then(res => {
+                        if (res.data === false) {
+                            Swal.fire({
+                                icon: 'warning',
+                                html: '포인트가 부족합니다.',
+                                confirmButtonText: '확인',
+                                confirmButtonColor: '#FF7170'
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'warning',
+                                html: '진단서가 발급되었습니다.',
+                                confirmButtonText: '확인',
+                                confirmButtonColor: '#5279FD'
+                            }).then(() => {
+                                nav('../diagnosis?chatroomcode=' + roomcode);
+                            });
+                        }
+                    })
+            }
+        });
+    }
+
     const handleInfoClick = () => {
         // sweetalert2 팝업 띄우기
         Swal.fire({
             title: '진단서 예시 및 간단 설명',
-            html: '<div style="border: 1px solid red; border-radius: 10px; overflow: hidden;"><img src="' + diagnosis + '" alt="이미지" style="width: 80%; height: auto;"></div>',
+            html: '<div style="border: 1px solid red; border-radius: 10px; overflow: hidden;"><img src="' + diagnosisImg + '" alt="이미지" style="width: 80%; height: auto;"></div>',
             icon: 'info',
+            confirmButtonColor: '#FF7170',
             confirmButtonText: '닫기',
         });
     };
 
-    const list = async () => {
+    const summary = async () => {
         try {
             const response = await axios.get("/chat/summary?chatroomcode=" + roomcode);
             console.log("로그 불러오려고 함");
             console.log(response);
-            setSummaryList(response.data);
+            setLogList(response.data);
             const { summarizedUserMessage, summarizedCounselorMessage } = await summarizeMessages(response.data);
             setSummarizedMessages({ summarizedUserMessage, summarizedCounselorMessage });
             await saveSummarizedMessages(summarizedUserMessage, summarizedCounselorMessage);
@@ -69,14 +112,11 @@ const ChatSummary = () => {
 
         Swal.close(); // 요약이 완료되면 알림창 닫기
 
-        return { summarizedUserMessage, summarizedCounselorMessage };
+        return { summarizedUserMessage: summarizedUserMessage, summarizedCounselorMessage: summarizedCounselorMessage };
     };
 
     const getSummarizedMessages = async () => {
-        await list();
-        //const { summarizedUserMessage, summarizedCounselorMessage } = await summarizeMessages();
-        // setSummarizedMessages({ summarizedUserMessage, summarizedCounselorMessage });
-        // saveSummarizedMessages(summarizedUserMessage, summarizedCounselorMessage);
+        await summary();
     };
 
     const saveSummarizedMessages = async (summarizedUserMessage, summarizedCounselorMessage) => {
@@ -119,7 +159,7 @@ const ChatSummary = () => {
         // 첫 로드 시 이미 해당 roomcode에 대한 요약이 있으면 해당 데이터를 summarizedMessages에 set해주기
 
         // 해당 roomcode에 대한 요약이 없으면
-        // 1. 로그 받아와서 summaryList에 넣고
+        // 1. 로그 받아와서 logList에 넣고
         // 2. 새로운 요약을 생성하며 summarizedMessages에 set해주고 해당 요약을 DB에 저장 (밑에 getSummarizedMessages)
 
         // 이 함수는 말그대로, 지금 만든 요약본을 DB에 집어넣는 작업만 하도록 하자.  
@@ -148,7 +188,9 @@ const ChatSummary = () => {
             <div style={{ textAlign: 'center' }}>
                 <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../../')}>마이 홈 이동하기</button>
                 &nbsp;&nbsp;
-                <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../diagnosis')}>진단서 발급(500P)</button>
+                <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => {
+                    pointUse();
+                }}>진단서 발급(500P)</button>
                 &nbsp;&nbsp;
                 <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer' }} onClick={handleInfoClick}>ℹ️</span>
             </div>

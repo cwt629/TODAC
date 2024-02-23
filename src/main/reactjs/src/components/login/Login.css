@@ -3,8 +3,12 @@
 }
 
 .login_main{
-    margin: 0 auto;
-    padding: 240px 55px 95px;
+    margin: 0 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .login_main button{
@@ -50,7 +54,7 @@
 
 .login_main2{
     margin: 0 auto;
-    padding: 55px;
+    padding: 55px 55px 0;
 }
 
 .mt_80{
@@ -67,7 +71,11 @@
 /* login callback */
 
 .login_loading {
-    padding: 100% 0;
+    margin: 0 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
   
 .login_loading span {
@@ -108,5 +116,61 @@
                    0 8px 0 transparent,
                    0 9px 0 transparent,
                    0 50px 25px rgba(0, 0, 0, .2);
+    }
+  }
+
+
+  .main_ani{
+    margin: 0 auto;
+    line-height:30px;
+  }
+  
+  .one_text{
+    color: #FF7170;
+    font-size: 35px !important;
+  }
+  
+  .animation span{
+    position: relative;
+    font-size: 23px;
+    font-weight: 600;
+  }
+  
+  .animation .two_t{
+    color: #536179;
+  }
+
+  .typewriter, .typewriter2, .typewriter3, .typewriter4, .typewriter5 {
+    white-space: nowrap;
+    overflow: hidden;
+    opacity: 0; /* 처음에 투명도를 0으로 설정하여 요소를 숨깁니다. */
+  }
+  
+  .typewriter {
+    animation: fadeIn 0.3s 0.3s forwards; /* fadeIn 애니메이션을 0.3초 뒤에 시작하고, 끝나면 투명도를 1로 유지합니다. */
+  }
+  
+  .typewriter2 {
+    animation: fadeIn 0.3s 0.6s forwards;
+  }
+  
+  .typewriter3 {
+    animation: fadeIn 0.3s 0.9s forwards;
+  }
+  
+  .typewriter4 {
+    animation: fadeIn 0.3s 1.2s forwards;
+  }
+  
+  .typewriter5 {
+    animation: fadeIn 0.3s 1.5s forwards;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0; /* 애니메이션 시작 시 투명도를 0으로 설정하여 요소를 숨깁니다. */
+    }
+    100% {
+      opacity: 1; /* 애니메이션이 완료된 후에 투명도를 1로 설정하여 요소를 나타냅니다. */
     }
   }
