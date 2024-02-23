@@ -194,16 +194,32 @@ const ChatDiagnosis = () => {
     const checkData = async () => {
         try {
             const response = await axios.get("/chat/diagnosis/check?chatroomcode=" + roomcode);
-            getSummarizedMessages();
             if (response.data) {
-                console.log("진단서 있음")
-                console.log(response)
-                setDiagnosisMessages({
-                    analyzedUserMessage: { content: response.data.deepanswer },
-                    recommendedActivitiesUserMessage: { content: response.data.advice }
-                })
+                console.log("response.data.usercode:" + response.data.usercode);
+                console.log("usercode:" + usercode);
+                if (response.data.usercode == usercode || usercode == 5) {
+                    getSummarizedMessages();
+                    console.log("진단서 있음")
+                    console.log(response)
+                    setDiagnosisMessages({
+                        analyzedUserMessage: { content: response.data.deepanswer },
+                        recommendedActivitiesUserMessage: { content: response.data.advice }
+                    })
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        html: '해당 진단서에 접근할 수 있는 권한이 없습니다.',
+                        confirmButtonText: '확인',
+                        confirmButtonColor: '#5279FD'
+                    }).then(() => {
+                        // 이전 페이지로 이동
+                        nav('../../');
+                    });
+                }
             }
             else {
+                getSummarizedMessages();
                 pointUse();
             }
         } catch (error) {
