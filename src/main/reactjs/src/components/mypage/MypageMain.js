@@ -134,9 +134,9 @@ const MypageMain = () => {
                     <img alt="" src={require("../../image/mypageIcon/pointer.png")} />
                 </div>
 
-                <div onClick={onPersonDelete} className='mt-4'>
-                    <img alt="" src={require("../../image/mypageIcon/faq.png")} />
-                    <span style={{ color: "#FF7170" }} className='mx-3'>회원 탈퇴</span>
+                <div onClick={onPersonDelete} className='mt-4' style={{marginTop:"10px"}}>
+                    <img alt="" src={require("../../image/mypageIcon/logout.png")} />
+                    <span style={{ color: "darkgray" }} className='mx-3'>회원 탈퇴</span>
                     <img alt="" src={require("../../image/mypageIcon/pointer.png")} />
                 </div>
             </div>

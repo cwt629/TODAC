@@ -51,6 +51,7 @@ const Pointcheck = () => {
         setPrice(10000);
     }
 
+
     const selectpayment =() =>{
         ReactSwal.fire({
             icon: 'question',
@@ -82,36 +83,36 @@ const Pointcheck = () => {
                     <div className='fs_24 fw_700'>
                         나의 포인트
                         <button className="bg_blue bor_blue1"
-                                onClick={selectpayment}>충전
+                                onClick={() => nav("charge")}>충전
                         </button>
                     </div>
                 </div>
                 <div className="point" style={{textAlign:"center"}}>
                     <img alt="" src={require("../../../image/pointIcon/point.png")}
-                    style={{margin:"40px 0px"}}/>
+                         style={{margin:"40px 0px"}}/>
                     <h4>보유 포인트 : <span style={{color:"#FF7170"}}>{member.point}</span></h4>
                 </div>
 
                 <div className="fs_17 fw_800 mt_45">{member.nickname} 님의 포인트 사용내역</div>
-                    <table className="table-light table-bordered mt_10">
-                        <tr className="bg_red fw_600">
-                            <td>내용</td>
-                            <td>포인트</td>
-                            <td>날짜</td>
-                        </tr>
-                        {point.map((item, index) => (
+                <table className="table-light table-bordered mt_10">
+                    <tr className="bg_red fw_600">
+                        <td>내용</td>
+                        <td>포인트</td>
+                        <td>날짜</td>
+                    </tr>
+                    {point.map((item, index) => (
 
-                                    <tr>
-                                        <td>{item.type}</td>
-                                        <td style={{ color: (item.type === '충전' || item.type === '수박게임') ? 'red' : 'blue' }}>
-                                            {(item.type === '충전' || item.type === '수박게임') ? `+${item.amount}` : `-${item.amount}`}
-                                        </td>
-                                        <td>{item.applieddate}</td>
-                                    </tr>
-                        ))}
-                    </table>
+                        <tr>
+                            <td>{item.type}</td>
+                            <td style={{ color: (item.type === '충전' || item.type === '수박게임') ? 'red' : 'blue' }}>
+                                {(item.type === '충전' || item.type === '수박게임') ? `+${item.amount}` : `-${item.amount}`}
+                            </td>
+                            <td>{item.applieddate}</td>
+                        </tr>
+                    ))}
+                </table>
                 <button className="bg_blue bor_blue1"
-                        >더보기
+                >더보기
                 </button>
             </div>
         </div>
