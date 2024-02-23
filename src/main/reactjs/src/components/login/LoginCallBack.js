@@ -28,7 +28,7 @@ const LoginCallBack = () => {
                     }
 
                     const res = await axios.post("/login/getCallBack", params);
-                    
+
 
                     if (res.data.Signup === 'N') {
                         if (loginType === 'naver') {
@@ -43,8 +43,8 @@ const LoginCallBack = () => {
                         sessionStorage.token = res.data.token;
                         sessionStorage.id = res.data.id;
                         sessionStorage.usercode = res.data.usercode;
-                        
-                        navigate('/');
+
+                        navigate('/user/chat');
                     }
                 } catch (error) {
                     console.error('Error during login:', error);
