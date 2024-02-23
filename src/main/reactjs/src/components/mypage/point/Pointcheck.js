@@ -104,8 +104,8 @@ const Pointcheck = () => {
 
                         <tr>
                             <td>{item.type}</td>
-                            <td style={{ color: (item.type === '충전' || item.type === '수박게임') ? 'red' : 'blue' }}>
-                                {(item.type === '충전' || item.type === '수박게임') ? `+${item.amount}` : `-${item.amount}`}
+                            <td style={{ color: (item.type === '충전' || item.type === '오늘의미소') ? 'blue' : 'red' }}>
+                                {(item.type === '충전' || item.type === '오늘의미소') ? `+${item.amount}` : `-${item.amount}`}
                             </td>
                             <td>{item.applieddate}</td>
                         </tr>
