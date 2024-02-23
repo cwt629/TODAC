@@ -17,6 +17,80 @@ const ChatDiagnosis = () => {
 
     console.log("roomcode:" + roomcode);
 
+    // 포인트 사용
+    const [donationAmount, setDonationAmount] = useState(500);
+    const usercode = sessionStorage.getItem("usercode");
+
+    const pointUse = () => {
+        // 진단서 발급을 시도하기 전에 진단서가 이미 발급되었는지 확인
+        axios.get("/chat/diagnosis/check?chatroomcode=" + roomcode)
+            .then(response => {
+                if (response.data) {
+                    // 이미 진단서가 발급된 경우 알림 후 진단서 페이지로 이동
+                    Swal.fire({
+                        icon: 'warning',
+                        html: '이미 진단서가 발급되었습니다.',
+                        confirmButtonText: '확인',
+                        confirmButtonColor: '#5279FD'
+                    }).then(() => {
+                        nav('../diagnosis?chatroomcode=' + roomcode);
+                    });
+                } else {
+                    // 진단서 발급 시도
+                    Swal.fire({
+                        title: '진단서 발급',
+                        text: '진단서를 발급하시겠습니까?',
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#5279FD',
+                        cancelButtonColor: '#FF7170',
+                        confirmButtonText: '예',
+                        cancelButtonText: '아니오'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const url = "/payment?amount=" + donationAmount + "&usercode=" + usercode + "&type=진단서 발급";
+                            axios.post(url)
+                                .then(res => {
+                                    if (res.data === false) {
+                                        // 포인트 부족 시 충전 안내
+                                        Swal.fire({
+                                            icon: 'warning',
+                                            html: '포인트가 부족합니다. 포인트를 충전하시겠습니까?',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#5279FD',
+                                            cancelButtonColor: '#FF7170',
+                                            confirmButtonText: '예',
+                                            cancelButtonText: '아니오'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                nav('../../');
+                                            }
+                                            else {
+                                                nav('../summary?chatroomcode=' + roomcode);
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        // 진단서 발급 완료
+                                        Swal.fire({
+                                            icon: 'warning',
+                                            html: '진단서가 발급되었습니다.',
+                                            confirmButtonText: '확인',
+                                            confirmButtonColor: '#5279FD'
+                                        }).then(() => {
+                                            getDiagnosisMessages();
+                                        });
+                                    }
+                                })
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error checking diagnosis:', error);
+            });
+    }
+
     const summaryDB = async () => {
         try {
             const response = await axios.get("/chat/diagnosis?chatroomcode=" + roomcode);
@@ -130,7 +204,7 @@ const ChatDiagnosis = () => {
                 })
             }
             else {
-                getDiagnosisMessages();
+                pointUse();
             }
         } catch (error) {
             console.error("Error fetching diagnosis messages: ", error);
