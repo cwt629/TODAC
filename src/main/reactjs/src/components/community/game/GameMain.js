@@ -7,13 +7,13 @@ const GameMain = () => {
     const usercode = sessionStorage.getItem('usercode');
 
     let urlSet = 'http://175.45.192.182:7777?usercode=' + usercode;
-    urlSet = 'http://localhost:7777?usercode=' + usercode;
+    //urlSet = 'http://localhost:7777?usercode=' + usercode;
     //console.log(' ======================= urlSet : ', urlSet);
 
     useEffect(() => {
         const receiveMessage = (event) => {
             // 이벤트 객체의 origin 속성을 사용하여 메시지의 출처를 확인
-            if (event.origin !== 'http://localhost:7777') return; // 원하는 출처 확인
+            //if (event.origin !== 'http://localhost:7777') return; // 원하는 출처 확인
             if(event.data.gameDone) {
                 const score = event.data.score;
                 const point = score >= 800 ? 100 : 10;
