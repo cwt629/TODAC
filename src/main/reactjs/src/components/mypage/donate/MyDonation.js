@@ -3,22 +3,14 @@ import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
+import Button from "@mui/material/Button";
+import "../pointStyle.css";
 
-const MyDonation = () => {
-    const [member,setMember]=useState([]);
-    const storedId = sessionStorage.getItem("id");
+const MyDonation = ({member}) => {
     const usercode = sessionStorage.getItem("usercode");
     const [donationAmount,setDonationAmount]=useState();
     const ReactSwal = withReactContent(Swal);
     const nav = useNavigate();
-    const getmember = () => {
-        const url = "/member/info?userid=" + storedId;
-        axios.post(url)
-            .then(res => {
-                setMember(res.data);
-
-            })
-    }
 
     const donate = () => {
         const url = "/payment?amount="+donationAmount+"&usercode="+usercode+"&type=후원";
@@ -47,17 +39,11 @@ const MyDonation = () => {
     }
 
     useEffect(() => {
-        getmember();
+
     }, []);
 
     return (
-        <div className='mx_30'>
-            <div className='mt-1 fs_14 col_blue2'>
-                <Link to="/user">마이 홈 {'>'} </Link>
-                <Link to="/user/donate">후원</Link>
-            </div>
-            <div className='fs_25 fw_700'>나도 후원하기</div>
-
+        <div>ㅛ
             <div style={{textAlign: "center"}}>
                 <img alt="" src={require("../../../image/donationIcon/DonationMainIcon.png")}
                 className="mt_45"/>
@@ -65,15 +51,17 @@ const MyDonation = () => {
                 <h4 className="mt_45">보유 포인트 : <span style={{color: "#FF7170"}}>{member.point}</span></h4>
             </div>
             <div className="fs_18 mt_45"><b>후원 희망 포인트</b></div>
-                <input className="bg_red bor_red mt_10 br_5" type={"text"} value={donationAmount}
+            <div>
+                <input className="bg_gray bor_gray2 col_black br_5 h_35 mt_10 px-3" type={"text"} value={donationAmount}
                        onChange={(e) => {
                            setDonationAmount(e.target.value);
                        }} placeholder={"희망하는 후원 금액을 적어주세요."}/>
+            </div>
             <div className="mt_10" style={{textAlign:"center"}}>
-                <button className="bg_blue bor_blue1 mt_45 br_5 fs_18"
+                <Button variant="contained"
                         style={{width:"5em", height:"2em"}}
                         onClick={donate}>후원하기
-                </button>
+                </Button>
             </div>
         </div>
     );

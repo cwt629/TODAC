@@ -3,7 +3,6 @@ import RouterMain from './routers/RouterMain';
 import { BrowserRouter } from 'react-router-dom';
 import './components/CommonStyle.css';
 
-
 const Root = () => {
     return (
         <BrowserRouter>

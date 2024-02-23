@@ -15,20 +15,22 @@ import InquiryResponse from '../components/admin/inquiry/InquiryResponse';
 import InquiryHistoryDetail from '../components/admin/inquiry/InquiryHistoryDetail';
 import LoginMain from '../components/login/LoginMain';
 import Swal from 'sweetalert2';
+import MemberPostDetail from '../components/admin/user/MemberPostDetail';
 
 const RouterAdminMain = () => {
     const nav = useNavigate();
 
     useEffect(() => {
         if (!sessionStorage.getItem("token") || sessionStorage.getItem("id") !== "todac") {
-            Swal.fire({
-                icon: 'error',
-                title: '관리자가 아닙니다!',
-                confirmButtonColor: '#FF7170',
-                confirmButtonText: '확인'
-            }).then(() => {
-                nav("/login");
-            })
+            // Swal.fire({
+            //     icon: 'error',
+            //     title: '관리자가 아닙니다!',
+            //     confirmButtonColor: '#FF7170',
+            //     confirmButtonText: '확인'
+            // }).then(() => {
+            //     nav("/login");
+            // })
+            nav("/login");
         }
     }, [])
     return (
@@ -44,6 +46,7 @@ const RouterAdminMain = () => {
                         <Route path='inquiryHistory/InquiryResponse/:inquirycode' element={<InquiryResponse />} />
                         <Route path='MemberManage/MemberProfile' element={<MemberProfile />} />
                         <Route path='MemberManage/MemberProfile/MemberPost' element={<MemberPost />} />
+                        <Route path='MemberManage/MemberProfile/MemberPost/MemberPostDetail' element={<MemberPostDetail />} />
                         <Route path='MemberManage/MemberProfile/MemberComment' element={<MemberComments />} />
                         <Route path='MemberManage/MemberProfile/MemberPayment' element={<MemberPayment />} />
                         <Route path='MemberManage/MemberProfile/MemberPoint' element={<MemberPoint />} />
