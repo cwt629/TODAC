@@ -6,6 +6,7 @@ public interface CounselorDetailInterface {
 	String getBriefintro();
 	String getIntroduction();
 	String getPhoto();
+	String getCardcolor();
 	int getReviewcount();
 	double getAveragescore();
 }

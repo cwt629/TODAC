@@ -25,9 +25,14 @@ const ChattingLogContent = () => {
     useEffect(() => {
         axios.get("/chat/loginfo?chatroomcode=" + roomcode)
             .then((res) => {
+                console.log(res.data)
                 setInfo(res.data);
             })
     }, []);
+
+    const handleSummaryClick = () => {
+        nav("../summary?roomcode=" + roomcode);
+    }
 
     const handleDiagnosisClick = () => {
         nav("../diagnosis?chatroomcode=" + roomcode);
@@ -39,6 +44,7 @@ const ChattingLogContent = () => {
             <ChatLogMidbar counselorname={info?.counselorname} />
             <ChatLogContent log={info?.log} />
             <ChatLogButtons hasDiagnosis={info && info.diagnosisCount > 0}
+                handleSummaryClick={handleSummaryClick}
                 handleDiagnosisClick={handleDiagnosisClick} />
         </div>
     );
