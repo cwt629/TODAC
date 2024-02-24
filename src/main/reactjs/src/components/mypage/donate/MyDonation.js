@@ -31,7 +31,7 @@ const MyDonation = ({member}) => {
                         cancelButtonText: '확인',
                         cancelButtonColor: '#9396A6'
                     }).then(()=>{
-                        window.location.reload();
+                        nav("/user/community/donation")
                     })
                 }
 
@@ -43,7 +43,7 @@ const MyDonation = ({member}) => {
     }, []);
 
     return (
-        <div>ㅛ
+        <div>
             <div style={{textAlign: "center"}}>
                 <img alt="" src={require("../../../image/donationIcon/DonationMainIcon.png")}
                      className="mt_45"/>
