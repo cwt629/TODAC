@@ -30,4 +30,9 @@ public class BadgeController {
 		badgeDao.insertMembertoBadge(badgeDto);
 
 	}
+
+	@PostMapping("/updatebadge")
+	public void updatebadge(@RequestParam("usercode") int usercode){
+
+	}
 }

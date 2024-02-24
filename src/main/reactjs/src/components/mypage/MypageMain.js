@@ -113,7 +113,7 @@ const MypageMain = () => {
                     <option value="니가가라하와이">아메리카노</option>
                 </select>
                 <button onClick={insertusertobadge}>업적시작</button>
-                <button onClick={insertusertobadge}>업적업데이트</button>
+                <button onClick={updatebadge}>업적업데이트</button>
 
             </div>
 

@@ -17,5 +17,4 @@ public class BadgeDao {
 		{
 			badgeRepository.save(dto);
 		}
-
 }
