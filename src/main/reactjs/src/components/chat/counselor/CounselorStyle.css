@@ -2,6 +2,7 @@ div.counselormain {
     /* height: 100%; */
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 div.counseloroptions {
@@ -67,8 +68,8 @@ div.counselbtndiv.counsel-lognav {
 /* 스와이프 카드 관련(swiper) */
 
 .swiper {
-    width: 80%;
-    max-width: 300px;
+    width: 100%;
+    max-width: 350px;
     height: 550px;
 }
 
@@ -82,12 +83,12 @@ div.counselbtndiv.counsel-lognav {
 }
 
 .swiper-slide .counselorcard {
-    width: 100%;
+    width: 80%;
     height: 80%;
     border-radius: 20px;
     padding: 30px;
+    box-shadow: 5px 5px 5px gray;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     flex-direction: column;
     backface-visibility: hidden;
@@ -96,8 +97,10 @@ div.counselbtndiv.counsel-lognav {
 }
 
 .swiper-slide .swiper-slide-shadow {
+    width: 80%;
     height: 80%;
     top: 10%;
+    left: 10%;
     border-radius: 20px;
 }
 
