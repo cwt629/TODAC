@@ -84,7 +84,13 @@ const MypageMain = () => {
             }
         });
     };
+    const insertusertobadge=()=>{
+        axios.post("/badgeinsert?usercode="+usercode)
+    }
 
+    const updatebadge=()=>{
+        axios("/badgeupdate?usercode="+usercode)
+    }
     return (
 
         <div className="mypagemain">
@@ -101,10 +107,20 @@ const MypageMain = () => {
                 <div className='mt_10 fs_20 fw_700'>{member.nickname}</div>
             </div>
 
+            <div>
+                <button onClick={() => nav("badge")}>업적</button>
+                <select style={{width: "300px"}}>
+                    <option value="니가가라하와이">아메리카노</option>
+                </select>
+                <button onClick={insertusertobadge}>업적시작</button>
+                <button onClick={insertusertobadge}>업적업데이트</button>
+
+            </div>
+
             <div className="iconmenu mt-5">
                 <div onClick={() => nav('point')} className="col">
                     <img alt="" src={require("../../image/mypageIcon/point.png")} />
-                    <h6>포인트 <b style={{ color: "#FF7170" }}>{member.point}</b></h6>
+                    <h6>포인트 <b style={{ color: "#FF7170" }}>{member.point?.toLocaleString()}</b></h6>
                 </div>
                 <div onClick={() => nav('myboard')} className="col">
                     <img alt="" src={require("../../image/mypageIcon/board.png")} />
