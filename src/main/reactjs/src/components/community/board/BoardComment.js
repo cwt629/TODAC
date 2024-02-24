@@ -75,16 +75,16 @@ const BoardComment = () => {
             <div className='mt_25'>
                 <Paper
                     component='form'
+                    className='d-flex justify-content-between'
                     sx={{
                         p: "2px 4px",
-                        display: "flex",
                         alignItems: "center",
                         width: "100%",
                     }}
                 >
                     <InputBase
                         type='text'
-                        className='form-control'
+                        className=''
                         placeholder='댓글을 입력해 주세요.'
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
