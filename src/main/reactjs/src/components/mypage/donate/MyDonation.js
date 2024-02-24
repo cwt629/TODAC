@@ -31,7 +31,7 @@ const MyDonation = ({member}) => {
                         cancelButtonText: '확인',
                         cancelButtonColor: '#9396A6'
                     }).then(()=>{
-                        nav();
+                        window.location.reload();
                     })
                 }
 
@@ -43,48 +43,28 @@ const MyDonation = ({member}) => {
     }, []);
 
     return (
-    <div className="card">
-        {/* Title */}
-        <div className="title">
-            <h1>Top chart</h1>
-            <p>The world listened a lot of music this week.<br />Discover the ranking.</p>
+        <div>ㅛ
+            <div style={{textAlign: "center"}}>
+                <img alt="" src={require("../../../image/donationIcon/DonationMainIcon.png")}
+                     className="mt_45"/>
+                <div className="mt_25 fs_14">후원자분들의 후원금은 자선단체를 통해 <br/> 도움이 필요한 분들에게 전달 됩니다.</div>
+                <h4 className="mt_45">보유 포인트 : <span style={{color: "#FF7170"}}>{member.point}</span></h4>
+            </div>
+
+            <div className="fs_18 mt_45"><b>후원 희망 포인트</b></div>
+            <div>
+                <input className="bg_gray bor_gray2 col_black br_5 h_35 mt_10 px-3" type={"text"} value={donationAmount}
+                       onChange={(e) => {
+                           setDonationAmount(e.target.value);
+                       }} placeholder={"희망하는 후원 금액을 적어주세요."}/>
+            </div>
+            <div className="mt_10" style={{textAlign:"center"}}>
+                <Button variant="contained"
+                        style={{width:"5em", height:"2em"}}
+                        onClick={donate}>후원하기
+                </Button>
+            </div>
         </div>
-        {/*Rancking */}
-        <div className="box"> {/* #01 */}
-            {/* Number*/}
-            <div className="number">01</div>
-            {/* Cover */}
-            <div className="cover"><img src="https://m.media-amazon.com/images/I/91-kmdlsEsL._SS500_.jpg" alt="" /></div>
-            {/* Name */}
-            <div className="name"><span>Mi gente</span> J Balin &amp; Willy William</div>
-            {/* Button */}
-            <div className="link"><a href="https://www.youtube.com/watch?v=wnJ6LuUFpMo">Listen</a></div>
-        </div>
-        {/* Separator */}
-        <div className="separator" />
-        <div className="box"> {/* #02 */}
-            {/* Number*/}
-            <div className="number">02</div>
-            {/* Cover */}
-            <div className="cover"><img src="http://bit.ly/2vlCeWf" alt="" /></div>
-            {/* Name */}
-            <div className="name"><span>Feels</span> Calvin Harris</div>
-            {/* Button */}
-            <div className="link"><a href="https://www.youtube.com/watch?v=ozv4q2ov3Mk">Listen</a></div>
-        </div>
-        {/* Separator */}
-        <div className="separator" />
-        <div className="box"> {/* #03 */}
-            {/* Number*/}
-            <div className="number">03</div>
-            {/* Cover */}
-            <div className="cover"><img src="http://bit.ly/2vlRum1" alt="" /></div>
-            {/* Name */}
-            <div className="name"><span>Attention</span> Charlie Puth</div>
-            {/* Button */}
-            <div className="link"><a href="https://www.youtube.com/watch?v=nfs8NYg7yQM">Listen</a></div>
-        </div>
-    </div>
     );
 };
 
