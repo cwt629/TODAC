@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import chat.data.ChatDiagnosisDto;
+import chat.data.ChatDiagnosisInterface;
 import chat.data.ChatRoomDto;
 import chat.service.ChatDiagnosisService;
 import chat.service.ChatService;
@@ -26,7 +27,7 @@ public class ChatDiagnosisController {
 	}
 	
 	@GetMapping("/chat/diagnosis/check")
-	public ChatDiagnosisDto findByChatroom(@RequestParam("chatroomcode") Short chatroomcode) {
+	public ChatDiagnosisInterface findByChatroom(@RequestParam("chatroomcode") Short chatroomcode) {
 		return chatDiagnosisService.findByChatroom(chatroomcode);
 	}
 }

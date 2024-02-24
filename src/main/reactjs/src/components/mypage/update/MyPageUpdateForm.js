@@ -115,6 +115,16 @@ const MyPageUpdateForm = () => {
             return;
         }
 
+        if(nickname.length>8){
+            ReactSwal.fire({
+                icon: 'warning',
+                html: '닉네임을 8자이내로 해주세요',
+                cancelButtonText: '확인',
+                confirmButtonColor: '#FF7170'
+            })
+            return;
+        }
+
         if(!idcheck){
             ReactSwal.fire({
                 icon: 'warning',

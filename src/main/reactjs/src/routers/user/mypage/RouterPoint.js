@@ -4,6 +4,7 @@ import Pointcheck from '../../../components/mypage/point/Pointcheck';
 import Checkout from "../../../components/mypage/point/Checkout";
 import Success from "../../../components/mypage/point/Success";
 import Fail from "../../../components/mypage/point/Fail";
+import Pointcharge from "../../../components/mypage/point/Pointcharge";
 
 const RouterPoint = () => {
     return (
@@ -12,6 +13,7 @@ const RouterPoint = () => {
             <Route path='/Checkout' element={<Checkout />} />
             <Route path='/success/*' element={<Success />} />
             <Route path='/fail/*' element={<Fail />} />
+            <Route path='/charge' element={<Pointcharge />} />
         </Routes>
     );
 };
