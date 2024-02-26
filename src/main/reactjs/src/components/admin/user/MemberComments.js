@@ -116,7 +116,7 @@ const MemberComments = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="타입을 검색하세요"
+                placeholder="검색할 내용을 입력하세요"
                 className="form-control mb-3 fs_16 fw_800"
                 style={{
                     height: '40px',
