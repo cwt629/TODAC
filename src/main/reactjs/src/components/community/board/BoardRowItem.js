@@ -43,22 +43,40 @@ const BoardRowItem = ({ idx, data }) => {
                                     <div>
                                         <Typography
                                             style={{
-                                                marginTop: "-5px",
+                                                marginTop: "-3px",
                                                 marginBottom: "-5px",
                                                 overflow: "hidden",
                                                 textOverflow: "ellipsis",
                                                 whiteSpace: "nowrap",
+                                                fontSize: "16px",
                                             }}
                                         >
                                             {data.title}
                                         </Typography>
                                     </div>
-                                    <div className='d-flex justify-content-between'>
-                                        <div style={{ position: "relative", top: "1.5px" }}>
-                                            <Typography style={{ fontSize: "10px" }}>{data.nickname}</Typography>
-                                        </div>
-                                        <div style={{ position: "relative", top: "1.5px" }}>
-                                            <Typography style={{ fontSize: "10px" }}>{data.registereddate}</Typography>
+                                    <div style={{ marginTop: "3px" }}>
+                                        <div
+                                            className='d-flex justify-content-between'
+                                            style={{ position: "relative", top: "2.5px", alignItems: "center" }}
+                                        >
+                                            <div>
+                                                <img
+                                                    alt=''
+                                                    src={data.memberPhoto}
+                                                    style={{
+                                                        width: "18px",
+                                                        height: "18px",
+                                                        borderRadius: "50px",
+                                                    }}
+                                                />
+                                                <span style={{ marginLeft: "6px" }}>{data.nickname}</span>
+                                            </div>
+
+                                            <div style={{ position: "relative", top: "1.5px" }}>
+                                                <Typography style={{ fontSize: "10px" }}>
+                                                    {data.registereddate}
+                                                </Typography>
+                                            </div>
                                         </div>
                                     </div>
 

@@ -2,6 +2,7 @@ package game.controller;
 
 import java.util.HashMap;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,7 @@ public class GameController {
 	private final PointRecordDao pointRecordDao;
 	
 	@PostMapping("/game/insertpoint")
-	public @ResponseBody HashMap<String, Object> insertPoint(@RequestParam HashMap<String, Object> reqMap) throws Exception {
+	public @ResponseBody HashMap<String, Object> insertPoint(@RequestBody HashMap<String, Object> reqMap) throws Exception {
 		HashMap<String, Object> retMap = new HashMap<String, Object>();
 		
 		//System.out.println(" ============================ reqMap : " + reqMap);
@@ -31,7 +32,9 @@ public class GameController {
 		
 		if(score>800) {
 			score = 100;
-		} else { score = 10;}
+		} else { 
+			score = 10;
+		}
 		
         MemberDto memdto = memberDao.getMemberByData(usercode);
         int point;

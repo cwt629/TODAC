@@ -90,7 +90,7 @@ const Pointcheck = () => {
                 <div className="point" style={{textAlign:"center"}}>
                     <img alt="" src={require("../../../image/pointIcon/point.png")}
                          style={{margin:"40px 0px"}}/>
-                    <h4>보유 포인트 : <span style={{color:"#FF7170"}}>{member.point}</span></h4>
+                    <h4>보유 포인트 : <span style={{color:"#FF7170"}}>{member.point?.toLocaleString()}</span></h4>
                 </div>
 
                 <div className="fs_17 fw_800 mt_45">{member.nickname} 님의 포인트 사용내역</div>
@@ -104,8 +104,8 @@ const Pointcheck = () => {
 
                         <tr>
                             <td>{item.type}</td>
-                            <td style={{ color: (item.type === '충전' || item.type === '수박게임') ? 'red' : 'blue' }}>
-                                {(item.type === '충전' || item.type === '수박게임') ? `+${item.amount}` : `-${item.amount}`}
+                            <td style={{ color: (item.type === '충전' || item.type === '오늘의미소') ? 'blue' : 'red' }}>
+                                {(item.type === '충전' || item.type === '오늘의미소') ? `+${item.amount?.toLocaleString()}` : `-${item.amount?.toLocaleString()}`}
                             </td>
                             <td>{item.applieddate}</td>
                         </tr>
