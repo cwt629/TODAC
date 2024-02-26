@@ -1,15 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import noImage from "../../../image/no_image_board_form.png";
 import "./BoardStyle.css";
 import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
-import { width } from "@mui/system";
+import commentImg from "../../../image/comment.svg";
+import heartImg from "../../../image/heart_full.svg";
+import viewImg from "../../../image/view_icon.svg";
 
 const BoardRowItem = ({ idx, data }) => {
     console.log("여기 데이터가 무엇이냐" + data);
@@ -23,13 +20,14 @@ const BoardRowItem = ({ idx, data }) => {
 
     return (
         <div>
-            <ImageList
-                sx={{ width: "100%", maxWidth: "158px", bgcolor: "blue" }}
-                style={{ gridTemplateColumns: "1fr 1fr", gridGap: "0px 0px" }}
-            >
-                <ImageListItem key={idx} onClick={handleItemClick} sx={{ width: "100%", maxWidth: "158px" }}>
+            <ImageList sx={{ width: "100%", maxWidth: "159px", bgcolor: "white" }}>
+                <ImageListItem key={idx} onClick={handleItemClick} sx={{ width: "100%", maxWidth: "155px" }}>
                     <img
-                        style={{ width: "159px", height: "159px" }}
+                        style={{
+                            width: "155px",
+                            height: "159px",
+                            borderRadius: "0.2rem",
+                        }}
                         srcSet={`${
                             data.photo ? imageStorage + data.photo : noImage
                         }?w=248&fit=crop&auto=format&dpr=2 2x`}
@@ -37,30 +35,72 @@ const BoardRowItem = ({ idx, data }) => {
                         alt={data.title}
                         loading='lazy'
                     />
-                    <ImageListItemBar
-                        title={data.title}
-                        subtitle={
-                            <React.Fragment>
-                                <Typography
-                                    sx={{ display: "inline" }}
-                                    component='span'
-                                    variant='body2'
-                                    color='text.primary'
-                                >
-                                    {data.nickname}
-                                </Typography>
-                                <Typography style={{ float: "right" }}>{data.registereddate}</Typography>
-                                <Typography>
-                                    좋아요{data.likecount}
-                                    <br />
-                                    댓글수{data.commentcount}
-                                    <br />
-                                    조회수{data.visitcount}
-                                </Typography>
-                            </React.Fragment>
-                        }
-                        position='below'
-                    />
+                    <div>
+                        <ImageListItemBar
+                            sx={{ backgroundColor: "", opacity: "0.8", borderRadius: "0.2rem" }}
+                            subtitle={
+                                <>
+                                    <div>
+                                        <Typography
+                                            style={{
+                                                marginTop: "-5px",
+                                                marginBottom: "-5px",
+                                                overflow: "hidden",
+                                                textOverflow: "ellipsis",
+                                                whiteSpace: "nowrap",
+                                            }}
+                                        >
+                                            {data.title}
+                                        </Typography>
+                                    </div>
+                                    <div className='d-flex justify-content-between'>
+                                        <div style={{ position: "relative", top: "1.5px" }}>
+                                            <Typography style={{ fontSize: "10px" }}>{data.nickname}</Typography>
+                                        </div>
+                                        <div style={{ position: "relative", top: "1.5px" }}>
+                                            <Typography style={{ fontSize: "10px" }}>{data.registereddate}</Typography>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <Typography style={{ fontSize: "10px", float: "right" }}>
+                                            <div className='d-flex'>
+                                                <img
+                                                    alt=''
+                                                    src={heartImg}
+                                                    style={{ width: "13px", height: "11.38", marginRight: "2px" }}
+                                                />
+                                                {data.likecount}
+                                                <img
+                                                    alt=''
+                                                    src={commentImg}
+                                                    style={{
+                                                        width: "13px",
+                                                        height: "13px",
+                                                        marginRight: "2px",
+                                                        marginLeft: "2px",
+                                                    }}
+                                                />
+                                                {data.commentcount}
+                                                <img
+                                                    alt=''
+                                                    src={viewImg}
+                                                    style={{
+                                                        width: "13px",
+                                                        height: "11.38",
+                                                        marginRight: "2px",
+                                                        marginLeft: "2px",
+                                                    }}
+                                                />
+                                                {data.visitcount}
+                                            </div>
+                                        </Typography>
+                                    </div>
+                                </>
+                            }
+                            position='below'
+                        />
+                    </div>
                 </ImageListItem>
             </ImageList>
         </div>
