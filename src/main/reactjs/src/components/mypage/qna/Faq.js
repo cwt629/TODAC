@@ -1,7 +1,23 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Faq = () => {
+    const [memberinfo, setMemberinfo] = useState([]);
+
+    const id = sessionStorage.getItem("id");
+
+    const getmemberinfo = () => {
+        axios.post("/member/info?userid="+id).then((res)=>{
+            console.log(res.data);
+            setMemberinfo(res.data);
+        })
+    }
+
+    useEffect(()=>{
+        getmemberinfo();
+    }, []);
+
 
     return (
         <div className='mx_30'>
@@ -11,7 +27,7 @@ const Faq = () => {
             </div>
             <div className='fs_25 fw_700'>도움말</div>
 
-            <div className='mt_45 fw_500'>아이디 님, <br/>무엇을 도와드릴까요?</div>
+            <div className='mt_45 fw_500'><span className='fw_900 col_blue4 fs_18'>{memberinfo.nickname}</span> 님, <br/>무엇을 도와드릴까요?</div>
             <div className='fs_20 fw_700 mt_45'>FAQ</div>
 
             <div className="faq accordion mt_10 fw_600" id="accordionPanelsStayOpenExample">
