@@ -430,7 +430,7 @@ span.header-clickable {
     display: block;
     -webkit-animation: pulse 2s infinite;
     animation: pulse 2s infinite;
-    color: var(--skyblue);
+    color: var(--deepred);
 }
 
 @-webkit-keyframes pulse {
@@ -661,7 +661,7 @@ button.start_btn:active::before {
     top: -15px;
     display: inline-block;
     animation: bounce .3s ease infinite alternate;
-    text-shadow: 0 1px 0 transparent, 
+    /* text-shadow: 0 1px 0 transparent, 
              0 2px 0 transparent, 
              0 3px 0 transparent, 
              0 4px 0 transparent, 
@@ -670,7 +670,7 @@ button.start_btn:active::before {
              0 7px 0 transparent, 
              0 8px 0 transparent, 
              0 9px 0 transparent, 
-             0 10px 10px rgba(0, 0, 0, 0.4);
+             0 10px 10px rgba(0, 0, 0, 0.4); */
   }
   
   .click_ani span:nth-child(2) { animation-delay: .1s; }
@@ -683,7 +683,7 @@ button.start_btn:active::before {
   @keyframes bounce {
     100% {
       top: -20px;
-      text-shadow: 0 1px 0 transparent, 
+      /* text-shadow: 0 1px 0 transparent, 
              0 2px 0 transparent, 
              0 3px 0 transparent, 
              0 4px 0 transparent, 
@@ -692,10 +692,22 @@ button.start_btn:active::before {
              0 7px 0 transparent, 
              0 8px 0 transparent, 
              0 9px 0 transparent, 
-             0 50px 25px rgba(0, 0, 0, 0.2);
+             0 50px 25px rgba(0, 0, 0, 0.2); */
     }
   }
 
   .pt_20{
     padding-top: 40px;
+  }
+
+  .col_blue3{
+    color: var(--skyblue);
+  }
+
+  .bg_blue3{
+    background-color: #E7EDF7;
+  }
+
+  .bor_blue3{
+    border: 1px solid #BAD1E6;
   }
