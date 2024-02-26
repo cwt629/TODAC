@@ -12,7 +12,7 @@ const CounselorCardLast = () => {
                 상담사를 직접 커스텀해보세요!
             </div>
             <div className='mt_25'>
-                <button type='button'
+                <button type='button' className='counselinnerbtn btn-jittery'
                     onClick={() => nav("custom")}>GO!</button>
             </div>
         </div>
