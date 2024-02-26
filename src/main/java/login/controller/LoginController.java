@@ -40,17 +40,12 @@ public class LoginController {
     @Value("${react.kakao.login.logoutRedirectUrl}")
     private String logoutRedirectUrl;
 
-    
-    
     @PostMapping("/game/testresult")
 	public @ResponseBody Map<String, Object> test(@RequestParam HashMap<String, Object> reqMap) {
 		Map<String, Object> map=new HashMap<>();
 		map.put("result", "success");
 		return map;
 	}
-    
-
-	
     
     //관리자 로그인 - 아이디가 없는 경우 noid, 있는 경우 비번을 비교하고 맞을때만 토큰 전달
 	@PostMapping("/login/auth")
@@ -146,7 +141,7 @@ public class LoginController {
 		return map;
 	}
 	
-	//로그아웃 url
+	//로그아웃 콜백
 	@PostMapping("/logout/logoutCallBack")
 	public Map<String, Object> logoutCallBack(@RequestBody HashMap<String, Object> reqMap) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
