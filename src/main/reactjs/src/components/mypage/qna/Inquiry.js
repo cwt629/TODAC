@@ -54,15 +54,15 @@ const Inquiry = () => {
             </div>
             <div className='fs_25 fw_700'>나의 문의내역</div>
 
-            <div className='mt_45 fw_500'><span className='fw_900 col_blue1'>{memberinfo.nickname}</span> 님, <br/>무엇을 도와드릴까요?</div>
+            <div className='mt_45 fw_500'><span className='fw_900 col_blue3'>{memberinfo.nickname}</span> 님, <br/>무엇을 도와드릴까요?</div>
 
             <div className='d-flex mt_45 inquiry_list align-items-center'>
                 <div className='me-auto fs_18 fw_700'>
                     1:1 문의내역
                 </div>
                 <div className='ml-auto'>
-                    <button  onClick={() => nav('form')}>
-                        <img alt='' src={require('../../../image/ico_inquiry.png')} className='img-fluid'/>
+                    <button  onClick={() => nav('form')} className='btn_m1'>
+                        {/* <img alt='' src={require('../../../image/ico_inquiry3.png')} className='img-fluid'/> */}
                         <span className='mx-2'>1:1 문의하기</span>
                     </button>
                 </div>
