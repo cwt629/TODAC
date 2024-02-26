@@ -42,7 +42,7 @@ const InquiryDetail = () => {
                 <div className='fs_18 fw_700'>
                     Q. {selectQnaData.title}
                 </div>
-                <div className='mt_10 bg_red bor_red br_5 p-2' style={{height:"200px"}}>
+                <div className='mt_10 bg_blue3 bor_blue3 br_5 p-2' style={{height:"200px"}}>
                     {selectQnaData.inquiry}
                 </div>
             </div>
@@ -51,17 +51,17 @@ const InquiryDetail = () => {
                 <div className='fs_18 fw_700'>
                     A. 문의 답변 
                 </div>
-                <div className='mt_10 bg_blue bor_blue1 br_5 p-2' style={{height:"200px"}}>
+                <div className='mt_10 bg_blue3 bor_blue3 br_5 p-2' style={{height:"200px"}}>
                     {selectQnaData.answer ? selectQnaData.answer : '아직 답변이 달리지 않았습니다.'}
                 </div>
             </div>
 
             <div className='d-flex mt_45 inquiry_btn justify-content-evenly'>
-                    <button type='button' onClick={() => nav('../form')}>
-                        문의 다시하기
-                    </button>
                     <button type='button' onClick={() => nav('../')}>
                         문의  목록으로
+                    </button>
+                    <button type='button' onClick={() => nav('../form')}>
+                        문의 다시하기
                     </button> 
             </div>
         </div>
