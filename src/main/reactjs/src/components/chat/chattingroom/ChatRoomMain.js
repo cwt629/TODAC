@@ -53,7 +53,7 @@ const ChatRoomMain = () => {
                     'speaker': counselorcode,
                     'photo': (res.data.counselorPhoto) ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + res.data.counselorPhoto : defaultProfilePhoto
                 }]);
-                setSystemMessage(res.data.counselorPersonality + SYSTEM_MESSAGE_SUFFIX);
+                setSystemMessage(`당신은 ${res.data.counselorPersonality} 심리 상담사이며, 당신의 이름은 ${res.data.counselorName}입니다. 실제 대화하듯이 구어체로 답변하고, 답변은 300자를 넘지 않아야 합니다.`);
             })
     }, [])
 
