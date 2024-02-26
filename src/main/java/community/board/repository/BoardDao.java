@@ -45,8 +45,22 @@ public class BoardDao {
         boardRepository.save(boardDto);
     }
 
-    public List<MainListInterface> getBoardList(){
-        return boardRepository.getBoardList();
+    public List<MainListInterface> getBoardList() {
+        return boardRepository.findAllByOrderByBoardCodeDesc("latest");
+    }
+
+    public List<MainListInterface> getBoardListSorted(String sortBy) {
+        switch (sortBy) {
+            case "latest":
+                return boardRepository.findAllByOrderByBoardCodeDesc("latest");
+            case "recommended":
+                return boardRepository.findAllByOrderByBoardCodeDesc("recommended");
+            case "mostViewed":
+                return boardRepository.findAllByOrderByBoardCodeDesc("mostViewed");
+            default:
+                // 정렬 옵션이 지정되지 않았거나 올바르지 않은 경우 최신순으로 정렬
+                return boardRepository.findAllByOrderByBoardCodeDesc("latest");
+        }
     }
     
     public List<BoardDto> getMemberPostData(int usercode)
