@@ -28,6 +28,11 @@ div.chatcontent {
     align-items: flex-start;
 }
 
+/* 추가 폼의 미리보기에 들어갈 채팅창 */
+div.chatcontent.chatpreview {
+    height: 150px;
+}
+
 div.chatcontent div.chatcomponent {
     width: 100%;
     box-sizing: border-box;

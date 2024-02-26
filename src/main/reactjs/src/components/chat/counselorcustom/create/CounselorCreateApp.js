@@ -1,5 +1,8 @@
 import React from 'react';
 import PageHeader from '../../../PageHeader';
+import CounselorCreateTable from './CounselorCreateTable';
+import './CounselorCreateStyle.css';
+import '../../chattingroom/ChatRoomStyle.css';
 
 const CounselorCreateApp = () => {
     const CURRENT_ROUTES = [
@@ -12,6 +15,7 @@ const CounselorCreateApp = () => {
     return (
         <div className='mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+            <CounselorCreateTable />
         </div>
     );
 };

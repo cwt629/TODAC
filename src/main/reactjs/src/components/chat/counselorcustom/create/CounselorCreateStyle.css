@@ -1,0 +1,22 @@
+table.counselor-create {
+    width: 100%;
+    /* max-width: 400px; */
+}
+
+table tbody tr>td.category {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.custom-btn-outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.custom-btn-div {
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+}

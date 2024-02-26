@@ -1,9 +1,9 @@
 import React from 'react';
 import './ChatLoading.css';
 
-const ChatContent = ({ log, loading, nextCounselorPhoto }) => {
+const ChatContent = ({ log, loading, nextCounselorPhoto, isPreview = false }) => {
     return (
-        <div className='chatcontent fs_14 bor_red bg_red mt_10'>
+        <div className={`chatcontent fs_14 bor_red bg_red mt_10 ${isPreview ? 'chatpreview' : ''}`}>
             {
                 log.map((data, index) => {
                     let compClass = (data.speaker > 0) ? 'chatcomponent counselor' : 'chatcomponent user';
