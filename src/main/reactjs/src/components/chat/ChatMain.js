@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import LogNavigationButton from './counselor/LogNavigationButton';
 import withReactContent from 'sweetalert2-react-content';
+import './ChatStyle.css';
 
 const ReactSwal = withReactContent(Swal);
 

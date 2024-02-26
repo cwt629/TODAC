@@ -1,0 +1,95 @@
+/* ChatStyle.css */
+.btn-3d {
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+    padding: 20px 60px;
+    color: white;
+    margin: 20px 10px 10px;
+    border-radius: 6px;
+    text-align: center;
+    /* transform 트랜지션으로 변경 */
+    transition: transform 0.1s ease;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.btn-3d.cyan:hover {
+    background-color: #82D1E3;
+}
+
+.btn-3d:active {
+    /* 클릭 시 아래로 2px 이동하는 효과 */
+    transform: translateY(2px);
+    box-shadow: 0 0 0 1px #7fccde inset,
+        0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+        /* 클릭 시 그림자 강조 */
+        0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.btn-3d.cyan {
+    background-color: #7fccde;
+    box-shadow: 0 0 0 1px #7fccde inset,
+        0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+        /* 그림자 강조 */
+        0 3px 6px rgba(0, 0, 0, 0.3);
+    height: 30px;
+}
+
+@keyframes jittery {
+
+    5%,
+    50% {
+        transform: scale(1);
+    }
+
+    10% {
+        transform: scale(0.9);
+    }
+
+    15% {
+        transform: scale(1.15);
+    }
+
+    20% {
+        transform: scale(1.15) rotate(-5deg);
+    }
+
+    25% {
+        transform: scale(1.15) rotate(5deg);
+    }
+
+    30% {
+        transform: scale(1.15) rotate(-3deg);
+    }
+
+    35% {
+        transform: scale(1.15) rotate(2deg);
+    }
+
+    40% {
+        transform: scale(1.15) rotate(0);
+    }
+}
+
+.btn-jittery {
+    animation: jittery 2s infinite;
+}
+
+.btn-primary {
+    --bs-btn-bg: #FBB9AB;
+    --bs-btn-border-color: #FBB9AB;
+}
+
+.filter_color {
+    background-color: #D4E4F2;
+    border-color: #BAD1E6;
+}
+
+.filter_in_color {
+    background-color: #E7EDF7;
+}
+
+.moreView {
+    border-color: #BAD1E6;
+    background-color: #E7EDF7;
+}

@@ -9,9 +9,9 @@ const ChatListTable = ({ list, showLength }) => {
             <table className='chatlog-table'>
                 <thead>
                     <tr>
-                        <th width='50' style={{ backgroundColor: '#F9EAEB' }}>번호</th>
-                        <th width='171' style={{ backgroundColor: '#F9EAEB' }}>날짜</th>
-                        <th width='112' style={{ backgroundColor: '#F9EAEB' }}>상담사</th>
+                        <th width='50' style={{ backgroundColor: '#F7E9E4' }}>번호</th>
+                        <th width='171' style={{ backgroundColor: '#F7E9E4' }}>날짜</th>
+                        <th width='112' style={{ backgroundColor: '#F7E9E4' }}>상담사</th>
                     </tr>
                 </thead>
                 <tbody>

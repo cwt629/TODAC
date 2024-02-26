@@ -6,7 +6,7 @@ const ChatListFilter = ({ dateOrderAsc, handleDateOrderClick, counselor, filterL
             <div className='fs_10 fw_700'>정렬 기준</div>
             &emsp;
 
-            <button className='bor_red bg_red br_5 chat-date'
+            <button className='br_5 chat-date filter_color'
                 onClick={handleDateOrderClick}>
                 날짜순 <span className={`chat-arrow ${dateOrderAsc ? '' : 'chat-arrow-down'}`}>↑</span>
             </button>&emsp;
@@ -21,10 +21,10 @@ const ChatListFilter = ({ dateOrderAsc, handleDateOrderClick, counselor, filterL
                     }
                 </select> */}
             <div className='dropdown-center'>
-                <button className='dropdown-toggle bg_red bor_red br_5' type='button' data-bs-toggle="dropdown">
+                <button className='dropdown-toggle br_5 filter_color' type='button' data-bs-toggle="dropdown">
                     상담사 : {counselor}
                 </button>
-                <ul className='dropdown-menu bg_red bor_red'>
+                <ul className='dropdown-menu filter_in_color'>
                     {
                         filterList.map((item, idx) => (
                             <li key={idx} value={item} onClick={() => handleCounselorSelect(item)}>
