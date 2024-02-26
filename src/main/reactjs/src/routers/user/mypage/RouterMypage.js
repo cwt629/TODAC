@@ -6,8 +6,8 @@ import RouterInquiry from './RouterInquiry';
 import RouterPoint from './RouterPoint';
 import MyPageUpdateForm from "../../../components/mypage/update/MyPageUpdateForm";
 import MyBoardMain from "../../../components/mypage/myboard/MyBoardMain";
-import MyDonation from "../../../components/mypage/donate/MyDonation";
 import DonationContent from "../../../components/mypage/donate/DonationContent";
+import BadgeMain from "../../../components/mypage/badge/BadgeMain";
 
 const RouterMypage = () => {
     return (
@@ -19,6 +19,8 @@ const RouterMypage = () => {
             <Route path='/update/*' element={<MyPageUpdateForm />} />
             <Route path='/myboard/*' element={<MyBoardMain />} />
             <Route path='/donate/*' element={<DonationContent />} />
+            <Route path='/badge/*' element={<BadgeMain />} />
+
 
         </Routes>
     );
