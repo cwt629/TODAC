@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Swal from 'sweetalert2';
-import { Pagination, InputAdornment, OutlinedInput } from '@mui/material';
+import { Pagination, InputAdornment, OutlinedInput, Input, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const MemberComments = () => {
     const nav = useNavigate();
@@ -101,30 +102,42 @@ const MemberComments = () => {
             </div>
             <div className='fs_25 fw_700'>회원 댓글</div> <br />
 
-            <div style={{ textAlign: 'center' }}>
-                <img alt='' src={member.photo} style={{ width: '25vh', height: '25vh' }} />
-                <br /><br />
-                <h1 className='fs_25 fw_700'>{member.nickname}님</h1>
-                <br />
+            <div className='fs_25 fw_700' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <img alt='' src={member.photo} style={{ width: '15vh', height: '15vh', borderRadius: '50%' }} />
+                    <span className='fs_25 fw_700 mt-2'>{member.nickname}님</span>
+                </div>
             </div>
-            <div className='fs_17 fw_800'>{member.nickname} 님의 댓글 검색</div>
+            {/* <div className='fs_17 fw_800'>{member.nickname} 님의 댓글 검색</div> */}
 
             {/* 검색창 */}
-            <OutlinedInput
+            <Input
                 id="search"
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="타입을 검색하세요"
-                className="form-control mb-3 bg_red col_gray fs_16 fw_800"
+                className="form-control mb-3 fs_16 fw_800"
                 style={{
-                    '::placeholder': { color: 'gray' },
                     height: '40px',
                     padding: '8px',
-                    borderRadius: '5px',
+                    borderBottom: '1px solid #D4E4F2',
+                    borderRadius: '0',
+                    border: 'none',
                 }}
                 startAdornment={
-                    <InputAdornment position="start">
+                    <>
+                        {searchQuery && (
+                            <InputAdornment position="start">
+                                <IconButton onClick={() => setSearchQuery('')}>
+                                    <ClearIcon />
+                                </IconButton>
+                            </InputAdornment>
+                        )}
+                    </>
+                }
+                endAdornment={
+                    <InputAdornment position="end">
                         <SearchIcon />
                     </InputAdornment>
                 }

@@ -76,32 +76,32 @@ const MemberProfile = () => {
             </div>
             <div className="listmenu fw_600 align-items-center mt_45">
                 <div onClick={() => nav('MemberPost?usercode=' + member.usercode)}>
-                    <img alt="" src={require("../../../image/mypageIcon/info.png")} />
+                    <img alt="" src={require("../../../image/adminIcon/Write.png")} />
                     <span className='mx-3 fs_17'>{member.nickname} 님의 게시글</span>
                     <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
                 </div>
                 <div onClick={() => nav('MemberComment?usercode=' + member.usercode)} className='mt-4'>
-                    <img alt="" src={require("../../../image/mypageIcon/11.png")} />
+                    <img alt="" src={require("../../../image/adminIcon/Write.png")} />
                     <span className='mx-3 fs_17'>{member.nickname} 님의 댓글</span>
                     <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
                 </div>
                 <div onClick={() => nav('MemberPayment?usercode=' + member.usercode)} className='mt-4'>
-                    <img alt="" src={require("../../../image/mypageIcon/faq.png")} />
+                    <img alt="" src={require("../../../image/adminIcon/CreditCard1.png")} />
                     <span className='mx-3 fs_17'>{member.nickname} 님의 결제 내역</span>
                     <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
                 </div>
                 <div onClick={() => nav('MemberPoint?usercode=' + member.usercode)} className='mt-4'>
-                    <img alt="" src={require("../../../image/mypageIcon/faq.png")} />
+                    <img alt="" src={require("../../../image/adminIcon/CoinPurse.png")} />
                     <span className='mx-3 fs_17'>{member.nickname} 님의 포인트 사용</span>
                     <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
                 </div>
                 <div onClick={() => nav('MemberChatSearch?usercode=' + member.usercode)} className='mt-4'>
-                    <img alt="" src={require("../../../image/mypageIcon/faq.png")} />
+                    <img alt="" src={require("../../../image/adminIcon/conversationchat.svg")} />
                     <span className='mx-3 fs_17'>{member.nickname} 님의 채팅 기록</span>
                     <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
                 </div>
                 <div onClick={() => onPersonDelete(usercode)} className='mt-4' style={{ marginTop: "10px" }}>
-                    <img alt="" src={require("../../../image/mypageIcon/logout.png")} />
+                    <img alt="" src={require("../../../image/adminIcon/x.svg")} />
                     <span style={{ color: "red" }} className='mx-3'>회원 삭제</span>
                     <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
                 </div>
