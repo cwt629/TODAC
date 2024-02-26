@@ -5,6 +5,8 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
+import { useNavigate, useParams } from "react-router-dom";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 
 // 날짜를 로그에 맞게 포매팅하는 함수
 function getDateFormatPieces(str) {
@@ -35,9 +37,11 @@ function getDateFormatPieces(str) {
     };
 }
 
-const CommentRowItem = ({ idx, data }) => {
+const CommentRowItem = ({ idx, data, deleteComment }) => {
     // 날짜 포맷팅
     const datePieces = getDateFormatPieces(data.registerDate);
+    const userRole = sessionStorage.getItem("id");
+    const navi = useNavigate();
 
     return (
         <div>
@@ -50,26 +54,52 @@ const CommentRowItem = ({ idx, data }) => {
                         <ListItemText
                             style={{ marginTop: "-3px" }}
                             primary={
-                                <Typography
-                                    sx={{ display: "inline", fontWeight: "650", fontSize: "14.8px" }}
-                                    component='span'
-                                    variant='body1' //크기 조절 가능 mui
-                                    color='text.primary'
-                                >
-                                    {data.memberNickname}
-                                </Typography>
+                                <>
+                                    <div className='d-flex justify-content-between'>
+                                        <Typography
+                                            sx={{ display: "inline", fontWeight: "650", fontSize: "14.8px" }}
+                                            component='span'
+                                            variant='body1' //크기 조절 가능 mui
+                                            color='text.primary'
+                                        >
+                                            {data.memberNickname}
+                                        </Typography>
+                                        {userRole === "todac" ? (
+                                            // 관리자인 경우에는 삭제 기능만 표시
+                                            <div>
+                                                <button
+                                                    onClick={() => deleteComment(data.commentCode)}
+                                                    style={{ cursor: "pointer" }}
+                                                >
+                                                    삭제
+                                                </button>
+                                            </div>
+                                        ) : // 일반 사용자인 경우 글 작성자인지 확인 후 삭제 버튼 표시
+                                        data.userCode == sessionStorage.getItem("usercode") ? (
+                                            <div>
+                                                <button
+                                                    onClick={() => deleteComment(data.commentCode)}
+                                                    style={{ cursor: "pointer", background: "none", border: "none" }}
+                                                >
+                                                    <ClearRoundedIcon sx={{ fontSize: "15px" }} />
+                                                </button>
+                                            </div>
+                                        ) : null}
+                                    </div>
+                                </>
                             }
                             secondary={
                                 <React.Fragment>
-                                    <Typography
-                                        sx={{ display: "inline", fontSize: "12px" }}
-                                        component='span'
-                                        variant='body2'
-                                        color='text.primary'
-                                    >
-                                        {`${datePieces.year}. ${datePieces.month}. ${datePieces.day}. ${datePieces.ampm} ${datePieces.hour}:${datePieces.minute}`}
-                                    </Typography>
-                                    <br />
+                                    <div>
+                                        <Typography
+                                            sx={{ display: "inline", fontSize: "12px" }}
+                                            component='span'
+                                            variant='body2'
+                                            color='text.primary'
+                                        >
+                                            {`${datePieces.year}. ${datePieces.month}. ${datePieces.day}. ${datePieces.ampm} ${datePieces.hour}:${datePieces.minute}`}
+                                        </Typography>
+                                    </div>
                                     <Typography
                                         sx={{ display: "inline", fontWeight: "600", fontSize: "14.5px" }}
                                         component='span'
