@@ -31,6 +31,7 @@ const BoardMain = () => {
         axios.get("/main/list").then((res) => {
             setList(res.data);
             setFilteredList(res.data); // 초기 전체 리스트 출력용
+            console.log(res.data);
         });
     };
 
@@ -112,7 +113,6 @@ const BoardMain = () => {
                     </IconButton>
                     <InputBase
                         type='text'
-                        className=''
                         placeholder='검색어를 입력해 주세요.'
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
@@ -134,11 +134,12 @@ const BoardMain = () => {
             </div>
             <div className='btn_add' onClick={() => navi("form")}>
                 <Fab
-                    color='secondary'
                     sx={{
                         position: "absolute",
                         bottom: (theme) => theme.spacing(2),
                         right: (theme) => theme.spacing(2),
+                        backgroundColor: "#69caf7",
+                        color: "white",
                     }}
                 >
                     <CreateIcon />
@@ -148,7 +149,8 @@ const BoardMain = () => {
             <div className='mt-1'>
                 {filteredList.length === 0 ? (
                     <Typography className='no_result' variant='h6' color='textSecondary'>
-                        <h1 style={{ color: "orange" }}>검색 결과가 없습니다.</h1>
+                        <h1 style={{ color: "#69caf7" }}>"{search}"</h1>
+                        <h1>에 대한 검색 결과가 없습니다.</h1>
                         <br />
                         다른 검색어를 입력하시거나
                         <br />
@@ -176,7 +178,6 @@ const BoardMain = () => {
                                 count={Math.ceil(filteredList.length / rowsPerPage)}
                                 size='small'
                                 shape='rounded'
-                                color='secondary'
                                 page={page}
                                 onChange={handleChangePage}
                             />
