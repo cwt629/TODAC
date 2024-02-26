@@ -28,7 +28,7 @@ div.diagnosisSummaryContent {
     box-sizing: border-box;
     border-radius: 3px;
     width: 100%;
-    height: 5vh;
+    height: auto;
     padding: 0 10px;
     overflow-y: auto;
     flex: 1;
@@ -41,7 +41,7 @@ div.diagnosisSummaryAnswerContent {
     box-sizing: border-box;
     border-radius: 3px;
     width: 100%;
-    height: 5vh;
+    height: auto;
     padding: 0 10px;
     overflow-y: auto;
     flex: 1;
@@ -54,7 +54,7 @@ div.diagnosisPsychology {
     box-sizing: border-box;
     border-radius: 3px;
     width: 100%;
-    height: 10vh;
+    height: auto;
     padding: 0 10px;
     overflow-y: auto;
     flex: 1;
@@ -67,7 +67,7 @@ div.diagnosisActing {
     box-sizing: border-box;
     border-radius: 3px;
     width: 100%;
-    height: 10vh;
+    height: auto;
     padding: 0 10px;
     overflow-y: auto;
     flex: 1;
