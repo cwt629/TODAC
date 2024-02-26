@@ -5,6 +5,7 @@ import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import Button from "@mui/material/Button";
 import "../pointStyle.css";
+import OneCoinOneHeart from "./OneCoinOneHeart";
 
 const MyDonation = ({member}) => {
     const usercode = sessionStorage.getItem("usercode");
@@ -45,9 +46,8 @@ const MyDonation = ({member}) => {
     return (
         <div>
             <div style={{textAlign: "center"}}>
-                <img alt="" src={require("../../../image/donationIcon/DonationMainIcon.png")}
-                     className="mt_45"/>
-                <div className="mt_25 fs_14">후원자분들의 후원금은 자선단체를 통해 <br/> 도움이 필요한 분들에게 전달 됩니다.</div>
+                <OneCoinOneHeart/>
+                <div className="fs_14">후원자분들의 후원금은 자선단체를 통해 <br/> 도움이 필요한 분들에게 전달 됩니다.</div>
                 <h4 className="mt_45">보유 포인트 : <span style={{color: "#FF7170"}}>{member.point}</span></h4>
             </div>
 
