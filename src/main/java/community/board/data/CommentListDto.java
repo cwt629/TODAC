@@ -14,7 +14,7 @@ public class CommentListDto {
     private Timestamp registerDate;
     private String content;
     private int userCode;
-
+    private int commentCode;
     public CommentListDto(BoardCommentDto boardCommentDto) {
         boardCode = boardCommentDto.getBoard().getBoardcode();
         memberNickname = boardCommentDto.getMember().getNickname();
@@ -22,6 +22,7 @@ public class CommentListDto {
         registerDate = boardCommentDto.getRegistereddate();
         content = boardCommentDto.getContent();
         userCode = boardCommentDto.getMember().getUsercode();
+        commentCode = boardCommentDto.getCommentcode();
     }
 
 }

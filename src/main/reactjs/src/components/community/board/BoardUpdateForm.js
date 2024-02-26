@@ -116,7 +116,7 @@ const BoardUpdateForm = () => {
                                     src={noImage}
                                     style={{
                                         width: "100%",
-                                        height: "198px",
+                                        height: "100%",
                                         border: "2px solid white",
                                         borderRadius: "0.8rem",
                                     }}
@@ -127,7 +127,7 @@ const BoardUpdateForm = () => {
                                     src={imageStorage + selectData.photo}
                                     style={{
                                         width: "100%",
-                                        height: "198px",
+                                        height: "100%",
                                         border: "2px solid white",
                                         borderRadius: "0.8rem",
                                     }}
@@ -136,9 +136,9 @@ const BoardUpdateForm = () => {
                             {loading && (
                                 <div
                                     style={{
-                                        position: "absolute",
-                                        top: "50%", // 부모 요소의 50% 위치
-                                        left: "50%", // 부모 요소의 50% 위치
+                                        position: "relative",
+                                        top: "180px", // 부모 요소의 50% 위치
+                                        left: "43%", // 부모 요소의 50% 위치
                                         transform: "translate(-50%, -50%)", // 중앙 정렬을 위한 transform
                                     }}
                                 >

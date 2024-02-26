@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import diagnosisImg from '../../../../image/diagnosis.png';
 
 
-const ChatLogButtons = ({ hasDiagnosis, handleDiagnosisClick }) => {
+const ChatLogButtons = ({ hasDiagnosis, handleSummaryClick, handleDiagnosisClick }) => {
     const nav = useNavigate();
 
     const handleInfoClick = () => {
@@ -20,7 +20,7 @@ const ChatLogButtons = ({ hasDiagnosis, handleDiagnosisClick }) => {
 
     return (
         <div className='mt_45' style={{ textAlign: 'center', height: '55px' }}>
-            <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../loglist')}>뒤로가기</button>
+            <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={handleSummaryClick}>요약본 확인</button>
             &nbsp;&nbsp;
             {
                 hasDiagnosis ?

@@ -33,7 +33,7 @@ const CounselorCardBack = ({ borcolor, data, handleCounselClick }) => {
                 }
             </div>
             <div className='mt_10'>
-                <button type='button'
+                <button type='button' className='counselinnerbtn officialbtn btn-jittery fw_600'
                     onClick={() => handleCounselClick(data)}>TODAC 상담시작</button>
             </div>
         </div>

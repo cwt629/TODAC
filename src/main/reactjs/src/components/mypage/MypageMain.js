@@ -12,10 +12,12 @@ const MypageMain = () => {
     const storedId = sessionStorage.getItem("id");
     const loginType = sessionStorage.getItem("loginType");
     const usercode = sessionStorage.getItem("usercode");
-
+    const [achieve, setAchieve] = useState([]);
+    const achievename = "뉴비"
     useEffect(() => {
         getmember();
         console.log("storedId:", storedId, ", usercode:", usercode);
+        getachievelist();
     }, []);
 
     const getmember = () => {
@@ -24,6 +26,15 @@ const MypageMain = () => {
             .then(res => {
                 setmember(res.data);
                 //console.log(res.data);
+            })
+    }
+
+    const getachievelist = () => {
+        const url = "getachievelist?usercode=" + usercode;
+        axios.post(url)
+            .then(res => {
+                setAchieve(res.data);
+                console.log(res.data);
             })
     }
 
@@ -84,7 +95,13 @@ const MypageMain = () => {
             }
         });
     };
+    const insertusertobadge=()=>{
+        axios.post(`/badgeinsert?usercode=${usercode}&achievename=${achievename}`)
+    }
 
+    const updatebadge=()=>{
+        axios("/badgeupdate?usercode="+usercode)
+    }
     return (
 
         <div className="mypagemain">
@@ -101,10 +118,22 @@ const MypageMain = () => {
                 <div className='mt_10 fs_20 fw_700'>{member.nickname}</div>
             </div>
 
+            <div>
+                <button onClick={() => nav("badge")}>업적</button>
+                <select style={{width: "300px"}}>
+                    {achieve.map((item, index) => (
+                        <option value={item.achievename}>{item.achievename}</option>
+                    ))}
+                </select>
+                <button onClick={insertusertobadge}>뉴비획득</button>
+                <button onClick={updatebadge}>업적업데이트</button>
+
+            </div>
+
             <div className="iconmenu mt-5">
                 <div onClick={() => nav('point')} className="col">
                     <img alt="" src={require("../../image/mypageIcon/point.png")} />
-                    <h6>포인트 <b style={{ color: "#FF7170" }}>{member.point}</b></h6>
+                    <h6>포인트 <b style={{ color: "#FF7170" }}>{member.point?.toLocaleString()}</b></h6>
                 </div>
                 <div onClick={() => nav('myboard')} className="col">
                     <img alt="" src={require("../../image/mypageIcon/board.png")} />

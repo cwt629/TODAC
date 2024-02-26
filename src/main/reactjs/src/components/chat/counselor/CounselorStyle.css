@@ -2,6 +2,7 @@ div.counselormain {
     /* height: 100%; */
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 div.counseloroptions {
@@ -40,10 +41,6 @@ div.counselorcard img.counselorphoto.frontphoto {
     height: auto;
 }
 
-div.counselorcard.counselor-last-card {
-    background-color: #EEF0F7;
-}
-
 div.counselbtndiv {
     height: 40px;
 }
@@ -71,8 +68,8 @@ div.counselbtndiv.counsel-lognav {
 /* 스와이프 카드 관련(swiper) */
 
 .swiper {
-    width: 80%;
-    max-width: 300px;
+    width: 100%;
+    max-width: 350px;
     height: 550px;
 }
 
@@ -86,12 +83,12 @@ div.counselbtndiv.counsel-lognav {
 }
 
 .swiper-slide .counselorcard {
-    width: 100%;
+    width: 80%;
     height: 80%;
     border-radius: 20px;
     padding: 30px;
+    box-shadow: 5px 5px 5px gray;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     flex-direction: column;
     backface-visibility: hidden;
@@ -100,8 +97,10 @@ div.counselbtndiv.counsel-lognav {
 }
 
 .swiper-slide .swiper-slide-shadow {
+    width: 80%;
     height: 80%;
     top: 10%;
+    left: 10%;
     border-radius: 20px;
 }
 
@@ -116,12 +115,19 @@ div.counselbtndiv.counsel-lognav {
 }
 
 .swiper-slide .counselorcard.card-back {
-    background-color: #51CECE;
     transform: rotateY(180deg);
 }
 
 .swiper-slide.counselor-card-flipped .counselorcard.card-back {
     transform: rotateY(0deg);
+}
+
+.swiper-slide .counselor-last-card {
+    background-color: #EEF0F7;
+    background-image: url('../../../image/ico_babytodac2.png');
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: 80% auto;
 }
 
 /* .swiper-slide:nth-child(1n) {
@@ -163,3 +169,413 @@ div.counselbtndiv.counsel-lognav {
 .swiper-slide:nth-child(10n) {
     background-color: rgb(54, 94, 77);
 } */
+
+/* 무난한 부트스트랩 스타일 버튼 */
+
+.counselinnerbtn {
+    margin: 1rem;
+    background-color: #89cff0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 20px;
+}
+
+.counselinnerbtn.officialbtn {
+    background-color: white;
+    color: #536179;
+    box-shadow: 2px 2px 2px #aaa;
+}
+
+.btn-jittery {
+    animation: jittery 4s infinite;
+}
+
+.btn-icon {
+    position: relative;
+    margin-left: 8px;
+    overflow: hidden;
+}
+
+.btn-icon i {
+    position: absolute;
+    top: 41%;
+    left: 48%;
+    transform: scale(0.75) translate(-16%, 400%);
+    transition: 0.2s;
+}
+
+.btn-icon span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.btn-icon:hover i {
+    transform: scale(0.75) translate(-16%, 0);
+}
+
+.btn-icon:hover span {
+    transform: translateY(-400%);
+}
+
+.btn-jelly:hover {
+    animation: jelly 0.5s;
+}
+
+.btn-fill {
+    transition: 0.3s;
+}
+
+.btn-fill:hover {
+    background: transparent;
+    box-shadow: inset 0 0 0 36px var(--btn-bg);
+}
+
+.btn-open {
+    transition: 0.3s;
+}
+
+.btn-open::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: var(--btn-bg);
+    transform: scaleX(0);
+    transition: 0.3s;
+}
+
+.btn-open:hover {
+    background: transparent;
+}
+
+.btn-open:hover::before {
+    transform: scaleX(1);
+}
+
+.btn-pulse:hover {
+    box-shadow: 0 0 0 18px transparent;
+    animation: pulse 1s;
+}
+
+.btn-close {
+    transition: 0.3s;
+}
+
+.btn-close:hover {
+    background: transparent;
+    box-shadow: inset 54px 0 0 0 var(--btn-bg), inset -54px 0 0 0 var(--btn-bg);
+}
+
+.btn-slash {
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.btn-slash::before {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    width: 120%;
+    height: 210%;
+    background: var(--btn-bg);
+    transform: translate(-50%, -50%) rotate(-45deg) scaleX(0);
+    transition: 0.3s;
+}
+
+.btn-slash:hover {
+    background: transparent;
+}
+
+.btn-slash:hover::before {
+    transform: translate(-50%, -50%) rotate(-45deg) scaleX(1);
+}
+
+.btn-fill-up {
+    transition: 0.3s;
+}
+
+.btn-fill-up:hover {
+    background: transparent;
+    box-shadow: inset 0 -54px 0 0 var(--btn-bg);
+}
+
+.btn-slide {
+    transition: 0.3s;
+}
+
+.btn-slide:hover {
+    background: transparent;
+    box-shadow: inset 90px 0 0 0 var(--btn-bg);
+}
+
+.btn-through {
+    transition: 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.btn-through::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: var(--btn-bg);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.btn-through:hover {
+    color: white;
+    background: transparent;
+}
+
+.btn-through:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.btn-offset {
+    border-radius: 0;
+    box-shadow: 6px 6px 0 0 var(--btn-bg), inset 6px 6px 0 0 var(--btn-bg);
+    transition: 0.3s;
+}
+
+.btn-offset:hover {
+    background: transparent;
+    box-shadow: 0 0 0 0 var(--btn-bg), inset 108px 72px 0 0 var(--btn-bg);
+}
+
+.btn-flip-down {
+    --flip-button-height: 40px;
+    height: var(--flip-button-height);
+    color: transparent;
+    border: none;
+    border-radius: 0;
+    perspective: 500px;
+    transition: 0.3s;
+}
+
+.btn-flip-down:hover {
+    color: transparent;
+    background: transparent;
+}
+
+.btn-flip-down .front,
+.btn-flip-down .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.btn-flip-down .front {
+    background: var(--btn-bg);
+    color: white;
+    transition: 0.3s;
+    transform-origin: center center calc(var(--flip-button-height) / -2);
+}
+
+.btn-flip-down .back {
+    color: white;
+    background: var(--btn-bg);
+    transform: rotateX(88deg);
+    transform-origin: center center calc(var(--flip-button-height) / -2);
+    transition: 0.3s;
+}
+
+.btn-flip-down:hover .front {
+    transform: rotateX(-90deg);
+}
+
+.btn-flip-down:hover .back {
+    transform: rotateX(0deg);
+}
+
+.btn-marquee {
+    font-weight: 600;
+    border: none;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.btn-marquee:hover {
+    transform: scale(1.1);
+}
+
+.btn-marquee span {
+    display: block;
+    padding: 0 20px;
+    animation: move-left 2s linear infinite;
+}
+
+.btn-marquee span::after {
+    position: absolute;
+    content: attr(data-text);
+    top: 0;
+    left: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.btn-cross {
+    transform: rotate(0);
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.btn-cross::before,
+.btn-cross::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 50%;
+    background: var(--btn-bg);
+    transform: scaleX(0);
+    transition: transform 0.5s;
+}
+
+.btn-cross::before {
+    top: 0;
+    transform-origin: left;
+}
+
+.btn-cross::after {
+    top: 50%;
+    transform-origin: right;
+}
+
+.btn-cross:hover {
+    background: transparent;
+}
+
+.btn-cross:hover::before,
+.btn-cross:hover::after {
+    transform: scaleX(1);
+}
+
+.btn-cross:hover::before {
+    transform-origin: right;
+}
+
+.btn-cross:hover::after {
+    transform-origin: left;
+}
+
+.btn-open-line {
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-open-line::before,
+.btn-open-line::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--btn-bg);
+    opacity: 0;
+    transform: scaleX(0);
+    transition: 0.4s ease-in-out;
+}
+
+.btn-open-line::before {
+    top: 0;
+}
+
+.btn-open-line::after {
+    bottom: 0;
+}
+
+.btn-open-line:hover {
+    letter-spacing: 5px;
+    color: var(--btn-bg);
+    background: transparent;
+}
+
+.btn-open-line:hover::before,
+.btn-open-line:hover::after {
+    opacity: 1;
+    transform: scaleX(1.2);
+}
+
+@keyframes jittery {
+
+    5%,
+    50% {
+        transform: scale(1);
+    }
+
+    10% {
+        transform: scale(0.9);
+    }
+
+    15% {
+        transform: scale(1.15);
+    }
+
+    20% {
+        transform: scale(1.15) rotate(-5deg);
+    }
+
+    25% {
+        transform: scale(1.15) rotate(5deg);
+    }
+
+    30% {
+        transform: scale(1.15) rotate(-3deg);
+    }
+
+    35% {
+        transform: scale(1.15) rotate(2deg);
+    }
+
+    40% {
+        transform: scale(1.15) rotate(0);
+    }
+}
+
+@keyframes jelly {
+    25% {
+        transform: scale(0.9, 1.1);
+    }
+
+    50% {
+        transform: scale(1.1, 0.9);
+    }
+
+    75% {
+        transform: scale(0.95, 1.05);
+    }
+}
+
+@keyframes pulse {
+    from {
+        box-shadow: 0 0 0 0 var(--btn-bg);
+    }
+}
+
+@keyframes move-left {
+    to {
+        transform: translateX(-100%);
+    }
+}

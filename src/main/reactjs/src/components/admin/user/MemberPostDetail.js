@@ -1,6 +1,6 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const MemberPostDetail = () => {
     const nav = useNavigate();
@@ -16,29 +16,29 @@ const MemberPostDetail = () => {
 
     const fetchBoardDetail = (usercode, boardcode) => {
         setLoading(true);
-        axios.post(`/admin/member/post?usercode=${usercode}`)
-            .then(res => {
+        axios
+            .post(`/admin/member/post?usercode=${usercode}`)
+            .then((res) => {
                 const boardList = res.data;
 
                 setBoard(boardList);
-                const selectedBoard = boardList.find(item => item.boardcode == boardcode);
+                const selectedBoard = boardList.find((item) => item.boardcode == boardcode);
                 setData(selectedBoard);
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error("게시글을 불러오는 중 오류 발생:", error);
             })
             .finally(() => {
                 setLoading(false);
             });
-    }
+    };
 
     const getMember = () => {
         const url = "/member/data?usercode=" + usercode;
-        axios.post(url, {})
-            .then(res => {
-                setMember(res.data);
-            })
-    }
+        axios.post(url, {}).then((res) => {
+            setMember(res.data);
+        });
+    };
 
     useEffect(() => {
         if (usercode) {
@@ -50,20 +50,23 @@ const MemberPostDetail = () => {
     return (
         <div className='mx_30'>
             <div className='mt-1 fs_14'>
-                <Link to="/admin" className='col_blue2'>관리자 홈 {'>'} </Link>
-                <Link to="/admin/MemberManage" className='col_blue2'>회원 관리 {'>'} </Link>
-                <Link to={`/admin/MemberManage/MemberProfile?usercode=${usercode}`} className='col_blue2'>회원 정보 {'>'}</Link>
+                <Link to='/admin' className='col_blue2'>
+                    관리자 홈 {">"}{" "}
+                </Link>
+                <Link to='/admin/MemberManage' className='col_blue2'>
+                    회원 관리 {">"}{" "}
+                </Link>
+                <Link to={`/admin/MemberManage/MemberProfile?usercode=${usercode}`} className='col_blue2'>
+                    회원 정보 {">"}
+                </Link>
                 <span className='col_blue2'>&nbsp;회원 게시글</span>
             </div>
             <div className='fs_25 fw_700'>제목: {data.title}</div>
-            {data.photo &&
-                <img alt='' src={imageStorage + data.photo} style={{ width: '25vh', height: '25vh' }} />
-            }
-            {console.log("Image URL:", data.photo)}
+            {data.photo && <img alt='' src={imageStorage + data.photo} style={{ width: "25vh", height: "25vh" }} />}
             <div className='mt_10 bg_red bor_red br_5 p-2'>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <div>
-                        <span className="fw_600">{data.content}</span>
+                        <span className='fw_600'>{data.content}</span>
                     </div>
                 </div>
             </div>

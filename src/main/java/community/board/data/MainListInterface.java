@@ -15,6 +15,7 @@ public interface MainListInterface {
     String getCategory();
     int getVisitcount();
     String getPhoto();
+    String getMemberPhoto();
     String getTitle();
     int getCommentcount();
     int getLikecount();
