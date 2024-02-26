@@ -9,7 +9,18 @@ import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import PageHeader from "../../PageHeader";
-import { IconButton, ImageList, InputBase, Paper, Stack, Typography } from "@mui/material";
+import {
+    FormControl,
+    IconButton,
+    ImageList,
+    InputBase,
+    InputLabel,
+    MenuItem,
+    Paper,
+    Select,
+    Stack,
+    Typography,
+} from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 
 const BoardMain = () => {
@@ -19,6 +30,7 @@ const BoardMain = () => {
     const [search, setSearch] = useState(""); // 검색어를 저장하는 state
     const [filteredList, setFilteredList] = useState(list); // 검색된 목록을 저장하는 state
     const [cols, setCols] = useState(2); // 초기 cols 값 설정
+    const [sortBy, setSortBy] = useState("");
     const navi = useNavigate();
     const CURRENT_ROUTES = [
         { name: "커뮤니티", url: "/user/community" },
@@ -31,6 +43,7 @@ const BoardMain = () => {
         axios.get("/main/list").then((res) => {
             setList(res.data);
             setFilteredList(res.data); // 초기 전체 리스트 출력용
+            handleSortList(res.data, sortBy); // 정렬 함수 호출
             console.log(res.data);
         });
     };
@@ -82,15 +95,63 @@ const BoardMain = () => {
         setPage(1);
     };
 
+    const handleChange = (e) => {
+        setSortBy(e.target.value);
+    };
+
+    useEffect(() => {
+        // 정렬 기능이 변경될 때마다 호출되는 useEffect
+        handleSortList(list, sortBy);
+    }, [sortBy, list]);
+
+    const handleSortList = (data, sortOption) => {
+        let sortedList = [...data];
+
+        switch (sortOption) {
+            case "latest":
+                sortedList.sort((a, b) => b.boardcode - a.boardcode);
+                break;
+            case "recommended":
+                sortedList.sort((a, b) => b.likecount - a.likecount);
+                break;
+            case "mostViewed":
+                sortedList.sort((a, b) => b.visitcount - a.visitcount);
+                break;
+            default:
+                // 정렬 옵션이 지정되지 않았거나 올바르지 않은 경우 최신순으로 정렬
+                sortedList.sort((a, b) => b.boardcode - a.boardcode);
+                break;
+        }
+
+        setFilteredList(sortedList);
+    };
+
     return (
         <div className='mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+            <div style={{ position: "absolute", top: "112px", left: "230px" }}>
+                <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
+                    <InputLabel id='demo-select-sort-label'>선택</InputLabel>
+                    <Select
+                        labelId='demo-select-sort-label'
+                        id='demo-select-sort'
+                        value={sortBy}
+                        label='Sort By'
+                        onChange={handleChange}
+                    >
+                        {/* <MenuItem value=''>
+                            <em>None</em>
+                        </MenuItem> */}
+                        <MenuItem value='latest'>최신순</MenuItem>
+                        <MenuItem value='recommended'>추천순</MenuItem>
+                        <MenuItem value='mostViewed'>조회순</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
             <div
                 className=''
                 style={{
                     width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
                     marginTop: "10px",
                 }}
             >
@@ -108,9 +169,6 @@ const BoardMain = () => {
                         width: "322px",
                     }}
                 >
-                    <IconButton type='button' sx={{ p: "10px" }} aria-label='menu'>
-                        <MenuIcon />
-                    </IconButton>
                     <InputBase
                         type='text'
                         placeholder='검색어를 입력해 주세요.'
@@ -122,14 +180,18 @@ const BoardMain = () => {
                             }
                         }}
                     />
-                    {search.length > 0 && (
-                        <IconButton type='button' sx={{ p: "10px" }} aria-label='clear' onClick={handleReset}>
-                            <CloseIcon />
+                    <div style={{ position: "relative", left: "24px" }}>
+                        {search.length > 0 && (
+                            <IconButton type='button' sx={{ p: "10px" }} aria-label='clear' onClick={handleReset}>
+                                <CloseIcon />
+                            </IconButton>
+                        )}
+                    </div>
+                    <div>
+                        <IconButton type='button' sx={{ p: "10px" }} aria-label='search' onClick={handleSearch}>
+                            <SearchIcon />
                         </IconButton>
-                    )}
-                    <IconButton type='button' sx={{ p: "10px" }} aria-label='search' onClick={handleSearch}>
-                        <SearchIcon />
-                    </IconButton>
+                    </div>
                 </Paper>
             </div>
             <div className='btn_add' onClick={() => navi("form")}>
