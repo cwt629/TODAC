@@ -64,7 +64,7 @@ const CounselorCreateTable = () => {
                         <td width={'80%'}>
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 type="text" name="name" value={data.name}
-                                onChange={handleInputChange} />
+                                onChange={handleInputChange} maxLength={INPUT_MAX_LENGTH['name']} />
                             ({data.name.length} / {INPUT_MAX_LENGTH['name']})
                         </td>
                     </tr>
@@ -81,7 +81,7 @@ const CounselorCreateTable = () => {
                         <td>성격</td>
                         <td>
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
-                                type="text" name="personality" value={data.personality}
+                                type="text" name="personality" value={data.personality} maxLength={INPUT_MAX_LENGTH['personality']}
                                 onChange={handleInputChange} /> 상담사 ({data.personality.length} / {INPUT_MAX_LENGTH['personality']})<br />
                             <div>
                                 '~한', '~인'과 같은 형태로 작성하셔야 원하는 대로 동작할 거에요!<br />
@@ -93,7 +93,7 @@ const CounselorCreateTable = () => {
                         <td>짧은 소개</td>
                         <td>
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
-                                type="text" name="briefintro" value={data.briefintro}
+                                type="text" name="briefintro" value={data.briefintro} maxLength={INPUT_MAX_LENGTH['briefintro']}
                                 onChange={handleInputChange} /> ({data.briefintro.length} / {INPUT_MAX_LENGTH['briefintro']})
                         </td>
                     </tr>
@@ -101,7 +101,7 @@ const CounselorCreateTable = () => {
                         <td>상세 소개</td>
                         <td>
                             <textarea className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
-                                name="introduction" value={data.introduction}
+                                name="introduction" value={data.introduction} maxLength={INPUT_MAX_LENGTH['introduction']}
                                 onChange={handleInputChange}></textarea> ({data.introduction.length} / {INPUT_MAX_LENGTH['introduction']})
                         </td>
                     </tr>
@@ -109,7 +109,7 @@ const CounselorCreateTable = () => {
                         <td>첫마디</td>
                         <td>
                             <textarea className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
-                                name="greeting" value={data.greeting}
+                                name="greeting" value={data.greeting} maxLength={INPUT_MAX_LENGTH['greeting']}
                                 onChange={handleInputChange}></textarea> ({data.greeting.length} / {INPUT_MAX_LENGTH['greeting']})
                         </td>
                     </tr>

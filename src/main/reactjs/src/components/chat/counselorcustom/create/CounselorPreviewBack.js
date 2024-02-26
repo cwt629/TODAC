@@ -13,7 +13,7 @@ const CounselorPreviewBack = ({ data }) => {
                 <img alt='상담사' src={data.photo ? STORAGE_PHOTO_BASE + data.photo : defaultPhoto}
                     className='counselorphoto backphoto' />
                 <div>
-                    <div className='fw_600 fs_20'>{data.name ? data.name : '이름'}</div>
+                    <div className='fw_600 fs_20' style={{ textAlign: 'left' }}>{data.name ? data.name : '이름'}</div>
                     <div className='fw_400 fs_16'
                         style={{ display: 'flex', alignItems: 'center' }}>
                         <img alt='별' src={starIcon} width={17} height={17} />
@@ -21,7 +21,7 @@ const CounselorPreviewBack = ({ data }) => {
                     </div>
                 </div>
             </div>
-            <div className='mt_10' style={{ overflowY: 'auto' }}>
+            <div className='mt_10' style={{ overflowY: 'auto', width: '100%', textAlign: 'left' }}>
                 {
                     data.introduction ?
                         data.introduction.split("\n").map((line, i) => (
