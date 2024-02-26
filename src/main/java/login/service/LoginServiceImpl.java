@@ -18,24 +18,26 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import login.repository.LoginDao;
 import mypage.data.MemberDto;
+import mypage.repository.MemberDao;
 import security.setting.JwtTokenProvider;
 import security.setting.UserAuthentication;
 
 @Service
 public class LoginServiceImpl implements LoginService {
 	
-    private final LoginDao loginDao;
+    private final MemberDao memberDao;
 
     @Autowired
-    public LoginServiceImpl(LoginDao loginDao) {
-        this.loginDao = loginDao;
+    public LoginServiceImpl(MemberDao memberDao) {
+		this.memberDao = memberDao;
     }
 
     
     //userid로 memberDto
     @Override
     public MemberDto getUser(String userid) {
-        return loginDao.findByUserid(userid);
+        //return loginDao.findByUserid(userid);
+    	return memberDao.getMemberByID(userid);
     }
    
 
@@ -105,7 +107,7 @@ public class LoginServiceImpl implements LoginService {
         //System.out.println(" ======================= kakao userInfo : " + userInfo);
         
         String userid = userInfo.get("id").toString(); //카카오정보에서 id 받아 저장
-        MemberDto user = loginDao.findByUserid(userid); //그 id로 db조회해서 저장
+        MemberDto user = memberDao.getMemberByID(userid); //그 id로 db조회해서 저장
         
 
         if(user==null) {
@@ -205,7 +207,7 @@ public class LoginServiceImpl implements LoginService {
 		//System.out.println(" =======================naver userInfo : " + userInfo);
 		
 		String userid = userInfo.get("id").toString();//정보에서 id 받아 저장
-        MemberDto user = loginDao.findByUserid(userid);//그 id로 db조회해서 저장
+        MemberDto user = memberDao.getMemberByID(userid);//그 id로 db조회해서 저장
         
         
         if(user==null) {

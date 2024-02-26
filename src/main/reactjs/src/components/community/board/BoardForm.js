@@ -102,7 +102,7 @@ const BoardForm = () => {
                 <div
                     style={{
                         width: "100%",
-                        height: "198px",
+                        height: "100%",
                     }}
                 >
                     {loading ? (
@@ -114,9 +114,9 @@ const BoardForm = () => {
                             <CircularProgress
                                 size={50}
                                 style={{
-                                    position: "absolute",
-                                    top: "40%",
-                                    left: "40%",
+                                    position: "relative",
+                                    top: "180px",
+                                    left: "43%",
                                     transform: "translate(-50%, -50%)",
                                 }}
                             />
@@ -125,9 +125,7 @@ const BoardForm = () => {
                         <img
                             alt=''
                             src={photo ? imageStorage + photo : noImage}
-                            width='100%'
-                            height={198}
-                            style={{ borderRadius: "0.8rem" }}
+                            style={{ borderRadius: "0.8rem", width: "100%", height: "100%" }}
                         />
                     )}
                 </div>

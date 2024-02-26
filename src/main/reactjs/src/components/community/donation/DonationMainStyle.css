@@ -1,0 +1,123 @@
+/* Import */
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+/* Variables */
+/* Basic */
+html, body {
+    background-color: #DFE2E4;
+    font-family: "Roboto", sans-serif;
+}
+
+/* Card */
+.card {
+    display: block;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 100%;
+    background-color: #FBFBFB;
+    padding: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    box-shadow: 1px 1px 30px 10px #DFE2E4;
+    border-radius: 5px;
+}
+
+/* Title */
+.title {
+    text-align: center;
+}
+.title h1 {
+    color: #F5CE64;
+    font-size: 40px;
+    margin-bottom: 0;
+}
+.title p {
+    color: #A3A8CD;
+    margin-top: 8px;
+    margin-bottom: 25px;
+}
+
+/* Rancking */
+.box {
+    display: block;
+    width: 100%;
+}
+
+/* Number */
+.number {
+    float: left;
+    font-weight: bold;
+    font-size: 50px;
+    width: 50px;
+    line-height: 100px;
+    color: #DFE2E4;
+}
+
+/* Cover */
+.cover {
+    float: left;
+    margin-right: 25px;
+    padding-top: 12px;
+}
+
+.cover img {
+    width: 80px;
+    border-radius: 100%;
+}
+
+/* Name */
+.name {
+    float: left;
+    line-height: 100px;
+    font-size: 18px;
+    color: #A3A8CD;
+}
+.name span {
+    font-weight: bold;
+    color: black;
+}
+
+/* Button */
+.link {
+    text-align: right;
+    line-height: 100px;
+    margin-right: 25px;
+}
+
+.link a {
+    padding: 9px 12px;
+    border: 1px solid #DFE2E4;
+    color: #A3A8CD;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* Separator */
+.separator {
+    width: 80%;
+    height: 1px;
+    margin: auto;
+    background-color: #DFE2E4;
+}
+
+/* :hover */
+.box:hover {
+    box-shadow: 1px 1px 40px 0px #DFE2E4;
+}
+.box:hover .number {
+    color: #F5CE64;
+}
+.box:hover span {
+    color: #F5CE64;
+}
+
+.link a:hover {
+    background-color: #F5CE64;
+    color: #fff;
+    border: none;
+}
+
+.link a:focus {
+    background-color: #fff;
+    color: #F5CE64;
+    border: none;
+}

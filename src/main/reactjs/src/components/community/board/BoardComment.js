@@ -2,10 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import CommentRowItem from "./CommentRowItem";
-import NavigationIcon from "@mui/icons-material/Navigation";
 import { IconButton, InputBase, Paper } from "@mui/material";
 import CommentListButtons from "./CommentListButtons";
 import commentImg from "../../../image/comment.svg";
+import Swal from "sweetalert2";
 
 const BoardComment = () => {
     const [commentList, setCommentList] = useState([]);
@@ -40,6 +40,16 @@ const BoardComment = () => {
 
     // 추가 버튼
     const addComment = async () => {
+        if (content === "") {
+            Swal.fire({
+                title: "입력 없음!",
+                text: "메세지를 입력해주세요.",
+                icon: "warning",
+                confirmButtonColor: "#FF7170",
+                confirmButtonText: "확인",
+            });
+            return;
+        }
         axios
             .post(`/addcomment?content=${content}&usercode=${usercode}&boardcode=${boardcode}`)
             .then((res) => {
@@ -53,6 +63,37 @@ const BoardComment = () => {
             });
     };
 
+    const deleteComment = (commentCode) => {
+        Swal.fire({
+            title: "댓글 삭제",
+            text: "해당 댓글을 삭제하시겠습니까?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#FF7170",
+            confirmButtonText: "예",
+            cancelButtonText: "아니오",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const url = `/comment/delete?commentcode=${commentCode}`;
+                axios
+                    .delete(url)
+                    .then(() => {
+                        // 삭제 후 다시 댓글 목록을 불러옴
+                        boardCommentList();
+                        Swal.fire({
+                            title: "삭제 완료",
+                            text: "댓글이 성공적으로 삭제되었습니다.",
+                            icon: "success",
+                            confirmButtonColor: "#FF7170",
+                        });
+                    })
+                    .catch((error) => {
+                        console.error("삭제 중 오류 발생:", error);
+                    });
+            }
+        });
+    };
+
     return (
         <div>
             <div className='mt_10'>
@@ -64,7 +105,7 @@ const BoardComment = () => {
             </div>
             {commentList &&
                 commentList.slice(0, showLength).map((data, idx) => {
-                    return <CommentRowItem key={idx} data={data} idx={idx} />;
+                    return <CommentRowItem key={idx} data={data} idx={idx} deleteComment={deleteComment} />;
                 })}
             <CommentListButtons
                 needToShow={listDisplay.length > DISPLAY_PER_UNIT}
@@ -75,16 +116,16 @@ const BoardComment = () => {
             <div className='mt_25'>
                 <Paper
                     component='form'
+                    className='d-flex justify-content-between'
                     sx={{
                         p: "2px 4px",
-                        display: "flex",
                         alignItems: "center",
                         width: "100%",
                     }}
                 >
                     <InputBase
                         type='text'
-                        className='form-control'
+                        className=''
                         placeholder='댓글을 입력해 주세요.'
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
@@ -94,14 +135,8 @@ const BoardComment = () => {
                             }
                         }}
                     />
-                    <IconButton
-                        type='button'
-                        sx={{ p: "10px" }}
-                        aria-label='input-text'
-                        style={{ transform: "rotate(90deg)" }}
-                        onClick={addComment}
-                    >
-                        <NavigationIcon />
+                    <IconButton type='button' sx={{ p: "10px" }} aria-label='input-text' onClick={addComment}>
+                        <h6>입력</h6>
                     </IconButton>
                 </Paper>
             </div>

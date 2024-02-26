@@ -5,8 +5,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import chat.data.ChatDiagnosisDto;
+import chat.data.ChatDiagnosisInterface;
 
 public interface ChatDiagnosisRepository extends JpaRepository<ChatDiagnosisDto, Integer>{
-	@Query(value = "select * from todacdb.chatdiagnosis where chatroomcode=:chatroomcode", nativeQuery = true)
-	ChatDiagnosisDto findByChatroom(@Param("chatroomcode") Short chatroomcode);
+	@Query(value = 
+			"""
+			select d.*, c.usercode as usercode 
+			from chatdiagnosis d 
+			left join chatroom c on d.chatroomcode = c.chatroomcode 
+			where d.chatroomcode=:chatroomcode
+			""", nativeQuery = true)
+	ChatDiagnosisInterface findByChatroom(@Param("chatroomcode") Short chatroomcode);
 }
