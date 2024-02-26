@@ -181,10 +181,10 @@ div.counselbtndiv.counsel-lognav {
     padding: 5px 20px;
 }
 
-.counselinnerbtn.transparentbtn {
-    background-color: transparent;
+.counselinnerbtn.officialbtn {
+    background-color: white;
     color: #536179;
-    border-color: #536179;
+    box-shadow: 2px 2px 2px #aaa;
 }
 
 .btn-jittery {
