@@ -52,9 +52,11 @@ const ChatMain = () => {
     }, [])
 
     return (
-        <div className='counselormain mx_30'>
+        <div className='counselormain'>
             <LogNavigationButton handleClick={handleLogNavClick} />
-            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+            <div className='mx_30'>
+                <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+            </div>
             <CounselorOptions info={counselorList} handleCounselClick={handleCounselClick} />
         </div>
     );
