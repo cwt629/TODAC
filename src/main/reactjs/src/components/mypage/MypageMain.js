@@ -12,10 +12,12 @@ const MypageMain = () => {
     const storedId = sessionStorage.getItem("id");
     const loginType = sessionStorage.getItem("loginType");
     const usercode = sessionStorage.getItem("usercode");
-
+    const [achieve, setAchieve] = useState([]);
+    const achievename = "뉴비"
     useEffect(() => {
         getmember();
         console.log("storedId:", storedId, ", usercode:", usercode);
+        getachievelist();
     }, []);
 
     const getmember = () => {
@@ -24,6 +26,15 @@ const MypageMain = () => {
             .then(res => {
                 setmember(res.data);
                 //console.log(res.data);
+            })
+    }
+
+    const getachievelist = () => {
+        const url = "getachievelist?usercode=" + usercode;
+        axios.post(url)
+            .then(res => {
+                setAchieve(res.data);
+                console.log(res.data);
             })
     }
 
@@ -85,7 +96,7 @@ const MypageMain = () => {
         });
     };
     const insertusertobadge=()=>{
-        axios.post("/badgeinsert?usercode="+usercode)
+        axios.post(`/badgeinsert?usercode=${usercode}&achievename=${achievename}`)
     }
 
     const updatebadge=()=>{
@@ -110,9 +121,11 @@ const MypageMain = () => {
             <div>
                 <button onClick={() => nav("badge")}>업적</button>
                 <select style={{width: "300px"}}>
-                    <option value="니가가라하와이">아메리카노</option>
+                    {achieve.map((item, index) => (
+                        <option value={item.achievename}>{item.achievename}</option>
+                    ))}
                 </select>
-                <button onClick={insertusertobadge}>업적시작</button>
+                <button onClick={insertusertobadge}>뉴비획득</button>
                 <button onClick={updatebadge}>업적업데이트</button>
 
             </div>

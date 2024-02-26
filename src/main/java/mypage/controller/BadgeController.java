@@ -21,18 +21,22 @@ public class BadgeController {
 	private final BadgeDao badgeDao;
 
 	@PostMapping("/badgeinsert")
-	public void userInsertToBadge(@RequestParam("usercode") int usercode){
+	public void userInsertToBadge(@RequestParam("usercode") int usercode,
+								  @RequestParam("achievename") String achievename){
 		MemberDto memberDto = new MemberDto();
 		BadgeDto badgeDto = new BadgeDto();
 		memberDto.setUsercode(usercode);
 		badgeDto.setMember(memberDto);
+		badgeDto.setAchievename(achievename);
 
-		badgeDao.insertMembertoBadge(badgeDto);
-
+		boolean possible = badgeDao.checkAchivename(usercode,achievename);
+		if(possible)
+			badgeDao.insertMembertoBadge(badgeDto);
 	}
 
-	@PostMapping("/updatebadge")
-	public void updatebadge(@RequestParam("usercode") int usercode){
-
+	@PostMapping("/getachievelist")
+	public List<BadgeDto> getachievelist(@RequestParam("usercode") int usercode){
+		List<BadgeDto> dtolist = badgeDao.getAchiveList(usercode);
+		return dtolist;
 	}
 }
