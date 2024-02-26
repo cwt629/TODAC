@@ -113,12 +113,15 @@ const BoardDetail = () => {
                     >
                         {data.photo && (
                             <img
+                                className='img-fluid'
                                 alt=''
                                 src={imageStorage + data.photo}
                                 style={{
                                     width: "100%",
-                                    height: "198px",
+                                    // height: "100%",
+                                    // maxHeight: "600px", 제한을 줄지는 아직 미지수 !
                                     borderRadius: "0.8rem",
+                                    // objectFit: "cover", // object-fit: cover 추가
                                 }}
                             />
                         )}
@@ -144,7 +147,7 @@ const BoardDetail = () => {
                                 style={{ marginRight: "16px", cursor: "pointer" }}
                                 onClick={isLiked ? handleUnlike : handleLike}
                             >
-                                {isLiked ? <FavoriteIcon style={{ color: "red" }} /> : <FavoriteBorderIcon />}
+                                {isLiked ? <FavoriteIcon style={{ color: "#F99090" }} /> : <FavoriteBorderIcon />}
                                 <span className='comment-action' style={{ marginLeft: "4px" }}>
                                     {likeCount}
                                 </span>
