@@ -102,7 +102,7 @@ const MemberPoint = () => {
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div>
                             <span className="fw_600">{item.applieddate}</span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                            <span className="fw_600 col_blue2">{item.amount}</span><span className='fw_600'> 포인트</span>
+                            <span className="fw_600 col_blue2">{item.amount}</span><span className='fw_600'> P</span>
                         </div>
                     </div>
                     <div className="fs_15 w_500">{item.type}</div>

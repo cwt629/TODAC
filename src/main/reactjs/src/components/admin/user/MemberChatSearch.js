@@ -46,6 +46,8 @@ const MemberChatSearch = () => {
             });
     }
 
+
+
     const handlePageChange = (event, value) => {
         setCurrentPage(value);
     };
@@ -98,23 +100,31 @@ const MemberChatSearch = () => {
                 }
             />
             <div className="fs_17 fw_800">{member.nickname} 님의 채팅 기록</div>
-            {currentItems.map((item, index) => (
-                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}
-                    onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberChatSearch/MemberChatHistory?usercode=` + member.usercode)}>
-                    <div className='input-group'>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            {currentItems.map((item, index) => {
+                return (
+                    <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}
+                        onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberChatSearch/MemberChatHistory?usercode=${member.usercode}&chatroomcode=${item.chatroomcode}`)}>
+                        <div className='input-group'>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div>
+                                    <span><img alt='' src={item.counselorphoto} style={{ width: '40px', height: '40px', borderRadius: '50px' }} /></span>&nbsp;
+                                </div>
+                            </div>
+                            &nbsp;
                             <div>
-                                <span><img alt='' src={item.counselorphoto} style={{ width: '40px', height: '40px', borderRadius: '50px' }} /></span>&nbsp;
+                                <span className="fw_600">{item.counselorname} 상담사</span>
+                                <div className="fs_15 ">{getDateFormatPieces(item.date).day}
+                                </div>
+                            </div>
+                            <div>
+                                <br />
+                                {/* 진단서 발급 여부 표시 */}
+                                {item.diagnosiscode > 0 ? <div> | <span className='col_blue2 fs_14'>진단서 발급</span></div> : <div> | <span className='col_red fs_14'>진단서 미발급</span></div>}
                             </div>
                         </div>
-                        &nbsp;
-                        <div>
-                            <span className="fw_600">{item.counselorname} 상담사</span>
-                            <div className="fs_14">{getDateFormatPieces(item.date).day}</div>
-                        </div>
                     </div>
-                </div>
-            ))}
+                );
+            })}
 
             {/* Pagination */}
             <div className="justify-content-center d-flex mt-3 qnaPage_btn">

@@ -3,7 +3,17 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import noImage from "../../../image/no_image_board_form.png";
 import PageHeader from "../../PageHeader";
-import { CircularProgress, TextField } from "@mui/material";
+import {
+    Avatar,
+    CircularProgress,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemButton,
+    ListItemText,
+    Radio,
+    TextField,
+} from "@mui/material";
 
 const BoardUpdateForm = () => {
     const [photo, setPhoto] = useState("");
@@ -22,12 +32,12 @@ const BoardUpdateForm = () => {
 
     const PAGE_TITLE = "상세 페이지";
 
-    //처음 로딩 시 딱 한번 호출
+    // 처음 로딩 시 딱 한번 호출
     useEffect(() => {
         getSelectData();
     }, []);
 
-    //파일 업로드 이벤트
+    // 파일 업로드 이벤트
     const onUploadEvent = (e) => {
         setLoading(true);
 
@@ -41,7 +51,7 @@ const BoardUpdateForm = () => {
             headers: { "Content-Type": "multipart/form-data" },
         })
             .then((res) => {
-                setPhoto(res.data); //실제 스토리지에 올라간 사진파일명 반환
+                setPhoto(res.data); // 실제 스토리지에 올라간 사진파일명 반환
                 // changeData 함수 호출하여 selectData 업데이트
                 changeData({ target: { name: "photo", value: res.data } });
             })
@@ -50,7 +60,7 @@ const BoardUpdateForm = () => {
             });
     };
 
-    //boardcode 로 dto 가져오는 코드
+    // boardcode로 dto 가져오는 코드
     const getSelectData = () => {
         axios
             .get(`/board/select?boardcode=${boardcode}`)
@@ -76,7 +86,11 @@ const BoardUpdateForm = () => {
         });
     };
 
-    //수정 버튼
+    const handleRadioChange = (value) => {
+        changeData({ target: { name: "counselorcode", value: value + 1 } });
+    };
+
+    // 수정 버튼
     const updateDataEvent = () => {
         axios
             .post("/board/update", selectData)
@@ -84,7 +98,7 @@ const BoardUpdateForm = () => {
                 navi(`/user/community/board/detail/${selectData.boardcode}`);
             })
             .catch((error) => {
-                console.error("update중 오류", error);
+                console.error("update 중 오류", error);
             });
     };
 
@@ -93,49 +107,59 @@ const BoardUpdateForm = () => {
             {selectData && (
                 <div className='form-group mx_30'>
                     <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-                    <div className='d-flex justify-content-around' style={{ marginTop: "15px" }}>
-                        <div className='col-4'>
-                            <div style={{ width: "110px", height: "90px", position: "relative", overflow: "hidden" }}>
-                                {selectData.photo === null ? (
-                                    <img alt='' src={noImage} style={{ width: "110px", height: "90px" }} />
-                                ) : (
-                                    <img
-                                        alt=''
-                                        src={imageStorage + selectData.photo}
-                                        style={{ width: "110px", height: "90px" }}
-                                    />
-                                )}
-                                {loading && (
-                                    <div
-                                        style={{
-                                            position: "absolute",
-                                            top: "50%", // 부모 요소의 50% 위치
-                                            left: "50%", // 부모 요소의 50% 위치
-                                            transform: "translate(-50%, -50%)", // 중앙 정렬을 위한 transform
-                                        }}
-                                    >
-                                        <CircularProgress size={50} />
-                                    </div>
-                                )}
-                            </div>
 
-                            <div className='text-center mt-1'>
-                                <input type='file' onChange={onUploadEvent} />
-                            </div>
-                        </div>
-
-                        <div className='col-7 form_title'>
-                            <TextField
-                                size='small'
-                                value={selectData.title}
-                                className='bg_gray'
-                                name='title'
-                                style={{ width: "100%" }}
-                                onChange={changeData}
-                            />
+                    <div className='col-4' style={{ marginTop: "15px", width: "100%", height: "100%" }}>
+                        <div>
+                            {selectData.photo === null ? (
+                                <img
+                                    alt=''
+                                    src={noImage}
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        border: "2px solid white",
+                                        borderRadius: "0.8rem",
+                                    }}
+                                />
+                            ) : (
+                                <img
+                                    alt=''
+                                    src={imageStorage + selectData.photo}
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        border: "2px solid white",
+                                        borderRadius: "0.8rem",
+                                    }}
+                                />
+                            )}
+                            {loading && (
+                                <div
+                                    style={{
+                                        position: "relative",
+                                        top: "180px", // 부모 요소의 50% 위치
+                                        left: "43%", // 부모 요소의 50% 위치
+                                        transform: "translate(-50%, -50%)", // 중앙 정렬을 위한 transform
+                                    }}
+                                >
+                                    <CircularProgress size={50} />
+                                </div>
+                            )}
                         </div>
                     </div>
-                    <div style={{ marginTop: "10px", height: "100%" }}>
+
+                    <div className='mt_10'>
+                        <TextField
+                            size='small'
+                            value={selectData.title}
+                            className='bg_gray'
+                            name='title'
+                            style={{ width: "100%" }}
+                            onChange={changeData}
+                        />
+                    </div>
+
+                    <div className='mt-3'>
                         <TextField
                             className='bg_gray'
                             multiline
@@ -149,19 +173,31 @@ const BoardUpdateForm = () => {
                     <div className='form-group' style={{ marginTop: "10px" }}>
                         <h6>상담사</h6>
                         <div style={{ display: "flex" }}>
-                            {Array.from(Array(5).keys()).map((index) => (
-                                <label key={index}>
-                                    <input
-                                        type='radio'
-                                        name='counselorcode'
-                                        value={`${index + 1}`}
-                                        onChange={changeData}
-                                        checked={selectData.counselorcode == index + 1}
-                                    />
-                                    상담사{index + 1}
-                                </label>
-                            ))}
+                            <List dense sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+                                {Array.from(Array(5).keys()).map((index) => (
+                                    <ListItem key={index} disablePadding>
+                                        <ListItemButton role={undefined} onClick={() => handleRadioChange(index)} dense>
+                                            <ListItemAvatar>
+                                                <Avatar
+                                                    alt={`Avatar n°${index + 1}`}
+                                                    src={`/static/images/avatar/${index + 1}.jpg`}
+                                                />
+                                            </ListItemAvatar>
+                                            <ListItemText primary={`상담사${index + 1}`} />
+                                            <Radio
+                                                edge='end'
+                                                checked={selectData.counselorcode === index + 1}
+                                                tabIndex={-1}
+                                                disableRipple
+                                            />
+                                        </ListItemButton>
+                                    </ListItem>
+                                ))}
+                            </List>
                         </div>
+                    </div>
+                    <div className='text-center mt-1'>
+                        <input type='file' onChange={onUploadEvent} />
                     </div>
                     <button onClick={updateDataEvent} style={{ cursor: "pointer" }}>
                         수정

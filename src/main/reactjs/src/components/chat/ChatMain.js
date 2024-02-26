@@ -2,9 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import PageHeader from '../PageHeader';
 import CounselorOptions from './counselor/CounselorOptions';
-import CounselorProfile from './counselor/CounselorProfile';
 import './counselor/CounselorStyle.css';
-import CounselStartButton from './counselor/CounselStartButton';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import LogNavigationButton from './counselor/LogNavigationButton';
@@ -14,7 +12,6 @@ const ReactSwal = withReactContent(Swal);
 
 const ChatMain = () => {
     const [counselorList, setCounselorList] = useState([]);
-    const [selectedCounselor, setSelectedCounselor] = useState(null);
 
     const nav = useNavigate();
 
@@ -26,12 +23,12 @@ const ChatMain = () => {
 
     // 나의 상담 기록 이동 버튼
     const handleLogNavClick = () => {
-        // TODO: '현재 사용자'의 로그 리스트 구현 후, 그 쪽으로 이동해야 함
         nav("loglist");
     }
 
     const handleCounselClick = (data) => {
         ReactSwal.fire({
+            icon: 'info',
             html: (<div>
                 <span className='col_red fs_20 fw_600'>{data.name}</span> 상담사와<br />상담을 시작하시겠습니까?
             </div>),
@@ -51,7 +48,6 @@ const ChatMain = () => {
         axios.get('/counselor/list')
             .then((res) => {
                 setCounselorList(res.data);
-                setSelectedCounselor(res.data[0]);
             })
     }, [])
 
@@ -59,9 +55,7 @@ const ChatMain = () => {
         <div className='counselormain mx_30'>
             <LogNavigationButton handleClick={handleLogNavClick} />
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            {/* <CounselorProfile data={selectedCounselor} /> */}
             <CounselorOptions info={counselorList} handleCounselClick={handleCounselClick} />
-            {/* <CounselStartButton handleClick={handleCounselStart} /> */}
         </div>
     );
 };
