@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
+import PointLogo from "./PointLogo";
 
 const Pointcheck = () => {
     const storedId = sessionStorage.getItem("id");
@@ -88,8 +89,9 @@ const Pointcheck = () => {
                     </div>
                 </div>
                 <div className="point" style={{textAlign:"center"}}>
-                    <img alt="" src={require("../../../image/pointIcon/point.png")}
-                         style={{margin:"40px 0px"}}/>
+                    {/*<img alt="" src={require("../../../image/pointIcon/point.png")}*/}
+                    {/*     style={{margin:"40px 0px"}}/>*/}
+                    <PointLogo/>
                     <h4>보유 포인트 : <span style={{color:"#FF7170"}}>{member.point?.toLocaleString()}</span></h4>
                 </div>
 

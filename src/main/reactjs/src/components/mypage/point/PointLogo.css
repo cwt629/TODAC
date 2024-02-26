@@ -1,0 +1,33 @@
+
+.pointLogo {
+    z-index: 5;
+    position: relative;
+    width: 260px;
+    height: 360px;
+    box-shadow: -3px 5px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    background-color: #E7F0F2;
+    margin: auto;
+    font-family: sans-serif;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.pointLogo .image {
+    background-color: #161d1a;
+    width: 220px;
+    height: 220px;
+}
+.pointLogo canvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+.pointLogo h2 {
+    padding-top: 20px;
+    font-size: 25px;
+    font-weight: bold;
+}
+.pointLogo p {
+    font-size: 13px;
+    padding-top: 5px;
+}
