@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import defaultImage from "../../../../image/default_profile_photo_blue.jpg";
 import ChatContent from '../../chattingroom/ChatContent';
+import withReactContent from 'sweetalert2-react-content';
+import Swal from 'sweetalert2';
+import CounselorPreview from './CounselorPreview';
 
 const CounselorCreateTable = () => {
     // 각 input의 최대 길이
@@ -8,15 +11,16 @@ const CounselorCreateTable = () => {
         'name': 5,
         'personality': 30,
         'briefintro': 10,
-        'introduction': 100
-    }
+        'introduction': 100,
+        'greeting': 50
+    };
 
     // 앞서 상담사 선택에서 받는 형태의 데이터 구조를 가지게 한다.
     const [data, setData] = useState({
         name: '',
         briefintro: '',
         introduction: '',
-        photo: defaultImage,
+        photo: '',
         cardcolor: '#EEF0F7',
         personality: '',
         reviewcount: 0,
@@ -42,6 +46,15 @@ const CounselorCreateTable = () => {
 
     }
 
+    const ReactSwal = withReactContent(Swal);
+
+    const handlePreview = () => {
+        ReactSwal.fire({
+            title: '상담사 미리보기',
+            html: <CounselorPreview data={data} />
+        })
+    }
+
     return (
         <div className='mt_25'>
             <table className='table table-bordered counselor-create'>
@@ -52,13 +65,13 @@ const CounselorCreateTable = () => {
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 type="text" name="name" value={data.name}
                                 onChange={handleInputChange} />
-                            ({data.name.length} / 5)
+                            ({data.name.length} / {INPUT_MAX_LENGTH['name']})
                         </td>
                     </tr>
                     <tr>
                         <td>사진</td>
                         <td style={{ position: 'relative' }}>
-                            <img alt='' src={data.photo} style={{ width: '100%', height: '100%' }} />
+                            <img alt='' src={data.photo ? data.photo : defaultImage} style={{ width: '100%', height: '100%' }} />
                             <input type='file' id='counselor-create-image' style={{ display: 'none' }} />
                             <img style={{ width: '30px', height: "30px", position: 'absolute', bottom: "10px", right: '10px' }} className="img-fluid"
                                 alt='이미지변경' src={require('../../../../image/ico_camera.png')} onClick={() => document.getElementById("counselor-create-image").click()} />
@@ -69,7 +82,7 @@ const CounselorCreateTable = () => {
                         <td>
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 type="text" name="personality" value={data.personality}
-                                onChange={handleInputChange} /> 상담사<br />
+                                onChange={handleInputChange} /> 상담사 ({data.personality.length} / {INPUT_MAX_LENGTH['personality']})<br />
                             <div>
                                 '~한', '~인'과 같은 형태로 작성하셔야 원하는 대로 동작할 거에요!<br />
                                 ex{')'} 얼음처럼 냉철한
@@ -81,7 +94,7 @@ const CounselorCreateTable = () => {
                         <td>
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 type="text" name="briefintro" value={data.briefintro}
-                                onChange={handleInputChange} />
+                                onChange={handleInputChange} /> ({data.briefintro.length} / {INPUT_MAX_LENGTH['briefintro']})
                         </td>
                     </tr>
                     <tr>
@@ -89,7 +102,7 @@ const CounselorCreateTable = () => {
                         <td>
                             <textarea className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 name="introduction" value={data.introduction}
-                                onChange={handleInputChange}></textarea>
+                                onChange={handleInputChange}></textarea> ({data.introduction.length} / {INPUT_MAX_LENGTH['introduction']})
                         </td>
                     </tr>
                     <tr>
@@ -97,7 +110,7 @@ const CounselorCreateTable = () => {
                         <td>
                             <textarea className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 name="greeting" value={data.greeting}
-                                onChange={handleInputChange}></textarea>
+                                onChange={handleInputChange}></textarea> ({data.greeting.length} / {INPUT_MAX_LENGTH['greeting']})
                         </td>
                     </tr>
                     <tr>
@@ -106,7 +119,7 @@ const CounselorCreateTable = () => {
                                 {
                                     'role': 'assistant', 'content': data.greeting,
                                     'speaker': 1,
-                                    'photo': data.photo
+                                    'photo': data.photo ? data.photo : defaultImage
                                 }
                             ]} isPreview={true} />
                         </td>
@@ -122,7 +135,7 @@ const CounselorCreateTable = () => {
                         <td colSpan={2}>
                             <div className='custom-btn-outer'>
                                 <div className='custom-btn-div'>
-                                    <button type='button'>미리보기</button>
+                                    <button type='button' onClick={handlePreview}>미리보기</button>
                                     <button type='button'>제작!</button>
                                 </div>
                             </div>

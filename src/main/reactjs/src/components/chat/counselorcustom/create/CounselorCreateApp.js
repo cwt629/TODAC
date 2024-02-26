@@ -3,6 +3,7 @@ import PageHeader from '../../../PageHeader';
 import CounselorCreateTable from './CounselorCreateTable';
 import './CounselorCreateStyle.css';
 import '../../chattingroom/ChatRoomStyle.css';
+import '../../counselor/CounselorStyle.css';
 
 const CounselorCreateApp = () => {
     const CURRENT_ROUTES = [
