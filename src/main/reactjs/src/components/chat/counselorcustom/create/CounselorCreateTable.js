@@ -43,7 +43,24 @@ const CounselorCreateTable = () => {
 
     // 사진 변경 이벤트
     const handlePhotoUpload = (e) => {
-
+        console.log(e.target.files);
+        const file = e.target.files[0];
+        if (file) {
+            if (file.type.startsWith('image/')) {
+                setPhotoFile(file);
+                // 미리보기를 위한 이미지 URL 저장
+                setData({ ...data, photo: URL.createObjectURL(file) });
+            }
+            else {
+                ReactSwal.fire({
+                    icon: 'error',
+                    title: '이미지만 업로드 가능!',
+                    html: '이미지 파일만 업로드 해주세요.',
+                    confirmButtonColor: '#ff7170',
+                    confirmButtonText: '확인'
+                })
+            }
+        }
     }
 
     const ReactSwal = withReactContent(Swal);
@@ -51,7 +68,9 @@ const CounselorCreateTable = () => {
     const handlePreview = () => {
         ReactSwal.fire({
             title: '상담사 미리보기',
-            html: <CounselorPreview data={data} />
+            html: <CounselorPreview data={data} />,
+            confirmButtonColor: '#ff7170',
+            confirmButtonText: '확인'
         })
     }
 
@@ -72,7 +91,8 @@ const CounselorCreateTable = () => {
                         <td>사진</td>
                         <td style={{ position: 'relative' }}>
                             <img alt='' src={data.photo ? data.photo : defaultImage} style={{ width: '100%', height: '100%' }} />
-                            <input type='file' id='counselor-create-image' style={{ display: 'none' }} />
+                            <input type='file' accept='image/*' id='counselor-create-image' style={{ display: 'none' }}
+                                onChange={handlePhotoUpload} />
                             <img style={{ width: '30px', height: "30px", position: 'absolute', bottom: "10px", right: '10px' }} className="img-fluid"
                                 alt='이미지변경' src={require('../../../../image/ico_camera.png')} onClick={() => document.getElementById("counselor-create-image").click()} />
                         </td>

@@ -2,15 +2,13 @@ import React from 'react';
 import defaultPhoto from '../../../../image/default_profile_photo_blue.jpg';
 import starIcon from '../../../../image/rotating_star.gif';
 
-const STORAGE_PHOTO_BASE = 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/counselors/';
-
 const CounselorPreviewBack = ({ data }) => {
     return (
         <div className='counselorcard card-back'
             style={{ backgroundColor: data.cardcolor }}>
             <div className='fw_600 fs_24'>Counselor Info</div>
             <div className='mt_10 profile-simple'>
-                <img alt='상담사' src={data.photo ? STORAGE_PHOTO_BASE + data.photo : defaultPhoto}
+                <img alt='상담사' src={data.photo ? data.photo : defaultPhoto}
                     className='counselorphoto backphoto' />
                 <div>
                     <div className='fw_600 fs_20' style={{ textAlign: 'left' }}>{data.name ? data.name : '이름'}</div>
@@ -34,7 +32,7 @@ const CounselorPreviewBack = ({ data }) => {
                 }
             </div>
             <div className='mt_10'>
-                <button type='button' className='counselinnerbtn officialbtn btn-jittery fw_600'>TODAC 상담시작</button>
+                <button type='button' className='counselinnerbtn officialbtn btn-jittery fw_600'>상담 시작!</button>
             </div>
         </div>
     );
