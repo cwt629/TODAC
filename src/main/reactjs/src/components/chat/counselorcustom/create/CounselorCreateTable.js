@@ -77,7 +77,7 @@ const CounselorCreateTable = () => {
         })
     }
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
         if (submitFlag) {
             ReactSwal.fire({
@@ -87,6 +87,23 @@ const CounselorCreateTable = () => {
                 confirmButtonText: '확인'
             })
             return;
+        }
+
+        // 성격 입력 확인: '~인', '~한', '~은', '~는'으로 끝나는지 확인
+        const personalityRegex = new RegExp('[한인은는]$');
+        if (!personalityRegex.test(data.personality)) {
+            const userConfirm = await ReactSwal.fire({
+                icon: 'warning',
+                title: '성격 확인!',
+                html: '성격 입력이 정확하지 않으면<br/>적용이 제대로 되지 않을 수 있습니다.<br/>계속하시겠습니까?',
+                confirmButtonColor: '#ff7170',
+                confirmButtonText: '확인',
+                showCancelButton: true,
+                cancelButtonText: '취소'
+            });
+            if (!userConfirm.isConfirmed) {
+                return;
+            }
         }
 
         // 문제 없는 경우
@@ -107,32 +124,36 @@ const CounselorCreateTable = () => {
         }
 
         // 데이터 전송
-        axios.post('/counselor/custom', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }).then((res) => {
-            ReactSwal.fire({
+        try {
+            await axios.post('/counselor/custom', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            await ReactSwal.fire({
                 icon: 'success',
                 title: '커스텀 성공!',
                 html: '상담사 제작이 완료되었습니다!<br/>목록으로 돌아가 상담을 즐겨보세요! :)',
                 confirmButtonColor: '#ff7170',
                 confirmButtonText: '확인'
+            });
+
+            nav("..");
+
+        } catch (error) {
+            ReactSwal.fire({
+                icon: 'error',
+                title: '에러 발생!',
+                html: '다음 에러가 발생하였습니다:' + error,
+                confirmButtonColor: '#ff7170',
+                confirmButtonText: '확인'
             }).then(() => {
-                nav("..");
+                setSubmitFlag(false);
             })
-        })
-            .catch((error) => {
-                ReactSwal.fire({
-                    icon: 'error',
-                    title: '에러 발생!',
-                    html: '다음 에러가 발생하였습니다:' + error,
-                    confirmButtonColor: '#ff7170',
-                    confirmButtonText: '확인'
-                }).then(() => {
-                    setSubmitFlag(false);
-                })
-            })
+        }
+
+
     }
 
     return (
