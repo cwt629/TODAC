@@ -13,7 +13,7 @@ const Header = () => {
     const loginType = sessionStorage.getItem("loginType");
 
     const getmemberinfo = () => {
-        axios.post("/member/info?userid="+id).then((res)=>{
+        axios.post("/member/info?userid=" + id).then((res) => {
             //console.log(res.data);
             setMemberinfo(res.data);
         })
@@ -24,24 +24,24 @@ const Header = () => {
         console.log(accessToken);
 
         if (loginType === "kakao") {
-          axios.post(
-            "/logout/logoutCallBack", {}
-          ).then(res => {
-            sessionStorage.clear();
-            window.location.href = res.data.url;
-          });
+            axios.post(
+                "/logout/logoutCallBack", {}
+            ).then(res => {
+                sessionStorage.clear();
+                window.location.href = res.data.url;
+            });
         }
-    
-        else{
+
+        else {
             //세션에서 토큰 제거
             sessionStorage.clear();
             //로그인 페이지로 이동
             nav('/login');
         }
-        
+
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         getmemberinfo();
     }, []);
 
@@ -50,23 +50,23 @@ const Header = () => {
 
     return (
         <div className='header fixed-top bg-white'>
-                <div className='text-center mt_25'>
-                    <span style={{cursor:'pointer',color:'var(--deepblue)'}} className='fs_24 fw_900' onClick={() => nav('/')}>TODAC</span>
-                </div>
-            
+            <div className='text-center mt_25'>
+                <span style={{ cursor: 'pointer', color: 'var(--deepblue)' }} className='fs_24 fw_900' onClick={() => nav('/')}>TODAC</span>
+            </div>
+
             {/* <span style={{ float: 'right', paddingRight: '10px' }}><span className='fw_900 col_blue1'>{memberinfo.nickname}</span> 님 <Logout style={{ cursor: 'pointer', width:'16px' }} onClick={() => {
                 nav("/login");
             }} /> </span> */}
 
-            <div className='d-flex mx_30 mt-1'> 
+            <div className='d-flex mx_30 mt-1'>
                 {showBackButton && (
                     <div>
-                        <img alt='뒤로가기' src={require('./image/ico_back.png')} onClick={()=>window.history.back()}/>
+                        <img alt='뒤로가기' src={require('./image/ico_back.png')} onClick={() => window.history.back()} />
                     </div>
                 )}
 
-                <div style={{marginLeft:'auto'}}>
-                    <span className='fw_900'>{memberinfo.nickname}</span> 님 <Logout style={{ cursor: 'pointer', width:'16px' }} onClick={handleLogout} /> 
+                <div style={{ marginLeft: 'auto' }}>
+                    <span className='fw_900'>{memberinfo.nickname}</span> 님 <Logout style={{ cursor: 'pointer', width: '16px' }} onClick={handleLogout} />
                 </div>
             </div>
         </div>

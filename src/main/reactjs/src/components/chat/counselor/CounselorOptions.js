@@ -11,7 +11,7 @@ import CounselorCardFront from "./CounselorCardFront";
 import CounselorCardBack from "./CounselorCardBack";
 import CounselorCardLast from "./CounselorCardLast";
 
-const CounselorOptions = ({ info, handleCounselClick }) => {
+const CounselorOptions = ({ info, handleCounselClick, handleCounselorDelete }) => {
     const handleCardClick = (e) => {
         e.currentTarget.classList.toggle("counselor-card-flipped");
     };
@@ -21,11 +21,12 @@ const CounselorOptions = ({ info, handleCounselClick }) => {
             <Swiper effect={"cards"} grabCursor={true} modules={[EffectCards]} className='mySwiper'>
                 {info.map((data, idx) => (
                     <SwiperSlide key={idx} onClick={(e) => handleCardClick(e)}>
-                        <CounselorCardFront bgcolor={data.cardcolor} data={data} />
+                        <CounselorCardFront isCustom={data.usercode !== 5 && data.usercode === Number(sessionStorage.getItem("usercode"))} bgcolor={data.cardcolor} data={data} />
                         <CounselorCardBack
                             borcolor={data.cardcolor}
                             data={data}
                             handleCounselClick={handleCounselClick}
+                            handleCounselorDelete={handleCounselorDelete}
                         />
                     </SwiperSlide>
                 ))}
