@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import BoardComment from "./BoardComment";
 import heart from "../../../image/heart.svg";
 import heartFull from "../../../image/heart_full.svg";
+import "./Share.css";
 
 const BoardDetail = () => {
     const [data, setData] = useState(null);
@@ -97,6 +98,57 @@ const BoardDetail = () => {
         });
     };
 
+    const update = () => {
+        Swal.fire({
+            title: "게시글 수정",
+            text: "해당 게시글을 수정하시겠습니까?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#FF7170",
+            confirmButtonText: "예",
+            cancelButtonText: "아니오",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                navi(`/user/community/board/updateform/${boardcode}`);
+            }
+        });
+    };
+
+    const shareTwitter = () => {
+        // 트위터 공유 로직
+        let sendText = "하이염";
+        let sendUrl = "175.45.192.182/";
+        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url" + sendUrl);
+    };
+
+    const shareFacebook = () => {
+        // 페이스북 공유 로직
+        let sendUrl = "175.45.192.182/";
+        window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+    };
+
+    const shareKakao = () => {
+        const { Kakao } = window;
+        // 카카오톡 공유 로직
+        //사용할 앱의 JavaScript 키 설정
+        Kakao.init('d0577a9b3b130946fc71e09ec2e061f7');
+
+        //카카오링크 버튼 생성
+        Kakao.Link.createDefaultButton({
+            container: '#btnKakao',
+            objectType: 'feed',
+            content: {
+                title: 'TODAC',
+                description: 'TODAC 블로그입니다',
+                imageUrl: '175.45.192.182/',
+                link: {
+                    mobileWebUrl: '175.45.192.182/',
+                    webUrl:'175.45.192.182/'
+                }
+            }
+        })
+    };
+
     return (
         <div>
             {data && (
@@ -144,10 +196,24 @@ const BoardDetail = () => {
                         </div>
                     </div>
                     <div className='mt-3'>{data.content}</div>
-
-                    <div className='mt-5' style={{ textAlign: "center" }}>
+                    <hr />
+                    <div className='mt-4' style={{ textAlign: "center" }}>
                         <h2>상담사 정보</h2>
                         <div className='bg_blue rounded-circle'>{`${data.counselorCode}번 상담사`}</div>
+                    </div>
+                    <hr />
+                    <div>
+                        <div>
+                            <div id='btnTwitter' className='linkIcon twitter' href='#' onClick={shareTwitter}>
+                                트위터
+                            </div>
+                            <div id='btnFacebook' className='linkIcon facebook' href='#' onClick={shareFacebook}>
+                                페이스북
+                            </div>
+                            <div id='btnKakao' className='linkIcon kakao' href='#' onClick={shareKakao}>
+                                카카오톡
+                            </div>
+                        </div>
                     </div>
                     <div className='mt-5' style={{ display: "flex", justifyContent: "center" }}>
                         <Button
@@ -185,7 +251,7 @@ const BoardDetail = () => {
                             <button onClick={() => deletePost(boardcode)} style={{ cursor: "pointer" }}>
                                 삭제
                             </button>
-                            <button onClick={() => navi(`/user/community/board/updateform/${boardcode}`)}>수정</button>
+                            <button onClick={update}>수정</button>
                         </div>
                     ) : null}
                     <BoardComment />
