@@ -32,7 +32,7 @@ public interface BoardRepository extends JpaRepository<BoardDto, Integer> {
 	@Query(value =
    		"""
    			SELECT
-          board.boardcode, board.counselorcode, board.usercode, member.nickname,
+          board.boardcode, board.counselorcode, board.usercode, member.nickname, member.photo AS memberphoto,
     	  board.registereddate, board.state, board.category, board.photo, board.title,
           IFNULL(board.visitcount, 0) AS visitcount,
           IFNULL(COUNT(DISTINCT boardcomment.commentcode), 0) AS commentcount,
@@ -45,7 +45,8 @@ public interface BoardRepository extends JpaRepository<BoardDto, Integer> {
       	  ORDER BY board.boardcode DESC;
 		"""
 			, nativeQuery = true)
-	public List<MainListInterface> getBoardList();
+	public List<MainListInterface> findAllByOrderByBoardCodeDesc(@Param("sortBy") String sortBy);
+
 
 	@Query(value = "select * from board where usercode=:usercode",nativeQuery = true)
     public  List<BoardDto> getMemberPostData(@Param("usercode") int usercode);

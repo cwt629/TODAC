@@ -17,6 +17,7 @@ public class BoardDetailDto {
     private int counselorCode;
     private int userCode;
     private int boardCode;
+    private String memberPhoto;
 
 
     public BoardDetailDto(BoardDto boardDto) {
@@ -29,6 +30,7 @@ public class BoardDetailDto {
         registerDate = boardDto.getRegistereddate();
         userCode = boardDto.getMember().getUsercode();
         boardCode = boardDto.getBoardcode();
+        memberPhoto = boardDto.getMember().getPhoto();
     }
 
 }

@@ -1,7 +1,23 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Faq = () => {
+    const [memberinfo, setMemberinfo] = useState([]);
+
+    const id = sessionStorage.getItem("id");
+
+    const getmemberinfo = () => {
+        axios.post("/member/info?userid="+id).then((res)=>{
+            console.log(res.data);
+            setMemberinfo(res.data);
+        })
+    }
+
+    useEffect(()=>{
+        getmemberinfo();
+    }, []);
+
 
     return (
         <div className='mx_30'>
@@ -11,10 +27,24 @@ const Faq = () => {
             </div>
             <div className='fs_25 fw_700'>도움말</div>
 
-            <div className='mt_45 fw_500'>아이디 님, <br/>무엇을 도와드릴까요?</div>
+            <div className='mt_45 fw_500'><span className='fw_900 col_blue3'>{memberinfo.nickname}</span> 님, <br/>무엇을 도와드릴까요?</div>
             <div className='fs_20 fw_700 mt_45'>FAQ</div>
 
             <div className="faq accordion mt_10 fw_600" id="accordionPanelsStayOpenExample">
+                <div className="accordion-item">
+                    <h2 className="accordion-header" id="panelsStayOpen-headingFive">
+                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="true" aria-controls="panelsStayOpen-collapseFive">
+                            <img alt='질문' src={require("../../../image/ico_faq_q.png")} className='img-fluid mx-2'/>
+                            <span>TODAC은 무슨 뜻인가요?</span>
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseFive" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+                        <div className="accordion-body">
+                            <img alt='답변' src={require("../../../image/ico_faq_a.png")} className='img-fluid mx-2'/>
+                            <span>답변1</span>
+                        </div>
+                    </div>
+                </div>
                 <div className="accordion-item">
                     <h2 className="accordion-header" id="panelsStayOpen-headingOne">
                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">

@@ -2,12 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PageHeader from "../../PageHeader";
-import { Button, TextField } from "@mui/material";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import { Button } from "@mui/material";
 import Swal from "sweetalert2";
 import BoardComment from "./BoardComment";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import heart from "../../../image/heart.svg";
+import heartFull from "../../../image/heart_full.svg";
 
 const BoardDetail = () => {
     const [data, setData] = useState(null);
@@ -27,6 +26,7 @@ const BoardDetail = () => {
     const PAGE_TITLE = "상세 페이지";
 
     useEffect(() => {
+        console.log("조회수 렌더링");
         axios.get(`/board/detail?boardcode=${boardcode}`).then((res) => {
             setData(res.data);
             setIsLiked(res.data.liked); // 서버에서 받아온 데이터에서 좋아요 여부를 설정
@@ -129,9 +129,17 @@ const BoardDetail = () => {
 
                     <div className='mt_10'>
                         <h2>{data.title}</h2>
+                        <span>
+                            <img
+                                alt=''
+                                src={data.memberPhoto}
+                                style={{ width: "30px", height: "30px", borderRadius: "75px" }}
+                            />{" "}
+                            {data.memberNickname}
+                        </span>
                         <div>
                             <span>
-                                by {data.memberNickname} • {data.registerDate}
+                                {data.registerDate} • 좋아요 {likeCount} • 조회 {data.visitCount}
                             </span>
                         </div>
                     </div>
@@ -139,24 +147,30 @@ const BoardDetail = () => {
 
                     <div className='mt-5' style={{ textAlign: "center" }}>
                         <h2>상담사 정보</h2>
-                        <div className='bg_blue'>{`${data.counselorCode}번 상담사`}</div>
+                        <div className='bg_blue rounded-circle'>{`${data.counselorCode}번 상담사`}</div>
                     </div>
                     <div className='mt-5' style={{ display: "flex", justifyContent: "center" }}>
-                        <button type='button' className='bor_blue1 bg_blue'>
+                        <Button
+                            type='button'
+                            style={{
+                                alignItems: "center",
+                                borderRadius: "1.5rem",
+                                backgroundColor: "rgb(255,255,255)",
+                                color: "gray",
+                                justifyContent: "center",
+                                boxShadow: "rgba(0,0,0,0.3) 0px 0px 6px",
+                            }}
+                        >
                             <span
                                 style={{ marginRight: "16px", cursor: "pointer" }}
                                 onClick={isLiked ? handleUnlike : handleLike}
                             >
-                                {isLiked ? <FavoriteIcon style={{ color: "#F99090" }} /> : <FavoriteBorderIcon />}
+                                {isLiked ? <img alt='' src={heartFull} /> : <img alt='' src={heart} />}
                                 <span className='comment-action' style={{ marginLeft: "4px" }}>
                                     {likeCount}
                                 </span>
                             </span>
-                        </button>
-                        <div className='bor_blue1 bg_blue' style={{ marginLeft: "30px" }}>
-                            <VisibilityOutlinedIcon />
-                            {data.visitCount}
-                        </div>
+                        </Button>
                     </div>
                     {userRole === "todac" ? (
                         // 관리자인 경우에는 삭제 기능만 표시

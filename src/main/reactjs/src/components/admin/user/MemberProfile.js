@@ -3,11 +3,9 @@ import { Navigate, useNavigate, useParams, useSearchParams } from 'react-router-
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import '../AdminStyle.css';
+import '../../mypage/QnaStyle.css';
+import "../../mypage/MyPageStyle.css";
 import Swal from 'sweetalert2';
-import CommentIcon from '@mui/icons-material/Comment';
-import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
-import PaymentOutlinedIcon from '@mui/icons-material/PaymentOutlined';
-import CardGiftcardOutlinedIcon from '@mui/icons-material/CardGiftcardOutlined';
 
 const MemberProfile = () => {
     const nav = useNavigate();
@@ -26,8 +24,8 @@ const MemberProfile = () => {
     const onPersonDelete = () => {
         // SweetAlert를 사용하여 삭제 여부 확인
         Swal.fire({
-            title: '회원 추방',
-            text: '정말로 이 회원을 추방하시겠습니까?',
+            title: '회원 삭제',
+            text: '정말로 이 회원을 삭제하시겠습니까?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#FF7170',
@@ -43,7 +41,7 @@ const MemberProfile = () => {
                         getMember(usercode);
                         Swal.fire({
                             title: '삭제 완료',
-                            text: '해당 회원이 추방되었습니다.',
+                            text: '해당 회원이 삭제되었습니다.',
                             icon: 'success',
                             confirmButtonColor: '#FF7170',
                         });
@@ -58,8 +56,6 @@ const MemberProfile = () => {
     };
 
     useEffect(() => {
-        const storedToken = sessionStorage.getItem("token");
-        const storedId = sessionStorage.getItem("id");
         getMember();
     }, [usercode]);
 
@@ -70,35 +66,47 @@ const MemberProfile = () => {
                 <Link to="/admin/MemberManage" className='col_blue2'>회원 관리 {'>'} </Link>
                 <span className='col_blue2'>&nbsp;회원 정보</span>
             </div>
-            <div className='fs_25 fw_700'>회원정보
-                <button
-                    className='bor_blue2 fs_18 fw_700 col_blue2'
-                    onClick={() => onPersonDelete(usercode)}
-                    style={{ float: 'right', borderRadius: '8px', backgroundColor: 'white' }}
-                >
-                    회원 추방
-                </button></div>
             <br /><br />
-            <div style={{ textAlign: 'center' }}>
-                <img alt='' src={member.photo} style={{ width: '25vh', height: '25vh' }} />
-                <br /><br />
-                <h1 className='fs_25 fw_700'>{member.nickname}님</h1>
-                <br />
+            <div className='fs_25 fw_700' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <img alt='' src={member.photo} style={{ width: '18vh', height: '18vh', borderRadius: '50%' }} />
+                    <br />
+                    <span className='fs_28 fw_700 mt-2'>{member.nickname}님</span>
+                </div>
             </div>
-            <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberPost?usercode=' + member.usercode)}><CommentIcon />&nbsp;&nbsp;{member.nickname} 님의 게시글 &nbsp;{'>'}</button>
-            <br /><br />
-            <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberComment?usercode=' + member.usercode)}> <CommentIcon />&nbsp;&nbsp;{member.nickname} 님의 댓글 &nbsp; {'>'} </button>
-            <br /><br />
-            <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberPayment?usercode=' + member.usercode)}> <PaymentOutlinedIcon />&nbsp;&nbsp;{member.nickname} 님의 결제 내역&nbsp; {'>'}</button>
-            <br /><br />
-            <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberPoint?usercode=' + member.usercode)}> <CardGiftcardOutlinedIcon /> &nbsp;&nbsp;{member.nickname} 님의 포인트 사용 &nbsp;{'>'}</button>
-            <br /><br />
-            <button className='commonButton bg_blue bor_blue1 fs_16 fw_600'
-                onClick={() => nav('MemberChatSearch?usercode=' + member.usercode)}><ForumOutlinedIcon />&nbsp;&nbsp;{member.nickname} 님의 채팅 기록&nbsp; {'>'}</button>
+            <div className="listmenu fw_600 align-items-center mt_45">
+                <div onClick={() => nav('MemberPost?usercode=' + member.usercode)}>
+                    <img alt="" src={require("../../../image/adminIcon/Write.png")} />
+                    <span className='mx-3 fs_17'>{member.nickname} 님의 게시글</span>
+                    <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
+                </div>
+                <div onClick={() => nav('MemberComment?usercode=' + member.usercode)} className='mt-4'>
+                    <img alt="" src={require("../../../image/adminIcon/Write.png")} />
+                    <span className='mx-3 fs_17'>{member.nickname} 님의 댓글</span>
+                    <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
+                </div>
+                <div onClick={() => nav('MemberPayment?usercode=' + member.usercode)} className='mt-4'>
+                    <img alt="" src={require("../../../image/adminIcon/CreditCard1.png")} />
+                    <span className='mx-3 fs_17'>{member.nickname} 님의 결제 내역</span>
+                    <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
+                </div>
+                <div onClick={() => nav('MemberPoint?usercode=' + member.usercode)} className='mt-4'>
+                    <img alt="" src={require("../../../image/adminIcon/CoinPurse.png")} />
+                    <span className='mx-3 fs_17'>{member.nickname} 님의 포인트 사용</span>
+                    <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
+                </div>
+                <div onClick={() => nav('MemberChatSearch?usercode=' + member.usercode)} className='mt-4'>
+                    <img alt="" src={require("../../../image/adminIcon/conversationchat.svg")} />
+                    <span className='mx-3 fs_17'>{member.nickname} 님의 채팅 기록</span>
+                    <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
+                </div>
+                <div onClick={() => onPersonDelete(usercode)} className='mt-4' style={{ marginTop: "10px" }}>
+                    <img alt="" src={require("../../../image/adminIcon/x.svg")} />
+                    <span style={{ color: "red" }} className='mx-3'>회원 삭제</span>
+                    <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
+                </div>
+
+            </div>
         </div>
     );
 };

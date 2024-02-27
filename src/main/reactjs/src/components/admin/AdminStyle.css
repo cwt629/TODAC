@@ -26,12 +26,11 @@
 .table td {
     padding: 8px;
     text-align: left;
-    background-color: #F2F5FA;
     border-radius: 0px;
 }
 
 .table th {
-    background-color: #d4d3d3;
+    background-color: #B8D0FA;
 }
 
 .commonButton {
