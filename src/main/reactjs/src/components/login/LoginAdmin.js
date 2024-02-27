@@ -15,8 +15,8 @@ const CustomButton = styled(Button)({
     border: '1px solid',
     marginTop:"30px", 
     fontWeight:"700",
-    backgroundColor: '#FF7170', // 원하는 색상으로 변경
-    borderColor: '#FF7170', // 원하는 색상으로 변경
+    backgroundColor: '#6495ED', // 원하는 색상으로 변경
+    borderColor: '#6495ED', // 원하는 색상으로 변경
     fontFamily: [
       '-apple-system',
       'BlinkMacSystemFont',
@@ -30,14 +30,14 @@ const CustomButton = styled(Button)({
       '"Segoe UI Symbol"',
     ].join(','),
     '&:hover': {
-      backgroundColor: '#FF5E62', // hover 시 원하는 색상으로 변경
-      borderColor: '#FF5E62', // hover 시 원하는 색상으로 변경
+      backgroundColor: '#E0FFFF', // hover 시 원하는 색상으로 변경
+      borderColor: '#E0FFFF', // hover 시 원하는 색상으로 변경
       boxShadow: 'none',
     },
     '&:active': {
       boxShadow: 'none',
-      backgroundColor: '#FF494D', // 클릭 시 원하는 색상으로 변경
-      borderColor: '#FF494D', // 클릭 시 원하는 색상으로 변경
+      backgroundColor: '#E0FFFF', // 클릭 시 원하는 색상으로 변경
+      borderColor: '#E0FFFF', // 클릭 시 원하는 색상으로 변경
     },
     '&:focus': {
       boxShadow: '0 0 0 0.2rem rgba(255,113,112,.5)',
@@ -89,15 +89,15 @@ const LoginAdmin = () => {
             Swal.fire({
                 icon: 'error',
                 title: '<span style="font-size: 20px;">관리자 아이디가 아닙니다</span>',
-                confirmButtonColor: '#FF7170',
-                background: '#F9EAEB'
+                confirmButtonColor: '#6495ED',
+                background: 'white'
             });
           } else if (res.data.result === 'nopass') {
             Swal.fire({
                 icon: 'error',
                 title: '<span style="font-size: 20px;">비밀번호가 맞지 않습니다</span>',
-                confirmButtonColor: '#FF7170',
-                background: '#F9EAEB'
+                confirmButtonColor: '#6495ED',
+                background: 'white'
             });
           } else{
             sessionStorage.token = res.data.token;
@@ -112,8 +112,7 @@ const LoginAdmin = () => {
   return (
     <div className='login_main2'>
       <img alt='back' src={require('../../image/ico_back.png')} onClick={goBack} style={{ cursor: 'pointer' }}/>
-      {/* <ArrowBackIcon onClick={goBack} style={{ cursor: 'pointer' }} /> */}
-      <div className='fs_45 col_red fw_900 text-center mt_80'>
+      <div className='fs_45 col_blue2 fw_900 text-center mt_80'>
         TODAC
       </div>
 
