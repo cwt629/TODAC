@@ -200,7 +200,7 @@ const BoardMain = () => {
                         position: "absolute",
                         bottom: (theme) => theme.spacing(2),
                         right: (theme) => theme.spacing(2),
-                        backgroundColor: "#69caf7",
+                        backgroundColor: "#5279fd",
                         color: "white",
                     }}
                 >

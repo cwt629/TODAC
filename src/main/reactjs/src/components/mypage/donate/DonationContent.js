@@ -11,8 +11,8 @@ const DonationContent = () => {
     const [member,setMember]=useState([]);
     const PAGE_TITLE = '후원하기';
     const CURRENT_ROUTES = [
-        { name: '마이 홈', url: '/user' },
-        { name: '후원', url: '' }
+        { name: '내 정보', url: '/user' },
+        { name: '후원하기', url: '' }
     ];
 
     const getmember = () => {
