@@ -32,4 +32,8 @@ public class CounselorDao {
 	public void insertCounselor(CounselorDto dto) {
 		counselorRepository.save(dto);
 	}
+	
+	public void deleteCounselor(Short counselorcode) {
+		counselorRepository.deleteById(counselorcode);
+	}
 }

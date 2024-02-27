@@ -1,11 +1,12 @@
 import React from 'react';
 import defaultPhoto from '../../../image/default_profile_photo_blue.jpg';
 import starIcon from '../../../image/rotating_star.gif';
+import { PersonRemoveAlt1TwoTone } from '@mui/icons-material';
 
 const STORAGE_PHOTO_BASE = 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/counselors/';
 
 
-const CounselorCardBack = ({ borcolor, data, handleCounselClick }) => {
+const CounselorCardBack = ({ borcolor, data, handleCounselClick, handleCounselorDelete }) => {
     return (
         <div className='counselorcard card-back'
             style={{ backgroundColor: borcolor }}>
@@ -20,6 +21,12 @@ const CounselorCardBack = ({ borcolor, data, handleCounselClick }) => {
                         <img alt='별' src={starIcon} width={17} height={17} />
                         &nbsp;{data.averagescore.toFixed(1)} ({data.reviewcount})
                     </div>
+                    {
+                        data.usercode !== 5 && // 관리자가 만든 오피셜 상담사는 일단 삭제 못하도록 처리
+                            data.usercode === Number(sessionStorage.getItem("usercode")) ?
+                            <PersonRemoveAlt1TwoTone color='action'
+                                onClick={() => handleCounselorDelete(data)} /> : ''
+                    }
                 </div>
             </div>
             <div className='mt_10' style={{ overflowY: 'auto' }}>

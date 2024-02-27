@@ -11,7 +11,7 @@ import CounselorCardFront from "./CounselorCardFront";
 import CounselorCardBack from "./CounselorCardBack";
 import CounselorCardLast from "./CounselorCardLast";
 
-const CounselorOptions = ({ info, handleCounselClick }) => {
+const CounselorOptions = ({ info, handleCounselClick, handleCounselorDelete }) => {
     const handleCardClick = (e) => {
         e.currentTarget.classList.toggle("counselor-card-flipped");
     };
@@ -26,6 +26,7 @@ const CounselorOptions = ({ info, handleCounselClick }) => {
                             borcolor={data.cardcolor}
                             data={data}
                             handleCounselClick={handleCounselClick}
+                            handleCounselorDelete={handleCounselorDelete}
                         />
                     </SwiperSlide>
                 ))}

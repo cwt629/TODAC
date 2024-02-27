@@ -64,4 +64,9 @@ public class CounselorController {
 		// 3. DB 저장
 		counselorService.insertCounselor(counselorDto);
 	}
+	
+	@GetMapping("counselor/delete")
+	public void deleteCounselor(@RequestParam("counselorcode") Short counselorcode) {
+		counselorService.deleteCounselor(counselorcode);
+	}
 }

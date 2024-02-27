@@ -33,4 +33,8 @@ public class CounselorService {
 	public void insertCounselor(CounselorDto dto) {
 		counselorDao.insertCounselor(dto);
 	}
+	
+	public void deleteCounselor(Short counselorcode) {
+		counselorDao.deleteCounselor(counselorcode);
+	}
 }
