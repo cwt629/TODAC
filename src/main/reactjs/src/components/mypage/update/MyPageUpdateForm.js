@@ -9,6 +9,7 @@ import DaumPostcodeEmbed from "react-daum-postcode";
 import {CameraAltOutlined} from "@mui/icons-material";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
+import PageHeader from "../../PageHeader";
 
 
 const MyPageUpdateForm = () => {
@@ -25,6 +26,12 @@ const MyPageUpdateForm = () => {
     const [openPostcode,setOpenPostcode]=useState(false);//카카오 주소록 open/close
     const ReactSwal = withReactContent(Swal);
 
+
+    const CURRENT_ROUTES = [
+        { name: '내 정보', url: '/user' },
+        { name: '정보 수정', url: '' }
+    ];
+    const PAGE_TITLE = '내 정보 수정';
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -213,15 +220,7 @@ const MyPageUpdateForm = () => {
                 </DialogActions>
             </Dialog>
             <div className="myupdatemain">
-                <div className='myupdateheader'>
-                <div className='mt-1 fs_14 col_blue2'>
-                    <Link to="/user">마이 홈 {'>'} </Link>
-                    <Link to="/user/update">내 정보 관리 </Link>
-                </div>
-                    <div className='fs_24 fw_700'>
-                        내 정보 수정
-                    </div>
-                </div>
+                <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
                 <div className="profile">
                     <img className="profile" alt='' src={photo}/>
                     <div className='mt_10 fs_20 fw_700'>{member.nickname}</div>
