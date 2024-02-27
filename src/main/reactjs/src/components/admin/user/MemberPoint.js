@@ -77,7 +77,7 @@ const MemberPoint = () => {
                 </div>
             </div>
             {/* <div className='fs_17 fw_800'>{member.nickname} 님의 포인트 사용내역 검색</div> */}
-
+            <br />
             {/* 검색창 */}
             <Input
                 id="search"
