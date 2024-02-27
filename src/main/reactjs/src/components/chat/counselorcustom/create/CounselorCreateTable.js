@@ -30,7 +30,8 @@ const CounselorCreateTable = () => {
     // 포토 파일은 다음과 같이 따로 저장해둔다
     const [photoFile, setPhotoFile] = useState(null);
 
-
+    // 중복 제출 방지를 위한 플래그
+    const [submitFlag, setSubmitFlag] = useState(false);
 
     // 일부 input의 변경 이벤트
     const handleInputChange = (e) => {
@@ -74,16 +75,33 @@ const CounselorCreateTable = () => {
         })
     }
 
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        if (submitFlag) {
+            ReactSwal.fire({
+                icon: 'warning',
+                html: '상담사 제출 처리중입니다.<br/>잠시만 기다려주세요...',
+                confirmButtonColor: '#ff7170',
+                confirmButtonText: '확인'
+            })
+            return;
+        }
+
+        // 문제 없는 경우
+        setSubmitFlag(true);
+        alert("제출함 ㅋ");
+    }
+
     return (
-        <div className='mt_25'>
+        <form className='mt_25' onSubmit={handleFormSubmit}>
             <table className='table table-bordered counselor-create'>
                 <tbody>
                     <tr>
-                        <td width={'20%'}>이름</td>
+                        <td width={'20%'}>이름 *</td>
                         <td width={'80%'}>
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 type="text" name="name" value={data.name}
-                                onChange={handleInputChange} maxLength={INPUT_MAX_LENGTH['name']} />
+                                onChange={handleInputChange} maxLength={INPUT_MAX_LENGTH['name']} required />
                             ({data.name.length} / {INPUT_MAX_LENGTH['name']})
                         </td>
                     </tr>
@@ -98,10 +116,10 @@ const CounselorCreateTable = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>성격</td>
+                        <td>성격 *</td>
                         <td>
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
-                                type="text" name="personality" value={data.personality} maxLength={INPUT_MAX_LENGTH['personality']}
+                                type="text" name="personality" value={data.personality} maxLength={INPUT_MAX_LENGTH['personality']} required
                                 onChange={handleInputChange} /> 상담사 ({data.personality.length} / {INPUT_MAX_LENGTH['personality']})<br />
                             <div>
                                 '~한', '~인'과 같은 형태로 작성하셔야 원하는 대로 동작할 거에요!<br />
@@ -126,14 +144,6 @@ const CounselorCreateTable = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>첫마디</td>
-                        <td>
-                            <textarea className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
-                                name="greeting" value={data.greeting} maxLength={INPUT_MAX_LENGTH['greeting']}
-                                onChange={handleInputChange}></textarea> ({data.greeting.length} / {INPUT_MAX_LENGTH['greeting']})
-                        </td>
-                    </tr>
-                    <tr>
                         <td colSpan={2}>
                             <ChatContent log={[
                                 {
@@ -145,10 +155,19 @@ const CounselorCreateTable = () => {
                         </td>
                     </tr>
                     <tr>
+                        <td>첫마디</td>
+                        <td>
+                            <textarea className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
+                                name="greeting" value={data.greeting} maxLength={INPUT_MAX_LENGTH['greeting']}
+                                onChange={handleInputChange}></textarea> ({data.greeting.length} / {INPUT_MAX_LENGTH['greeting']})<br />
+                            * 상담사의 말투가 첫마디로 결정되기도 한답니다!
+                        </td>
+                    </tr>
+                    <tr>
                         <td>카드 색깔</td>
                         <td>
                             <input type='color' name='cardcolor' value={data.cardcolor}
-                                onChange={handleInputChange} />
+                                onChange={handleInputChange} /> 밝은 색상을 권장합니다!
                         </td>
                     </tr>
                     <tr>
@@ -156,14 +175,14 @@ const CounselorCreateTable = () => {
                             <div className='custom-btn-outer'>
                                 <div className='custom-btn-div'>
                                     <button type='button' onClick={handlePreview}>미리보기</button>
-                                    <button type='button'>제작!</button>
+                                    <button type='submit'>제작!</button>
                                 </div>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </form>
     );
 };
 
