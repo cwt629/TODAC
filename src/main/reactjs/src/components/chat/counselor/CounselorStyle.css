@@ -61,7 +61,7 @@ div.counselbtndiv.counsel-lognav {
     display: flex;
     justify-content: flex-end;
     position: absolute;
-    top: 112px;
+    top: 102px;
     right: 30px;
 }
 
@@ -70,7 +70,7 @@ div.counselbtndiv.counsel-lognav {
 .swiper {
     width: 100%;
     max-width: 350px;
-    height: 550px;
+    height: 570px;
 }
 
 .swiper-slide {
@@ -80,6 +80,7 @@ div.counselbtndiv.counsel-lognav {
     border-radius: 18px;
     /* 카드 뒤집기 시도 */
     perspective: 1000px;
+    -webkit-perspective: 1000px;
 }
 
 .swiper-slide .counselorcard {
@@ -94,6 +95,10 @@ div.counselbtndiv.counsel-lognav {
     backface-visibility: hidden;
     transition: transform 0.5s;
     transform-style: preserve-3d;
+    /* safari에서도 정상 동작하도록 추가 */
+    -webkit-backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: transform 0.5s;
 }
 
 .swiper-slide .swiper-slide-shadow {

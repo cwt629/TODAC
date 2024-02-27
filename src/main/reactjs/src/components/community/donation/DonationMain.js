@@ -47,11 +47,14 @@ const DonationMain = () => {
                 <DonationMainContent/>
                 {
                     top3.map((item, index)=>(
-                        <div className="mt_10 align-items-center" style={{display:"flex", justifyContent:"space-between"}}>
+                        <div className="mt_10 align-items-center"
+                             style={{display: "flex", justifyContent: "space-between"}}>
                             <img alt='' src={require(`../../../image/donationIcon/rank${index}.png`)}/>
-                            <div><b>'{item.nickname}'</b> 님 후원금 : <span style={{color: "#FF7170"}}>{item.total_amount?.toLocaleString()}</span>
+                            <img style={{width:"100px", borderRadius:"50px"}} alt='' src={item.photo}/>
+                            <div><b>'{item.nickname}'</b> 님 후원금 : <span
+                                style={{color: "#FF7170"}}>{item.total_amount?.toLocaleString()}</span>
                             </div>
-                            </div>
+                        </div>
 
                     ))
                 }

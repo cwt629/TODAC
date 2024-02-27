@@ -1,0 +1,25 @@
+.linkIcon {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+
+    padding-top: 50px;
+}
+
+.twitter {
+    background-image: url(../../../image/icon-twitter.png);
+    background-repeat: no-repeat;
+}
+
+.facebook {
+    background-image: url(../../../image/icon-facebook.png);
+    background-repeat: no-repeat;
+}
+
+.kakao {
+    background-image: url(../../../image/icon-kakao.svg);
+    background-repeat: no-repeat;
+}
