@@ -16,7 +16,7 @@ const ChatMain = () => {
     const nav = useNavigate();
 
     const CURRENT_ROUTES = [
-        { name: 'TODAC 채팅', url: '' }
+        // { name: 'TODAC 채팅', url: '' }
     ];
 
     const PAGE_TITLE = '상담사 선택';
