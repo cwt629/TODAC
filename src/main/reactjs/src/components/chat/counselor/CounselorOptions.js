@@ -21,7 +21,7 @@ const CounselorOptions = ({ info, handleCounselClick }) => {
             <Swiper effect={"cards"} grabCursor={true} modules={[EffectCards]} className='mySwiper'>
                 {info.map((data, idx) => (
                     <SwiperSlide key={idx} onClick={(e) => handleCardClick(e)}>
-                        <CounselorCardFront bgcolor={data.cardcolor} data={data} />
+                        <CounselorCardFront isCustom={data.usercode !== 5 && data.usercode === Number(sessionStorage.getItem("usercode"))} bgcolor={data.cardcolor} data={data} />
                         <CounselorCardBack
                             borcolor={data.cardcolor}
                             data={data}

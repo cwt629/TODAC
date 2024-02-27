@@ -36,6 +36,11 @@ public class CounselorController {
 		return counselorService.getCounselorList();
 	}
 	
+	@GetMapping("counselor/mylist")
+	public List<CounselorDetailInterface> getListByUser(@RequestParam("usercode") int usercode){
+		return counselorService.getCounselorListByUser(usercode);
+	}
+	
 	@PostMapping("counselor/custom")
 	public void insertCounselor(@ModelAttribute CounselorCustomDto dto, @RequestParam(value = "upload", required = false) MultipartFile upload) {
 		// 1. 이미지 파일 업로드하여 이름 얻기 - 이미지가 없으면 null로 남긴다

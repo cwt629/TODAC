@@ -25,6 +25,10 @@ public class CounselorDao {
 		return counselorRepository.findAll();
 	}
 	
+	public List<CounselorDetailInterface> getCounselorListByUser(int usercode){
+		return counselorRepository.getCounselorListByUser(usercode);
+	}
+	
 	public void insertCounselor(CounselorDto dto) {
 		counselorRepository.save(dto);
 	}

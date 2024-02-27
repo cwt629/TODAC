@@ -45,10 +45,11 @@ const ChatMain = () => {
     }
 
     useEffect(() => {
-        axios.get('/counselor/list')
-            .then((res) => {
-                setCounselorList(res.data);
-            })
+        if (sessionStorage.getItem("usercode"))
+            axios.get('/counselor/mylist?usercode=' + sessionStorage.getItem("usercode"))
+                .then((res) => {
+                    setCounselorList(res.data);
+                })
     }, [])
 
     return (
