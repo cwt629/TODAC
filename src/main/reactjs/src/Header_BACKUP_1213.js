@@ -50,14 +50,17 @@ const Header = () => {
 
     return (
         <div className='header fixed-top bg-white'>
+<<<<<<< HEAD
             <div className='text-center mt_25'>
                 <span style={{ cursor: 'pointer', color: 'var(--skyblue)' }} className='fs_24 fw_900' onClick={() => nav('/')}>TODAC</span>
             </div>
 
+=======
                 <div className='text-center mt_25'>
                     <span style={{cursor:'pointer',color:'var(--deepblue)'}} className='fs_24 fw_900' onClick={() => nav('/')}>TODAC</span>
                 </div>
             
+>>>>>>> develop
             {/* <span style={{ float: 'right', paddingRight: '10px' }}><span className='fw_900 col_blue1'>{memberinfo.nickname}</span> 님 <Logout style={{ cursor: 'pointer', width:'16px' }} onClick={() => {
                 nav("/login");
             }} /> </span> */}

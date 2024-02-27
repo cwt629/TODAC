@@ -11,9 +11,9 @@ const Footer = () => {
             <div className='footernav col'
                 onClick={() => nav('/user/chat')}><ChatIco className='footer_ico' /></div>
             <div className='footernav col'
-                onClick={() => nav('/user')}><MypageIco className='footer_ico' /></div>
-            <div className='footernav col'
                 onClick={() => nav('/user/community')}><CommunityIco className='footer_ico' /></div>
+            <div className='footernav col'
+                onClick={() => nav('/user')}><MypageIco className='footer_ico' /></div>
         </div>
     );
 };

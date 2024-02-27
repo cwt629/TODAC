@@ -40,18 +40,18 @@ const InquiryForm = () => {
             </div>
             <div className='fs_25 fw_700'>1:1 문의하기</div>
 
-            <div className='mt_45 fw_500'><span className='fw_900 col_blue1'>{memberinfo.nickname}</span> 님, <br/>문의를 말씀해 주세요!</div>
+            <div className='mt_45 fw_500'><span className='fw_900 col_blue3'>{memberinfo.nickname}</span> 님, <br/>문의를 말씀해 주세요!</div>
 
             <div className='mt_45'>
                 <div className='fs_18 fw_700'>제목</div>
-                <input type='text' className='form-control mt_10' onChange={(e)=>{
+                <input type='text' className='form-control mt_10 br_5' onChange={(e)=>{
                     setTitle(e.target.value)
                 }} placeholder='제목을 입력해주세요.'/>
             </div>
 
             <div className='form-group mt_25'>
                 <div className='fs_18 fw_700'>상세 문의</div>
-                <textarea type='text' className='form-control mt_10' style={{ height: "200px" }} onChange={(e)=>setInquiry(e.target.value)} placeholder='문의하실 내용을 입력해주세요.'/>
+                <textarea type='text' className='form-control mt_10 br_5' style={{ height: "200px" }} onChange={(e)=>setInquiry(e.target.value)} placeholder='문의하실 내용을 입력해주세요.'/>
             </div>
 
             <div className='mt_10 fs_14 text-end fw_500'>
