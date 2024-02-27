@@ -102,7 +102,9 @@ const CounselorCreateTable = () => {
         });
 
         // 파일은 별도로 전송
-        formData.append("upload", photoFile);
+        if (photoFile) {
+            formData.append("upload", photoFile);
+        }
 
         // 데이터 전송
         axios.post('/counselor/custom', formData, {

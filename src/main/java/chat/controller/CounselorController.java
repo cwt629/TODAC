@@ -37,9 +37,11 @@ public class CounselorController {
 	}
 	
 	@PostMapping("counselor/custom")
-	public void insertCounselor(@ModelAttribute CounselorCustomDto dto, @RequestParam("upload") MultipartFile upload) {
-		// 1. 이미지 파일 업로드하여 이름 얻기
-		String photoName = storageService.uploadFile(bucketName, folderName, upload);
+	public void insertCounselor(@ModelAttribute CounselorCustomDto dto, @RequestParam(value = "upload", required = false) MultipartFile upload) {
+		// 1. 이미지 파일 업로드하여 이름 얻기 - 이미지가 없으면 null로 남긴다
+		String photoName = null;
+		if (upload != null)
+			photoName = storageService.uploadFile(bucketName, folderName, upload);
 		
 		// 2. Dto를 만든다
 		MemberDto memberDto = memberDao.getMemberByData(dto.getUsercode());
