@@ -80,7 +80,7 @@ const MemberPayment = () => {
                 </div>
             </div>
             {/* <div className='fs_17 fw_800'>{member.nickname} 님의 결제내역 검색</div> */}
-
+            <br />
             {/* 검색창 */}
             <Input
                 id="search"
