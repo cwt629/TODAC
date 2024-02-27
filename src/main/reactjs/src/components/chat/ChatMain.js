@@ -47,7 +47,7 @@ const ChatMain = () => {
         const userConfirm = await ReactSwal.fire({
             icon: 'warning',
             title: '정말로 삭제하시겠어요?',
-            html: <div>삭제된 상담사는 복구할 수 없습니다.<br />정말로 {data.name} 상담사를 삭제할까요?</div>,
+            html: <div>삭제된 상담사는 복구할 수 없습니다.<br />정말로 <span className='col_red fs_20 fw_600'>{data.name}</span> 상담사를 삭제할까요?</div>,
             confirmButtonText: '네',
             confirmButtonColor: '#FF7170',
             showCancelButton: true,
