@@ -130,20 +130,23 @@ const BoardDetail = () => {
     const shareKakao = () => {
         const { Kakao } = window;
         // 카카오톡 공유 로직
-        //사용할 앱의 JavaScript 키 설정
-        Kakao.init('d0577a9b3b130946fc71e09ec2e061f7');
-
+        //초기화
+        if (!window.Kakao.isInitialized()) {
+        // 호출되지 않았다면 초기화
+        window.Kakao.init('511507540b3ec16972ac8cc8290b6e7f');
+    }
+        
         //카카오링크 버튼 생성
         Kakao.Link.createDefaultButton({
             container: '#btnKakao',
             objectType: 'feed',
             content: {
-                title: 'TODAC',
-                description: 'TODAC 블로그입니다',
-                imageUrl: '175.45.192.182/',
+                title: data.title,
+                description: data.content,
+                imageUrl: data.photo ? imageStorage + data.photo : undefined,
                 link: {
-                    mobileWebUrl: '175.45.192.182/',
-                    webUrl:'175.45.192.182/'
+                    mobileWebUrl: window.location.href,
+                    webUrl:window.location.href,
                 }
             }
         })
@@ -213,6 +216,7 @@ const BoardDetail = () => {
                             <div id='btnKakao' className='linkIcon kakao' href='#' onClick={shareKakao}>
                                 카카오톡
                             </div>
+                            <button onclick="sharePage()">현재 페이지 공유하기</button>
                         </div>
                     </div>
                     <div className='mt-5' style={{ display: "flex", justifyContent: "center" }}>
