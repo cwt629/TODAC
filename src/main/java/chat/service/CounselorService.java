@@ -25,4 +25,8 @@ public class CounselorService {
 	public List<CounselorDto> getBasicCounselorList(){
 		return counselorDao.getBasicCounselorList();
 	}
+	
+	public void insertCounselor(CounselorDto dto) {
+		counselorDao.insertCounselor(dto);
+	}
 }

@@ -4,6 +4,8 @@ import ChatContent from '../../chattingroom/ChatContent';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import CounselorPreview from './CounselorPreview';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const CounselorCreateTable = () => {
     // 각 input의 최대 길이
@@ -15,17 +17,17 @@ const CounselorCreateTable = () => {
         'greeting': 50
     };
 
+    const nav = useNavigate();
+
     // 앞서 상담사 선택에서 받는 형태의 데이터 구조를 가지게 한다.
     const [data, setData] = useState({
         name: '',
         briefintro: '',
         introduction: '',
         photo: '',
-        cardcolor: '#EEF0F7',
         personality: '',
-        reviewcount: 0,
-        averagescore: 0,
-        greeting: '안녕하세요!'
+        greeting: '안녕하세요!',
+        cardcolor: '#EEF0F7'
     });
     // 포토 파일은 다음과 같이 따로 저장해둔다
     const [photoFile, setPhotoFile] = useState(null);
@@ -89,7 +91,46 @@ const CounselorCreateTable = () => {
 
         // 문제 없는 경우
         setSubmitFlag(true);
-        alert("제출함 ㅋ");
+
+        const formData = new FormData();
+        // DTO로 받을 부분들
+        formData.append("usercode", sessionStorage.getItem("usercode"));
+        Object.keys(data).forEach(key => {
+            // photo는 제외한다
+            if (key === 'photo') return;
+            formData.append(key, data[key]);
+        });
+
+        // 파일은 별도로 전송
+        formData.append("upload", photoFile);
+
+        // 데이터 전송
+        axios.post('/counselor/custom', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then((res) => {
+            ReactSwal.fire({
+                icon: 'success',
+                title: '커스텀 성공!',
+                html: '상담사 제작이 완료되었습니다!<br/>목록으로 돌아가 상담을 즐겨보세요! :)',
+                confirmButtonColor: '#ff7170',
+                confirmButtonText: '확인'
+            }).then(() => {
+                nav("..");
+            })
+        })
+            .catch((error) => {
+                ReactSwal.fire({
+                    icon: 'error',
+                    title: '에러 발생!',
+                    html: '다음 에러가 발생하였습니다:' + error,
+                    confirmButtonColor: '#ff7170',
+                    confirmButtonText: '확인'
+                }).then(() => {
+                    setSubmitFlag(false);
+                })
+            })
     }
 
     return (

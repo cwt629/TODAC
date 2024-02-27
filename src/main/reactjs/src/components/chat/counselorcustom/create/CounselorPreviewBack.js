@@ -15,7 +15,7 @@ const CounselorPreviewBack = ({ data }) => {
                     <div className='fw_400 fs_16'
                         style={{ display: 'flex', alignItems: 'center' }}>
                         <img alt='별' src={starIcon} width={17} height={17} />
-                        &nbsp;{data.averagescore.toFixed(1)} ({data.reviewcount})
+                        &nbsp;0.0 (0)
                     </div>
                 </div>
             </div>

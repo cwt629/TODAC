@@ -24,4 +24,8 @@ public class CounselorDao {
 	public List<CounselorDto> getBasicCounselorList(){
 		return counselorRepository.findAll();
 	}
+	
+	public void insertCounselor(CounselorDto dto) {
+		counselorRepository.save(dto);
+	}
 }
