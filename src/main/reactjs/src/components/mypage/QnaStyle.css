@@ -47,7 +47,7 @@
     background-image: url('../../image/ico_babytodac2.png');
     background-size: 120px;
     background-repeat: no-repeat;
-    background-position: right;
+    background-position: right bottom 15px;
     overflow-y: auto;
     padding-right: 110px;
 }
