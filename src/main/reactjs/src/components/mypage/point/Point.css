@@ -85,7 +85,7 @@ body #card-display .card-wrapper:not(.chef-reappear, .selected):active .card-che
 body #card-display .card-wrapper .card {
     background-color: #141414;
     border-radius: inherit;
-    box-shadow: 0px 0px 32px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 10px 7px 10px 0px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     height: auto;
     position: relative;

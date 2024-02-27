@@ -2,7 +2,7 @@ import './PointLogo.css';
 
 const PointLogo = () => {
     return (
-            <div className="coin">
+            <div className="coin mt_25">
                 <div className="front jump">
                     <div className="star"/>
                     <span className="currency">$</span>

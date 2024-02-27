@@ -19,7 +19,7 @@ const Pointcharge = () => {
             <br/>
             <PointChargeContent setPoint5000={() => setPoint(5000)}
                                 setPoint10000={() => setPoint(10000)}
-                                setPoint30000={() => setPoint(30000)}/>
+                                setPoint50000={() => setPoint(50000)}/>
             <div className="mt_25" style={{textAlign:"center"}}>
                     <input type={"text"} value={point}
                        onChange={(e) => {

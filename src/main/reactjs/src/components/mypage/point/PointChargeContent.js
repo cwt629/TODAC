@@ -39,7 +39,7 @@ const PointChargeContent = (props) => {
                         <i className="fa-regular fa-fire"></i>
                     </div>
                 </button>
-                <button className="card-wrapper" type="button" onClick={props.setPoint30000}>
+                <button className="card-wrapper" type="button" onClick={props.setPoint50000}>
                     <div className="card">
                         <span className="card-amount roboto-mono"></span>
                         <span
