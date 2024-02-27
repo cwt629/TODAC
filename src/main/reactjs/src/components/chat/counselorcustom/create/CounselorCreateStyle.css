@@ -3,10 +3,9 @@ table.counselor-create {
     /* max-width: 400px; */
 }
 
-table tbody tr>td.category {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+table.counselor-create .explain {
+    font-size: 0.9em;
+    opacity: 0.9;
 }
 
 div.custom-btn-outer {

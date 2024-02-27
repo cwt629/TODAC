@@ -121,7 +121,7 @@ const CounselorCreateTable = () => {
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 type="text" name="personality" value={data.personality} maxLength={INPUT_MAX_LENGTH['personality']} required
                                 onChange={handleInputChange} /> 상담사 ({data.personality.length} / {INPUT_MAX_LENGTH['personality']})<br />
-                            <div>
+                            <div className='explain'>
                                 '~한', '~인'과 같은 형태로 작성하셔야 원하는 대로 동작할 거에요!<br />
                                 ex{')'} 얼음처럼 냉철한
                             </div>
@@ -155,19 +155,19 @@ const CounselorCreateTable = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>첫마디</td>
+                        <td>첫마디 *</td>
                         <td>
                             <textarea className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
-                                name="greeting" value={data.greeting} maxLength={INPUT_MAX_LENGTH['greeting']}
+                                name="greeting" value={data.greeting} maxLength={INPUT_MAX_LENGTH['greeting']} required
                                 onChange={handleInputChange}></textarea> ({data.greeting.length} / {INPUT_MAX_LENGTH['greeting']})<br />
-                            * 상담사의 말투가 첫마디로 결정되기도 한답니다!
+                            <div className='explain'>* 상담사의 말투가 첫마디로 결정되기도 한답니다!</div>
                         </td>
                     </tr>
                     <tr>
                         <td>카드 색깔</td>
                         <td>
                             <input type='color' name='cardcolor' value={data.cardcolor}
-                                onChange={handleInputChange} /> 밝은 색상을 권장합니다!
+                                onChange={handleInputChange} /> &emsp;<span className='explain'>밝은 색상을 권장합니다!</span>
                         </td>
                     </tr>
                     <tr>
