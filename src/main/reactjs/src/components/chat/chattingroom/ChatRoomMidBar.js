@@ -1,3 +1,4 @@
+import { ExitToAppRounded } from '@mui/icons-material';
 import React from 'react';
 
 const ChatRoomMidBar = ({ counselorname, handleFinishChat }) => {
@@ -9,7 +10,9 @@ const ChatRoomMidBar = ({ counselorname, handleFinishChat }) => {
             {/* <div className='fw_500 chatbutton chatfinbutton' style={{ float: 'right' }}
                 onClick={handleFinishChat}>종료</div> */}
             <button type='button' className='deepblue'
-                onClick={handleFinishChat}>종료</button>
+                onClick={handleFinishChat}>
+                종료 <ExitToAppRounded />
+            </button>
         </div>
     );
 };

@@ -238,8 +238,8 @@ const CounselorCreateTable = () => {
                         <td colSpan={2}>
                             <div className='custom-btn-outer'>
                                 <div className='custom-btn-div'>
-                                    <button type='button' onClick={handlePreview}>미리보기</button>
-                                    <button type='submit'>제작!</button>
+                                    <button type='button' className='lightblue long' onClick={handlePreview}>미리보기</button>
+                                    <button type='submit' className='deepblue long'>생성하기!</button>
                                 </div>
                             </div>
                         </td>
