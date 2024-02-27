@@ -13,6 +13,8 @@ const MyDonation = ({member}) => {
     const ReactSwal = withReactContent(Swal);
     const nav = useNavigate();
 
+    const PAGE_TITLE = 'TODAC 채팅';
+
     const donate = () => {
         const url = "/payment?amount="+donationAmount+"&usercode="+usercode+"&type=후원";
         axios.post(url)

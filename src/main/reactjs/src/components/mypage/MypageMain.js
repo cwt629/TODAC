@@ -4,6 +4,7 @@ import './QnaStyle.css';
 import axios from "axios";
 import "./MyPageStyle.css";
 import Swal from "sweetalert2";
+import PageHeader from "../PageHeader";
 
 const MypageMain = () => {
     const [member, setmember] = useState([]);
@@ -14,6 +15,14 @@ const MypageMain = () => {
     const usercode = sessionStorage.getItem("usercode");
     const [achieve, setAchieve] = useState([]);
     const achievename = "뉴비"
+
+    const CURRENT_ROUTES = [
+        { name: '' },
+    ];
+    const PAGE_TITLE = '내 정보';
+
+
+
     useEffect(() => {
         getmember();
         console.log("storedId:", storedId, ", usercode:", usercode);
@@ -105,14 +114,7 @@ const MypageMain = () => {
     return (
 
         <div className="mypagemain">
-            <div className='mypageheader'>
-                <div className='mt-1 fs_14 col_blue2'>
-                    <Link to="/user">마이 홈 </Link>
-                </div>
-                <div className='fs_24 fw_700'>
-                    내 정보
-                </div>
-            </div>
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <div className="profile">
                 <img className="profile" alt='' src={member.photo} />
                 <div className='mt_10 fs_20 fw_700'>{member.nickname}</div>

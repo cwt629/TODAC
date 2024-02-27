@@ -4,6 +4,7 @@ import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import PointLogo from "./PointLogo";
+import PageHeader from "../../PageHeader";
 
 const Pointcheck = () => {
     const storedId = sessionStorage.getItem("id");
@@ -15,6 +16,12 @@ const Pointcheck = () => {
     const ReactSwal = withReactContent(Swal);
     const [price,setPrice] = useState(0);
 
+    const CURRENT_ROUTES = [
+        { name: '내 정보', url: '/user' },
+        { name: '포인트', url: '' }
+    ];
+
+    const PAGE_TITLE = '내 포인트';
 
     useEffect(() => {
         getmember();
@@ -77,18 +84,8 @@ const Pointcheck = () => {
         <div>
             <br></br>
             <div className="myupdatemain">
-                <div className='myupdateheader'>
-                    <div className='fs_14 fw_500 col_blue2'>
-                        <span>마이 홈</span> > <span>포인트</span>
-                    </div>
-                    <div className='fs_24 fw_700'>
-                        나의 포인트
-                        <button className="bg_blue bor_blue1"
-                                onClick={() => nav("charge")}>충전
-                        </button>
-                    </div>
-                </div>
-                    <PointLogo/>
+                <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+                <PointLogo/>
                 <div className="point" style={{textAlign:"center"}}>
                     {/*<img alt="" src={require("../../../image/pointIcon/point.png")}*/}
                     {/*     style={{margin:"40px 0px"}}/>*/}
