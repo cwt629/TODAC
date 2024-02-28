@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import defaultImage from "../../../../image/default_profile_photo_blue.jpg";
 import ChatContent from '../../chattingroom/ChatContent';
 import withReactContent from 'sweetalert2-react-content';
@@ -36,6 +36,10 @@ const CounselorCreateTable = () => {
 
     // 중복 제출 방지를 위한 플래그
     const [submitFlag, setSubmitFlag] = useState(false);
+
+    // 자동 포커스 가게 하기 위한 Ref 변수들
+    const inputName = useRef(null);
+    const inputPersonality = useRef(null);
 
     // 일부 input의 변경 이벤트
     const handleInputChange = (e) => {
@@ -91,6 +95,21 @@ const CounselorCreateTable = () => {
             return;
         }
 
+        // 이름 중복체크 진행
+        let nameCheck = await axios.get(`/counselor/namecheck?usercode=${sessionStorage.getItem("usercode")}&name=${data.name}`);
+        if (nameCheck.data) {
+            await ReactSwal.fire({
+                icon: 'error',
+                title: '이름 중복!',
+                html: '해당 상담사명은 사용할 수 없습니다.<br/>다른 상담사명을 입력해주세요.',
+                confirmButtonColor: '#5279FD',
+                confirmButtonText: '확인'
+            })
+            // 이름에 포커스
+            inputName.current.focus();
+            return;
+        }
+
         // 성격 입력 확인: '~인', '~한', '~은', '~는'으로 끝나는지 확인
         const personalityRegex = new RegExp('[한인은는]$');
         if (!personalityRegex.test(data.personality)) {
@@ -104,6 +123,7 @@ const CounselorCreateTable = () => {
                 cancelButtonText: '취소'
             });
             if (!userConfirm.isConfirmed) {
+                //inputPersonality.current.focus();
                 return;
             }
         }
@@ -167,6 +187,7 @@ const CounselorCreateTable = () => {
                         <td width={'80%'}>
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 type="text" name="name" value={data.name}
+                                ref={inputName}
                                 onChange={handleInputChange} maxLength={INPUT_MAX_LENGTH['name']} required />
                             ({data.name.length} / {INPUT_MAX_LENGTH['name']})
                         </td>
@@ -186,6 +207,7 @@ const CounselorCreateTable = () => {
                         <td>
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 type="text" name="personality" value={data.personality} maxLength={INPUT_MAX_LENGTH['personality']} required
+                                ref={inputPersonality}
                                 onChange={handleInputChange} /> 상담사 ({data.personality.length} / {INPUT_MAX_LENGTH['personality']})<br />
                             <div className='explain'>
                                 '~한', '~인'과 같은 형태로 작성하셔야 원하는 대로 동작할 거에요!<br />

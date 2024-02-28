@@ -78,4 +78,9 @@ public class CounselorController {
 		
 		counselorService.deleteCounselor(counselorcode);
 	}
+	
+	@GetMapping("counselor/namecheck")
+	public boolean checkCounselorRedundancy(@RequestParam("usercode") int usercode, @RequestParam(value = "name", defaultValue = "") String name) {
+		return (counselorService.getCounselorCount(usercode, name) > 0);
+	}
 }
