@@ -92,11 +92,11 @@ const Pointcheck = () => {
                 <div className="point" style={{textAlign: "center"}}>
                     {/*<img alt="" src={require("../../../image/pointIcon/point.png")}*/}
                     {/*     style={{margin:"40px 0px"}}/>*/}
-                    <h4 className="mt_25">보유 포인트 : <span
+                    <h4 className="mt_45">보유 포인트 : <span
                         style={{color: "#FF7170"}}>{member.point?.toLocaleString()}</span></h4>
                 </div>
 
-                <div className="fs_17 fw_800 mt_45">{member.nickname} 님의 포인트 사용내역</div>
+                <div className="fs_17 fw_800 mt_25">{member.nickname} 님의 포인트 사용내역</div>
                 <table className="table-light table-bordered mt_10">
                     <tr className="bg_red fw_600">
                         <td>내용</td>

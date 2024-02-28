@@ -16,7 +16,7 @@ const MyDonation = ({member}) => {
     const PAGE_TITLE = 'TODAC 채팅';
 
     const donate = () => {
-        const url = "/payment?amount="+donationAmount+"&usercode="+usercode+"&type=후원";
+        const url = "/donation?amount="+donationAmount+"&usercode="+usercode+"&type=후원";
         axios.post(url)
             .then(res=>{
                 if(res.data===false){
@@ -35,6 +35,8 @@ const MyDonation = ({member}) => {
                         cancelButtonColor: '#9396A6'
                     }).then(()=>{
                         nav("/user/community/donation")
+                        //후원 후 뱃지 검사
+
                     })
                 }
 

@@ -63,7 +63,7 @@ const BadgeMain = () => {
                                 {
                                     achievenames.includes('뉴비') ? (
                                         <>
-                                            <img alt='' src={require("../../../image/badge.png")} />
+                                            <img alt='' src={require("../../../image/badge/newbie.png")} />
                                             <div className="fw_900">뉴비</div>
                                             <div className="fs_14">토닥 첫 로그인</div>
                                             <hr/>
@@ -71,7 +71,7 @@ const BadgeMain = () => {
                                         </>
                                     ) : (
                                         <>
-                                            <img alt='' src={require("../../../image/badge.png")} className="gray" />
+                                            <img alt='' src={require("../../../image/badge/newbie.png")} className="gray" />
                                             <div className="fw_900">뉴비</div>
                                             <div className="fs_14">토닥 첫 로그인</div>
                                             <hr/>
@@ -87,7 +87,7 @@ const BadgeMain = () => {
                                 {
                                     achievenames.includes('떠오르는 샛별') ? (
                                         <>
-                                            <img alt='' src={require("../../../image/badge.png")} />
+                                            <img alt='' src={require("../../../image/badge/stars.png")} />
                                             <div className="fw_900">떠오르는 샛별</div>
                                             <div className="fs_14">게시글 5개 작성</div>
                                             <hr/>
@@ -95,7 +95,7 @@ const BadgeMain = () => {
                                         </>
                                     ) : (
                                         <>
-                                            <img alt='' src={require("../../../image/badge.png")} className="gray" />
+                                            <img alt='' src={require("../../../image/badge/stars.png")} className="gray" />
                                             <div className="fw_900">떠오르는 샛별</div>
                                             <div className="fs_14">게시글 5개 작성</div>
                                             <hr/>
@@ -111,15 +111,15 @@ const BadgeMain = () => {
                                 {
                                     achievenames.includes('고인물') ? (
                                         <>
-                                            <img alt='' src={require("../../../image/badge.png")} />
-                                            <div className="fw_900">떠오르는 샛별</div>
+                                            <img alt='' src={require("../../../image/badge/boardking.png")} />
+                                            <div className="fw_900">고인물</div>
                                             <div className="fs_14">게시글 100개 작성</div>
                                             <hr/>
                                             <div>{getAchievementDate('고인물')}</div>
                                         </>
                                     ) : (
                                         <>
-                                            <img alt='' src={require("../../../image/badge.png")} className="gray" />
+                                            <img alt='' src={require("../../../image/badge/boardking.png")} className="gray" />
                                             <div className="fw_900">고인물</div>
                                             <div className="fs_14">게시글 100개 작성</div>
                                             <hr/>
@@ -132,19 +132,19 @@ const BadgeMain = () => {
                         <Grid xs={6}>
                             <Item>
                                 {
-                                    achievenames.includes('인기스타') ? (
+                                    achievenames.includes('기부자') ? (
                                         <>
-                                            <img alt='' src={require("../../../image/badge.png")} />
-                                            <div className="fw_900">인기스타</div>
-                                            <div className="fs_14">작성글 좋아요 50개 달성</div>
+                                            <img alt='' src={require("../../../image/badge/donation.png")} />
+                                            <div className="fw_900">기부자</div>
+                                            <div className="fs_14">후원하기</div>
                                             <hr/>
-                                            <div>{getAchievementDate('인기스타')}</div>
+                                            <div>{getAchievementDate('기부자')}</div>
                                         </>
                                     ) : (
                                         <>
-                                            <img alt='' src={require("../../../image/badge.png")} className="gray" />
-                                            <div className="fw_900">인기스타</div>
-                                            <div className="fs_14">작성글 좋아요 50개 달성</div>
+                                            <img alt='' src={require("../../../image/badge/donation.png")} className="gray" />
+                                            <div className="fw_900">기부자</div>
+                                            <div className="fs_14">후원하기</div>
                                             <hr/>
                                             <div style={{color: "red"}}>미획득</div>
                                         </>
@@ -157,7 +157,7 @@ const BadgeMain = () => {
                                 {
                                     achievenames.includes('프로웃음러') ? (
                                         <>
-                                            <img alt='' src={require("../../../image/badge.png")} />
+                                            <img alt='' src={require("../../../image/badge/smileking.png")} />
                                             <div className="fw_900">떠오르는 샛별</div>
                                             <div className="fs_14">오늘의 미소 800점</div>
                                             <hr/>
@@ -165,7 +165,7 @@ const BadgeMain = () => {
                                         </>
                                     ) : (
                                         <>
-                                            <img alt='' src={require("../../../image/badge.png")} className="gray" />
+                                            <img alt='' src={require("../../../image/badge/smileking.png")} className="gray" />
                                             <div className="fw_900">프로웃음러</div>
                                             <div className="fs_14">오늘의 미소 800점</div>
                                             <hr/>
@@ -180,17 +180,17 @@ const BadgeMain = () => {
                                 {
                                     achievenames.includes('후원왕') ? (
                                         <>
-                                            <img alt='' src={require("../../../image/badge.png")} />
+                                            <img alt='' src={require("../../../image/badge/contributor.png")} />
                                             <div className="fw_900">후원왕</div>
-                                            <div className="fs_14">후원 랭킹 1위</div>
+                                            <div className="fs_14">후원의 전당 입성</div>
                                             <hr/>
                                             <div>{getAchievementDate('고인물')}</div>
                                         </>
                                     ) : (
                                         <>
-                                            <img alt='' src={require("../../../image/badge.png")} className="gray" />
+                                            <img alt='' src={require("../../../image/badge/contributor.png")} className="gray" />
                                             <div className="fw_900">후원왕</div>
-                                            <div className="fs_14">후원 랭킹 1위</div>
+                                            <div className="fs_14">후원의 전당 입성</div>
                                             <hr/>
                                             <div style={{color: "red"}}>미획득</div>
                                         </>

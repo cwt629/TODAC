@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import java.sql.Timestamp;
 
@@ -16,6 +18,7 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicInsert
 public class MemberDto {
     @Id //각 엔터티를 구별할 수 있도록 식별 아이디를 갖도록 설계
     @GeneratedValue(strategy = GenerationType.IDENTITY)//auto increment를 주기 위한거래여
@@ -41,6 +44,9 @@ public class MemberDto {
 
     @Column(length = 100)
     private String address;
+
+    @ColumnDefault("뉴비")
+    private String mybadge;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Seoul") //댓글 출력은 ajax로 처리하기 위해 포멧한다네요
     @Column(updatable = false) //수정 시 수정컬럼에서 제외
