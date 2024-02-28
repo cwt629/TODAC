@@ -91,7 +91,7 @@ const MemberProfile = () => {
                     <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
                 </div>
                 <div onClick={() => nav('MemberPoint?usercode=' + member.usercode)} className='mt-4'>
-                    <img alt="" src={require("../../../image/adminIcon/CoinPurse.png")} />
+                    <img alt="" src={require("../../../image/adminIcon/point.png")} />
                     <span className='mx-3 fs_17'>{member.nickname} 님의 포인트 사용</span>
                     <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
                 </div>

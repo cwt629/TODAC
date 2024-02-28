@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
-import { Pagination, InputAdornment, OutlinedInput, IconButton, Input } from '@mui/material';
+import { Pagination, InputAdornment, IconButton, Input } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
-
 
 const MemberPayment = () => {
     const nav = useNavigate();
@@ -49,7 +48,6 @@ const MemberPayment = () => {
             });
     }
 
-
     const handlePageChange = (event, value) => {
         setCurrentPage(value);
     };
@@ -76,10 +74,9 @@ const MemberPayment = () => {
             <div className='fs_25 fw_700' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <img alt='' src={member.photo} style={{ width: '15vh', height: '15vh', borderRadius: '50%' }} />
-                    <span className='fs_25 fw_700 mt-2'>{member.nickname}님</span>
+                    <span className='fs_22 fw_700 mt-2'>{member.nickname}님</span>
                 </div>
             </div>
-            {/* <div className='fs_17 fw_800'>{member.nickname} 님의 결제내역 검색</div> */}
             <br />
             {/* 검색창 */}
             <Input
@@ -113,18 +110,22 @@ const MemberPayment = () => {
                     </InputAdornment>
                 }
             />
-            <br />
-            <div className="fs_17 fw_800">{member.nickname} 님의 결제내역</div>
+            <br /><br />
+            <div className="fs_17 fw_800">
+                <span className="col_blue2">{member.nickname}</span> 님의 결제 내역
+            </div>
             {currentItems.map((item, index) => (
-                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
+                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ display: 'flex', flexDirection: 'column' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div>
-                            <span className="fw_700">{item.applieddate}</span> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                            <span className="fw_700">{item.applieddate}</span>
+                        </div>
+                        <div>
                             <span className="fs_15 w_500">{item.type}</span>
                         </div>
                     </div>
-                    <div>
-                        <span className="fw_600 col_red">{item.amount}</span>
+                    <div style={{ marginTop: '8px' }}>
+                        <span className="fw_600 col_blue2">{item.amount}</span>
                         <span className='fw_600'>원 결제</span>
                     </div>
                 </div>
@@ -136,6 +137,13 @@ const MemberPayment = () => {
                     count={totalPages}
                     page={currentPage}
                     onChange={handlePageChange}
+                    shape="rounded"
+                    variant="outlined"
+                    color="primary"
+                    hidePrevButton
+                    hideNextButton
+                    hideFirstButton
+                    hideLastButton
                 />
             </div>
         </div>

@@ -30,13 +30,13 @@ const AdminMain = () => {
                 <br />
                 <div className="listmenu fw_600 align-items-center mt_45">
                     <div onClick={() => nav('MemberManage')}>
-                        <img alt="" src={require("../../image/mypageIcon/info.png")} />
+                        <img alt="" src={require("../../image/adminIcon/member.png")} />
                         <span className='mx-3 fs_18'>회원 관리</span>
                         <img alt="" src={require("../../image/mypageIcon/pointer.png")} />
                     </div>
                     <br />
                     <div onClick={() => nav('InquiryHistory')} className='mt-4'>
-                        <img alt="" src={require("../../image/mypageIcon/faq.png")} />
+                        <img alt="" src={require("../../image/adminIcon/question.png")} />
                         <span className='mx-3 fs_18'>문의게시판 관리</span>
                         <img alt="" src={require("../../image/mypageIcon/pointer.png")} />
                     </div>
