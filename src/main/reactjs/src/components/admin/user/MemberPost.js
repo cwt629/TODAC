@@ -82,7 +82,7 @@ const MemberPost = () => {
                             title: '삭제 완료',
                             text: '게시글이 성공적으로 삭제되었습니다.',
                             icon: 'success',
-                            confirmButtonColor: '#FF7170',
+                            confirmButtonColor: '##5279FD',
                         }).then(() => {
                             nav(`/admin/MemberManage/MemberProfile/MemberPost?usercode=` + member.usercode);
                         });
@@ -108,7 +108,7 @@ const MemberPost = () => {
             <div className='fs_25 fw_700' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <img alt='' src={member.photo} style={{ width: '15vh', height: '15vh', borderRadius: '50%' }} />
-                    <span className='fs_25 fw_700 mt-2'>{member.nickname}님</span>
+                    <span className='fs_22 fw_700 mt-2'>{member.nickname}님</span>
                 </div>
             </div>
             <br />
@@ -144,17 +144,19 @@ const MemberPost = () => {
                     </InputAdornment>
                 }
             />
-            <br />
-            <div className="fs_17 fw_800">{member.nickname} 님의 게시글 목록</div>
+            <br /><br />
+            <div className="fs_17 fw_800">
+                <span className="col_blue2">{member.nickname}</span> 님의 게시글 목록
+            </div>
             {currentItems.map((item, index) => (
-                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}
-                    onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberPost/MemberPostDetail?usercode=${usercode}&boardcode=${item.boardcode}`)}>
+                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div>
-                            <span className="fw_600">{item.title}</span>
+                            <span className="fw_600"
+                                onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberPost/MemberPostDetail?usercode=${usercode}&boardcode=${item.boardcode}`)}>{item.title}</span>
                         </div>
-                        <button onClick={() => deletePost(item.boardcode)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-                            삭제
+                        <button onClick={() => deletePost(item.boardcode)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'red' }}>
+                            <img alt="" src={require("../../../image/adminIcon/delete.png")} />
                         </button>
                     </div>
                     <div className="fs_14">{item.registereddate}</div>
@@ -167,6 +169,13 @@ const MemberPost = () => {
                     count={totalPages}
                     page={currentPage}
                     onChange={handlePageChange}
+                    shape="rounded"
+                    variant="outlined"
+                    color="primary"
+                    hidePrevButton
+                    hideNextButton
+                    hideFirstButton
+                    hideLastButton
                 />
             </div>
         </div>
