@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 const Success = () => {
     const [isConfirmed, setIsConfirmed] = useState(false);
@@ -8,6 +8,8 @@ const Success = () => {
     const orderId = searchParams.get("orderId");
     const amount = searchParams.get("amount");
     const storedId = sessionStorage.getItem("id");
+    const nav = useNavigate();
+
 
     async function confirmPayment() {
         // TODO: API를 호출해서 서버에게 paymentKey, orderId, amount를 넘겨주세요.
@@ -69,7 +71,7 @@ const Success = () => {
                     </div>
 
                     <div className="w-100 button-group">
-                        <a class="btn primary" href='/user/point' target="_self" rel="noreferrer noopener">내 포인트 확인하기</a>
+                        <b class="btn primary" onClick={()=>nav("/user/point")}>내 포인트 확인하기</b>
                     </div>
                 </div>
             ) : (

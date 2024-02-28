@@ -2,12 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PageHeader from "../../PageHeader";
-import { Button, TextField } from "@mui/material";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import { Button } from "@mui/material";
 import Swal from "sweetalert2";
 import BoardComment from "./BoardComment";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import heart from "../../../image/heart.svg";
+import heartFull from "../../../image/heart_full.svg";
+import "./Share.css";
 
 const BoardDetail = () => {
     const [data, setData] = useState(null);
@@ -27,6 +27,7 @@ const BoardDetail = () => {
     const PAGE_TITLE = "상세 페이지";
 
     useEffect(() => {
+        console.log("조회수 렌더링");
         axios.get(`/board/detail?boardcode=${boardcode}`).then((res) => {
             setData(res.data);
             setIsLiked(res.data.liked); // 서버에서 받아온 데이터에서 좋아요 여부를 설정
@@ -97,6 +98,60 @@ const BoardDetail = () => {
         });
     };
 
+    const update = () => {
+        Swal.fire({
+            title: "게시글 수정",
+            text: "해당 게시글을 수정하시겠습니까?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#FF7170",
+            confirmButtonText: "예",
+            cancelButtonText: "아니오",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                navi(`/user/community/board/updateform/${boardcode}`);
+            }
+        });
+    };
+
+    const shareTwitter = () => {
+        // 트위터 공유 로직
+        let sendText = "하이염";
+        let sendUrl = "175.45.192.182/";
+        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url" + sendUrl);
+    };
+
+    const shareFacebook = () => {
+        // 페이스북 공유 로직
+        let sendUrl = "175.45.192.182/";
+        window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+    };
+
+    const shareKakao = () => {
+        const { Kakao } = window;
+        // 카카오톡 공유 로직
+        //초기화
+        if (!window.Kakao.isInitialized()) {
+        // 호출되지 않았다면 초기화
+        window.Kakao.init('511507540b3ec16972ac8cc8290b6e7f');
+    }
+        
+        //카카오링크 버튼 생성
+        Kakao.Link.createDefaultButton({
+            container: '#btnKakao',
+            objectType: 'feed',
+            content: {
+                title: data.title,
+                description: data.content,
+                imageUrl: data.photo ? imageStorage + data.photo : undefined,
+                link: {
+                    mobileWebUrl: window.location.href,
+                    webUrl:window.location.href,
+                }
+            }
+        })
+    };
+
     return (
         <div>
             {data && (
@@ -129,34 +184,63 @@ const BoardDetail = () => {
 
                     <div className='mt_10'>
                         <h2>{data.title}</h2>
+                        <span>
+                            <img
+                                alt=''
+                                src={data.memberPhoto}
+                                style={{ width: "30px", height: "30px", borderRadius: "75px" }}
+                            />{" "}
+                            {data.memberNickname}
+                        </span>
                         <div>
                             <span>
-                                by {data.memberNickname} • {data.registerDate}
+                                {data.registerDate} • 좋아요 {likeCount} • 조회 {data.visitCount}
                             </span>
                         </div>
                     </div>
                     <div className='mt-3'>{data.content}</div>
-
-                    <div className='mt-5' style={{ textAlign: "center" }}>
+                    <hr />
+                    <div className='mt-4' style={{ textAlign: "center" }}>
                         <h2>상담사 정보</h2>
-                        <div className='bg_blue'>{`${data.counselorCode}번 상담사`}</div>
+                        <div className='bg_blue rounded-circle'>{`${data.counselorCode}번 상담사`}</div>
+                    </div>
+                    <hr />
+                    <div>
+                        <div>
+                            <div id='btnTwitter' className='linkIcon twitter' href='#' onClick={shareTwitter}>
+                                트위터
+                            </div>
+                            <div id='btnFacebook' className='linkIcon facebook' href='#' onClick={shareFacebook}>
+                                페이스북
+                            </div>
+                            <div id='btnKakao' className='linkIcon kakao' href='#' onClick={shareKakao}>
+                                카카오톡
+                            </div>
+                            <button onclick="sharePage()">현재 페이지 공유하기</button>
+                        </div>
                     </div>
                     <div className='mt-5' style={{ display: "flex", justifyContent: "center" }}>
-                        <button type='button' className='bor_blue1 bg_blue'>
+                        <Button
+                            type='button'
+                            style={{
+                                alignItems: "center",
+                                borderRadius: "1.5rem",
+                                backgroundColor: "rgb(255,255,255)",
+                                color: "gray",
+                                justifyContent: "center",
+                                boxShadow: "rgba(0,0,0,0.3) 0px 0px 6px",
+                            }}
+                        >
                             <span
                                 style={{ marginRight: "16px", cursor: "pointer" }}
                                 onClick={isLiked ? handleUnlike : handleLike}
                             >
-                                {isLiked ? <FavoriteIcon style={{ color: "#F99090" }} /> : <FavoriteBorderIcon />}
+                                {isLiked ? <img alt='' src={heartFull} /> : <img alt='' src={heart} />}
                                 <span className='comment-action' style={{ marginLeft: "4px" }}>
                                     {likeCount}
                                 </span>
                             </span>
-                        </button>
-                        <div className='bor_blue1 bg_blue' style={{ marginLeft: "30px" }}>
-                            <VisibilityOutlinedIcon />
-                            {data.visitCount}
-                        </div>
+                        </Button>
                     </div>
                     {userRole === "todac" ? (
                         // 관리자인 경우에는 삭제 기능만 표시
@@ -171,7 +255,7 @@ const BoardDetail = () => {
                             <button onClick={() => deletePost(boardcode)} style={{ cursor: "pointer" }}>
                                 삭제
                             </button>
-                            <button onClick={() => navi(`/user/community/board/updateform/${boardcode}`)}>수정</button>
+                            <button onClick={update}>수정</button>
                         </div>
                     ) : null}
                     <BoardComment />

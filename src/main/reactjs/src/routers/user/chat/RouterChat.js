@@ -6,6 +6,7 @@ import ChatSummary from '../../../components/chat/document/ChatSummary';
 import ChatDiagnosis from '../../../components/chat/document/ChatDiagnosis';
 import ChattingLogList from '../../../components/chat/chattinglog/ChattingLogList';
 import ChattingLogContent from '../../../components/chat/chattinglog/ChattingLogContent';
+import CounselorCreateApp from '../../../components/chat/counselorcustom/create/CounselorCreateApp';
 
 const RouterChat = () => {
     return (
@@ -16,6 +17,7 @@ const RouterChat = () => {
             <Route path='diagnosis' element={<ChatDiagnosis />} />
             <Route path='loglist' element={<ChattingLogList />} />
             <Route path='logcontent' element={<ChattingLogContent />} />
+            <Route path='custom' element={<CounselorCreateApp />} />
         </Routes>
     );
 };

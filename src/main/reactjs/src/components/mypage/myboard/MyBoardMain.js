@@ -4,6 +4,7 @@ import axios from "axios";
 import Swal from 'sweetalert2';
 import { Pagination, InputAdornment, OutlinedInput } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import PageHeader from "../../PageHeader";
 
 const MyBoardMain = () => {
     const nav = useNavigate();
@@ -14,7 +15,14 @@ const MyBoardMain = () => {
     const usercode = sessionStorage.getItem("usercode");
     const [member, setMember] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(7);
+    const [itemsPerPage] = useState(7)
+
+    const CURRENT_ROUTES = [
+        { name: '내 정보', url: '/user' },
+        { name: '게시글', url: '' }
+    ];
+
+    const PAGE_TITLE = '내가 쓴 게시물';
 
     useEffect(() => {
         if (usercode) {
@@ -103,11 +111,7 @@ const MyBoardMain = () => {
 
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/user" className='col_blue2'>마이 홈 {'>'} </Link>
-                <Link to="/user/myboard" className='col_blue2'>게시글 </Link>
-            </div>
-            <div className='fs_25 fw_700'>회원 게시글</div> <br />
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             {/* 검색창 */}
             <OutlinedInput
                 id="search"

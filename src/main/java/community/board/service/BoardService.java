@@ -16,4 +16,9 @@ public class BoardService {
     public List<MainListInterface> getBoardList(){
         return boardDao.getBoardList();
     }
+
+    public List<MainListInterface> getBoardListSorted(String sortBy) {
+        return boardDao.getBoardListSorted(sortBy);
+    }
 }
+

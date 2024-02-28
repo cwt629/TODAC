@@ -50,7 +50,7 @@ const InquiryHistory = () => {
             <div className='mt_45'>
                 <div className="mb-2 d-flex justify-content-between align-items-center">
                     <div className='fw_800'>문의 목록</div>
-                    <div className='br_5 bor_blue1 bg_blue py-1 px-2'>
+                    <div className='inquiryhistory_bg'>
                         <input
                             type="checkbox"
                             id="showUnansweredOnly"
@@ -58,7 +58,7 @@ const InquiryHistory = () => {
                             onChange={handleShowUnansweredOnlyChange}
                             style={{marginRight:"10px"}}
                         />
-                        <label className='fw_600 fs_15' htmlFor="showUnansweredOnly">미답변만 확인</label>
+                        <label htmlFor="showUnansweredOnly">미답변만 확인</label>
                     </div>
                 </div>
                 

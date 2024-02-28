@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
-import { Pagination, InputAdornment, OutlinedInput } from '@mui/material';
+import { Pagination, InputAdornment, OutlinedInput, IconButton, Input } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
+
 
 const MemberPayment = () => {
     const nav = useNavigate();
@@ -71,44 +73,60 @@ const MemberPayment = () => {
             </div>
             <div className='fs_25 fw_700'>회원 결제내역</div> <br />
 
-            <div style={{ textAlign: 'center' }}>
-                <img alt='' src={member.photo} style={{ width: '25vh', height: '25vh' }} />
-                <br /><br />
-                <h1 className='fs_25 fw_700'>{member.nickname}님</h1>
-                <br />
+            <div className='fs_25 fw_700' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <img alt='' src={member.photo} style={{ width: '15vh', height: '15vh', borderRadius: '50%' }} />
+                    <span className='fs_25 fw_700 mt-2'>{member.nickname}님</span>
+                </div>
             </div>
-            <div className='fs_17 fw_800'>{member.nickname} 님의 결제내역 검색</div>
-
+            {/* <div className='fs_17 fw_800'>{member.nickname} 님의 결제내역 검색</div> */}
+            <br />
             {/* 검색창 */}
-            <OutlinedInput
+            <Input
                 id="search"
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="검색할 날짜를 입력해주세요"
-                className="form-control mb-3 bg_red col_gray fs_16 fw_800"
+                className="form-control mb-3 fs_16 fw_800"
                 style={{
-                    '::placeholder': { color: 'gray' },
                     height: '40px',
                     padding: '8px',
-                    borderRadius: '5px',
+                    borderBottom: '1px solid #D4E4F2',
+                    borderRadius: '0',
+                    border: 'none',
                 }}
                 startAdornment={
-                    <InputAdornment position="start">
+                    <>
+                        {searchQuery && (
+                            <InputAdornment position="start">
+                                <IconButton onClick={() => setSearchQuery('')}>
+                                    <ClearIcon />
+                                </IconButton>
+                            </InputAdornment>
+                        )}
+                    </>
+                }
+                endAdornment={
+                    <InputAdornment position="end">
                         <SearchIcon />
                     </InputAdornment>
                 }
             />
+            <br />
             <div className="fs_17 fw_800">{member.nickname} 님의 결제내역</div>
             {currentItems.map((item, index) => (
                 <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div>
-                            <span className="fw_700">{item.applieddate}</span> &emsp;&emsp;&emsp;&nbsp;&nbsp;
-                            <span className="fw_600 col_red">{item.amount}</span><span className='fw_600'>원 결제</span>
+                            <span className="fw_700">{item.applieddate}</span> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                            <span className="fs_15 w_500">{item.type}</span>
                         </div>
                     </div>
-                    <div className="fs_15 w_500">{item.type}</div>
+                    <div>
+                        <span className="fw_600 col_red">{item.amount}</span>
+                        <span className='fw_600'>원 결제</span>
+                    </div>
                 </div>
             ))}
 
