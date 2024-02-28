@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import background2 from "../../image/bg_startmain2.png";
 
 const LoginMain = () => {
     const [token, setToken] = useState(null);
@@ -45,7 +46,14 @@ const LoginMain = () => {
     };
 
     return (
-        <div className='login_main'>
+        <div className='login_main' m
+        
+        // style={{
+        //     backgroundImage: `url(${background2})`,
+        //     backgroundSize: "contain",
+        //     backgroundRepeat: "no-repeat"
+        // }}
+        >
 
             {/* <h1 style={{
                 color: "#FF494D", textAlign: "center",
