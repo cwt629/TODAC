@@ -113,22 +113,28 @@ const MemberPoint = () => {
             <div className="fs_17 fw_800">
                 <span className="col_blue2">{member.nickname}</span> 님의 포인트 사용 내역
             </div>
-            {currentItems.map((item, index) => (
-                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div>
-                            <span className="fw_700">{item.applieddate}</span>
-                        </div>
-                        <div>
-                            <span className="fs_15 w_500">{item.type}</span>
-                        </div>
-                    </div>
-                    <div style={{ marginTop: '8px' }}>
-                        <span className="fw_600 col_blue2">{item.amount}</span>
-                        <span className='fw_600'> P</span>
-                    </div>
+            {filteredPoint.length === 0 ? (
+                <div className='fs_14' style={{ marginTop: '10px' }}>
+                    포인트 내역이 없습니다.
                 </div>
-            ))}
+            ) : (
+                currentItems.map((item, index) => (
+                    <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div>
+                                <span className="fw_700">{item.applieddate}</span>
+                            </div>
+                            <div>
+                                <span className="fs_15 w_500">{item.type}</span>
+                            </div>
+                        </div>
+                        <div style={{ marginTop: '8px' }}>
+                            <span className="fw_600 col_blue2">{item.amount}</span>
+                            <span className='fw_600'> P</span>
+                        </div>
+                    </div>
+                ))
+            )}
             {/* Pagination */}
             <div className="justify-content-center d-flex mt-3 qnaPage_btn">
                 <Pagination
