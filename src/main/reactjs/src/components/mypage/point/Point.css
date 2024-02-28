@@ -1,0 +1,233 @@
+
+body #card-display-background:after {
+    background: linear-gradient(to top, #1e1e1e, transparent, #1e1e1e);
+}
+body #card-display-background:before {
+    background: linear-gradient(to right, #1e1e1e 5%, transparent 20%, transparent 80%, #1e1e1e 95%);
+}
+body #card-display {
+    display: flex;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+    /*border: solid blue;*/
+    flex-direction: column;
+    overflow-y: auto;
+    flex: 1;
+}
+body #card-display.transition {
+    transition: transform 500ms;
+}
+body #card-display .card-wrapper {
+    background-color: transparent;
+    border: none;
+    border-radius: 15px;
+    outline: none;
+    padding: 0px;
+    position: relative;
+    transition: transform 250ms;
+    margin: 0 auto;
+}
+body #card-display .card-wrapper:first-of-type {
+    transform: scale(0.85);
+}
+body #card-display .card-wrapper:first-of-type .card {
+    background: darkorange;
+}
+body #card-display .card-wrapper:nth-of-type(2) {
+    transform: scale(0.85);
+}
+body #card-display .card-wrapper:last-of-type {
+    transform: scale(0.85);
+}
+body #card-display .card-wrapper:last-of-type .card {
+    background: black;
+}
+body #card-display .card-wrapper:hover {
+    transform: scale(1);
+}
+body #card-display .card-wrapper:hover .card .card-svgs .svg-left {
+    transform: translate(-30%, -30%);
+}
+body #card-display .card-wrapper:hover .card .card-svgs .svg-right {
+    transform: translate(30%, -30%);
+}
+body #card-display .card-wrapper:hover .card .card-icon {
+    transform: translate(-20px, 20%) scale(1.2) rotate(-10deg);
+}
+body #card-display .card-wrapper:hover .card-chef {
+    opacity: 1;
+    top: -50px;
+}
+body #card-display .card-wrapper:active {
+    transform: scale(0.95);
+}
+body #card-display .card-wrapper:active .card .card-svgs .svg-left {
+    transform: translate(-30%, -30%) scale(1.2);
+}
+body #card-display .card-wrapper:active .card .card-svgs .svg-right {
+    transform: translate(30%, -30%) scale(1.2);
+}
+body #card-display .card-wrapper:active .card .card-icon {
+    transform: translate(-20px, 20%) scale(1.4) rotate(-10deg);
+}
+body #card-display .card-wrapper.selected .card-chef {
+    opacity: 0;
+    top: -500px;
+    transition: opacity 500ms, top 500ms;
+}
+body #card-display .card-wrapper.chef-reappear .card-chef {
+    animation: reappear 250ms ease-in;
+}
+body #card-display .card-wrapper:not(.chef-reappear, .selected):active .card-chef {
+    top: -20px;
+}
+body #card-display .card-wrapper .card {
+    background-color: #141414;
+    border-radius: inherit;
+    box-shadow: 10px 7px 10px 0px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    height: auto;
+    position: relative;
+    width: auto;
+    z-index: 2;
+}
+body #card-display .card-wrapper .card .card-svgs {
+    border-radius: inherit;
+    height: 100%;
+    left: 0px;
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    z-index: 2;
+}
+body #card-display .card-wrapper .card .card-svgs .svg {
+    opacity: 0.1;
+    position: absolute;
+    transition: transform 250ms;
+}
+body #card-display .card-wrapper .card .card-svgs .svg-left {
+    left: 0px;
+    top: 50%;
+    transform: translate(-25%, -25%);
+}
+body #card-display .card-wrapper .card .card-svgs .svg-right {
+    right: 0px;
+    top: -50%;
+    transform: translate(25%, -25%);
+}
+body #card-display .card-wrapper .card .card-amount {
+    bottom: 20px;
+    color: white;
+    font-size: 1em;
+    left: 20px;
+    position: absolute;
+}
+body #card-display .card-wrapper .card .card-brand {
+    color: white;
+    font-size: 2.5em;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}
+body #card-display .card-wrapper .card .card-icon {
+    bottom: 0px;
+    color: white;
+    font-size: 10em;
+    position: absolute;
+    right: 0px;
+    transform: translate(-20px, 20%);
+    transition: transform 250ms;
+}
+body #card-display .card-wrapper .card-chef {
+    left: 0px;
+    opacity: 0;
+    position: absolute;
+    top: 0px;
+    transition: opacity 250ms, top 250ms;
+    z-index: 1;
+}
+body #card-display .card-wrapper .card-chef i {
+    color: white;
+    text-align: center;
+}
+body #card-display .card-wrapper .card-chef .fa-user-chef {
+    color: white;
+    font-size: 3.5em;
+    height: 60px;
+    line-height: 60px;
+    width: 50px;
+}
+body #card-display .card-wrapper .card-chef .fa-fire {
+    bottom: 0px;
+    font-size: 2em;
+    left: 50%;
+    position: absolute;
+    transform: rotate(180deg) translate(50%, -90%);
+}
+@media (max-width: 1700px) {
+    @keyframes reappear {
+        from {
+            top: 0px;
+        }
+        to {
+            top: -35px;
+        }
+    }
+    body #card-display {
+        gap: 10px;
+    }
+    body #card-display .card-wrapper:hover .card .card-icon {
+        transform: translate(-10px, 20%) scale(1.2) rotate(-10deg);
+    }
+    body #card-display .card-wrapper:hover .card-chef {
+        opacity: 1;
+        top: -35px;
+    }
+    body #card-display .card-wrapper:active .card .card-icon {
+        transform: translate(-10px, 20%) scale(1.4) rotate(-10deg);
+    }
+    body #card-display .card-wrapper.selected .card-chef {
+        opacity: 0;
+        top: -400px;
+    }
+    body #card-display .card-wrapper:not(.chef-reappear, .selected):active .card-chef {
+        top: -20px;
+    }
+    body #card-display .card-wrapper .card {
+        border-radius: 10px;
+        height: 155px;
+        width: 250px;
+    }
+    body #card-display .card-wrapper .card .card-amount {
+        bottom: 10px;
+        font-size: 2.5em;
+        left: 10px;
+        float: right;
+    }
+    body #card-display .card-wrapper .card .card-icon {
+        font-size: 5em;
+        transform: translate(-10px, 20%);
+    }
+    body #card-display .card-wrapper .card .card-brand {
+        font-size: 1.75em;
+        right: 20px;
+        top: 20px;
+    }
+    body #card-display .card-wrapper .card-chef .fa-user-chef {
+        font-size: 2.5em;
+        height: 45px;
+        line-height: 45px;
+        width: 45px;
+    }
+    body #card-display .card-wrapper .card-chef .fa-fire {
+        font-size: 1.5em;
+    }
+}
+
+div .card{
+    margin: 0 !important;
+    transform: translateX(0%);
+}

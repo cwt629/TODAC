@@ -109,7 +109,7 @@ const MemberComments = () => {
                 </div>
             </div>
             {/* <div className='fs_17 fw_800'>{member.nickname} 님의 댓글 검색</div> */}
-
+            <br />
             {/* 검색창 */}
             <Input
                 id="search"

@@ -96,12 +96,12 @@ const MemberProfile = () => {
                     <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
                 </div>
                 <div onClick={() => nav('MemberChatSearch?usercode=' + member.usercode)} className='mt-4'>
-                    <img alt="" src={require("../../../image/adminIcon/conversationchat.svg")} />
+                    <img alt="" src={require("../../../image/adminIcon/chat.png")} />
                     <span className='mx-3 fs_17'>{member.nickname} 님의 채팅 기록</span>
                     <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
                 </div>
                 <div onClick={() => onPersonDelete(usercode)} className='mt-4' style={{ marginTop: "10px" }}>
-                    <img alt="" src={require("../../../image/adminIcon/x.svg")} />
+                    <img alt="" src={require("../../../image/adminIcon/delete.png")} />
                     <span style={{ color: "red" }} className='mx-3'>회원 삭제</span>
                     <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
                 </div>
