@@ -61,7 +61,7 @@ const CounselorCreateTable = () => {
                     icon: 'error',
                     title: '이미지만 업로드 가능!',
                     html: '이미지 파일만 업로드 해주세요.',
-                    confirmButtonColor: '#ff7170',
+                    confirmButtonColor: '#5279FD',
                     confirmButtonText: '확인'
                 })
             }
@@ -74,7 +74,7 @@ const CounselorCreateTable = () => {
         ReactSwal.fire({
             title: '상담사 미리보기',
             html: <CounselorPreview data={data} />,
-            confirmButtonColor: '#ff7170',
+            confirmButtonColor: '#5279FD',
             confirmButtonText: '확인'
         })
     }
@@ -85,7 +85,7 @@ const CounselorCreateTable = () => {
             ReactSwal.fire({
                 icon: 'warning',
                 html: '상담사 제출 처리중입니다.<br/>잠시만 기다려주세요...',
-                confirmButtonColor: '#ff7170',
+                confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             })
             return;
@@ -98,7 +98,7 @@ const CounselorCreateTable = () => {
                 icon: 'warning',
                 title: '성격 확인!',
                 html: '성격 입력이 정확하지 않으면<br/>적용이 제대로 되지 않을 수 있습니다.<br/>계속하시겠습니까?',
-                confirmButtonColor: '#ff7170',
+                confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인',
                 showCancelButton: true,
                 cancelButtonText: '취소'
@@ -137,7 +137,7 @@ const CounselorCreateTable = () => {
                 icon: 'success',
                 title: '커스텀 성공!',
                 html: '상담사 제작이 완료되었습니다!<br/>목록으로 돌아가 상담을 즐겨보세요! :)',
-                confirmButtonColor: '#ff7170',
+                confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             });
 
@@ -148,7 +148,7 @@ const CounselorCreateTable = () => {
                 icon: 'error',
                 title: '에러 발생!',
                 html: '다음 에러가 발생하였습니다:' + error,
-                confirmButtonColor: '#ff7170',
+                confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             }).then(() => {
                 setSubmitFlag(false);

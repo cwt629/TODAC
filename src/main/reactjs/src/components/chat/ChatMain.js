@@ -30,10 +30,10 @@ const ChatMain = () => {
         ReactSwal.fire({
             icon: 'info',
             html: (<div>
-                <span className='col_red fs_20 fw_600'>{data.name}</span> 상담사와<br />상담을 시작하시겠습니까?
+                <span className='col_blue2 fs_20 fw_600'>{data.name}</span> 상담사와<br />상담을 시작하시겠습니까?
             </div>),
             confirmButtonText: '네',
-            confirmButtonColor: '#FF7170',
+            confirmButtonColor: '#5279FD',
             showCancelButton: true,
             cancelButtonText: '아니오'
         }).then(res => {
@@ -47,9 +47,9 @@ const ChatMain = () => {
         const userConfirm = await ReactSwal.fire({
             icon: 'warning',
             title: '정말로 삭제하시겠어요?',
-            html: <div>삭제된 상담사는 복구할 수 없습니다.<br />정말로 <span className='col_red fs_20 fw_600'>{data.name}</span> 상담사를 삭제할까요?</div>,
+            html: <div>삭제된 상담사는 복구할 수 없습니다.<br />정말로 <span className='col_blue2 fs_20 fw_600'>{data.name}</span> 상담사를 삭제할까요?</div>,
             confirmButtonText: '네',
-            confirmButtonColor: '#FF7170',
+            confirmButtonColor: '#5279FD',
             showCancelButton: true,
             cancelButtonText: '아니오'
         });
@@ -61,7 +61,7 @@ const ChatMain = () => {
                     title: '삭제 완료!',
                     html: '성공적으로 삭제되었습니다.',
                     confirmButtonText: '확인',
-                    confirmButtonColor: '#FF7170'
+                    confirmButtonColor: '#5279FD'
                 });
                 window.location.reload(); // 삭제 후 새로고침
             } catch (error) {
@@ -70,7 +70,7 @@ const ChatMain = () => {
                     title: '에러 발생!',
                     html: '다음 에러가 발생하였습니다: ' + error,
                     confirmButtonText: '확인',
-                    confirmButtonColor: '#FF7170'
+                    confirmButtonColor: '#5279FD'
                 })
             }
         }
