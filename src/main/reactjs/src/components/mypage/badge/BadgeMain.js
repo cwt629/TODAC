@@ -10,13 +10,25 @@ import axios from "axios";
 
 const BadgeMain = () => {
     const usercode = sessionStorage.getItem("usercode");
-    const [board5, setBoard5] = useState(false);
+    const storedId = sessionStorage.getItem("id");
+    const [member, setmember] = useState();
     const [achievelist, setAchievelist] = useState([]);
     const [achievenames, setAchievenames] = useState([]);
     const CURRENT_ROUTES = [
         {name: '내 정보', url: '/user'},
         {name: '내 업적', url: ''}
     ];
+
+    // member.registereddate를 Date 객체로 변환
+    const registeredDate = new Date(member.registereddate);
+
+// 년, 월, 일을 가져와서 문자열로 변환
+    const year = registeredDate.getFullYear();
+    const month = String(registeredDate.getMonth() + 1).padStart(2, '0'); // getMonth()의 반환값은 0부터 시작하므로 +1 해줌
+    const day = String(registeredDate.getDate()).padStart(2, '0');
+
+// 년월일 형식으로 조합
+    const formattedDate = `${year}-${month}-${day}`;
 
     const getachievelist = () => {
         const url = "/getachievelist?usercode=" + usercode;
@@ -27,6 +39,15 @@ const BadgeMain = () => {
                 const achieveNames = res.data.map(item => item.achievename);
                 setAchievenames(achieveNames);
                 setAchievelist(res.data);
+            })
+    }
+
+    const getmember = () => {
+        const url = "/member/info?userid=" + storedId;
+        axios.post(url)
+            .then(res => {
+                console.log(res.data);
+                setmember(res.data);
             })
     }
  
@@ -49,6 +70,7 @@ const BadgeMain = () => {
 
     useEffect(() => {
         getachievelist();
+        getmember();
     }, []);
 
     const PAGE_TITLE = '내 업적';
@@ -61,23 +83,14 @@ const BadgeMain = () => {
                         <Grid xs={6} >
                             <Item>
                                 {
-                                    achievenames.includes('뉴비') ? (
                                         <>
                                             <img alt='' src={require("../../../image/badge/newbie.png")} />
                                             <div className="fw_900">뉴비</div>
                                             <div className="fs_14">토닥 첫 로그인</div>
                                             <hr/>
-                                            <div>{getAchievementDate('뉴비')}</div>
+                                            <div>{formattedDate}</div>
                                         </>
-                                    ) : (
-                                        <>
-                                            <img alt='' src={require("../../../image/badge/newbie.png")} className="gray" />
-                                            <div className="fw_900">뉴비</div>
-                                            <div className="fs_14">토닥 첫 로그인</div>
-                                            <hr/>
-                                            <div style={{color: "red"}}>미획득</div>
-                                        </>
-                                    )
+
                                 }
 
                             </Item>
