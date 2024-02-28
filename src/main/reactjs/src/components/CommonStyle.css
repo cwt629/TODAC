@@ -164,7 +164,8 @@ div.app {
 }
 
 div.login {
-    background: linear-gradient(to bottom, #FDC8C7, #E9DBF8);
+    /* background: linear-gradient(to bottom, #FDC8C7, #E9DBF8); */
+    background-color: white;
     /* border: 1px solid black; */
     /* width: 393px;
     height: 852px; */
