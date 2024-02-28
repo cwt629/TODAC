@@ -82,7 +82,7 @@ const MemberPost = () => {
                             title: '삭제 완료',
                             text: '게시글이 성공적으로 삭제되었습니다.',
                             icon: 'success',
-                            confirmButtonColor: '##5279FD',
+                            confirmButtonColor: '#5279FD',
                         }).then(() => {
                             nav(`/admin/MemberManage/MemberProfile/MemberPost?usercode=` + member.usercode);
                         });
@@ -123,7 +123,7 @@ const MemberPost = () => {
                 style={{
                     height: '40px',
                     padding: '8px',
-                    borderBottom: '1px solid #D4E4F2',
+                    borderBottom: '1px solid #5279FD',
                     borderRadius: '0',
                     border: 'none',
                 }}
