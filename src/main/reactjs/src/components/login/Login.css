@@ -19,19 +19,25 @@
 }
 
 .btn_naver{
-    border: 1px solid #03C75A;
-    color: #03C75A;
+    /* border: 1px solid #03C75A; */
+    /* border: 1px solid #969696; */
+    border: none;
+    /* color: #03C75A; */
+    color: #392020;
     margin-top: 140px;
 }
 
 .btn_kakao{
-    border: 1px solid #FEE500;
-    color: #392020;
+    /* border: 1px solid #FEE500; */
+    /* border: 1px solid #969696; */
+    border: none;
+    color: var(--mainblack);
     margin-top: 10px;
 }
 
 .btn_admin{
-    border: 1px solid #969696;
+    /* border: 1px solid #969696; */
+    border: none;
     color: var(--mainblack);
 }
 
@@ -126,7 +132,7 @@
   }
   
   .one_text{
-    color: #FF7170;
+    color: #6495ED;
     font-size: 35px !important;
   }
   

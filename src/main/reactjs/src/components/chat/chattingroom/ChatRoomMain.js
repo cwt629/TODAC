@@ -20,7 +20,6 @@ const ReactSwal = withReactContent(Swal);
 
 const STORAGE_PHOTO_BASE = 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/';
 const STORAGE_COUNSELOR_FOLDER_NAME = 'counselors/';
-const SYSTEM_MESSAGE_SUFFIX = "실제 대화하듯이 구어체로 답변하고, 답변은 300자를 넘지 않아야 합니다.";
 
 const ChatRoomMain = () => {
     const [query, setQuery] = useSearchParams();
@@ -36,12 +35,12 @@ const ChatRoomMain = () => {
 
     const nav = useNavigate();
 
-    const CURRENT_ROUTES = [
-        { name: 'TODAC 채팅', url: '/user/chat' },
-        { name: '상담받기', url: '' }
-    ];
+    // const CURRENT_ROUTES = [
+    //     { name: 'TODAC 채팅', url: '/user/chat' },
+    //     { name: '상담받기', url: '' }
+    // ];
 
-    const PAGE_TITLE = 'TODAC 채팅';
+    // const PAGE_TITLE = 'TODAC 채팅';
 
     // 초기 데이터 로딩
     useEffect(() => {
@@ -241,7 +240,6 @@ const ChatRoomMain = () => {
 
     return (
         <div className='chatmain mx_30'>
-            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <ChatRoomMidBar counselorname={initialData?.counselorName} handleFinishChat={handleFinishChat} />
             <ChatContent log={log} loading={loading}
                 nextCounselorPhoto={initialData?.counselorPhoto ? STORAGE_PHOTO_BASE + STORAGE_COUNSELOR_FOLDER_NAME + initialData.counselorPhoto : defaultProfilePhoto} />

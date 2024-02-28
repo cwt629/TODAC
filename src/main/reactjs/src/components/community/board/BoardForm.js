@@ -17,6 +17,8 @@ import PageHeader from "../../PageHeader";
 import noImage from "../../../image/no_image_board_form.png";
 import "./BoardStyle.css";
 import "../../CommonStyle.css";
+import changePhoto from "../../../image/change_photo.svg";
+import Swal from "sweetalert2";
 
 const BoardForm = () => {
     const [photo, setPhoto] = useState("");
@@ -61,7 +63,13 @@ const BoardForm = () => {
     const addDataEvent = async () => {
         const usercode = sessionStorage.getItem("id");
         if (title === "" || content === "" || counselorcode === "") {
-            alert("필수 입력값을 입력하세요");
+            Swal.fire({
+                title: "입력 없음!",
+                text: "필수 입력값을 입력해주세요.",
+                icon: "warning",
+                confirmButtonColor: "#FF7170",
+                confirmButtonText: "확인",
+            });
             return;
         }
         // const
@@ -75,6 +83,12 @@ const BoardForm = () => {
             .then((res) => {
                 // 추가 성공 후 목록으로 이동
                 navi("/user/community/board");
+                Swal.fire({
+                    title: "게시글 작성 완료",
+                    text: "게시글이 성공적으로 작성되었습니다.",
+                    icon: "success",
+                    confirmButtonColor: "#FF7170",
+                });
             })
             .catch((error) => {
                 // 에러 핸들링
@@ -100,11 +114,15 @@ const BoardForm = () => {
                 }}
             >
                 <div
+                    className='profile'
                     style={{
                         width: "100%",
                         height: "100%",
                     }}
                 >
+                    <div>
+                        <input type='file' id='fileInput' style={{ display: "none" }} onChange={onUploadEvent} />
+                    </div>
                     {loading ? (
                         <div
                             style={{
@@ -128,6 +146,13 @@ const BoardForm = () => {
                             style={{ borderRadius: "0.8rem", width: "100%", height: "100%" }}
                         />
                     )}
+                    <img
+                        style={{ width: "40px", height: "40px", position: "absolute", top: "450px", right: "45px" }}
+                        className='img-fluid'
+                        alt='이미지변경'
+                        src={changePhoto}
+                        onClick={() => document.getElementById("fileInput").click()}
+                    />
                 </div>
             </div>
 
@@ -189,9 +214,7 @@ const BoardForm = () => {
                     </List>
                 </div>
             </div>
-            <div className='text-center mt-1'>
-                <input type='file' onChange={onUploadEvent} />
-            </div>
+
             <Button
                 type='button'
                 style={{ backgroundColor: "blue", color: "white", display: "flex" }}

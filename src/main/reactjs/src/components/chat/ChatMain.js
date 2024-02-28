@@ -16,7 +16,7 @@ const ChatMain = () => {
     const nav = useNavigate();
 
     const CURRENT_ROUTES = [
-        { name: 'TODAC 채팅', url: '' }
+        // { name: 'TODAC 채팅', url: '' }
     ];
 
     const PAGE_TITLE = '상담사 선택';
@@ -35,8 +35,7 @@ const ChatMain = () => {
             confirmButtonText: '네',
             confirmButtonColor: '#FF7170',
             showCancelButton: true,
-            cancelButtonText: '아니오',
-            cancelButtonColor: '#9396A6'
+            cancelButtonText: '아니오'
         }).then(res => {
             if (res.isConfirmed) {
                 nav('counsel?counselorcode=' + data.counselorcode)
@@ -44,18 +43,55 @@ const ChatMain = () => {
         })
     }
 
+    const handleCounselorDelete = async (data) => {
+        const userConfirm = await ReactSwal.fire({
+            icon: 'warning',
+            title: '정말로 삭제하시겠어요?',
+            html: <div>삭제된 상담사는 복구할 수 없습니다.<br />정말로 <span className='col_red fs_20 fw_600'>{data.name}</span> 상담사를 삭제할까요?</div>,
+            confirmButtonText: '네',
+            confirmButtonColor: '#FF7170',
+            showCancelButton: true,
+            cancelButtonText: '아니오'
+        });
+        if (userConfirm.isConfirmed) {
+            try {
+                await axios.get("/counselor/delete?counselorcode=" + data.counselorcode);
+                await ReactSwal.fire({
+                    icon: 'success',
+                    title: '삭제 완료!',
+                    html: '성공적으로 삭제되었습니다.',
+                    confirmButtonText: '확인',
+                    confirmButtonColor: '#FF7170'
+                });
+                window.location.reload(); // 삭제 후 새로고침
+            } catch (error) {
+                ReactSwal.fire({
+                    icon: 'error',
+                    title: '에러 발생!',
+                    html: '다음 에러가 발생하였습니다: ' + error,
+                    confirmButtonText: '확인',
+                    confirmButtonColor: '#FF7170'
+                })
+            }
+        }
+    }
+
     useEffect(() => {
-        axios.get('/counselor/list')
-            .then((res) => {
-                setCounselorList(res.data);
-            })
+        if (sessionStorage.getItem("usercode"))
+            axios.get('/counselor/mylist?usercode=' + sessionStorage.getItem("usercode"))
+                .then((res) => {
+                    setCounselorList(res.data);
+                })
     }, [])
 
     return (
-        <div className='counselormain mx_30'>
+        <div className='counselormain'>
             <LogNavigationButton handleClick={handleLogNavClick} />
-            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <CounselorOptions info={counselorList} handleCounselClick={handleCounselClick} />
+            <div className='mx_30'>
+                <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+            </div>
+            <CounselorOptions info={counselorList} handleCounselClick={handleCounselClick}
+                handleCounselorDelete={handleCounselorDelete} />
         </div>
     );
 };

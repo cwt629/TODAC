@@ -78,7 +78,7 @@ const MemberChatSearch = () => {
                 </div>
             </div>
             {/* <div className='fs_17 fw_800'>{member.nickname} 님의 채팅 기록 검색</div> */}
-
+            <br />
             {/* 검색창 */}
             <Input
                 id="search"

@@ -111,6 +111,7 @@ const MemberPost = () => {
                     <span className='fs_25 fw_700 mt-2'>{member.nickname}님</span>
                 </div>
             </div>
+            <br />
             {/* <div className='fs_17 fw_800'>{member.nickname} 님의 게시글 검색</div> */}
             <Input
                 id="search"

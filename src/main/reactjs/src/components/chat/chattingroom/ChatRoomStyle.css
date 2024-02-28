@@ -20,12 +20,16 @@ div.chatcontent {
     border-radius: 3px;
     width: 100%;
     height: 55vh;
-    padding: 0 10px;
     overflow-y: auto;
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+/* 추가 폼의 미리보기에 들어갈 채팅창 */
+div.chatcontent.chatpreview {
+    height: 150px;
 }
 
 div.chatcontent div.chatcomponent {
@@ -50,6 +54,7 @@ div.chatcontent img.profile {
     width: 50px;
     height: 50px;
     border-radius: 50px;
+    box-shadow: 2px 2px 2px gray;
 }
 
 div.chatcontent div.chat {
@@ -57,15 +62,16 @@ div.chatcontent div.chat {
     padding: 10px;
     border-radius: 10px;
     margin: 20px 5px 0 5px;
+    box-shadow: 2px 2px 2px gray;
 }
 
 div.chatcontent div.chatcomponent.counselor div.chat {
-    background-color: #FF7170;
+    background-color: var(--deepblue);
     color: white;
 }
 
 div.chatcontent div.chatcomponent.user div.chat {
-    background-color: #51CECE;
+    background-color: var(--lightgray1);
 }
 
 div.chatbutton {
@@ -90,7 +96,10 @@ textarea.userinput {
     /* width: 80%; */
     flex: 1;
     border-radius: 3px;
+    border: none;
+    background-color: #D4E4F2;
     resize: none;
+    padding: 3px;
 }
 
 textarea.userinput:focus {
