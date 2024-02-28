@@ -24,8 +24,10 @@ const CounselorCardBack = ({ borcolor, data, handleCounselClick, handleCounselor
                     {
                         data.usercode !== 5 && // 관리자가 만든 오피셜 상담사는 일단 삭제 못하도록 처리
                             data.usercode === Number(sessionStorage.getItem("usercode")) ?
-                            <PersonRemoveAlt1TwoTone color='action'
-                                onClick={() => handleCounselorDelete(data)} /> : ''
+                            <div className='counselordelbtn'>
+                                <PersonRemoveAlt1TwoTone color='action'
+                                    onClick={() => handleCounselorDelete(data)} />
+                            </div> : ''
                     }
                 </div>
             </div>

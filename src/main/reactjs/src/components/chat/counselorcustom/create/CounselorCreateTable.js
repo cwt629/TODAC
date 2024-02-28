@@ -7,6 +7,8 @@ import CounselorPreview from './CounselorPreview';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+import cameraIcon from '../../../../image/change_photo.svg';
+
 const CounselorCreateTable = () => {
     // 각 input의 최대 길이
     const INPUT_MAX_LENGTH = {
@@ -176,7 +178,7 @@ const CounselorCreateTable = () => {
                             <input type='file' accept='image/*' id='counselor-create-image' style={{ display: 'none' }}
                                 onChange={handlePhotoUpload} />
                             <img style={{ width: '30px', height: "30px", position: 'absolute', bottom: "10px", right: '10px' }} className="img-fluid"
-                                alt='이미지변경' src={require('../../../../image/ico_camera.png')} onClick={() => document.getElementById("counselor-create-image").click()} />
+                                alt='이미지변경' src={cameraIcon} onClick={() => document.getElementById("counselor-create-image").click()} />
                         </td>
                     </tr>
                     <tr>
