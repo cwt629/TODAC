@@ -1,21 +1,23 @@
-@import url('https://webfontworld.github.io/pretendard/Pretendard.css');
-@import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');
+@import url("https://webfontworld.github.io/pretendard/Pretendard.css");
+@import url("http://fonts.googleapis.com/earlyaccess/notosanskr.css");
 
 body * {
-    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+        "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 :root {
     --mainblack: #536179;
-    --deepred: #FF7170;
-    --lightred: #F9EAEB;
-    --deepblue: #5279FD;
-    --midblue: #51CECE;
-    --lightblue: #E1F5F5;
-    --deepgray: #9396A6;
-    --lightgray1: #EEF0F7;
-    --lightgray2: #DDDFEA;
-    --bggray: #F2F5FA;
+    --deepred: #ff7170;
+    --lightred: #f9eaeb;
+    --deepblue: #5279fd;
+    --midblue: #51cece;
+    --lightblue: #e1f5f5;
+    --deepgray: #9396a6;
+    --lightgray1: #eef0f7;
+    --lightgray2: #dddfea;
+    --bggray: #f2f5fa;
     --skyblue: #69caf7;
 }
 
@@ -48,7 +50,6 @@ body {
 
 .fs_15 {
     font-size: 15px;
-
 }
 
 .fs_16 {
@@ -140,14 +141,12 @@ body {
     font-weight: 900;
 }
 
-
 /* placeholder style - italic */
 ::placeholder {
     font-style: italic;
     color: var(--deepgray);
     font-size: 15px;
 }
-
 
 div.app {
     background-color: white;
@@ -214,7 +213,7 @@ div.footer {
     display: flex;
     /* position: absolute; */
     bottom: 0px;
-    border-top: 1px solid #EEF0F7;
+    border-top: 1px solid #eef0f7;
     background-color: #fff;
     align-self: flex-end;
 }
@@ -223,13 +222,12 @@ div.footer .footernav {
     cursor: pointer;
 }
 
-
 .footer_ico {
-    fill: #9396A6;
+    fill: #9396a6;
 }
 
 .footer_ico:hover {
-    fill: #7A98FF;
+    fill: #7a98ff;
 }
 
 a {
@@ -320,7 +318,6 @@ a {
     margin-top: 100%;
 }
 
-
 /* border-radius */
 .br_5 {
     border-radius: 5px;
@@ -360,7 +357,7 @@ span.header-clickable {
 }
 
 .overlay:after {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     right: 0;
@@ -484,7 +481,7 @@ span.header-clickable {
 .chevron::before {
     border-style: solid;
     border-width: 0.25em 0.25em 0 0;
-    content: '';
+    content: "";
     display: inline-block;
     height: 20px;
     position: relative;
@@ -559,7 +556,7 @@ span.header-clickable {
 }
 
 .code--left::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 30%;
     /* 말풍선 세로 위치 조정 */
@@ -574,7 +571,7 @@ span.header-clickable {
 }
 
 .code--right::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 30%;
     /* 말풍선 세로 위치 조정 */
@@ -605,8 +602,8 @@ span.header-clickable {
 }
 
 .section--more {
-    color: #FFF;
-    background: #0E0F34;
+    color: #fff;
+    background: #0e0f34;
     padding: 20px 0 40px 0;
 }
 
@@ -628,7 +625,7 @@ button.start_btn {
 
 button.start_btn::before {
     position: absolute;
-    content: '';
+    content: "";
     width: 100%;
     height: 100%;
     top: 0;
@@ -675,7 +672,7 @@ button.start_btn:active::before {
     font-size: 45px;
     top: -15px;
     display: inline-block;
-    animation: bounce .3s ease infinite alternate;
+    animation: bounce 0.3s ease infinite alternate;
     /* text-shadow: 0 1px 0 transparent, 
              0 2px 0 transparent, 
              0 3px 0 transparent, 
@@ -689,27 +686,27 @@ button.start_btn:active::before {
 }
 
 .click_ani span:nth-child(2) {
-    animation-delay: .1s;
+    animation-delay: 0.1s;
 }
 
 .click_ani span:nth-child(3) {
-    animation-delay: .2s;
+    animation-delay: 0.2s;
 }
 
 .click_ani span:nth-child(4) {
-    animation-delay: .3s;
+    animation-delay: 0.3s;
 }
 
 .click_ani span:nth-child(5) {
-    animation-delay: .4s;
+    animation-delay: 0.4s;
 }
 
 .click_ani span:nth-child(6) {
-    animation-delay: .5s;
+    animation-delay: 0.5s;
 }
 
 .click_ani span:nth-child(7) {
-    animation-delay: .6s;
+    animation-delay: 0.6s;
 }
 
 @keyframes bounce {
@@ -737,11 +734,11 @@ button.start_btn:active::before {
 }
 
 .bg_blue3 {
-    background-color: #E7EDF7;
+    background-color: #e7edf7;
 }
 
 .bor_blue3 {
-    border: 1px solid #BAD1E6;
+    border: 1px solid #bad1e6;
 }
 
 /* 추가: 공용 버튼 (진한 파랑 배경, 연한 파랑 배경) */
@@ -761,7 +758,8 @@ button.deepblue {
     color: #fff;
     padding: 6px 15px;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 button.lightblue {
@@ -774,13 +772,14 @@ button.lightblue {
 
     border: none;
     border-radius: 5px;
-    background-color: #D4E4F2;
+    background-color: #d4e4f2;
     font-size: 14px;
     font-weight: 700;
     color: var(--deepblue);
     padding: 6px 15px;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 button.white {
@@ -799,7 +798,8 @@ button.white {
     color: var(--deepblue);
     padding: 6px 15px;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 button.short {
