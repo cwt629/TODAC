@@ -58,17 +58,21 @@ const Header = () => {
                 nav("/login");
             }} /> </span> */}
 
-            <div className='d-flex mx_30 mt-1'>
-                {showBackButton && (
-                    <div>
-                        <img alt='뒤로가기' src={require('./image/ico_back.png')} onClick={() => window.history.back()} />
-                    </div>
-                )}
+            {
+                id &&
+                <div className='d-flex mx_30 mt-1'>
+                    {showBackButton && (
+                        <div>
+                            <img alt='뒤로가기' src={require('./image/ico_back.png')} onClick={() => window.history.back()} />
+                        </div>
+                    )}
 
-                <div style={{ marginLeft: 'auto' }}>
-                    <span className='fw_900'>{memberinfo.nickname}</span> 님 <Logout style={{ cursor: 'pointer', width: '16px' }} onClick={handleLogout} />
+                    <div style={{ marginLeft: 'auto' }}>
+                        <span className='fw_900'>{memberinfo.nickname}</span> 님 <Logout style={{ cursor: 'pointer', width: '16px' }} onClick={handleLogout} />
+                    </div>
                 </div>
-            </div>
+            }
+
         </div>
     );
 };
