@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import diagnosisImg from '../../../image/diagnosis.png';
+import diagnosisImg1 from '../../../image/diagnosis1.png';
+import diagnosisImg2 from '../../../image/diagnosis2.png';
 import './DocumentStyle.css';
 import axios from 'axios';
 import summarizeContent from '../api/summarize';
@@ -78,9 +79,9 @@ const ChatSummary = () => {
         // sweetalert2 팝업 띄우기
         Swal.fire({
             title: '진단서 예시 및 간단 설명',
-            html: '<div style="border: 1px solid red; border-radius: 10px; overflow: hidden;"><img src="' + diagnosisImg + '" alt="이미지" style="width: 80%; height: auto;"></div>',
+            html: '<div style="border: 1px solid #5279FD; border-radius: 10px; overflow: hidden;"><img src="' + diagnosisImg1 + '" alt="이미지" style="width: 80%; height: auto;"><img src="' + diagnosisImg2 + '" alt="이미지" style="width: 80%; height: auto;"></div>',
             icon: 'info',
-            confirmButtonColor: '#FF7170',
+            confirmButtonColor: '#5279FD',
             confirmButtonText: '닫기',
         });
     };
@@ -192,17 +193,16 @@ const ChatSummary = () => {
                 <Link to="/user/chat/summary" className='col_blue2'>요약</Link>
             </div>
             <div className='fs_25 fw_700'>오늘의 상담 요약</div>
-            <br />
-            <div className='summaryContent fs_14 mt_10'>
+            <div className='summaryContent fs_14 fw_500 mt_10'>
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br />
                 {summarizedMessages.summarizedUserMessage?.content}
             </div>
             <br />
-            <div className='summaryAnswerContent fs_14 mt_10'>
+            <div className='summaryAnswerContent fs_14 fw_500 mt_10'>
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: 'whitesmoke' }}>상담사의 답변 요약</span><br />
                 {summarizedMessages.summarizedCounselorMessage?.content}
             </div>
-            <br /><br />
+            <br />
             <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer', float: 'right' }} onClick={handleInfoClick}>ℹ️</span>
             <br />
             <div style={{ textAlign: 'center', float: 'clear' }}>
