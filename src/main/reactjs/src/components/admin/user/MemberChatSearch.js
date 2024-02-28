@@ -67,14 +67,15 @@ const MemberChatSearch = () => {
                 <Link to="/admin" className='col_blue2'>관리자 홈 {'>'} </Link>
                 <Link to="/admin/MemberManage" className='col_blue2'>회원 관리 {'>'} </Link>
                 <Link to="/admin/MemberManage/MemberProfile" className='col_blue2'>회원 정보 {'>'}</Link>
-                <Link to="/admin/MemberManage/MemberProfile/MemberChatSearch" className='col_blue2'>회원 채팅기록 </Link>
+                <Link to="/admin/MemberManage/MemberProfile/MemberChatSearch" className='col_blue2'> 회원 채팅기록 </Link>
             </div>
             <div className='fs_25 fw_700'>회원 채팅 기록</div>
+            <br />
 
             <div className='fs_25 fw_700' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <img alt='' src={member.photo} style={{ width: '15vh', height: '15vh', borderRadius: '50%' }} />
-                    <span className='fs_25 fw_700 mt-2'>{member.nickname}님</span>
+                    <span className='fs_22 fw_700 mt-2'>{member.nickname}님</span>
                 </div>
             </div>
             {/* <div className='fs_17 fw_800'>{member.nickname} 님의 채팅 기록 검색</div> */}
@@ -112,33 +113,41 @@ const MemberChatSearch = () => {
                     </InputAdornment>
                 }
             />
-            <br />
-            <div className="fs_17 fw_800">{member.nickname} 님의 채팅 기록</div>
-            {currentItems.map((item, index) => {
-                return (
-                    <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}
-                        onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberChatSearch/MemberChatHistory?usercode=${member.usercode}&chatroomcode=${item.chatroomcode}`)}>
-                        <div className='input-group'>
-                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <br /><br />
+            <div className="fs_17 fw_800">
+                <span className="col_blue2">{member.nickname}</span> 님의 채팅 기록
+            </div>
+            {filteredChat.length === 0 ? (
+                <div className='fs_14' style={{ marginTop: '10px' }}>
+                    채팅 내역이 없습니다.
+                </div>
+            ) : (
+                currentItems.map((item, index) => {
+                    return (
+                        <div key={index} className="bg_gray bor_gray1 px-3 py-2"
+                            onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberChatSearch/MemberChatHistory?usercode=${member.usercode}&chatroomcode=${item.chatroomcode}`)}>
+                            <div className='input-group'>
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <div>
+                                        <span><img alt='' src={item.counselorphoto} style={{ width: '40px', height: '40px', borderRadius: '50px' }} /></span>&nbsp;
+                                    </div>
+                                </div>
+                                &nbsp;
                                 <div>
-                                    <span><img alt='' src={item.counselorphoto} style={{ width: '40px', height: '40px', borderRadius: '50px' }} /></span>&nbsp;
+                                    <span className="fw_600">{item.counselorname} 상담사</span>
+                                    <div className="fs_15 ">{getDateFormatPieces(item.date).day}
+                                    </div>
                                 </div>
-                            </div>
-                            &nbsp;
-                            <div>
-                                <span className="fw_600">{item.counselorname} 상담사</span>
-                                <div className="fs_15 ">{getDateFormatPieces(item.date).day}
+                                <div>
+                                    <br />
+                                    {/* 진단서 발급 여부 표시 */}
+                                    {item.diagnosiscode > 0 ? <div> | <span className='col_blue2 fs_14'>진단서 발급</span></div> : <div> | <span className='col_red fs_14'>진단서 미발급</span></div>}
                                 </div>
-                            </div>
-                            <div>
-                                <br />
-                                {/* 진단서 발급 여부 표시 */}
-                                {item.diagnosiscode > 0 ? <div> | <span className='col_blue2 fs_14'>진단서 발급</span></div> : <div> | <span className='col_red fs_14'>진단서 미발급</span></div>}
                             </div>
                         </div>
-                    </div>
-                );
-            })}
+                    );
+                })
+            )}
 
             {/* Pagination */}
             <div className="justify-content-center d-flex mt-3 qnaPage_btn">
@@ -146,6 +155,13 @@ const MemberChatSearch = () => {
                     count={totalPages}
                     page={currentPage}
                     onChange={handlePageChange}
+                    shape="rounded"
+                    variant="outlined"
+                    color="primary"
+                    hidePrevButton
+                    hideNextButton
+                    hideFirstButton
+                    hideLastButton
                 />
             </div>
         </div>

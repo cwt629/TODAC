@@ -11,7 +11,7 @@ import {
     TextField,
 } from "@mui/material";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import PageHeader from "../../PageHeader";
 import noImage from "../../../image/no_image_board_form.png";
@@ -27,6 +27,8 @@ const BoardForm = () => {
     const [counselorcode, setCounselorCode] = useState("");
     const [loading, setLoading] = useState(false);
     const navi = useNavigate();
+    const id = sessionStorage.getItem("id");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/"; //ncloud 에서 가져옴
 
     const CURRENT_ROUTES = [
@@ -36,6 +38,11 @@ const BoardForm = () => {
     ];
 
     const PAGE_TITLE = "게시글 등록";
+
+    useEffect(() => {
+        const id = sessionStorage.getItem("id");
+        setIsLoggedIn(id); // id가 있으면 true, 없으면 false
+    }, []);
 
     //파일 업로드 이벤트
     const onUploadEvent = (e) => {
@@ -72,7 +79,7 @@ const BoardForm = () => {
             });
             return;
         }
-        // const
+
         axios
             .post(`/form/insert/${usercode}`, {
                 photo: photo,
@@ -82,7 +89,7 @@ const BoardForm = () => {
             })
             .then((res) => {
                 // 추가 성공 후 목록으로 이동
-                navi("/user/community/board");
+                navi("/board");
                 Swal.fire({
                     title: "게시글 작성 완료",
                     text: "게시글이 성공적으로 작성되었습니다.",
@@ -104,124 +111,138 @@ const BoardForm = () => {
 
     return (
         <div className='form-group mx_30'>
-            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <div
-                className='col-4'
-                style={{
-                    marginTop: "15px",
-                    width: "100%",
-                    height: "100%",
-                }}
-            >
-                <div
-                    className='profile'
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                    }}
-                >
-                    <div>
-                        <input type='file' id='fileInput' style={{ display: "none" }} onChange={onUploadEvent} />
-                    </div>
-                    {loading ? (
+            {isLoggedIn ? (
+                <>
+                    <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+                    <div
+                        className='col-4'
+                        style={{
+                            marginTop: "15px",
+                            width: "100%",
+                            height: "100%",
+                        }}
+                    >
                         <div
+                            className='profile'
                             style={{
-                                position: "relative",
+                                width: "100%",
+                                height: "100%",
                             }}
                         >
-                            <CircularProgress
-                                size={50}
+                            <div>
+                                <input
+                                    type='file'
+                                    id='fileInput'
+                                    style={{ display: "none" }}
+                                    onChange={onUploadEvent}
+                                />
+                            </div>
+                            {loading ? (
+                                <div
+                                    style={{
+                                        position: "relative",
+                                    }}
+                                >
+                                    <CircularProgress
+                                        size={50}
+                                        style={{
+                                            position: "relative",
+                                            top: "180px",
+                                            left: "43%",
+                                            transform: "translate(-50%, -50%)",
+                                        }}
+                                    />
+                                </div>
+                            ) : (
+                                <img
+                                    alt=''
+                                    src={photo ? imageStorage + photo : noImage}
+                                    style={{ borderRadius: "0.8rem", width: "100%", height: "100%" }}
+                                />
+                            )}
+                            <img
                                 style={{
-                                    position: "relative",
-                                    top: "180px",
-                                    left: "43%",
-                                    transform: "translate(-50%, -50%)",
+                                    width: "40px",
+                                    height: "40px",
+                                    position: "absolute",
+                                    top: "450px",
+                                    right: "45px",
                                 }}
+                                className='img-fluid'
+                                alt='이미지변경'
+                                src={changePhoto}
+                                onClick={() => document.getElementById("fileInput").click()}
                             />
                         </div>
-                    ) : (
-                        <img
-                            alt=''
-                            src={photo ? imageStorage + photo : noImage}
-                            style={{ borderRadius: "0.8rem", width: "100%", height: "100%" }}
+                    </div>
+
+                    <div className='mt_10'>
+                        <TextField
+                            label='제목'
+                            size='small'
+                            placeholder='제목을 입력해 주세요.'
+                            className='bg_gray input_type'
+                            style={{ width: "100%" }}
+                            onChange={(e) => {
+                                setTitle(e.target.value);
+                            }}
                         />
-                    )}
-                    <img
-                        style={{ width: "40px", height: "40px", position: "absolute", top: "450px", right: "45px" }}
-                        className='img-fluid'
-                        alt='이미지변경'
-                        src={changePhoto}
-                        onClick={() => document.getElementById("fileInput").click()}
-                    />
-                </div>
-            </div>
+                    </div>
 
-            <div className='mt_10'>
-                <TextField
-                    label='제목'
-                    size='small'
-                    placeholder='제목을 입력해 주세요.'
-                    className='bg_gray'
-                    style={{ width: "100%" }}
-                    onChange={(e) => {
-                        setTitle(e.target.value);
-                    }}
-                />
-            </div>
+                    <div className='mt-3'>
+                        <TextField
+                            multiline
+                            id='outlined-multiline-static'
+                            label='내용'
+                            rows={6}
+                            placeholder='내용을 입력하세요.'
+                            className='bg_gray input_type'
+                            style={{ height: "100%", width: "100%" }}
+                            onChange={(e) => {
+                                setContent(e.target.value);
+                            }}
+                        />
+                    </div>
 
-            <div className='mt-3'>
-                <TextField
-                    multiline
-                    id='outlined-multiline-static'
-                    label='내용'
-                    rows={6}
-                    placeholder='내용을 입력하세요.'
-                    className='bg_gray'
-                    style={{ height: "100%", width: "100%" }}
-                    onChange={(e) => {
-                        setContent(e.target.value);
-                    }}
-                />
-            </div>
+                    <div className='form-group' style={{ marginTop: "10px" }}>
+                        <h6>상담사</h6>
+                        <div style={{ display: "flex" }}>
+                            <List dense sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+                                {Array.from(Array(5).keys()).map((index) => (
+                                    <ListItem key={index} disablePadding>
+                                        <ListItemButton
+                                            role={undefined}
+                                            onClick={() => onCounselorRadioChange(`${index + 1}`)}
+                                            dense
+                                        >
+                                            <ListItemAvatar>
+                                                <Avatar
+                                                    alt={`Avatar n°${index + 1}`}
+                                                    src={`/static/images/avatar/${index + 1}.jpg`}
+                                                />
+                                            </ListItemAvatar>
+                                            <ListItemText primary={`상담사${index + 1}`} />
+                                            <Radio
+                                                edge='end'
+                                                checked={counselorcode === `${index + 1}`}
+                                                tabIndex={-1}
+                                                disableRipple
+                                            />
+                                        </ListItemButton>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </div>
+                    </div>
 
-            <div className='form-group' style={{ marginTop: "10px" }}>
-                <h6>상담사</h6>
-                <div style={{ display: "flex" }}>
-                    <List dense sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-                        {Array.from(Array(5).keys()).map((index) => (
-                            <ListItem key={index} disablePadding>
-                                <ListItemButton
-                                    role={undefined}
-                                    onClick={() => onCounselorRadioChange(`${index + 1}`)}
-                                    dense
-                                >
-                                    <ListItemAvatar>
-                                        <Avatar
-                                            alt={`Avatar n°${index + 1}`}
-                                            src={`/static/images/avatar/${index + 1}.jpg`}
-                                        />
-                                    </ListItemAvatar>
-                                    <ListItemText primary={`상담사${index + 1}`} />
-                                    <Radio
-                                        edge='end'
-                                        checked={counselorcode === `${index + 1}`}
-                                        tabIndex={-1}
-                                        disableRipple
-                                    />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                    </List>
-                </div>
-            </div>
-
-            <Button
-                type='button'
-                style={{ backgroundColor: "blue", color: "white", display: "flex" }}
-                onClick={addDataEvent}
-            >
-                작성완료
-            </Button>
+                    <button className='inquiry_btn2' type='button' onClick={addDataEvent}>
+                        작성완료
+                    </button>
+                </>
+            ) : (
+                // id가 없으면 로그인 페이지로 이동
+                navi("/login")
+            )}
         </div>
     );
 };
