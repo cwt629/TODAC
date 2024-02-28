@@ -105,7 +105,7 @@ const MemberComments = () => {
             <div className='fs_25 fw_700' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <img alt='' src={member.photo} style={{ width: '15vh', height: '15vh', borderRadius: '50%' }} />
-                    <span className='fs_25 fw_700 mt-2'>{member.nickname}님</span>
+                    <span className='fs_22 fw_700 mt-2'>{member.nickname}님</span>
                 </div>
             </div>
             {/* <div className='fs_17 fw_800'>{member.nickname} 님의 댓글 검색</div> */}
@@ -141,8 +141,10 @@ const MemberComments = () => {
                         <SearchIcon />
                     </InputAdornment>
                 }
-            />
-            <div className="fs_17 fw_800">{member.nickname} 님의 댓글 목록</div>
+            /><br /><br />
+            <div className="fs_17 fw_800">
+                <span className="col_blue2">{member.nickname}</span> 님의 댓글 목록
+            </div>
             {currentItems.map((item, index) => (
                 <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -156,13 +158,19 @@ const MemberComments = () => {
                     <div className="fs_14">{item.registereddate}</div>
                 </div>
             ))}
-
             {/* Pagination */}
             <div className="justify-content-center d-flex mt-3 qnaPage_btn">
                 <Pagination
                     count={totalPages}
                     page={currentPage}
                     onChange={handlePageChange}
+                    shape="rounded"
+                    variant="outlined"
+                    color="primary"
+                    hidePrevButton
+                    hideNextButton
+                    hideFirstButton
+                    hideLastButton
                 />
             </div>
         </div>

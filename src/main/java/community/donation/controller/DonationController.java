@@ -87,4 +87,34 @@ public class DonationController {
 		return map;
 	}
 
+	@PostMapping("/donation")
+	public boolean donation(@RequestParam("amount") int amount,
+						   @RequestParam("usercode") int usercode,
+						   @RequestParam("type") String type)
+	{
+		MemberDto dto = new MemberDto();
+		dto = memberdao.getMemberByData(usercode);
+		int mypoint = dto.getPoint();
+
+		//포인트, 기부금 계산
+		if(mypoint<amount)
+			return false;
+		else {
+			//member 포인트 차감
+			dto.setPoint(mypoint-amount);
+			memberdao.insertMember(dto);
+
+			//pointrecord에 기록
+			PointRecordDto Pdto = new PointRecordDto();
+			Pdto.setMember(dto);
+			Pdto.setAmount(amount);
+			Pdto.setType(type);
+			pointRecordDao.inserPointRecord(Pdto);
+
+			//기부 뱃지 수여
+
+			return true;
+		}
+	}
+
 }

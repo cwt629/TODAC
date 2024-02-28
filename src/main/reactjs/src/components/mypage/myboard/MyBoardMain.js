@@ -15,7 +15,7 @@ const MyBoardMain = () => {
     const usercode = sessionStorage.getItem("usercode");
     const [member, setMember] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(7)
+    const [itemsPerPage] = useState(5)
 
     const CURRENT_ROUTES = [
         { name: '내 정보', url: '/user' },
@@ -134,7 +134,7 @@ const MyBoardMain = () => {
             />
             <div className="fs_17 fw_800">{member.nickname} 님의 게시글 목록</div>
             {currentItems.map((item, index) => (
-                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
+                <div key={index} className="bor_gray1 px-3 py-2 mt_10" style={{ boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px", borderRadius:"10px" }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div
                             onClick={() => openModal(item)}
