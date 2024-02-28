@@ -84,7 +84,7 @@ const Pointcheck = () => {
                   `,
             showCancelButton: true,
             confirmButtonText: '충전',
-            confirmButtonColor: 'skyblue',
+            confirmButtonColor: '#5279FD',
             cancelButtonText: '취소',
         }).then(res => {
             if (res.isConfirmed) {
