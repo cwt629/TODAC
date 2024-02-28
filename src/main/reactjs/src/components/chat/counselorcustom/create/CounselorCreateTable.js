@@ -106,12 +106,12 @@ const CounselorCreateTable = () => {
                 confirmButtonText: '확인'
             })
             // 이름에 포커스
-            inputName.current.focus();
+            //inputName.current.focus();
             return;
         }
 
-        // 성격 입력 확인: '~인', '~한', '~은', '~는'으로 끝나는지 확인
-        const personalityRegex = new RegExp('[한인은는]$');
+        // 성격 입력 확인: '~한', '~인', '~운', '~은', '~는'으로 끝나는지 확인
+        const personalityRegex = new RegExp('[한인운은는]$');
         if (!personalityRegex.test(data.personality)) {
             const userConfirm = await ReactSwal.fire({
                 icon: 'warning',
