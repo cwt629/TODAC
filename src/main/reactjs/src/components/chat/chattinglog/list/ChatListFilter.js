@@ -29,7 +29,8 @@ const ChatListFilter = ({ dateOrderAsc, handleDateOrderClick, counselor, filterL
                     {
                         filterList.map((item, idx) => (
                             <li key={idx} value={item} onClick={() => handleCounselorSelect(item)}>
-                                <a className={`dropdown-item ${idx === 0 ? 'fw_600' : ''}`} href='#'>{item}</a>
+                                <a className={`dropdown-item ${idx === 0 ? 'fw_600' : ''}`} href='#'
+                                    style={{ color: (item === counselor) ? 'var(--deepblue)' : 'var(--mainblack)' }}>{item}</a>
                             </li>
                         ))
                     }
