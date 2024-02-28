@@ -7,7 +7,7 @@ const LogNavigationButton = ({ handleClick }) => {
                 onClick={handleClick}>
                 나의 상담기록
             </div> */}
-            <button type='button' className='deepblue'
+            <button type='button' className='white'
                 onClick={handleClick}>나의 상담기록</button>
         </div>
     );
