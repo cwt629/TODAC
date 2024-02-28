@@ -5,30 +5,35 @@
 }
 
 .faq.accordion {
-    --bs-accordion-color: var(--bs-body-color);
+    --bs-accordion-color: var(--mainblack);
     --bs-accordion-bg: var(--bggray);
-    --bs-accordion-border-color: var(--lightgray1);
+    --bs-accordion-border-color: var(--lightgray2);
     --bs-accordion-border-radius: 0;
     --bs-accordion-inner-border-radius: 0;
-    --bs-accordion-btn-padding-x: 0.1rem;
-    --bs-accordion-btn-padding-y: 0.7rem;
-    --bs-accordion-btn-color: var(--bs-body-color);
+    --bs-accordion-btn-padding-x: 1rem;
+    --bs-accordion-btn-padding-y: 1.5rem;
+    --bs-accordion-btn-color: var(--mainblack);
     --bs-accordion-btn-bg: var(--bs-accordion-bg);
     --bs-accordion-btn-icon: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e);
-    --bs-accordion-btn-icon-width: 1.25rem;
+    --bs-accordion-btn-icon-width: 1rem;
     --bs-accordion-btn-icon-transform: rotate(-180deg);
     --bs-accordion-btn-icon-transition: transform 0.2s ease-in-out;
     --bs-accordion-btn-active-icon: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23052c65'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e);
     --bs-accordion-btn-active-border-color: #FF7170;
     --bs-accordion-btn-focus-box-shadow: 0;
-    --bs-accordion-body-padding-x: 0.1rem;
-    --bs-accordion-body-padding-y: 0.7rem;
-    --bs-accordion-active-color: var(--bs-primary-text-emphasis);
-    --bs-accordion-active-bg: var(--lightred);
+    --bs-accordion-body-padding-x: 1rem;
+    --bs-accordion-body-padding-y: 1rem;
+    --bs-accordion-active-color: var(--deepblue);
+    --bs-accordion-active-bg: #E7EDF7;
 }
 
-.faq button {
-    font-size: 0.88rem;
+.accordion-button:not(.collapsed) {
+    color: var(--deepblue) !important;
+}
+
+.accordion-button>span{
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .faq .accordion-button::after {
@@ -36,39 +41,78 @@
 }
 
 .faq .accordion-body {
-    font-size: 0.88em;
-    background-color: #E1F5F5;
+    font-size: 1em;
+    height: auto;
+    background-color: #E7EDF7;
+    background-image: url('../../image/ico_babytodac2.png');
+    background-size: 120px;
+    background-repeat: no-repeat;
+    background-position: right bottom 15px;
+    overflow-y: auto;
+    padding-right: 110px;
 }
 
 .faq .accordion-item {
     color: var(--mainblack);
+    margin-bottom: 15px;
+    border-radius: 5px;
 }
 
 .inquiry_form>div>.form-control {
     background-color: var(--bggray);
     color: var(--mainblack);
     border: 1px solid var(--lightgray2);
-    border-radius: 0;
+    border-radius: 5px;
 }
 
 .inquiry_btn>button {
-    background-color: var(--lightblue);
+    /* background-color: var(--lightblue);
     border: 1px solid var(--midblue);
     border-radius: 5px;
     font-weight: 500;
     color: var(--mainblack);
+    padding: 6px 30px; */
+
+    border: none;
+    border-radius: 5px;
+    background-color: var(--deepblue);
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
     padding: 6px 30px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.inquiry_btn>button:first-child {
+    /* background-color: var(--lightblue);
+    border: 1px solid var(--midblue);
+    border-radius: 5px;
+    font-weight: 500;
+    color: var(--mainblack);
+    padding: 6px 30px; */
+
+    border: none;
+    border-radius: 5px;
+    background-color: #D4E4F2;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--deepblue);
+    padding: 6px 30px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .inquiry_list>div>button {
-    border: 1px solid var(--midblue);
+    border: none;
     border-radius: 5px;
-    background-color: var(--lightblue);
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--mainblack);
-    padding: 5px 8px;
+    background-color: var(--deepblue);
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    padding: 5px 10px;
     cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
@@ -76,14 +120,30 @@
 }
 
 .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected:hover {
-    background-color: var(--midblue) !important;
+    background-color:  #BAD1E6 !important;
 }
 
 .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root:hover {
-    background-color: var(--midblue) !important;
+    background-color: #BAD1E6 !important;
 }
 
 .qnaPage_btn button {
     color: var(--mainblack);
     font-weight: 600;
+}
+
+.inquiryhistory_bg{
+    border: none;
+    border-radius: 5px;
+    background-color: #D4E4F2;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--deepblue);
+    padding: 6px 10px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.mr_10{
+    margin-right: 10px;
 }

@@ -61,9 +61,14 @@ const MemberPostDetail = () => {
                 </Link>
                 <span className='col_blue2'>&nbsp;회원 게시글</span>
             </div>
-            <div className='fs_25 fw_700'>제목: {data.title}</div>
-            {data.photo && <img alt='' src={imageStorage + data.photo} style={{ width: "25vh", height: "25vh" }} />}
-            <div className='mt_10 bg_red bor_red br_5 p-2'>
+            <div className='fs_25 fw_700'><span className='col_blue2'>{member.nickname}</span> 님의 게시글</div>
+            <div className="text-center mt_25">
+                {data.photo && <img alt='' src={imageStorage + data.photo} style={{ width: '65%', borderRadius: '10px' }} className="img-fluid" />}
+            </div>
+            <div className="mt_10 fw_600">제목</div>
+            <div className='fs_20 fw_700 mt_10 post_title'>{data.title}</div>
+            <div className="mt_25 fw_600">내용</div>
+            <div className='mt_10 bg_blue3  br_5 p-2'>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <div>
                         <span className='fw_600'>{data.content}</span>

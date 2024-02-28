@@ -1,21 +1,23 @@
-@import url('https://webfontworld.github.io/pretendard/Pretendard.css');
-@import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');
+@import url("https://webfontworld.github.io/pretendard/Pretendard.css");
+@import url("http://fonts.googleapis.com/earlyaccess/notosanskr.css");
 
 body * {
-    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+        "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 :root {
     --mainblack: #536179;
-    --deepred: #FF7170;
-    --lightred: #F9EAEB;
-    --deepblue: #5279FD;
-    --midblue: #51CECE;
-    --lightblue: #E1F5F5;
-    --deepgray: #9396A6;
-    --lightgray1: #EEF0F7;
-    --lightgray2: #DDDFEA;
-    --bggray: #F2F5FA;
+    --deepred: #ff7170;
+    --lightred: #f9eaeb;
+    --deepblue: #5279fd;
+    --midblue: #51cece;
+    --lightblue: #e1f5f5;
+    --deepgray: #9396a6;
+    --lightgray1: #eef0f7;
+    --lightgray2: #dddfea;
+    --bggray: #f2f5fa;
     --skyblue: #69caf7;
 }
 
@@ -48,7 +50,6 @@ body {
 
 .fs_15 {
     font-size: 15px;
-
 }
 
 .fs_16 {
@@ -140,14 +141,12 @@ body {
     font-weight: 900;
 }
 
-
 /* placeholder style - italic */
 ::placeholder {
     font-style: italic;
     color: var(--deepgray);
     font-size: 15px;
 }
-
 
 div.app {
     background-color: white;
@@ -163,7 +162,8 @@ div.app {
 }
 
 div.login {
-    background: linear-gradient(to bottom, #FDC8C7, #E9DBF8);
+    /* background: linear-gradient(to bottom, #FDC8C7, #E9DBF8); */
+    background-color: white;
     /* border: 1px solid black; */
     /* width: 393px;
     height: 852px; */
@@ -213,7 +213,7 @@ div.footer {
     display: flex;
     /* position: absolute; */
     bottom: 0px;
-    border-top: 1px solid #EEF0F7;
+    border-top: 1px solid #eef0f7;
     background-color: #fff;
     align-self: flex-end;
 }
@@ -222,13 +222,12 @@ div.footer .footernav {
     cursor: pointer;
 }
 
-
 .footer_ico {
-    fill: #9396A6;
+    fill: #9396a6;
 }
 
 .footer_ico:hover {
-    fill: #7A98FF;
+    fill: #7a98ff;
 }
 
 a {
@@ -319,7 +318,6 @@ a {
     margin-top: 100%;
 }
 
-
 /* border-radius */
 .br_5 {
     border-radius: 5px;
@@ -359,13 +357,13 @@ span.header-clickable {
 }
 
 .overlay:after {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
     top: 0;
-    background: linear-gradient(to bottom, var(--lightgray2), var(--mainblack));    
+    background: linear-gradient(to bottom, var(--lightgray2), var(--mainblack));
     opacity: 0.5;
 }
 
@@ -396,6 +394,7 @@ span.header-clickable {
     color: var(--skyblue);
     font-weight: 800;
 }
+
 /* .hero__logo {
     font-size: 60px;
     color: var(--skyblue);
@@ -430,7 +429,7 @@ span.header-clickable {
     display: block;
     -webkit-animation: pulse 2s infinite;
     animation: pulse 2s infinite;
-    color: var(--skyblue);
+    color: var(--deepred);
 }
 
 @-webkit-keyframes pulse {
@@ -482,7 +481,7 @@ span.header-clickable {
 .chevron::before {
     border-style: solid;
     border-width: 0.25em 0.25em 0 0;
-    content: '';
+    content: "";
     display: inline-block;
     height: 20px;
     position: relative;
@@ -557,23 +556,33 @@ span.header-clickable {
 }
 
 .code--left::before {
-    content: '';
+    content: "";
     position: absolute;
-    top: 30%; /* 말풍선 세로 위치 조정 */
-    left: -30px; /* 말풍선 가로 위치 조정 */
-    transform: translateY(-50%); /* 세로 가운데 정렬을 위한 위치 이동 */
-    border: 15px solid transparent; /* 말풍선 삼각형 만들기 */
-    border-right-color: #d7f3ffde; /* 말풍선 배경색과 동일하게 설정 */
+    top: 30%;
+    /* 말풍선 세로 위치 조정 */
+    left: -30px;
+    /* 말풍선 가로 위치 조정 */
+    transform: translateY(-50%);
+    /* 세로 가운데 정렬을 위한 위치 이동 */
+    border: 15px solid transparent;
+    /* 말풍선 삼각형 만들기 */
+    border-right-color: #d7f3ffde;
+    /* 말풍선 배경색과 동일하게 설정 */
 }
 
 .code--right::before {
-    content: '';
+    content: "";
     position: absolute;
-    top: 30%; /* 말풍선 세로 위치 조정 */
-    right: -30px; /* 말풍선 가로 위치 조정 */
-    transform: translateY(-50%); /* 세로 가운데 정렬을 위한 위치 이동 */
-    border: 15px solid transparent; /* 말풍선 삼각형 만들기 */
-    border-left-color: #d7f3ffde; /* 말풍선 배경색과 동일하게 설정 */
+    top: 30%;
+    /* 말풍선 세로 위치 조정 */
+    right: -30px;
+    /* 말풍선 가로 위치 조정 */
+    transform: translateY(-50%);
+    /* 세로 가운데 정렬을 위한 위치 이동 */
+    border: 15px solid transparent;
+    /* 말풍선 삼각형 만들기 */
+    border-left-color: #d7f3ffde;
+    /* 말풍선 배경색과 동일하게 설정 */
 }
 
 .code--left {
@@ -593,8 +602,8 @@ span.header-clickable {
 }
 
 .section--more {
-    color: #FFF;
-    background: #0E0F34;
+    color: #fff;
+    background: #0e0f34;
     padding: 20px 0 40px 0;
 }
 
@@ -613,9 +622,10 @@ button.start_btn {
     transform-style: preserve-3d;
     transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1);
 }
+
 button.start_btn::before {
     position: absolute;
-    content: '';
+    content: "";
     width: 100%;
     height: 100%;
     top: 0;
@@ -629,6 +639,7 @@ button.start_btn::before {
     transform: translate3d(0, 0.75em, -1em);
     transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
 }
+
 /* button.start_btn:hover {
     background: #ffe9e9;
     transform: translate(0, 0.25em);
@@ -641,6 +652,7 @@ button.start_btn:active {
     background: var(--skyblue);
     transform: translate(0em, 0.75em);
 }
+
 button.start_btn:active::before {
     /* box-shadow: 0 0 0 2px #b18597, 0 0 #ffe3e2; */
     box-shadow: 0 0 0 2px var(--deepblue);
@@ -653,15 +665,15 @@ button.start_btn:active::before {
     justify-content: center;
     align-items: center;
     height: 110px;
-  }
-  
+}
+
 .click_ani span {
     position: relative;
     font-size: 45px;
     top: -15px;
     display: inline-block;
-    animation: bounce .3s ease infinite alternate;
-    text-shadow: 0 1px 0 transparent, 
+    animation: bounce 0.3s ease infinite alternate;
+    /* text-shadow: 0 1px 0 transparent, 
              0 2px 0 transparent, 
              0 3px 0 transparent, 
              0 4px 0 transparent, 
@@ -670,32 +682,130 @@ button.start_btn:active::before {
              0 7px 0 transparent, 
              0 8px 0 transparent, 
              0 9px 0 transparent, 
-             0 10px 10px rgba(0, 0, 0, 0.4);
-  }
-  
-  .click_ani span:nth-child(2) { animation-delay: .1s; }
-  .click_ani span:nth-child(3) { animation-delay: .2s; }
-  .click_ani span:nth-child(4) { animation-delay: .3s; }
-  .click_ani span:nth-child(5) { animation-delay: .4s; }
-  .click_ani span:nth-child(6) { animation-delay: .5s; }
-  .click_ani span:nth-child(7) { animation-delay: .6s; }
-  
-  @keyframes bounce {
-    100% {
-      top: -20px;
-      text-shadow: 0 1px 0 transparent, 
-             0 2px 0 transparent, 
-             0 3px 0 transparent, 
-             0 4px 0 transparent, 
-             0 5px 0 transparent, 
-             0 6px 0 transparent, 
-             0 7px 0 transparent, 
-             0 8px 0 transparent, 
-             0 9px 0 transparent, 
-             0 50px 25px rgba(0, 0, 0, 0.2);
-    }
-  }
+             0 10px 10px rgba(0, 0, 0, 0.4); */
+}
 
-  .pt_20{
+.click_ani span:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.click_ani span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.click_ani span:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.click_ani span:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+.click_ani span:nth-child(6) {
+    animation-delay: 0.5s;
+}
+
+.click_ani span:nth-child(7) {
+    animation-delay: 0.6s;
+}
+
+@keyframes bounce {
+    100% {
+        top: -20px;
+        /* text-shadow: 0 1px 0 transparent, 
+             0 2px 0 transparent, 
+             0 3px 0 transparent, 
+             0 4px 0 transparent, 
+             0 5px 0 transparent, 
+             0 6px 0 transparent, 
+             0 7px 0 transparent, 
+             0 8px 0 transparent, 
+             0 9px 0 transparent, 
+             0 50px 25px rgba(0, 0, 0, 0.2); */
+    }
+}
+
+.pt_20 {
     padding-top: 40px;
-  }
+}
+
+.col_blue3 {
+    color: var(--skyblue);
+}
+
+.bg_blue3 {
+    background-color: #e7edf7;
+}
+
+.bor_blue3 {
+    border: 1px solid #bad1e6;
+}
+
+/* 추가: 공용 버튼 (진한 파랑 배경, 연한 파랑 배경) */
+button.deepblue {
+    /* background-color: var(--lightblue);
+    border: 1px solid var(--midblue);
+    border-radius: 5px;
+    font-weight: 500;
+    color: var(--mainblack);
+    padding: 6px 30px; */
+
+    border: none;
+    border-radius: 5px;
+    background-color: var(--deepblue);
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    padding: 6px 15px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+button.lightblue {
+    /* background-color: var(--lightblue);
+    border: 1px solid var(--midblue);
+    border-radius: 5px;
+    font-weight: 500;
+    color: var(--mainblack);
+    padding: 6px 30px; */
+
+    border: none;
+    border-radius: 5px;
+    background-color: #d4e4f2;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--deepblue);
+    padding: 6px 15px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+button.white {
+    /* background-color: var(--lightblue);
+    border: 1px solid var(--midblue);
+    border-radius: 5px;
+    font-weight: 500;
+    color: var(--mainblack);
+    padding: 6px 30px; */
+
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--deepblue);
+    padding: 6px 15px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+button.short {
+    padding: 6px 10px;
+}
+
+button.long {
+    padding: 6px 30px;
+}

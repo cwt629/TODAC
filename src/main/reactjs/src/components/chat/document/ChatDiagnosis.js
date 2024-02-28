@@ -242,29 +242,28 @@ const ChatDiagnosis = () => {
                 <Link to="/user/chat/diagnosis" className='col_blue2'>진단서</Link>
             </div>
             <div className='fs_25 fw_700'>나의 진단서</div>
-            <br /><br />
-            <div className='fs_20 fw_700'>내 고민 요약</div>
-            <div className='diagnosisSummaryContent fs_14 bor_red bg_red mt_10'>
+            <div className='diagnosisSummaryContent fs_14 fw_500 mt_10'>
+                <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br />
                 {summarizedMessages.summarizedUserMessage}
             </div>
             <br />
-            <div className='fs_20 fw_700'>상담사의 답변 요약</div>
-            <div className='diagnosisSummaryAnswerContent fs_14 bor_blue1 bg_blue mt_10'>
+            <div className='diagnosisSummaryAnswerContent fs_14 fw_500 mt_10'>
+                <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: 'whitesmoke' }}>상담사의 답변 요약</span><br />
                 {summarizedMessages.summarizedCounselorMessage}
             </div>
             <br />
-            <div className='fs_20 fw_700'>심리 분석</div>
-            <div className='diagnosisPsychology fs_14 bor_blue1 bg_blue mt_10'>
+            <div className='diagnosisPsychology fs_14 fw_500 mt_10'>
+                <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#ccd6f5' }}>심리 분석</span><br />
                 {diagnosisMessages.analyzedUserMessage?.content}
             </div>
             <br />
-            <div className='fs_20 fw_700'>고민이 계속될 땐, 이렇게 해보세요 🤗</div>
-            <div className='diagnosisActing fs_14 bor_blue1 bg_blue mt_10'>
+            <div className='diagnosisActing fs_14 fw_500 mt_10'>
+                <span className='fs_18 fw_700' style={{ borderBottom: 'solid', borderColor: '#bfe1ff' }}>고민이 계속될 땐, 이렇게 해보세요 🤗</span><br />
                 {diagnosisMessages.recommendedActivitiesUserMessage?.content}
             </div>
             <br />
             <div style={{ textAlign: 'center' }}>
-                <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../../')}>마이 홈 이동하기</button>
+                <button className='white long' onClick={() => nav('../../')}>마이 홈 이동하기</button>
             </div>
         </div>
     );

@@ -6,6 +6,7 @@ import { IconButton, InputBase, Paper } from "@mui/material";
 import CommentListButtons from "./CommentListButtons";
 import commentImg from "../../../image/comment.svg";
 import Swal from "sweetalert2";
+import './BoardStyle.css';
 
 const BoardComment = () => {
     const [commentList, setCommentList] = useState([]);
@@ -127,6 +128,7 @@ const BoardComment = () => {
                         type='text'
                         className=''
                         placeholder='댓글을 입력해 주세요.'
+                        style={{width:'100%'}}
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                         onKeyDown={(e) => {
