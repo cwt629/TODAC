@@ -64,11 +64,15 @@ const Header = () => {
                         <img alt='뒤로가기' src={require('./image/ico_back.png')} onClick={() => window.history.back()} />
                     </div>
                 )}
+                {
+                    id &&
+                    <div style={{ marginLeft: 'auto' }}>
+                        <span className='fw_900'>{memberinfo.nickname}</span> 님 <Logout style={{ cursor: 'pointer', width: '16px' }} onClick={handleLogout} />
+                    </div>
+                }
 
-                <div style={{ marginLeft: 'auto' }}>
-                    <span className='fw_900'>{memberinfo.nickname}</span> 님 <Logout style={{ cursor: 'pointer', width: '16px' }} onClick={handleLogout} />
-                </div>
             </div>
+
         </div>
     );
 };
