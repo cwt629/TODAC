@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const LogNavigationButton = ({ handleClick }) => {
     return (
@@ -7,8 +7,9 @@ const LogNavigationButton = ({ handleClick }) => {
                 onClick={handleClick}>
                 나의 상담기록
             </div> */}
-            <button type='button' className='deepblue'
-                onClick={handleClick}>나의 상담기록</button>
+            <button type='button' className='white' onClick={handleClick}>
+                나의 상담기록
+            </button>
         </div>
     );
 };

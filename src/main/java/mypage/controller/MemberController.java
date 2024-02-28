@@ -98,4 +98,17 @@ public class MemberController {
         uploadFilename=null;
         return "success";
     }
+
+    @PostMapping("/equipbadge")
+    public void equipBadge(@RequestBody MemberDto reqdto)
+    {
+        MemberDto dto = new MemberDto();
+        dto = memberDao.getMemberByID(reqdto.getUserid());
+        dto.setAddress(reqdto.getAddress());
+        dto.setNickname(reqdto.getNickname());
+        dto.setPhoto(reqdto.getPhoto());
+        //그 뭐냐 배지 추가해라잉
+        memberDao.insertMember(dto);
+        uploadFilename=null;
+    }
 }
