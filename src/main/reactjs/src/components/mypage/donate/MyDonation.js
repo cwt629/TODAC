@@ -63,10 +63,7 @@ const MyDonation = ({member}) => {
                        }} placeholder={"희망하는 후원 금액을 적어주세요."}/>
             </div>
             <div className="mt_10" style={{textAlign:"center"}}>
-                <Button variant="contained"
-                        style={{width:"5em", height:"2em"}}
-                        onClick={donate}>후원하기
-                </Button>
+                <button className="deepblue" onClick={donate}>후원하기</button>
             </div>
         </div>
     );
