@@ -48,6 +48,7 @@ div.chatcontent div.chatcomponent.user {
     display: flex;
     justify-content: right;
     flex-direction: row-reverse;
+    padding-right: 5px;
 }
 
 div.chatcontent img.profile {
