@@ -1,6 +1,7 @@
 import React from 'react';
 import defaultPhoto from '../../../../image/default_profile_photo_blue.jpg';
 import starIcon from '../../../../image/rotating_star.gif';
+import { HighlightOffRounded } from '@mui/icons-material';
 
 const CounselorPreviewBack = ({ data }) => {
     return (
@@ -16,6 +17,9 @@ const CounselorPreviewBack = ({ data }) => {
                         style={{ display: 'flex', alignItems: 'center' }}>
                         <img alt='별' src={starIcon} width={17} height={17} />
                         &nbsp;0.0 (0)
+                    </div>
+                    <div className='counselordelbtn'>
+                        <HighlightOffRounded color='action' fontSize='large' />
                     </div>
                 </div>
             </div>
