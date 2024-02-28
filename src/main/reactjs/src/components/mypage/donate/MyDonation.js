@@ -41,7 +41,7 @@ const MyDonation = ({member}) => {
                                         icon: 'success',
                                         html: '업적을 달성하셨습니다!',
                                         confirmButtonText: '확인',
-                                        confirmButtonColor: '#FF7170'
+                                        confirmButtonColor: '#5279FD'
                                     })
                                 }
                             })
