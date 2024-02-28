@@ -264,7 +264,7 @@ const ChatDiagnosis = () => {
             </div>
             <br />
             <div style={{ textAlign: 'center' }}>
-                <button className='btn bor_blue1 bg_blue' style={{ color: '#536179' }} onClick={() => nav('../../')}>마이 홈 이동하기</button>
+                <button className='lightblue long' onClick={() => nav('../../')}>마이 홈 이동하기</button>
             </div>
         </div>
     );

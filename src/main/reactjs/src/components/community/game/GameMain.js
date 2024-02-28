@@ -24,16 +24,31 @@ const GameMain = () => {
                       score
                     , usercode
                 }).then(res => {
-                    Swal.fire({
-                        title: `<span style="font-size: 20px;">축하합니다! ${score} 점수를 획득하여 ${point} 포인트가 적립되었습니다!</span>`,
-                        confirmButtonColor: '#FF7170',
-                        background: '#F9EAEB'
-                    });
+                    //console.log("res.badge", res);
+                    if(res.data.badge==0){
+                        Swal.fire({
+                            title: `<span style="font-size: 20px;">
+                            축하합니다! ${score} 점수를 획득하여 
+                            프로웃음러 뱃지를 획득하였고 
+                            ${point} 포인트가 적립되었습니다!</span>`,
+                            confirmButtonColor: '#FF7170',
+                            background: '#F9EAEB'
+                        });
+                    } else {
+                        Swal.fire({
+                            title: `<span style="font-size: 20px;">
+                            축하합니다! ${score} 점수를 획득하여 
+                            ${point} 포인트가 적립되었습니다!</span>`,
+                            confirmButtonColor: '#FF7170',
+                            background: '#F9EAEB'
+                        });
+                    }
+                    
                 }).catch(error => {
                     console.error("Error fetching inquiry data:", error);
                 });
             }
-            console.log('Message from iframe:', event.data);
+            //console.log('Message from iframe:', event.data);
         };
     
         // 이벤트 리스너 등록
