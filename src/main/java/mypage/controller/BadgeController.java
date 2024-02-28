@@ -21,7 +21,7 @@ public class BadgeController {
 	private final BadgeDao badgeDao;
 
 	@PostMapping("/badgeinsert")
-	public void userInsertToBadge(@RequestParam("usercode") int usercode,
+	public boolean userInsertToBadge(@RequestParam("usercode") int usercode,
 								  @RequestParam("achievename") String achievename){
 		MemberDto memberDto = new MemberDto();
 		BadgeDto badgeDto = new BadgeDto();
@@ -30,8 +30,11 @@ public class BadgeController {
 		badgeDto.setAchievename(achievename);
 
 		boolean possible = badgeDao.checkAchivename(usercode,achievename);
-		if(possible)
+		if(possible) {
 			badgeDao.insertMembertoBadge(badgeDto);
+			return true;
+		}
+		return false;
 	}
 
 	@PostMapping("/getachievelist")

@@ -126,9 +126,6 @@ const MypageMain = () => {
                         <option key={index} value={item.achievename}>{item.achievename}</option>
                     ))}
                 </select>
-                <button onClick={insertusertobadge}>뉴비획득</button>
-                <button onClick={insertusertobadge2}>샛별획득</button>
-
             </div>
 
             <div className="iconmenu mt-5">

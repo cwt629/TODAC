@@ -34,6 +34,17 @@ const MyDonation = ({member}) => {
                         cancelButtonText: '확인',
                         cancelButtonColor: '#9396A6'
                     }).then(()=>{
+                        axios.post(`/badgeinsert?usercode=${usercode}&achievename=기부자`)
+                            .then(res=>{
+                                if(res.data===true){
+                                    ReactSwal.fire({
+                                        icon: 'success',
+                                        html: '업적을 달성하셨습니다!',
+                                        confirmButtonText: '확인',
+                                        confirmButtonColor: '#FF7170'
+                                    })
+                                }
+                            })
                         nav("/user/community/donation")
                         //후원 후 뱃지 검사
 
