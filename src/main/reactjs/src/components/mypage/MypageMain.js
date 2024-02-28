@@ -165,7 +165,7 @@ const MypageMain = () => {
                 </div>
 
                 <div onClick={onPersonDelete} className='mt-4' style={{marginTop: "10px"}}>
-                    <img alt="" src={require("../../image/mypageIcon/logout.png")}/>
+                    &nbsp;<img alt="" src={require("../../image/mypageIcon/logout.png")}/>
                     <span style={{color: "darkgray"}} className='mx-3'>회원 탈퇴</span>
                     <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
                 </div>
