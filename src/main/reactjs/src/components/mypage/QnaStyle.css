@@ -31,7 +31,7 @@
     color: var(--deepblue) !important;
 }
 
-.accordion-button>span{
+.accordion-button>span {
     font-size: 18px;
     font-weight: 600;
 }
@@ -120,7 +120,7 @@
 }
 
 .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected:hover {
-    background-color:  #BAD1E6 !important;
+    background-color: #BAD1E6 !important;
 }
 
 .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root:hover {
@@ -132,7 +132,7 @@
     font-weight: 600;
 }
 
-.inquiryhistory_bg{
+.inquiryhistory_bg {
     border: none;
     border-radius: 5px;
     background-color: #D4E4F2;
@@ -141,9 +141,8 @@
     color: var(--deepblue);
     padding: 6px 10px;
     cursor: pointer;
-    /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; */
 }
 
-.mr_10{
+.mr_10 {
     margin-right: 10px;
 }

@@ -28,7 +28,7 @@ const MemberProfile = () => {
             text: '정말로 이 회원을 삭제하시겠습니까?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#FF7170',
+            confirmButtonColor: '#5279FD',
             confirmButtonText: '예',
             cancelButtonText: '아니오',
         }).then((result) => {
@@ -43,7 +43,7 @@ const MemberProfile = () => {
                             title: '삭제 완료',
                             text: '해당 회원이 삭제되었습니다.',
                             icon: 'success',
-                            confirmButtonColor: '#FF7170',
+                            confirmButtonColor: '#5279FD',
                         });
                         //회원 삭제 후 이전 페이지로 이동
                         nav(-1);
