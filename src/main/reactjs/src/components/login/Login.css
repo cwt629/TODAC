@@ -3,7 +3,7 @@
 }
 
 .login_main{
-    margin: 0 55px;
+    /* margin: 0 55px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,15 +16,15 @@
     height: 40px;
     border-radius: 5px;
     font-weight: 600;
+    background-color: #e7edf7cf;
 }
 
 .btn_naver{
     /* border: 1px solid #03C75A; */
     /* border: 1px solid #969696; */
     border: none;
-    /* color: #03C75A; */
-    color: #392020;
-    margin-top: 140px;
+    color: var(--mainblack);
+    /* margin-top: 150%; */
 }
 
 .btn_kakao{
@@ -43,6 +43,10 @@
 
 .w_25{
     width:25px;
+}
+
+.w_30{
+  width:30px;
 }
 
 .login_main button>.main_login{
@@ -179,4 +183,17 @@
     100% {
       opacity: 1; /* 애니메이션이 완료된 후에 투명도를 1로 설정하여 요소를 나타냅니다. */
     }
+  }
+
+  .login_circle{
+    border-radius: 200px !important;
+    height: 70px !important;
+    width: 70px !important;
+    /* margin: 500px 10px 0px; */
+    /* background-color: #E7EDF7 !important; */
+    border: none;
+  }
+
+  .bor_db{
+    border: 1px solid var(--deepblue) !important;
   }

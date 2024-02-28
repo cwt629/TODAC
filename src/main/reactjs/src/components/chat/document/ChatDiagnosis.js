@@ -242,7 +242,6 @@ const ChatDiagnosis = () => {
                 <Link to="/user/chat/diagnosis" className='col_blue2'>진단서</Link>
             </div>
             <div className='fs_25 fw_700'>나의 진단서</div>
-            <br />
             <div className='diagnosisSummaryContent fs_14 fw_500 mt_10'>
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br />
                 {summarizedMessages.summarizedUserMessage}
