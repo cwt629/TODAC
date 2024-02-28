@@ -31,7 +31,7 @@ const CounselorCardBack = ({ borcolor, data, handleCounselClick, handleCounselor
                     }
                 </div>
             </div>
-            <div className='mt_10' style={{ overflowY: 'auto' }}>
+            <div className='mt_10 counselor-introduction'>
                 {
                     data.introduction.split("\n").map((line, i) => (
                         <div key={i}>

@@ -30,6 +30,12 @@ div.counselorcard.card-back div.profile-simple {
     /* justify-content: space-between; */
 }
 
+div.counselorcard.card-back div.counselor-introduction {
+    overflow-y: auto;
+    width: 100%;
+    text-align: left;
+}
+
 div.counselorcard img.counselorphoto.backphoto {
     width: 100px;
     height: 100px;

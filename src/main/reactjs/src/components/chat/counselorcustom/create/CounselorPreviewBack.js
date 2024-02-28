@@ -19,7 +19,7 @@ const CounselorPreviewBack = ({ data }) => {
                     </div>
                 </div>
             </div>
-            <div className='mt_10' style={{ overflowY: 'auto', width: '100%', textAlign: 'left' }}>
+            <div className='mt_10 counselor-introduction'>
                 {
                     data.introduction ?
                         data.introduction.split("\n").map((line, i) => (
