@@ -91,6 +91,7 @@ public class MemberController {
         MemberDto dto = new MemberDto();
         dto = memberDao.getMemberByID(reqdto.getUserid());
         dto.setAddress(reqdto.getAddress());
+        dto.setAddressplus(reqdto.getAddressplus());
         dto.setNickname(reqdto.getNickname());
         dto.setPhoto(reqdto.getPhoto());
 

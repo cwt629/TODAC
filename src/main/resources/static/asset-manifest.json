@@ -1,12 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.0d1abda6.css",
-    "main.js": "/static/js/main.20df218b.js",
+    "main.css": "/static/css/main.a9d614c6.css",
+    "main.js": "/static/js/main.973149cb.js",
     "static/js/453.fcbfcfec.chunk.js": "/static/js/453.fcbfcfec.chunk.js",
     "static/media/bg_startmain2.png": "/static/media/bg_startmain2.102eb1537d403fe7ed56.png",
     "static/media/rotating_star.gif": "/static/media/rotating_star.26b4ea478ff318afca03.gif",
     "static/media/ico_babytodac2.png": "/static/media/ico_babytodac2.57bb0d4b8b90745650fb.png",
+    "static/media/ico_babytodac3.png": "/static/media/ico_babytodac3.5e79a2a5900df9584927.png",
+    "static/media/diagnosis2.png": "/static/media/diagnosis2.56733c3acd4cec4c8dd0.png",
     "static/media/diagnosis.png": "/static/media/diagnosis.1c0d161b4899f6f2d4ce.png",
+    "static/media/diagnosis1.png": "/static/media/diagnosis1.46eefba7eaa4ed741a9c.png",
     "static/media/no_image_board_form.png": "/static/media/no_image_board_form.9083c6c7c550c9e71319.png",
     "static/media/todac_logo_temp.png": "/static/media/todac_logo_temp.d7a0e9977e9630b23a6e.png",
     "static/media/icon-kakao.svg": "/static/media/icon-kakao.68be14f7f100e67a2f9d.svg",
@@ -19,12 +22,12 @@
     "static/media/heart.svg": "/static/media/heart.06431d69757b8fc9753df231e9bc61b1.svg",
     "static/media/heart_full.svg": "/static/media/heart_full.6114341ce59d7f81f43b394a12e45487.svg",
     "static/media/ico_community.svg": "/static/media/ico_community.e4205b40dab0a385c8fd81c3217b8208.svg",
-    "main.0d1abda6.css.map": "/static/css/main.0d1abda6.css.map",
-    "main.20df218b.js.map": "/static/js/main.20df218b.js.map",
+    "main.a9d614c6.css.map": "/static/css/main.a9d614c6.css.map",
+    "main.973149cb.js.map": "/static/js/main.973149cb.js.map",
     "453.fcbfcfec.chunk.js.map": "/static/js/453.fcbfcfec.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0d1abda6.css",
-    "static/js/main.20df218b.js"
+    "static/css/main.a9d614c6.css",
+    "static/js/main.973149cb.js"
   ]
 }
