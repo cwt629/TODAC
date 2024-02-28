@@ -34,6 +34,17 @@ const MyDonation = ({member}) => {
                         cancelButtonText: '확인',
                         cancelButtonColor: '#9396A6'
                     }).then(()=>{
+                        axios.post(`/badgeinsert?usercode=${usercode}&achievename=기부자`)
+                            .then(res=>{
+                                if(res.data===true){
+                                    ReactSwal.fire({
+                                        icon: 'success',
+                                        html: '업적을 달성하셨습니다!',
+                                        confirmButtonText: '확인',
+                                        confirmButtonColor: '#5279FD'
+                                    })
+                                }
+                            })
                         nav("/user/community/donation")
                         //후원 후 뱃지 검사
 
@@ -63,10 +74,7 @@ const MyDonation = ({member}) => {
                        }} placeholder={"희망하는 후원 금액을 적어주세요."}/>
             </div>
             <div className="mt_10" style={{textAlign:"center"}}>
-                <Button variant="contained"
-                        style={{width:"5em", height:"2em"}}
-                        onClick={donate}>후원하기
-                </Button>
+                <button className="deepblue" onClick={donate}>후원하기</button>
             </div>
         </div>
     );

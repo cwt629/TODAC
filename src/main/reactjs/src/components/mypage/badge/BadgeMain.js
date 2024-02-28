@@ -19,7 +19,7 @@ const BadgeMain = () => {
     ];
 
     // member.registereddate를 Date 객체로 변환
-    const registeredDate = new Date(member.registereddate);
+    const registeredDate = new Date(member?.registereddate);
 
     // 년, 월, 일을 가져와서 문자열로 변환
     const year = registeredDate.getFullYear();
