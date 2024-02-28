@@ -145,19 +145,26 @@ const MemberComments = () => {
             <div className="fs_17 fw_800">
                 <span className="col_blue2">{member.nickname}</span> 님의 댓글 목록
             </div>
-            {currentItems.map((item, index) => (
-                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div>
-                            <span className="fw_600">{item.content}</span>
-                        </div>
-                        <button onClick={() => deleteComment(item.commentcode)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-                            삭제
-                        </button>
-                    </div>
-                    <div className="fs_14">{item.registereddate}</div>
+
+            {filteredComment.length === 0 ? (
+                <div className="fs_14" style={{ marginTop: '10px' }}>
+                    작성한 댓글이 없습니다.
                 </div>
-            ))}
+            ) : (
+                currentItems.map((item, index) => (
+                    <div key={index} className="bg_gray bor_gray1 px-3 py-2">
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div>
+                                <span className="fw_600">{item.content}</span>
+                            </div>
+                            <button onClick={() => deleteComment(item.commentcode)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                                삭제
+                            </button>
+                        </div>
+                        <div className="fs_14">{item.registereddate}</div>
+                    </div>
+                ))
+            )}
             {/* Pagination */}
             <div className="justify-content-center d-flex mt-3 qnaPage_btn">
                 <Pagination
