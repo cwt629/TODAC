@@ -9,6 +9,7 @@ import heart from "../../../image/heart.svg";
 import heartFull from "../../../image/heart_full.svg";
 import "./Share.css";
 import "./BoardStyle.css";
+import ClipboardJS from "clipboard";
 
 const BoardDetail = () => {
     const [data, setData] = useState(null);
@@ -177,17 +178,27 @@ const BoardDetail = () => {
         });
     };
 
-    const handleCopyClipBoard = async (text) => {
-        try {
-            await navigator.clipboard.writeText(text);
+    const handleCopyClipBoard = () => {
+        const clipboard = new ClipboardJS(".copy-button", {
+            text: function () {
+                return `http://175.45.192.182${location.pathname}`;
+            },
+        });
+
+        clipboard.on("success", function (e) {
             Swal.fire({
                 title: "링크 복사 완료",
-                text: `http://175.45.192.182${location.pathname}`,
+                text: e.text,
                 icon: "success",
             });
-        } catch (err) {
-            console.log(err);
-        }
+        });
+
+        clipboard.on("error", function (e) {
+            console.error("클립보드 복사 실패", e);
+        });
+
+        // 클립보드에 복사를 시도
+        clipboard.onClick({ delegateTarget: document.querySelector(".copy-button") });
     };
 
     return (
@@ -283,12 +294,9 @@ const BoardDetail = () => {
                             <div id='btnKakao' className='linkIcon kakao' href='#' onClick={shareKakao}>
                                 카카오톡
                             </div>
-                            <button
-                                className='button-container'
-                                onClick={() => handleCopyClipBoard(`http://175.45.192.182${location.pathname}`)}
-                            >
+                            <button className='button-container copy-button' onClick={handleCopyClipBoard}>
                                 링크복사
-                            </button>{" "}
+                            </button>
                         </div>
                     </div>
                     <div className='mt-5' style={{ display: "flex", justifyContent: "center" }}>

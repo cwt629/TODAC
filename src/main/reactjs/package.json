@@ -14,6 +14,7 @@
     "@tosspayments/payment-widget-sdk": "^0.10.2",
     "aos": "^3.0.0-beta.6",
     "axios": "^1.6.7",
+    "clipboard": "^2.0.11",
     "debug": "^4.3.4",
     "gsap": "^3.12.5",
     "jquery": "^3.7.1",
