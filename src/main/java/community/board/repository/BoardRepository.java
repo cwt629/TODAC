@@ -45,7 +45,8 @@ public interface BoardRepository extends JpaRepository<BoardDto, Integer> {
       	  ORDER BY board.boardcode DESC;
 		"""
 			, nativeQuery = true)
-	public List<MainListInterface> getBoardList();
+	public List<MainListInterface> findAllByOrderByBoardCodeDesc(@Param("sortBy") String sortBy);
+
 
 	@Query(value = "select * from board where usercode=:usercode",nativeQuery = true)
     public  List<BoardDto> getMemberPostData(@Param("usercode") int usercode);

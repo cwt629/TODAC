@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import PageHeader from "../../PageHeader";
 import { Button } from "@mui/material";
 import Swal from "sweetalert2";
 import BoardComment from "./BoardComment";
 import heart from "../../../image/heart.svg";
 import heartFull from "../../../image/heart_full.svg";
+import "./Share.css";
+import "./BoardStyle.css";
 
 const BoardDetail = () => {
     const [data, setData] = useState(null);
@@ -14,6 +16,8 @@ const BoardDetail = () => {
     const [likeCount, setLikeCount] = useState(0); // 좋아요 수 상태 추가
     const [isLiked, setIsLiked] = useState(false); // 좋아요 여부 상태 추가
     const userRole = sessionStorage.getItem("id");
+    const id = sessionStorage.getItem("id");
+    const location = useLocation();
     const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/";
     const navi = useNavigate();
 
@@ -26,23 +30,29 @@ const BoardDetail = () => {
     const PAGE_TITLE = "상세 페이지";
 
     useEffect(() => {
+        //로그인 상태 체크
+        const isLoggedIn = id;
+
         console.log("조회수 렌더링");
         axios.get(`/board/detail?boardcode=${boardcode}`).then((res) => {
             setData(res.data);
             setIsLiked(res.data.liked); // 서버에서 받아온 데이터에서 좋아요 여부를 설정
             console.log(res.data);
         });
-        // 좋아요 수 가져오기
-        axios.get(`/post/like/count?boardcode=${boardcode}`).then((res) => {
-            setLikeCount(res.data);
-        });
-        // 좋아요 상태 확인
-        axios
-            .get(`/post/checkLikeStatus?boardcode=${boardcode}&usercode=${sessionStorage.getItem("usercode")}`)
-            .then((res) => {
-                setIsLiked(res.data);
+        if (isLoggedIn) {
+            // 좋아요 수 가져오기
+            axios.get(`/post/like/count?boardcode=${boardcode}`).then((res) => {
+                setLikeCount(res.data);
             });
-    }, [boardcode]);
+
+            // 좋아요 상태 확인
+            axios
+                .get(`/post/checkLikeStatus?boardcode=${boardcode}&usercode=${sessionStorage.getItem("usercode")}`)
+                .then((res) => {
+                    setIsLiked(res.data);
+                });
+        }
+    }, [boardcode, id]);
 
     //Like
     const handleLike = async () => {
@@ -82,7 +92,7 @@ const BoardDetail = () => {
                     .delete(url)
                     .then(() => {
                         // 추가 성공 후 목록으로 이동
-                        navi("/user/community/board");
+                        navi("/board");
                         Swal.fire({
                             title: "삭제 완료",
                             text: "게시글이 성공적으로 삭제되었습니다.",
@@ -95,6 +105,89 @@ const BoardDetail = () => {
                     });
             }
         });
+    };
+
+    const update = () => {
+        Swal.fire({
+            title: "게시글 수정",
+            text: "해당 게시글을 수정하시겠습니까?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#FF7170",
+            confirmButtonText: "예",
+            cancelButtonText: "아니오",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                navi(`/board/updateform/${boardcode}`);
+            }
+        });
+    };
+
+    const shareTwitter = () => {
+        // 트위터 공유 로직
+        let sendText = "Todac";
+        let sendUrl = "175.45.192.182/";
+        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url" + sendUrl);
+    };
+
+    const shareFacebook = () => {
+        // 페이스북 공유 로직
+        let sendUrl = "175.45.192.182/";
+        window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+    };
+
+    const shareKakao = () => {
+        const { Kakao } = window;
+        // 카카오톡 공유 로직
+        //초기화
+        if (!window.Kakao.isInitialized()) {
+            // 호출되지 않았다면 초기화
+            window.Kakao.init("511507540b3ec16972ac8cc8290b6e7f");
+        }
+
+        //카카오링크 버튼 생성
+        Kakao.Link.createDefaultButton({
+            container: "#btnKakao",
+            objectType: "feed",
+            content: {
+                title: data.title,
+                description: "심리상담앱 'TODAC'에 오신것을 환영합니다.",
+                imageUrl: data.photo ? imageStorage + data.photo : undefined,
+                link: {
+                    mobileWebUrl: window.location.href,
+                    webUrl: window.location.href,
+                },
+            },
+            buttons: [
+                {
+                    title: "웹으로 보기",
+                    link: {
+                        mobileWebUrl: window.location.href,
+                        webUrl: window.location.href,
+                    },
+                },
+                {
+                    title: "앱으로 보기",
+                    link: {
+                        mobileWebUrl: window.location.href,
+                        webUrl: window.location.href,
+                    },
+                },
+            ],
+        });
+    };
+
+    const handleCopyClipBoard = async (text) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            Swal.fire({
+                title: "링크 복사 완료",
+                text: `http://175.45.192.182${location.pathname}`,
+                icon: "success",
+            });
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     return (
@@ -127,8 +220,8 @@ const BoardDetail = () => {
                         )}
                     </div>
 
-                    <div className='mt_10'>
-                        <h2>{data.title}</h2>
+                    <h2>{data.title}</h2>
+                    <div className='mt_10 d-flex'>
                         <span>
                             <img
                                 alt=''
@@ -138,16 +231,65 @@ const BoardDetail = () => {
                             {data.memberNickname}
                         </span>
                         <div>
-                            <span>
-                                {data.registerDate} • 좋아요 {likeCount} • 조회 {data.visitCount}
-                            </span>
+                            {userRole === "todac" ? (
+                                // 관리자인 경우에는 삭제 기능만 표시
+                                <div>
+                                    <button
+                                        onClick={() => deletePost(boardcode)}
+                                        style={{ cursor: "pointer", background: "none", border: "none" }}
+                                    >
+                                        글삭제
+                                    </button>
+                                </div>
+                            ) : // 일반 사용자인 경우 글 작성자인지 확인 후 삭제 및 수정 버튼 표시
+                            data.userCode == sessionStorage.getItem("usercode") ? (
+                                <div>
+                                    <button
+                                        onClick={update}
+                                        style={{ cursor: "pointer", background: "none", border: "none" }}
+                                    >
+                                        글수정
+                                    </button>
+                                    <button
+                                        onClick={() => deletePost(boardcode)}
+                                        style={{ cursor: "pointer", background: "none", border: "none" }}
+                                    >
+                                        글삭제
+                                    </button>
+                                </div>
+                            ) : null}
                         </div>
                     </div>
+                    <div>
+                        <span>
+                            {data.registerDate} • 좋아요 {likeCount} • 조회 {data.visitCount}
+                        </span>
+                    </div>
                     <div className='mt-3'>{data.content}</div>
-
-                    <div className='mt-5' style={{ textAlign: "center" }}>
+                    <hr />
+                    <div className='mt-4' style={{ textAlign: "center" }}>
                         <h2>상담사 정보</h2>
                         <div className='bg_blue rounded-circle'>{`${data.counselorCode}번 상담사`}</div>
+                    </div>
+                    <hr />
+                    <div>
+                        <div>
+                            <div id='btnTwitter' className='linkIcon twitter' href='#' onClick={shareTwitter}>
+                                트위터
+                            </div>
+                            <div id='btnFacebook' className='linkIcon facebook' href='#' onClick={shareFacebook}>
+                                페이스북
+                            </div>
+                            <div id='btnKakao' className='linkIcon kakao' href='#' onClick={shareKakao}>
+                                카카오톡
+                            </div>
+                            <button
+                                className='button-container'
+                                onClick={() => handleCopyClipBoard(`http://175.45.192.182${location.pathname}`)}
+                            >
+                                링크복사
+                            </button>{" "}
+                        </div>
                     </div>
                     <div className='mt-5' style={{ display: "flex", justifyContent: "center" }}>
                         <Button
@@ -172,22 +314,7 @@ const BoardDetail = () => {
                             </span>
                         </Button>
                     </div>
-                    {userRole === "todac" ? (
-                        // 관리자인 경우에는 삭제 기능만 표시
-                        <div>
-                            <button onClick={() => deletePost(boardcode)} style={{ cursor: "pointer" }}>
-                                삭제
-                            </button>
-                        </div>
-                    ) : // 일반 사용자인 경우 글 작성자인지 확인 후 삭제 및 수정 버튼 표시
-                    data.userCode == sessionStorage.getItem("usercode") ? (
-                        <div>
-                            <button onClick={() => deletePost(boardcode)} style={{ cursor: "pointer" }}>
-                                삭제
-                            </button>
-                            <button onClick={() => navi(`/user/community/board/updateform/${boardcode}`)}>수정</button>
-                        </div>
-                    ) : null}
+
                     <BoardComment />
                 </div>
             )}

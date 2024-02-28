@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Swal from 'sweetalert2';
-import { Pagination, InputAdornment, OutlinedInput } from '@mui/material';
+import { Pagination, InputAdornment, IconButton, Input } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const MemberPost = () => {
     const nav = useNavigate();
@@ -66,7 +67,7 @@ const MemberPost = () => {
             text: '해당 게시글을 삭제하시겠습니까?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#FF7170',
+            confirmButtonColor: '#5279FD',
             confirmButtonText: '예',
             cancelButtonText: '아니오',
         }).then((result) => {
@@ -81,7 +82,7 @@ const MemberPost = () => {
                             title: '삭제 완료',
                             text: '게시글이 성공적으로 삭제되었습니다.',
                             icon: 'success',
-                            confirmButtonColor: '#FF7170',
+                            confirmButtonColor: '#5279FD',
                         }).then(() => {
                             nav(`/admin/MemberManage/MemberProfile/MemberPost?usercode=` + member.usercode);
                         });
@@ -104,44 +105,58 @@ const MemberPost = () => {
             </div>
             <div className='fs_25 fw_700'>회원 게시글</div> <br />
 
-            <div style={{ textAlign: 'center' }}>
-                <img alt='' src={member.photo} style={{ width: '25vh', height: '25vh' }} />
-                <br /><br />
-                <h1 className='fs_25 fw_700'>{member.nickname}님</h1>
-                <br />
+            <div className='fs_25 fw_700' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <img alt='' src={member.photo} style={{ width: '15vh', height: '15vh', borderRadius: '50%' }} />
+                    <span className='fs_22 fw_700 mt-2'>{member.nickname}님</span>
+                </div>
             </div>
-            <div className='fs_17 fw_800'>{member.nickname} 님의 게시글 검색</div>
-
-            {/* 검색창 */}
-            <OutlinedInput
+            <br />
+            {/* <div className='fs_17 fw_800'>{member.nickname} 님의 게시글 검색</div> */}
+            <Input
                 id="search"
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="검색할 게시글 제목을 입력하세요"
-                className="form-control mb-3 bg_red col_gray fs_16 fw_800"
+                className="form-control mb-3 fs_16 fw_900"
                 style={{
-                    '::placeholder': { color: 'gray' },
                     height: '40px',
                     padding: '8px',
-                    borderRadius: '5px',
+                    borderBottom: '1px solid #5279FD',
+                    borderRadius: '0',
+                    border: 'none',
                 }}
                 startAdornment={
-                    <InputAdornment position="start">
+                    <>
+                        {searchQuery && (
+                            <InputAdornment position="start">
+                                <IconButton onClick={() => setSearchQuery('')}>
+                                    <ClearIcon />
+                                </IconButton>
+                            </InputAdornment>
+                        )}
+                    </>
+                }
+                endAdornment={
+                    <InputAdornment position="end">
                         <SearchIcon />
                     </InputAdornment>
                 }
             />
-            <div className="fs_17 fw_800">{member.nickname} 님의 게시글 목록</div>
+            <br /><br />
+            <div className="fs_17 fw_800">
+                <span className="col_blue2">{member.nickname}</span> 님의 게시글 목록
+            </div>
             {currentItems.map((item, index) => (
-                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}
-                    onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberPost/MemberPostDetail?usercode=${usercode}&boardcode=${item.boardcode}`)}>
+                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div>
-                            <span className="fw_600">{item.title}</span>
+                            <span className="fw_600"
+                                onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberPost/MemberPostDetail?usercode=${usercode}&boardcode=${item.boardcode}`)}>{item.title}</span>
                         </div>
-                        <button onClick={() => deletePost(item.boardcode)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-                            삭제
+                        <button onClick={() => deletePost(item.boardcode)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'red' }}>
+                            <img alt="" src={require("../../../image/adminIcon/delete.png")} />
                         </button>
                     </div>
                     <div className="fs_14">{item.registereddate}</div>
@@ -154,6 +169,13 @@ const MemberPost = () => {
                     count={totalPages}
                     page={currentPage}
                     onChange={handlePageChange}
+                    shape="rounded"
+                    variant="outlined"
+                    color="primary"
+                    hidePrevButton
+                    hideNextButton
+                    hideFirstButton
+                    hideLastButton
                 />
             </div>
         </div>

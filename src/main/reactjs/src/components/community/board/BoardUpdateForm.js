@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import noImage from "../../../image/no_image_board_form.png";
 import PageHeader from "../../PageHeader";
+import changePhoto from "../../../image/change_photo.svg";
 import {
     Avatar,
     CircularProgress,
@@ -133,6 +134,16 @@ const BoardUpdateForm = () => {
                                     }}
                                 />
                             )}
+                            <img
+                                style={{ width: "40px", height: "40px", position: "absolute", top: "350px", right: "45px" }}
+                                className='img-fluid'
+                                alt='이미지변경'
+                                src={changePhoto}
+                                onClick={() => document.getElementById("fileInput").click()}
+                            />
+                            <div >
+                                <input type='file' id="fileInput" style={{ display:'none'}} onChange={onUploadEvent} />
+                            </div>
                             {loading && (
                                 <div
                                     style={{
@@ -152,7 +163,7 @@ const BoardUpdateForm = () => {
                         <TextField
                             size='small'
                             value={selectData.title}
-                            className='bg_gray'
+                            className='bg_gray input_type'
                             name='title'
                             style={{ width: "100%" }}
                             onChange={changeData}
@@ -161,7 +172,7 @@ const BoardUpdateForm = () => {
 
                     <div className='mt-3'>
                         <TextField
-                            className='bg_gray'
+                            className='bg_gray input_type'
                             multiline
                             rows={6}
                             name='content'
@@ -196,12 +207,11 @@ const BoardUpdateForm = () => {
                             </List>
                         </div>
                     </div>
-                    <div className='text-center mt-1'>
-                        <input type='file' onChange={onUploadEvent} />
-                    </div>
-                    <button onClick={updateDataEvent} style={{ cursor: "pointer" }}>
+                    <div className="d-flex justify-content-center">
+                    <button className="inquiry_btn2" onClick={updateDataEvent} >
                         수정
                     </button>
+                    </div>
                 </div>
             )}
         </div>

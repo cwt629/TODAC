@@ -3,10 +3,10 @@ import defaultPhoto from '../../../image/default_profile_photo_blue.jpg';
 
 const STORAGE_PHOTO_BASE = 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/counselors/';
 
-const CounselorCardFront = ({ bgcolor, data }) => {
+const CounselorCardFront = ({ isCustom, bgcolor, data }) => {
     return (
         <div className='counselorcard card-front' style={{ backgroundColor: bgcolor }}>
-            <div className='cardheader fs_22 fw_800'>OFFICIAL</div>
+            <div className='cardheader fs_22 fw_800'>{isCustom ? 'CUSTOM' : 'OFFICIAL'}</div>
             <br />
             <img alt='상담사' src={data.photo ? STORAGE_PHOTO_BASE + data.photo : defaultPhoto}
                 className='counselorphoto frontphoto' />

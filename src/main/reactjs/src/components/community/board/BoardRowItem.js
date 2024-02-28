@@ -15,7 +15,7 @@ const BoardRowItem = ({ idx, data }) => {
     const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/"; //ncloud 에서 가져옴
 
     const handleItemClick = () => {
-        navi(`/user/community/board/detail/${data.boardcode}`);
+        navi(`/board/detail/${data.boardcode}`);
     };
 
     return (

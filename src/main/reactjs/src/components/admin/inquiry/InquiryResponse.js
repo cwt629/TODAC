@@ -60,7 +60,7 @@ const InquiryResponse = () => {
                 <div className='fs_18 fw_700'>
                     Q. {selectQnaData.title}
                 </div>
-                <div className='mt_10 bg_red bor_red br_5 p-2' style={{height:"200px"}}>
+                <div className='mt_10 bg_blue3 bor_blue3 br_5 p-2' style={{height:"200px"}}>
                     {selectQnaData.inquiry}
                 </div>
             </div>

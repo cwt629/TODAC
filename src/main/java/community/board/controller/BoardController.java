@@ -174,8 +174,12 @@ public class BoardController {
 	}
 
 	@GetMapping("main/list")
-	public List<MainListInterface> getList(){
-		return boardService.getBoardList();
+	public List<MainListInterface> getList(@RequestParam(name = "sortBy", required = false) String sortBy) {
+		if (sortBy != null && !sortBy.isEmpty()) {
+			return boardService.getBoardListSorted(sortBy);
+		} else {
+			return boardService.getBoardList();
+		}
 	}
 
 }
