@@ -30,17 +30,17 @@ const CustomButton = styled(Button)({
       '"Segoe UI Symbol"',
     ].join(','),
     '&:hover': {
-      backgroundColor: '#E0FFFF', // hover 시 원하는 색상으로 변경
-      borderColor: '#E0FFFF', // hover 시 원하는 색상으로 변경
+      backgroundColor: '#6495ED', // hover 시 원하는 색상으로 변경
+      borderColor: '#6495ED', // hover 시 원하는 색상으로 변경
       boxShadow: 'none',
     },
     '&:active': {
       boxShadow: 'none',
-      backgroundColor: '#E0FFFF', // 클릭 시 원하는 색상으로 변경
-      borderColor: '#E0FFFF', // 클릭 시 원하는 색상으로 변경
+      backgroundColor: '#6495ED', // 클릭 시 원하는 색상으로 변경
+      borderColor: '#6495ED', // 클릭 시 원하는 색상으로 변경
     },
     '&:focus': {
-      boxShadow: '0 0 0 0.2rem rgba(255,113,112,.5)',
+      boxShadow: '0 0 0 0.2rem #c5d6f5',
     },
 });
 
