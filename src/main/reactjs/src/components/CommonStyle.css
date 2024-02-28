@@ -763,14 +763,6 @@ button.deepblue {
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
-button.deepblue.short {
-    padding: 6px 10px;
-}
-
-button.deepblue.long {
-    padding: 6px 30px;
-}
-
 button.lightblue {
     /* background-color: var(--lightblue);
     border: 1px solid var(--midblue);
@@ -790,10 +782,29 @@ button.lightblue {
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
-button.lightblue.short {
+button.white {
+    /* background-color: var(--lightblue);
+    border: 1px solid var(--midblue);
+    border-radius: 5px;
+    font-weight: 500;
+    color: var(--mainblack);
+    padding: 6px 30px; */
+
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--deepblue);
+    padding: 6px 15px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+button.short {
     padding: 6px 10px;
 }
 
-button.lightblue.long {
+button.long {
     padding: 6px 30px;
 }
