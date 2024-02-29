@@ -36,4 +36,8 @@ public class CounselorDao {
 	public void deleteCounselor(Short counselorcode) {
 		counselorRepository.deleteById(counselorcode);
 	}
+	
+	public Short getCounselorCount(int usercode, String name) {
+		return counselorRepository.getCounselorCount(usercode, name);
+	}
 }

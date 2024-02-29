@@ -67,6 +67,20 @@ public class CounselorController {
 	
 	@GetMapping("counselor/delete")
 	public void deleteCounselor(@RequestParam("counselorcode") Short counselorcode) {
+		// 해당하는 dto 받기
+		CounselorDto dto = counselorService.getCounselorByCode(counselorcode);
+		// 파일 이름 받기
+		String photo = dto.getPhoto();
+		// 파일이 존재하면, 스토리지에서 이를 먼저 삭제해준다
+		if (photo != null) {
+			storageService.deleteFile(bucketName, folderName, photo);
+		}
+		
 		counselorService.deleteCounselor(counselorcode);
+	}
+	
+	@GetMapping("counselor/namecheck")
+	public boolean checkCounselorRedundancy(@RequestParam("usercode") int usercode, @RequestParam(value = "name", defaultValue = "") String name) {
+		return (counselorService.getCounselorCount(usercode, name) > 0);
 	}
 }

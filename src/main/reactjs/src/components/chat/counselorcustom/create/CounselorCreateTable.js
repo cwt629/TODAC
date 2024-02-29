@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import defaultImage from "../../../../image/default_profile_photo_blue.jpg";
 import ChatContent from '../../chattingroom/ChatContent';
 import withReactContent from 'sweetalert2-react-content';
@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import CounselorPreview from './CounselorPreview';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
+import cameraIcon from '../../../../image/change_photo.svg';
 
 const CounselorCreateTable = () => {
     // 각 input의 최대 길이
@@ -35,6 +37,10 @@ const CounselorCreateTable = () => {
     // 중복 제출 방지를 위한 플래그
     const [submitFlag, setSubmitFlag] = useState(false);
 
+    // 자동 포커스 가게 하기 위한 Ref 변수들
+    const inputName = useRef(null);
+    const inputPersonality = useRef(null);
+
     // 일부 input의 변경 이벤트
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -59,7 +65,7 @@ const CounselorCreateTable = () => {
                     icon: 'error',
                     title: '이미지만 업로드 가능!',
                     html: '이미지 파일만 업로드 해주세요.',
-                    confirmButtonColor: '#ff7170',
+                    confirmButtonColor: '#5279FD',
                     confirmButtonText: '확인'
                 })
             }
@@ -72,7 +78,7 @@ const CounselorCreateTable = () => {
         ReactSwal.fire({
             title: '상담사 미리보기',
             html: <CounselorPreview data={data} />,
-            confirmButtonColor: '#ff7170',
+            confirmButtonColor: '#5279FD',
             confirmButtonText: '확인'
         })
     }
@@ -83,25 +89,41 @@ const CounselorCreateTable = () => {
             ReactSwal.fire({
                 icon: 'warning',
                 html: '상담사 제출 처리중입니다.<br/>잠시만 기다려주세요...',
-                confirmButtonColor: '#ff7170',
+                confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             })
             return;
         }
 
-        // 성격 입력 확인: '~인', '~한', '~은', '~는'으로 끝나는지 확인
-        const personalityRegex = new RegExp('[한인은는]$');
+        // 이름 중복체크 진행
+        let nameCheck = await axios.get(`/counselor/namecheck?usercode=${sessionStorage.getItem("usercode")}&name=${data.name}`);
+        if (nameCheck.data) {
+            await ReactSwal.fire({
+                icon: 'error',
+                title: '이름 중복!',
+                html: '해당 상담사명은 사용할 수 없습니다.<br/>다른 상담사명을 입력해주세요.',
+                confirmButtonColor: '#5279FD',
+                confirmButtonText: '확인'
+            })
+            // 이름에 포커스
+            //inputName.current.focus();
+            return;
+        }
+
+        // 성격 입력 확인: '~한', '~인', '~운', '~은', '~는'으로 끝나는지 확인
+        const personalityRegex = new RegExp('[한인운은는]$');
         if (!personalityRegex.test(data.personality)) {
             const userConfirm = await ReactSwal.fire({
                 icon: 'warning',
                 title: '성격 확인!',
                 html: '성격 입력이 정확하지 않으면<br/>적용이 제대로 되지 않을 수 있습니다.<br/>계속하시겠습니까?',
-                confirmButtonColor: '#ff7170',
+                confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인',
                 showCancelButton: true,
                 cancelButtonText: '취소'
             });
             if (!userConfirm.isConfirmed) {
+                //inputPersonality.current.focus();
                 return;
             }
         }
@@ -135,7 +157,7 @@ const CounselorCreateTable = () => {
                 icon: 'success',
                 title: '커스텀 성공!',
                 html: '상담사 제작이 완료되었습니다!<br/>목록으로 돌아가 상담을 즐겨보세요! :)',
-                confirmButtonColor: '#ff7170',
+                confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             });
 
@@ -146,7 +168,7 @@ const CounselorCreateTable = () => {
                 icon: 'error',
                 title: '에러 발생!',
                 html: '다음 에러가 발생하였습니다:' + error,
-                confirmButtonColor: '#ff7170',
+                confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             }).then(() => {
                 setSubmitFlag(false);
@@ -165,6 +187,7 @@ const CounselorCreateTable = () => {
                         <td width={'80%'}>
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 type="text" name="name" value={data.name}
+                                ref={inputName}
                                 onChange={handleInputChange} maxLength={INPUT_MAX_LENGTH['name']} required />
                             ({data.name.length} / {INPUT_MAX_LENGTH['name']})
                         </td>
@@ -176,7 +199,7 @@ const CounselorCreateTable = () => {
                             <input type='file' accept='image/*' id='counselor-create-image' style={{ display: 'none' }}
                                 onChange={handlePhotoUpload} />
                             <img style={{ width: '30px', height: "30px", position: 'absolute', bottom: "10px", right: '10px' }} className="img-fluid"
-                                alt='이미지변경' src={require('../../../../image/ico_camera.png')} onClick={() => document.getElementById("counselor-create-image").click()} />
+                                alt='이미지변경' src={cameraIcon} onClick={() => document.getElementById("counselor-create-image").click()} />
                         </td>
                     </tr>
                     <tr>
@@ -184,6 +207,7 @@ const CounselorCreateTable = () => {
                         <td>
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 type="text" name="personality" value={data.personality} maxLength={INPUT_MAX_LENGTH['personality']} required
+                                ref={inputPersonality}
                                 onChange={handleInputChange} /> 상담사 ({data.personality.length} / {INPUT_MAX_LENGTH['personality']})<br />
                             <div className='explain'>
                                 '~한', '~인'과 같은 형태로 작성하셔야 원하는 대로 동작할 거에요!<br />
