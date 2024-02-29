@@ -157,7 +157,7 @@ const MemberComments = () => {
                             <div>
                                 <span className="fw_600">{item.content}</span>
                             </div>
-                            <button onClick={() => deleteComment(item.commentcode)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                            <button onClick={() => deleteComment(item.commentcode)} style={{ background: "none", border: "none", cursor: "pointer", fontSize: "14px", color: 'gray' }}>
                                 삭제
                             </button>
                         </div>
