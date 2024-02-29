@@ -45,7 +45,7 @@ const ChattingLogList = () => {
         let usercode = sessionStorage.getItem("usercode");
         if (!usercode) return;
 
-        axios.get("/counselor/list")
+        axios.get("/counselor/mylist?usercode=" + usercode)
             .then((res) => {
                 setCounselorFilters([COUNSELOR_DEFAULT_FILTER, ...res.data.map((counselor) => (counselor.name))])
             })

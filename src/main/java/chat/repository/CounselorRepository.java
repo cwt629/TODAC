@@ -38,4 +38,14 @@ public interface CounselorRepository extends JpaRepository<CounselorDto, Short> 
 			"""
 			, nativeQuery = true)
 	public List<CounselorDetailInterface> getCounselorListByUser(@Param("usercode") int usercode);
+	
+	@Query(value = 
+			"""
+			select count(*)
+			from counselor
+			where usercode in (5, :usercode)
+			and name = :name
+			"""
+			, nativeQuery = true)
+	public Short getCounselorCount(@Param("usercode") int usercode, @Param("name") String name);
 }

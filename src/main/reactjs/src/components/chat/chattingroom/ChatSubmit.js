@@ -12,7 +12,7 @@ const ChatSubmit = ({ input, maxlength, handleInputSubmit, handleInputChange }) 
             <div className='submit-innerdiv'>
                 {/* <div className='bor_blue1 bg_blue fw_500 chatbutton'
                     onClick={handleInputSubmit}>전송</div> */}
-                <button type='button' className='lightblue short'
+                <button type='button' className='lightblue short pressable'
                     onClick={handleInputSubmit}>
                     <SendRounded />
                 </button>
