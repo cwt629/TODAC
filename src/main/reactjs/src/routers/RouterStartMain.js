@@ -67,7 +67,7 @@ const RouterStartMain = () => {
                             <Link to='/user/chat' className=''>
                                 <img
                                     alt='토닥베이비봇'
-                                    src={require("../image/ico_babytodac2.png")}
+                                    src={require("../image/ico_babytodac4.png")}
                                     className='img-fluid mt_45'
                                     style={{ width: "75%", maxWidth:"500px" }}
                                 />
