@@ -148,7 +148,6 @@ const MemberPost = () => {
             <div className="fs_17 fw_800">
                 <span className="col_blue2">{member.nickname}</span> 님의 게시글 목록
             </div>
-
             {filteredBoard.length === 0 ? (
                 <div className="fs_14" style={{ marginTop: '10px' }}>
                     작성한 게시글이 없습니다.

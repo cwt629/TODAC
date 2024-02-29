@@ -3,6 +3,8 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import diagnosisImg1 from '../../../image/diagnosis1.png';
 import diagnosisImg2 from '../../../image/diagnosis2.png';
+import counselor from '../../../image/counselor.png';
+import you from '../../../image/you.png';
 import './DocumentStyle.css';
 import axios from 'axios';
 import summarizeContent from '../api/summarize';
@@ -194,11 +196,13 @@ const ChatSummary = () => {
             </div>
             <div className='fs_25 fw_700'>오늘의 상담 요약</div>
             <div className='summaryContent fs_14 fw_500 mt_10'>
+                <img src={you} alt='You Image' style={{ width: '50px', height: '50px', border: '2px solid #D4E4F2' }} /><br />
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br />
                 {summarizedMessages.summarizedUserMessage?.content}
             </div>
             <br />
             <div className='summaryAnswerContent fs_14 fw_500 mt_10'>
+                <img src={counselor} alt='Counselor Image' style={{ width: '50px', height: '50px', border: '2px solid whitesmoke' }} /><br />
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: 'whitesmoke' }}>상담사의 답변 요약</span><br />
                 {summarizedMessages.summarizedCounselorMessage?.content}
             </div>

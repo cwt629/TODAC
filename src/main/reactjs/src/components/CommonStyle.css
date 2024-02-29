@@ -824,3 +824,10 @@ button.short {
 button.long {
     padding: 6px 30px;
 }
+
+/*입력창 common style*/
+/*height랑 width는 각자 조정해서 스타일하는 쪽이 더 좋아서 안 넣었슴다^^*/
+.input_text {
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    background-color: var(--bggray);
+}
