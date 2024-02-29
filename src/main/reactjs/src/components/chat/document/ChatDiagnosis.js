@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import './DocumentStyle.css';
 import counselor from '../../../image/counselor.png';
 import you from '../../../image/you.png';
@@ -8,6 +8,7 @@ import acting from '../../../image/acting.png';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import summarizeContent from '../api/summarize';
+import PageHeader from '../../PageHeader';
 
 const ChatDiagnosis = () => {
     const [logList, setLogList] = useState([]); // 로그 전체
@@ -20,6 +21,15 @@ const ChatDiagnosis = () => {
     const [diagnosisMessages, setDiagnosisMessages] = useState({ analyzedUserMessage: "", recommendedActivitiesUserMessage: "" });
 
     console.log("roomcode:" + roomcode);
+
+    const CURRENT_ROUTES = [
+        { name: 'TODAC 채팅', url: '/user/chat' },
+        { name: '상담 받기', url: '/user/chat/counsel' },
+        { name: '오늘의 상담 요약', url: '/user/chat/summary' },
+        { name: '나의 진단서', url: '' }
+    ];
+
+    const PAGE_TITLE = "나의 진단서";
 
     // 포인트 사용
     const [donationAmount, setDonationAmount] = useState(500);
@@ -239,13 +249,7 @@ const ChatDiagnosis = () => {
 
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/user/chat" className='col_blue2'>TODAC 채팅 {'>'} </Link>
-                <Link to="/user/chat/counsel" className='col_blue2'>상담 받기 {'>'} </Link>
-                <Link to="/user/chat/summary" className='col_blue2'>요약 {'>'}</Link>
-                <Link to="/user/chat/diagnosis" className='col_blue2'>진단서</Link>
-            </div>
-            <div className='fs_25 fw_700'>나의 진단서</div>
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <div className='diagnosisSummaryContent fs_14 fw_500 mt_10'>
                 <img src={you} alt='You Image' style={{ width: '50px', height: '50px', border: '2px solid #D4E4F2' }} /><br />
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br />
