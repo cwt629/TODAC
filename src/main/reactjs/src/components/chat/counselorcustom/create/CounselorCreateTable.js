@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import defaultImage from "../../../../image/default_profile_photo_blue.jpg";
 import ChatContent from '../../chattingroom/ChatContent';
 import withReactContent from 'sweetalert2-react-content';
@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import CounselorPreview from './CounselorPreview';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { getBadgeInfo, getBadgeList } from '../../../../utils/badgeInfo';
 
 const CounselorCreateTable = () => {
     // 각 input의 최대 길이
