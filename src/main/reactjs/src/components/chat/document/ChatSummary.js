@@ -48,10 +48,10 @@ const ChatSummary = () => {
             })
     }
 
-    const pointUse = () => {
+    const goDiagnosis = () => {
         Swal.fire({
             title: '진단서 발급',
-            text: '진단서를 발급하시겠습니까?',
+            text: '진단서 페이지로 이동하시겠습니까?',
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#5279FD',
@@ -60,31 +60,49 @@ const ChatSummary = () => {
             cancelButtonText: '아니오'
         }).then((result) => {
             if (result.isConfirmed) {
-                const url = "/payment?amount=" + donationAmount + "&usercode=" + usercode + "&type=진단서 발급";
-                axios.post(url)
-                    .then(res => {
-                        if (res.data === false) {
-                            Swal.fire({
-                                icon: 'warning',
-                                html: '포인트가 부족합니다.',
-                                confirmButtonText: '확인',
-                                confirmButtonColor: '#FF7170'
-                            })
-                        }
-                        else {
-                            Swal.fire({
-                                icon: 'warning',
-                                html: '진단서가 발급되었습니다.',
-                                confirmButtonText: '확인',
-                                confirmButtonColor: '#5279FD'
-                            }).then(() => {
-                                nav('../diagnosis?chatroomcode=' + roomcode);
-                            });
-                        }
-                    })
+                nav('../diagnosis?chatroomcode=' + roomcode);
             }
         });
     }
+
+
+    // const pointUse = () => {
+    //     Swal.fire({
+    //         title: '진단서 발급',
+    //         text: '진단서를 발급하시겠습니까?',
+    //         icon: 'question',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#5279FD',
+    //         cancelButtonColor: '#FF7170',
+    //         confirmButtonText: '예',
+    //         cancelButtonText: '아니오'
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             const url = "/payment?amount=" + donationAmount + "&usercode=" + usercode + "&type=진단서 발급";
+    //             axios.post(url)
+    //                 .then(res => {
+    //                     if (res.data === false) {
+    //                         Swal.fire({
+    //                             icon: 'warning',
+    //                             html: '포인트가 부족합니다.',
+    //                             confirmButtonText: '확인',
+    //                             confirmButtonColor: '#FF7170'
+    //                         })
+    //                     }
+    //                     else {
+    //                         Swal.fire({
+    //                             icon: 'warning',
+    //                             html: '진단서가 발급되었습니다.',
+    //                             confirmButtonText: '확인',
+    //                             confirmButtonColor: '#5279FD'
+    //                         }).then(() => {
+    //                             nav('../diagnosis?chatroomcode=' + roomcode);
+    //                         });
+    //                     }
+    //                 })
+    //         }
+    //     });
+    // }
 
     const handleInfoClick = () => {
         // sweetalert2 팝업 띄우기
@@ -192,7 +210,7 @@ const ChatSummary = () => {
         // 1. 로그 받아와서 logList에 넣고
         // 2. 새로운 요약을 생성하며 summarizedMessages에 set해주고 해당 요약을 DB에 저장 (밑에 getSummarizedMessages)
 
-        // 이 함수는 말그대로, 지금 만든 요약본을 DB에 집어넣는 작업만 하도록 하자.  
+        // 이 함수는 말그대로, 지금 만든 요약본을 DB에 집어넣는 작업만 하도록 하자.
         checkData();
     }, []);
 
@@ -215,7 +233,7 @@ const ChatSummary = () => {
                 <button className='white long' onClick={() => nav('../../')}>마이 홈 이동하기</button>
                 <div style={{ position: 'relative' }}>
                     <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer', position: 'absolute', top: -11, right: -11 }} onClick={handleInfoClick}>ℹ️</span>
-                    <button className='deepblue long' onClick={pointUse}>진단서 발급(500P)</button>
+                    <button className='deepblue long' onClick={goDiagnosis}>진단서 발급(500P)</button>
                 </div>
             </div>
         </div >
