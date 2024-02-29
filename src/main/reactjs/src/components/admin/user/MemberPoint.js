@@ -23,9 +23,9 @@ const MemberPoint = () => {
         { name: '관리자 홈', url: '/admin' },
         { name: '회원 관리', url: '/admin/MemberManage' },
         { name: '회원 정보', url: `/admin/MemberManage/MemberProfile?usercode=${usercode}` },
-        { name: '회원 포인트 사용내역', url: '' }
+        { name: '회원 TP 사용내역', url: '' }
     ];
-    const PAGE_TITLE = "회원 포인트 사용내역";
+    const PAGE_TITLE = "회원 TP 사용내역";
 
     useEffect(() => {
         if (usercode) {
@@ -116,11 +116,11 @@ const MemberPoint = () => {
             />
             <br /><br />
             <div className="fs_17 fw_800">
-                <span className="col_blue2">{member.nickname}</span> 님의 포인트 사용 내역
+                <span className="col_blue2">{member.nickname}</span> 님의 TP 사용내역
             </div>
             {filteredPoint.length === 0 ? (
                 <div className='fs_14' style={{ marginTop: '10px' }}>
-                    포인트 내역이 없습니다.
+                    TP 사용내역이 없습니다.
                 </div>
             ) : (
                 currentItems.map((item, index) => (
@@ -135,7 +135,7 @@ const MemberPoint = () => {
                         </div>
                         <div style={{ marginTop: '8px' }}>
                             <span className="fw_600 col_blue2">{item.amount}</span>
-                            <span className='fw_600'> P</span>
+                            <span className='fw_600'> TP</span>
                         </div>
                     </div>
                 ))
