@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Swal from 'sweetalert2';
-import { Pagination, InputAdornment, IconButton, Input } from '@mui/material';
+import { Pagination, InputAdornment, IconButton, Input, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
+import PageHeader from '../../PageHeader';
 
 const MemberPost = () => {
     const nav = useNavigate();
@@ -17,6 +18,14 @@ const MemberPost = () => {
     const [member, setMember] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(4);
+
+    const CURRENT_ROUTES = [
+        { name: '관리자 홈', url: '/admin' },
+        { name: '회원 관리', url: '/admin/MemberManage' },
+        { name: '회원 정보', url: `/admin/MemberManage/MemberProfile?usercode=${usercode}` },
+        { name: '회원 게시글', url: '' }
+    ];
+    const PAGE_TITLE = "회원 게시글";
 
     useEffect(() => {
         if (usercode) {
@@ -37,7 +46,12 @@ const MemberPost = () => {
         setLoading(true);
         axios.post(`/admin/member/post?usercode=${usercode}`)
             .then(res => {
-                setBoard(res.data);
+                const sortedBoard = res.data.sort((a, b) => {
+                    // 날짜를 내림차순으로 정렬 (가정)
+                    return new Date(b.registereddate) - new Date(a.registereddate);
+                });
+
+                setBoard(sortedBoard);
             })
             .catch(error => {
                 console.error("게시글을 불러오는 중 오류 발생:", error);
@@ -46,6 +60,7 @@ const MemberPost = () => {
                 setLoading(false);
             });
     }
+
 
     const handlePageChange = (event, value) => {
         setCurrentPage(value);
@@ -65,9 +80,9 @@ const MemberPost = () => {
         Swal.fire({
             title: '게시글 삭제',
             text: '해당 게시글을 삭제하시겠습니까?',
-            icon: 'warning',
+            icon: 'question',
             showCancelButton: true,
-            confirmButtonColor: '#5279FD',
+            confirmButtonColor: '#ff7170',
             confirmButtonText: '예',
             cancelButtonText: '아니오',
         }).then((result) => {
@@ -83,6 +98,7 @@ const MemberPost = () => {
                             text: '게시글이 성공적으로 삭제되었습니다.',
                             icon: 'success',
                             confirmButtonColor: '#5279FD',
+                            confirmButtonText: '확인'
                         }).then(() => {
                             nav(`/admin/MemberManage/MemberProfile/MemberPost?usercode=` + member.usercode);
                         });
@@ -94,25 +110,16 @@ const MemberPost = () => {
         });
     };
 
-
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/admin" className='col_blue2'>관리자 홈 {'>'} </Link>
-                <Link to="/admin/MemberManage" className='col_blue2'>회원 관리 {'>'} </Link>
-                <Link to={`/admin/MemberManage/MemberProfile?usercode=${usercode}`} className='col_blue2'>회원 정보 {'>'}</Link>
-                <span className='col_blue2'>&nbsp;회원 게시글</span>
-            </div>
-            <div className='fs_25 fw_700'>회원 게시글</div> <br />
-
-            <div className='fs_25 fw_700' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+            <div className='fs_25 fw_700 mt_25' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <img alt='' src={member.photo} style={{ width: '15vh', height: '15vh', borderRadius: '50%' }} />
                     <span className='fs_22 fw_700 mt-2'>{member.nickname}님</span>
                 </div>
             </div>
             <br />
-            {/* <div className='fs_17 fw_800'>{member.nickname} 님의 게시글 검색</div> */}
             <Input
                 id="search"
                 type="text"
