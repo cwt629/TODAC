@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import diagnosisImg1 from '../../../image/diagnosis1.png';
 import diagnosisImg2 from '../../../image/diagnosis2.png';
@@ -8,6 +8,7 @@ import you from '../../../image/you.png';
 import './DocumentStyle.css';
 import axios from 'axios';
 import summarizeContent from '../api/summarize';
+import PageHeader from '../../PageHeader';
 
 const ChatSummary = () => {
     const [logList, setLogList] = useState([]);
@@ -20,6 +21,14 @@ const ChatSummary = () => {
     // 포인트 사용
     const [donationAmount, setDonationAmount] = useState(500);
     const usercode = sessionStorage.getItem("usercode");
+
+    const CURRENT_ROUTES = [
+        { name: 'TODAC 채팅', url: '/user/chat' },
+        { name: '상담 받기', url: '/user/chat/counsel' },
+        { name: '오늘의 상담 요약', url: '' }
+    ];
+
+    const PAGE_TITLE = "오늘의 상담 요약";
 
     const pointCheck = () => {
         // 진단서 발급을 시도하기 전에 진단서가 이미 발급되었는지 확인
@@ -189,12 +198,7 @@ const ChatSummary = () => {
 
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/user/chat" className='col_blue2'>TODAC 채팅 {'>'} </Link>
-                <Link to="/user/chat/counsel" className='col_blue2'>상담 받기 {'>'} </Link>
-                <Link to="/user/chat/summary" className='col_blue2'>요약</Link>
-            </div>
-            <div className='fs_25 fw_700'>오늘의 상담 요약</div>
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <div className='summaryContent fs_14 fw_500 mt_10'>
                 <img src={you} alt='You Image' style={{ width: '50px', height: '50px', border: '2px solid #D4E4F2' }} /><br />
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br />
