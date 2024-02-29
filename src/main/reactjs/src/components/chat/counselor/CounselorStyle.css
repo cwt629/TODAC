@@ -30,6 +30,12 @@ div.counselorcard.card-back div.profile-simple {
     /* justify-content: space-between; */
 }
 
+div.counselorcard.card-back div.counselor-introduction {
+    overflow-y: auto;
+    width: 100%;
+    text-align: left;
+}
+
 div.counselorcard img.counselorphoto.backphoto {
     width: 100px;
     height: 100px;
@@ -61,7 +67,7 @@ div.counselbtndiv.counsel-lognav {
     display: flex;
     justify-content: flex-end;
     position: absolute;
-    top: 102px;
+    top: 107px;
     right: 30px;
 }
 
@@ -127,6 +133,14 @@ div.counselbtndiv.counsel-lognav {
     transform: rotateY(0deg);
 }
 
+.swiper-slide .counselorcard.card-back div.counselordelbtn {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
 .swiper-slide .counselor-last-card {
     background-color: #EEF0F7;
     background-image: url('../../../image/ico_babytodac2.png');
@@ -134,46 +148,6 @@ div.counselbtndiv.counsel-lognav {
     background-repeat: no-repeat;
     background-size: 80% auto;
 }
-
-/* .swiper-slide:nth-child(1n) {
-    background-color: rgb(206, 17, 17);
-}
-
-.swiper-slide:nth-child(2n) {
-    background-color: rgb(0, 140, 255);
-}
-
-.swiper-slide:nth-child(3n) {
-    background-color: rgb(10, 184, 111);
-}
-
-.swiper-slide:nth-child(4n) {
-    background-color: rgb(211, 122, 7);
-}
-
-.swiper-slide:nth-child(5n) {
-    background-color: rgb(118, 163, 12);
-}
-
-.swiper-slide:nth-child(6n) {
-    background-color: rgb(180, 10, 47);
-}
-
-.swiper-slide:nth-child(7n) {
-    background-color: rgb(35, 99, 19);
-}
-
-.swiper-slide:nth-child(8n) {
-    background-color: rgb(0, 68, 255);
-}
-
-.swiper-slide:nth-child(9n) {
-    background-color: rgb(218, 12, 218);
-}
-
-.swiper-slide:nth-child(10n) {
-    background-color: rgb(54, 94, 77);
-} */
 
 /* 무난한 부트스트랩 스타일 버튼 */
 
