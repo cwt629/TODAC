@@ -29,9 +29,9 @@ const GameMain = () => {
                         popupAchievement("프로웃음러").then(res => {
                             Swal.fire({
                                 title:"축하드립니다!" ,
-                                text: `${score} 점수를 획득하여 
-                                ${point} 포인트가 적립되었습니다!`,
-                                confirmButtonColor: '#6495ED',
+                                html: `${score}점을 획득하여 <br/>
+                                ${point}TP가 적립되었습니다!`,
+                                confirmButtonColor: '#5279FD',
                                 background: 'white',
                                 confirmButtonText: '확인'
                             });
@@ -39,9 +39,9 @@ const GameMain = () => {
                     } else {
                         Swal.fire({
                             title:"축하드립니다!" ,
-                            text: `${score} 점수를 획득하여 
-                            ${point} 포인트가 적립되었습니다!`,
-                            confirmButtonColor: '#6495ED',
+                            html: `${score}점을 획득하여 <br/>
+                            ${point}TP가 적립되었습니다!`,
+                            confirmButtonColor: '#5279FD',
                             background: 'white',
                             confirmButtonText: '확인'
                         });
