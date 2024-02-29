@@ -79,7 +79,8 @@ const BadgeMain = () => {
                             <Item>
                                 {
                                     <>
-                                        <img alt='' src={require("../../../image/badge/newbie.png")} />
+                                        <img alt='' src={require("../../../image/badge/newbie.png")}
+                                             style={{cursor:"pointer"}}/>
                                         <div className='fw_900'>뉴비</div>
                                         <div className='fs_14'>토닥 첫 로그인</div>
                                         <hr />

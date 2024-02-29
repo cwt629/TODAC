@@ -39,9 +39,9 @@ const MyDonation = ({member}) => {
                                 if(res.data===true){
                                     ReactSwal.fire({
                                         icon: 'success',
-                                        html: '업적을 달성하셨습니다!',
+                                        html: '업적을 달성했습니다!',
                                         confirmButtonText: '확인',
-                                        confirmButtonColor: '#5279FD'
+                                        confirmButtonColor: '#9396A6'
                                     })
                                 }
                             })
