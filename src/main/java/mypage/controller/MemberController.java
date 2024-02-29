@@ -91,6 +91,7 @@ public class MemberController {
         MemberDto dto = new MemberDto();
         dto = memberDao.getMemberByID(reqdto.getUserid());
         dto.setAddress(reqdto.getAddress());
+        dto.setAddressplus(reqdto.getAddressplus());
         dto.setNickname(reqdto.getNickname());
         dto.setPhoto(reqdto.getPhoto());
 
@@ -104,11 +105,7 @@ public class MemberController {
     {
         MemberDto dto = new MemberDto();
         dto = memberDao.getMemberByID(reqdto.getUserid());
-        dto.setAddress(reqdto.getAddress());
-        dto.setNickname(reqdto.getNickname());
-        dto.setPhoto(reqdto.getPhoto());
-        //그 뭐냐 배지 추가해라잉
+        dto.setMybadge(reqdto.getMybadge());
         memberDao.insertMember(dto);
-        uploadFilename=null;
     }
 }

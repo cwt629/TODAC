@@ -1,11 +1,11 @@
 const badgeMap = new Map([
-    ["뉴비", { image: '클라우드 이미지 URL 뉴비', description: '토닥 첫 로그인' }],
-    ["업적명1", { image: '클라우드 이미지 URL 1', description: '업적 설명 1' }],
-    ["업적명2", { image: '클라우드 이미지 URL 2', description: '업적 설명 2' }],
-    ["업적명3", { image: '클라우드 이미지 URL 3', description: '업적 설명 3' }],
-    ["업적명4", { image: '클라우드 이미지 URL 4', description: '업적 설명 4' }],
-    ["업적명5", { image: '클라우드 이미지 URL 5', description: '업적 설명 5' }],
-    ["업적명6", { image: '클라우드 이미지 URL 6', description: '업적 설명 6' }]
+    ["기부자", { image: 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/badge/donation.png', description: '기부하기' }],
+    ["떠오르는 샛별", { image: 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/badge/stars.png', description: '게시글 5개 작성' }],
+    ["고인물", { image: 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/badge/rotten%20water.png', description: '게시글 50개 작성' }],
+    ["프로웃음러", { image: 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/badge/smileking.png', description: '오늘의 미소 800점' }],
+    ["후원왕", { image: 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/badge/contributor.png', description: '후원의 전당 입성' }],
+    ["모두가 나의 파트너", { image: 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/badge/we_are_paertner.png', description: '공식 상담사 모두와 상담' }],
+    ["다섯 번의 토닥", { image: 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/badge/five_todac.png', description: '상담 5번 완료' }]
 ]);
 
 /**

@@ -116,16 +116,11 @@ const MypageMain = () => {
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE}/>
             <div className="profile">
                 <img className="profile" alt='' src={member.photo}/>
-                <div className='mt_10 fs_20 fw_700'>{member.nickname}</div>
+                <div className='mt_10 fs_20 fw_700'>{member.nickname}</div>{member.mybadge}
             </div>
 
             <div>
                 <button onClick={() => nav("badge")}>업적</button>
-                <select style={{width: "300px"}}>
-                    {achieve.map((item, index) => (
-                        <option key={index} value={item.achievename}>{item.achievename}</option>
-                    ))}
-                </select>
             </div>
 
             <div className="iconmenu mt-5">
