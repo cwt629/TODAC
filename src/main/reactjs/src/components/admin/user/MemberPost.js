@@ -65,9 +65,9 @@ const MemberPost = () => {
         Swal.fire({
             title: '게시글 삭제',
             text: '해당 게시글을 삭제하시겠습니까?',
-            icon: 'warning',
+            icon: 'question',
             showCancelButton: true,
-            confirmButtonColor: '#5279FD',
+            confirmButtonColor: '#ff7170',
             confirmButtonText: '예',
             cancelButtonText: '아니오',
         }).then((result) => {
@@ -83,6 +83,7 @@ const MemberPost = () => {
                             text: '게시글이 성공적으로 삭제되었습니다.',
                             icon: 'success',
                             confirmButtonColor: '#5279FD',
+                            confirmButtonText: '확인'
                         }).then(() => {
                             nav(`/admin/MemberManage/MemberProfile/MemberPost?usercode=` + member.usercode);
                         });

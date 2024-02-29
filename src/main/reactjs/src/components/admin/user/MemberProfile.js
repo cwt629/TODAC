@@ -26,9 +26,9 @@ const MemberProfile = () => {
         Swal.fire({
             title: '회원 삭제',
             text: '정말로 이 회원을 삭제하시겠습니까?',
-            icon: 'warning',
+            icon: 'question',
             showCancelButton: true,
-            confirmButtonColor: '#5279FD',
+            confirmButtonColor: '#ff7170',
             confirmButtonText: '예',
             cancelButtonText: '아니오',
         }).then((result) => {
@@ -44,6 +44,7 @@ const MemberProfile = () => {
                             text: '해당 회원이 삭제되었습니다.',
                             icon: 'success',
                             confirmButtonColor: '#5279FD',
+                            confirmButtonText: '확인'
                         });
                         //회원 삭제 후 이전 페이지로 이동
                         nav(-1);
