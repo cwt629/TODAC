@@ -207,14 +207,12 @@ const ChatSummary = () => {
                 {summarizedMessages.summarizedCounselorMessage?.content}
             </div>
             <br />
-            <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer', float: 'right' }} onClick={handleInfoClick}>ℹ️</span>
-            <br />
-            <div style={{ textAlign: 'center', float: 'clear' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <button className='white long' onClick={() => nav('../../')}>마이 홈 이동하기</button>
-                &nbsp;&nbsp;
-                <button className='deepblue long' onClick={() => {
-                    pointUse();
-                }}>진단서 발급(500P)</button>
+                <div style={{ position: 'relative' }}>
+                    <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer', position: 'absolute', top: -11, right: -11 }} onClick={handleInfoClick}>ℹ️</span>
+                    <button className='deepblue long' onClick={pointUse}>진단서 발급(500P)</button>
+                </div>
             </div>
         </div >
     );
