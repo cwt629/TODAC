@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Pagination, InputAdornment, OutlinedInput } from "@mui/material";
+import { Pagination, InputAdornment, Input, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import PageHeader from "../../PageHeader";
+import ClearIcon from '@mui/icons-material/Clear';
+import PostNavigationButton from "./PostNavigationButton";
 
 const MyBoardMain = () => {
     const nav = useNavigate();
@@ -56,7 +58,10 @@ const MyBoardMain = () => {
     const handlePageChange = (event, value) => {
         setCurrentPage(value);
     };
-
+    //게시글 쓰러가기 이동 버튼
+    const handlePostNavClick = () => {
+        nav("../../../board/form");
+    }
     // 검색어와 일치하는 게시글만 필터링
     const filteredBoard = board.filter((item) => item.title.includes(searchQuery));
 
@@ -84,7 +89,7 @@ const MyBoardMain = () => {
             text: "해당 게시글을 삭제하시겠습니까?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#FF7170",
+            confirmButtonColor: "#5279FD",
             confirmButtonText: "예",
             cancelButtonText: "아니오",
         }).then((result) => {
@@ -99,7 +104,7 @@ const MyBoardMain = () => {
                             title: "삭제 완료",
                             text: "게시글이 성공적으로 삭제되었습니다.",
                             icon: "success",
-                            confirmButtonColor: "#FF7170",
+                            confirmButtonColor: "#5279FD",
                         });
                     })
                     .catch((error) => {
@@ -110,68 +115,98 @@ const MyBoardMain = () => {
     };
 
     return (
-        <div className='mx_30'>
-            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            {/* 검색창 */}
-            <OutlinedInput
-                id='search'
-                type='text'
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder='타입을 검색하세요'
-                className='form-control mb-3 bg_red col_gray fs_16 fw_800'
-                style={{
-                    "::placeholder": { color: "gray" },
-                    height: "40px",
-                    padding: "8px",
-                    borderRadius: "5px",
-                }}
-                startAdornment={
-                    <InputAdornment position='start'>
-                        <SearchIcon />
-                    </InputAdornment>
-                }
-            />
-            <div className='fs_17 fw_800'>{member.nickname} 님의 게시글 목록</div>
-            {currentItems.map((item, index) => (
-                <div
-                    key={index}
-                    className='bor_gray1 px-3 py-2 mt_10'
+        <div>
+            <PostNavigationButton handleClick={handlePostNavClick} />
+            <div className='mx_30'>
+                <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+                <br />
+                {/* 검색창 */}
+                <Input
+                    id="search"
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="검색할 타입을 입력하세요"
+                    className="form-control mb-3 fs_16 fw_900"
                     style={{
-                        boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
-                        borderRadius: "10px",
+                        height: '40px',
+                        padding: '8px',
+                        borderBottom: '1px solid #5279FD',
+                        borderRadius: '0',
+                        border: 'none',
                     }}
-                >
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <div
-                            onClick={() => openModal(item)}
-                            style={{
-                                cursor: "pointer",
-                                width: "90%",
-                                overflow: "hidden",
-                                whiteSpace: "nowrap",
-                                textOverflow: "ellipsis",
-                            }}
-                        >
-                            <span className='fw_600'>{item.title}</span>
-                        </div>
-                        <button
-                            onClick={() => deletePost(item.boardcode)}
-                            style={{ background: "none", border: "none", cursor: "pointer" }}
-                        >
-                            삭제
-                        </button>
-                    </div>
-                    <div className='fs_14'>{item.registereddate}</div>
+                    startAdornment={
+                        <>
+                            {searchQuery && (
+                                <InputAdornment position="start">
+                                    {/* IconButton 추가 */}
+                                    <IconButton onClick={() => setSearchQuery('')}>
+                                        <ClearIcon />
+                                    </IconButton>
+                                </InputAdornment>
+                            )}
+                        </>
+                    }
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <SearchIcon />
+                        </InputAdornment>
+                    }
+                /><br /><br />
+                <div className="fs_17 fw_800">
+                    <span className="col_blue2">{member.nickname}</span> 님의 게시글 목록
                 </div>
-            ))}
+                {currentItems.map((item, index) => (
+                    <div
+                        key={index}
+                        className='bor_gray1 px-3 py-2 mt_10'
+                        style={{
+                            boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+                            borderRadius: "10px",
+                        }}
+                    >
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <div
+                                onClick={() => openModal(item)}
+                                style={{
+                                    cursor: "pointer",
+                                    width: "90%",
+                                    overflow: "hidden",
+                                    whiteSpace: "nowrap",
+                                    textOverflow: "ellipsis",
+                                }}
+                            >
+                                <span className='fw_600'>{item.title}</span>
+                            </div>
+                            <button
+                                onClick={() => deletePost(item.boardcode)}
+                                style={{ background: "none", border: "none", cursor: "pointer", fontSize: "14px", color: 'gray' }}
+                            >
+                                삭제
+                            </button>
+                        </div>
+                        <div className='fs_14'>{item.registereddate}</div>
+                    </div>
+                ))}
 
-            {/* Pagination */}
-            <div className='justify-content-center d-flex mt-3 qnaPage_btn'>
-                <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} />
+                {/* Pagination */}
+                <div className="justify-content-center d-flex mt-3 qnaPage_btn">
+                    <Pagination
+                        count={totalPages}
+                        page={currentPage}
+                        onChange={handlePageChange}
+                        shape="rounded"
+                        variant="outlined"
+                        color="primary"
+                        hidePrevButton
+                        hideNextButton
+                        hideFirstButton
+                        hideLastButton
+                    />
+                </div>
             </div>
         </div>
     );
-};
+}
 
 export default MyBoardMain;

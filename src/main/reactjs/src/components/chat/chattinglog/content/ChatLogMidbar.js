@@ -4,7 +4,7 @@ const ChatLogMidbar = ({ counselorname }) => {
     return (
         <div className='fs_18 fw_600 mt_10 chatmid'>
             <div>
-                <span className='fs_19 col_red'>
+                <span className='fs_19 col_blue2'>
                     {counselorname ? counselorname : '어느'}
                 </span> 상담사와의 상담일지
             </div>

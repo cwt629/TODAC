@@ -126,9 +126,6 @@ const MypageMain = () => {
                         <option key={index} value={item.achievename}>{item.achievename}</option>
                     ))}
                 </select>
-                <button onClick={insertusertobadge}>뉴비획득</button>
-                <button onClick={insertusertobadge2}>샛별획득</button>
-
             </div>
 
             <div className="iconmenu mt-5">
@@ -165,7 +162,7 @@ const MypageMain = () => {
                 </div>
 
                 <div onClick={onPersonDelete} className='mt-4' style={{marginTop: "10px"}}>
-                    <img alt="" src={require("../../image/mypageIcon/logout.png")}/>
+                    &nbsp;<img alt="" src={require("../../image/mypageIcon/logout.png")}/>
                     <span style={{color: "darkgray"}} className='mx-3'>회원 탈퇴</span>
                     <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
                 </div>

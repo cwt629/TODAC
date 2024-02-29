@@ -9,9 +9,9 @@ const ChatListTable = ({ list, showLength }) => {
             <table className='chatlog-table'>
                 <thead>
                     <tr>
-                        <th width='50' style={{ backgroundColor: '#F9EAEB' }}>번호</th>
-                        <th width='171' style={{ backgroundColor: '#F9EAEB' }}>날짜</th>
-                        <th width='112' style={{ backgroundColor: '#F9EAEB' }}>상담사</th>
+                        <th width='50' style={{ backgroundColor: 'var(--cobaltblue)' }}>번호</th>
+                        <th width='171' style={{ backgroundColor: 'var(--cobaltblue)' }}>날짜</th>
+                        <th width='112' style={{ backgroundColor: 'var(--cobaltblue)' }}>상담사</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,7 +24,7 @@ const ChatListTable = ({ list, showLength }) => {
                                 <td>{data.date ? (
                                     <span>
                                         {data.datePieces.day}&nbsp;
-                                        <span className='col_red'>{data.datePieces.dayOfWeek}</span>&nbsp;
+                                        <span className='col_blue2'>{data.datePieces.dayOfWeek}</span>&nbsp;
                                         {data.datePieces.time}
                                     </span>
                                 ) : '요약본 미발급'}</td>

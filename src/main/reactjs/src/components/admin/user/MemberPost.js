@@ -148,20 +148,26 @@ const MemberPost = () => {
             <div className="fs_17 fw_800">
                 <span className="col_blue2">{member.nickname}</span> 님의 게시글 목록
             </div>
-            {currentItems.map((item, index) => (
-                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div>
-                            <span className="fw_600"
-                                onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberPost/MemberPostDetail?usercode=${usercode}&boardcode=${item.boardcode}`)}>{item.title}</span>
-                        </div>
-                        <button onClick={() => deletePost(item.boardcode)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'red' }}>
-                            <img alt="" src={require("../../../image/adminIcon/delete.png")} />
-                        </button>
-                    </div>
-                    <div className="fs_14">{item.registereddate}</div>
+            {filteredBoard.length === 0 ? (
+                <div className="fs_14" style={{ marginTop: '10px' }}>
+                    작성한 게시글이 없습니다.
                 </div>
-            ))}
+            ) : (
+                currentItems.map((item, index) => (
+                    <div key={index} className="bg_gray bor_gray1 px-3 py-2">
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div>
+                                <span className="fw_600"
+                                    onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberPost/MemberPostDetail?usercode=${usercode}&boardcode=${item.boardcode}`)}>{item.title}</span>
+                            </div>
+                            <button onClick={() => deletePost(item.boardcode)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'red' }}>
+                                <img alt="" src={require("../../../image/adminIcon/delete.png")} />
+                            </button>
+                        </div>
+                        <div className="fs_14">{item.registereddate}</div>
+                    </div>
+                ))
+            )}
 
             {/* Pagination */}
             <div className="justify-content-center d-flex mt-3 qnaPage_btn">

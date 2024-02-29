@@ -110,21 +110,20 @@ const MemberManage = () => {
                     ))}
                 </tbody>
             </table>
-
             {/* Pagination */}
             <div className="justify-content-center d-flex mt-3 qnaPage_btn">
                 <Pagination
                     count={totalPages}
                     page={currentPage}
                     onChange={handlePageChange}
-                    style={{
-                        '& .Mui-selected': {
-                            backgroundColor: 'your_desired_color', // 변경하고자 하는 배경색
-                            color: '#D4E4F2', // 변경하고자 하는 텍스트색
-                        },
-                    }}
+                    shape="rounded"
+                    variant="outlined"
+                    color="primary"
+                    hidePrevButton
+                    hideNextButton
+                    hideFirstButton
+                    hideLastButton
                 />
-
             </div>
         </div>
     );

@@ -37,4 +37,8 @@ public class CounselorService {
 	public void deleteCounselor(Short counselorcode) {
 		counselorDao.deleteCounselor(counselorcode);
 	}
+	
+	public Short getCounselorCount(int usercode, String name) {
+		return counselorDao.getCounselorCount(usercode, name);
+	}
 }

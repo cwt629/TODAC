@@ -67,9 +67,9 @@ const RouterStartMain = () => {
                             <Link to='/user/chat' className=''>
                                 <img
                                     alt='토닥베이비봇'
-                                    src={require("../image/ico_babytodac2.png")}
+                                    src={require("../image/ico_babytodac4.png")}
                                     className='img-fluid mt_45'
-                                    style={{ width: "75%" }}
+                                    style={{ width: "75%", maxWidth:"500px" }}
                                 />
                                 {/* <div className='col_black fw_700 fs_14'>바로가려면 Click</div> */}
                             </Link>
