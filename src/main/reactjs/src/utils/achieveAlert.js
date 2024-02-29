@@ -10,7 +10,6 @@ export async function popupAchievement(badgename = "") {
 
     // 해당 정보가 없는 경우
     if (badgeInfo.image.length === 0) {
-        await ReactSwal.fire("왜 안되냐 이거");
         return;
     }
 
