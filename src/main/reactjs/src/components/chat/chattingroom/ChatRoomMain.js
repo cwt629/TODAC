@@ -12,6 +12,7 @@ import PageHeader from '../../PageHeader';
 import withReactContent from 'sweetalert2-react-content';
 import ReviewAlert from './ReviewAlert';
 import defaultProfilePhoto from '../../../image/default_profile_photo_blue.jpg';
+import { popupAchievement } from '../../../utils/achieveAlert';
 
 const MAXIMUM_INPUT_LENGTH = 300;
 const MAXIMUM_STARS = 5;
@@ -44,6 +45,8 @@ const ChatRoomMain = () => {
 
     // 초기 데이터 로딩
     useEffect(() => {
+        popupAchievement("뉴비");
+
         axios.get(`/chat/init?counselorcode=${counselorcode}&usercode=${sessionStorage.getItem("usercode")}`)
             .then((res) => {
                 setInitialData(res.data);
