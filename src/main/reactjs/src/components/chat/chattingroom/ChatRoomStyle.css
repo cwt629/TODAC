@@ -48,6 +48,7 @@ div.chatcontent div.chatcomponent.user {
     display: flex;
     justify-content: right;
     flex-direction: row-reverse;
+    padding-right: 5px;
 }
 
 div.chatcontent img.profile {
@@ -139,10 +140,10 @@ div.review-button {
     padding: 10px;
     border-radius: 5px;
     width: auto;
-    background-color: #FF7170;
+    background-color: #5279FD;
     color: white;
 }
 
 div.review-button.review-close {
-    background-color: #9396A6;
+    background-color: #6e7881;
 }
