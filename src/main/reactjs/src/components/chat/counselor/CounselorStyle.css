@@ -158,6 +158,8 @@ div.counselbtndiv.counsel-lognav {
     border: none;
     border-radius: 5px;
     padding: 5px 20px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .counselinnerbtn.officialbtn {

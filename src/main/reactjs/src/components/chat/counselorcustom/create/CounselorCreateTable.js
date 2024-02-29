@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import cameraIcon from '../../../../image/change_photo.svg';
+import { Input, TextField } from '@mui/material';
 
 const CounselorCreateTable = () => {
     // 각 input의 최대 길이
@@ -185,7 +186,7 @@ const CounselorCreateTable = () => {
                     <tr>
                         <td width={100} className='tablehead'>이름 *</td>
                         <td width={400}>
-                            <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
+                            <Input className='input_text'
                                 type="text" name="name" value={data.name}
                                 ref={inputName}
                                 onChange={handleInputChange} maxLength={INPUT_MAX_LENGTH['name']} required />
@@ -227,9 +228,9 @@ const CounselorCreateTable = () => {
                     <tr>
                         <td className='tablehead'>상세 소개</td>
                         <td>
-                            <textarea className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
+                            <TextField className="input_text"
                                 name="introduction" value={data.introduction} maxLength={INPUT_MAX_LENGTH['introduction']}
-                                onChange={handleInputChange}></textarea><br />
+                                onChange={handleInputChange} /><br />
                             <span className='custom-inputlen'>({data.introduction.length} / {INPUT_MAX_LENGTH['introduction']})</span>
                         </td>
                     </tr>
