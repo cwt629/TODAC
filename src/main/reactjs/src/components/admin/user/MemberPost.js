@@ -160,8 +160,9 @@ const MemberPost = () => {
                                 <span className="fw_600"
                                     onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberPost/MemberPostDetail?usercode=${usercode}&boardcode=${item.boardcode}`)}>{item.title}</span>
                             </div>
-                            <button onClick={() => deletePost(item.boardcode)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'red' }}>
-                                <img alt="" src={require("../../../image/adminIcon/delete.png")} />
+                            <button onClick={() => deletePost(item.boardcode)}
+                                style={{ background: "none", border: "none", cursor: "pointer", fontSize: "14px", color: 'gray' }}>
+                                삭제
                             </button>
                         </div>
                         <div className="fs_14">{item.registereddate}</div>

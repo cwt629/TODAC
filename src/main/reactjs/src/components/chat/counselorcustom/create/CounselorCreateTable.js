@@ -180,22 +180,22 @@ const CounselorCreateTable = () => {
 
     return (
         <form className='mt_25' onSubmit={handleFormSubmit}>
-            <table className='table table-bordered counselor-create'>
+            <table className='counselor-create'>
                 <tbody>
                     <tr>
-                        <td width={'20%'}>이름 *</td>
-                        <td width={'80%'}>
+                        <td width={100} className='tablehead'>이름 *</td>
+                        <td width={400}>
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 type="text" name="name" value={data.name}
                                 ref={inputName}
                                 onChange={handleInputChange} maxLength={INPUT_MAX_LENGTH['name']} required />
-                            ({data.name.length} / {INPUT_MAX_LENGTH['name']})
+                            <span className='custom-inputlen'>({data.name.length} / {INPUT_MAX_LENGTH['name']})</span>
                         </td>
                     </tr>
                     <tr>
-                        <td>사진</td>
+                        <td className='tablehead'>사진</td>
                         <td style={{ position: 'relative' }}>
-                            <img alt='' src={data.photo ? data.photo : defaultImage} style={{ width: '100%', height: '100%' }} />
+                            <img alt='' src={data.photo ? data.photo : defaultImage} style={{ width: '100%', height: 'auto' }} />
                             <input type='file' accept='image/*' id='counselor-create-image' style={{ display: 'none' }}
                                 onChange={handlePhotoUpload} />
                             <img style={{ width: '30px', height: "30px", position: 'absolute', bottom: "10px", right: '10px' }} className="img-fluid"
@@ -203,12 +203,13 @@ const CounselorCreateTable = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>성격 *</td>
+                        <td className='tablehead'>성격 *</td>
                         <td>
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 type="text" name="personality" value={data.personality} maxLength={INPUT_MAX_LENGTH['personality']} required
                                 ref={inputPersonality}
-                                onChange={handleInputChange} /> 상담사 ({data.personality.length} / {INPUT_MAX_LENGTH['personality']})<br />
+                                onChange={handleInputChange} /> 상담사<br />
+                            <span className='custom-inputlen'>({data.personality.length} / {INPUT_MAX_LENGTH['personality']})</span><br />
                             <div className='explain'>
                                 '~한', '~인'과 같은 형태로 작성하셔야 원하는 대로 동작할 거에요!<br />
                                 ex{')'} 얼음처럼 냉철한
@@ -216,19 +217,20 @@ const CounselorCreateTable = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>짧은 소개</td>
+                        <td className='tablehead'>짧은 소개</td>
                         <td>
                             <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 type="text" name="briefintro" value={data.briefintro} maxLength={INPUT_MAX_LENGTH['briefintro']}
-                                onChange={handleInputChange} /> ({data.briefintro.length} / {INPUT_MAX_LENGTH['briefintro']})
+                                onChange={handleInputChange} /> <span className='custom-inputlen'>({data.briefintro.length} / {INPUT_MAX_LENGTH['briefintro']})</span>
                         </td>
                     </tr>
                     <tr>
-                        <td>상세 소개</td>
+                        <td className='tablehead'>상세 소개</td>
                         <td>
                             <textarea className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 name="introduction" value={data.introduction} maxLength={INPUT_MAX_LENGTH['introduction']}
-                                onChange={handleInputChange}></textarea> ({data.introduction.length} / {INPUT_MAX_LENGTH['introduction']})
+                                onChange={handleInputChange}></textarea><br />
+                            <span className='custom-inputlen'>({data.introduction.length} / {INPUT_MAX_LENGTH['introduction']})</span>
                         </td>
                     </tr>
                     <tr>
@@ -243,33 +245,31 @@ const CounselorCreateTable = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>첫마디 *</td>
+                        <td className='tablehead'>첫마디 *</td>
                         <td>
                             <textarea className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
                                 name="greeting" value={data.greeting} maxLength={INPUT_MAX_LENGTH['greeting']} required
-                                onChange={handleInputChange}></textarea> ({data.greeting.length} / {INPUT_MAX_LENGTH['greeting']})<br />
+                                onChange={handleInputChange}></textarea><br />
+                            <span className='custom-inputlen'>({data.greeting.length} / {INPUT_MAX_LENGTH['greeting']})</span><br />
                             <div className='explain'>* 상담사의 말투가 첫마디로 결정되기도 한답니다!</div>
                         </td>
                     </tr>
                     <tr>
-                        <td>카드 색깔</td>
+                        <td className='tablehead'>카드 색깔</td>
                         <td>
                             <input type='color' name='cardcolor' value={data.cardcolor}
-                                onChange={handleInputChange} /> &emsp;<span className='explain'>밝은 색상을 권장합니다!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan={2}>
-                            <div className='custom-btn-outer'>
-                                <div className='custom-btn-div'>
-                                    <button type='button' className='lightblue long' onClick={handlePreview}>미리보기</button>
-                                    <button type='submit' className='deepblue long'>생성하기!</button>
-                                </div>
-                            </div>
+                                onChange={handleInputChange} />
+                            <div className='explain'>* 카드는 밝은 색상을 권장합니다!</div>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <div className='custom-btn-outer mt_25'>
+                <div className='custom-btn-div'>
+                    <button type='button' className='lightblue long' onClick={handlePreview}>미리보기</button>
+                    <button type='submit' className='deepblue long'>생성하기!</button>
+                </div>
+            </div>
         </form>
     );
 };
