@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import diagnosisImg1 from '../../../image/diagnosis1.png';
 import diagnosisImg2 from '../../../image/diagnosis2.png';
 import counselor from '../../../image/counselor.png';
+import info from '../../../image/info.png';
 import you from '../../../image/you.png';
 import './DocumentStyle.css';
 import axios from 'axios';
@@ -64,7 +65,6 @@ const ChatSummary = () => {
             }
         });
     }
-
 
     // const pointUse = () => {
     //     Swal.fire({
@@ -232,7 +232,7 @@ const ChatSummary = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <button className='white long' onClick={() => nav('../../')}>마이 홈 이동하기</button>
                 <div style={{ position: 'relative' }}>
-                    <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer', position: 'absolute', top: -11, right: -11 }} onClick={handleInfoClick}>ℹ️</span>
+                    <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer', position: 'absolute', top: 3.5, right: -24 }} onClick={handleInfoClick}><img src={info} alt='Info Image' style={{ width: '20px', height: '20px' }} /></span>
                     <button className='deepblue long' onClick={goDiagnosis}>진단서 발급(500P)</button>
                 </div>
             </div>
