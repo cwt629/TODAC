@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef  } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { popupAchievement } from '../../../utils/achieveAlert';
 
 const GameMain = () => {
     const navi = useNavigate();
@@ -24,23 +25,25 @@ const GameMain = () => {
                       score
                     , usercode
                 }).then(res => {
-                    //console.log("res.badge", res);
                     if(res.data.badge==0){
-                        Swal.fire({
-                            title: `<span style="font-size: 20px;">
-                            축하합니다! ${score} 점수를 획득하여 
-                            프로웃음러 뱃지를 획득하였고 
-                            ${point} 포인트가 적립되었습니다!</span>`,
-                            confirmButtonColor: '#FF7170',
-                            background: '#F9EAEB'
-                        });
+                        popupAchievement("프로웃음러").then(res => {
+                            Swal.fire({
+                                title:"축하드립니다!" ,
+                                text: `${score} 점수를 획득하여 
+                                ${point} 포인트가 적립되었습니다!`,
+                                confirmButtonColor: '#6495ED',
+                                background: 'white',
+                                confirmButtonText: '확인'
+                            });
+                        })
                     } else {
                         Swal.fire({
-                            title: `<span style="font-size: 20px;">
-                            축하합니다! ${score} 점수를 획득하여 
-                            ${point} 포인트가 적립되었습니다!</span>`,
-                            confirmButtonColor: '#FF7170',
-                            background: '#F9EAEB'
+                            title:"축하드립니다!" ,
+                            text: `${score} 점수를 획득하여 
+                            ${point} 포인트가 적립되었습니다!`,
+                            confirmButtonColor: '#6495ED',
+                            background: 'white',
+                            confirmButtonText: '확인'
                         });
                     }
                     
@@ -56,7 +59,7 @@ const GameMain = () => {
     
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
-          window.removeEventListener('message', receiveMessage);
+            window.removeEventListener('message', receiveMessage);
         };
       }, []);
 
