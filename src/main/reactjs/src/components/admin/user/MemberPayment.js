@@ -4,6 +4,7 @@ import axios from "axios";
 import { Pagination, InputAdornment, IconButton, Input } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
+import PageHeader from "../../PageHeader";
 
 const MemberPayment = () => {
     const nav = useNavigate();
@@ -16,6 +17,14 @@ const MemberPayment = () => {
     const [member, setMember] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(4);
+
+    const CURRENT_ROUTES = [
+        { name: '관리자 홈', url: '/admin' },
+        { name: '회원 관리', url: '/admin/MemberManage' },
+        { name: '회원 정보', url: `/admin/MemberManage/MemberProfile?usercode=${usercode}` },
+        { name: '회원 결제내역', url: '' }
+    ];
+    const PAGE_TITLE = "회원 결제내역";
 
     useEffect(() => {
         if (usercode) {
@@ -38,7 +47,13 @@ const MemberPayment = () => {
             .then((res) => {
                 // '충전'인 항목만 필터링
                 const chargeItems = res.data.filter((item) => item.type === "충전");
-                setPay(chargeItems);
+
+                // 날짜를 내림차순으로 정렬
+                const sortedChargeItems = chargeItems.sort((a, b) => {
+                    return new Date(b.applieddate) - new Date(a.applieddate);
+                });
+
+                setPay(sortedChargeItems);
             })
             .catch((error) => {
                 console.error("결제내역을 불러오는 중 오류 발생:", error);
@@ -63,27 +78,14 @@ const MemberPayment = () => {
 
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to='/admin' className='col_blue2'>
-                    관리자 홈 {">"}{" "}
-                </Link>
-                <Link to='/admin/MemberManage' className='col_blue2'>
-                    회원 관리 {">"}{" "}
-                </Link>
-                <Link to={`/admin/MemberManage/MemberProfile?usercode=${usercode}`} className='col_blue2'>
-                    회원 정보 {">"}
-                </Link>
-                <span className='col_blue2'>&nbsp;회원 결제내역</span>
-            </div>
-            <div className='fs_25 fw_700'>회원 결제내역</div> <br />
-            <div className='fs_25 fw_700' style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+            <div className='fs_25 fw_700 mt_25' style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                     <img alt='' src={member.photo} style={{ width: "15vh", height: "15vh", borderRadius: "50%" }} />
                     <span className='fs_22 fw_700 mt-2'>{member.nickname}님</span>
                 </div>
             </div>
             <br />
-            {/* 검색창 */}
             <Input
                 id='search'
                 type='text'
@@ -115,8 +117,7 @@ const MemberPayment = () => {
                     </InputAdornment>
                 }
             />
-            <br />
-            <br />
+            <br /><br />
             <div className='fs_17 fw_800'>
                 <span className='col_blue2'>{member.nickname}</span> 님의 결제 내역
             </div>
