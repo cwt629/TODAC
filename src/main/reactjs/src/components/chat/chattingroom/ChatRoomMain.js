@@ -12,6 +12,7 @@ import PageHeader from '../../PageHeader';
 import withReactContent from 'sweetalert2-react-content';
 import ReviewAlert from './ReviewAlert';
 import defaultProfilePhoto from '../../../image/default_profile_photo_blue.jpg';
+import { popupAchievement } from '../../../utils/achieveAlert';
 
 const MAXIMUM_INPUT_LENGTH = 300;
 const MAXIMUM_STARS = 5;
@@ -90,13 +91,17 @@ const ChatRoomMain = () => {
         }
 
         if (input.length === 0) {
-            ReactSwal.fire({
-                title: '입력 없음!',
-                text: '메세지를 입력해주세요.',
-                icon: 'error',
-                confirmButtonColor: '#5279FD',
-                confirmButtonText: '확인'
-            });
+            // TODO: 테스트용으로 집어넣었으며, 추후 popupAchievement는 제거할 것
+            popupAchievement("뉴비").then(res => {
+                ReactSwal.fire({
+                    title: '입력 없음!',
+                    text: '메세지를 입력해주세요.',
+                    icon: 'error',
+                    confirmButtonColor: '#5279FD',
+                    confirmButtonText: '확인'
+                });
+            })
+
             return;
         }
 
@@ -133,6 +138,9 @@ const ChatRoomMain = () => {
                 data: JSON.stringify(logData),
                 headers: { 'Content-Type': 'application/json' }
             });
+
+            // TODO: 테스트용으로 집어넣었으며, 추후 popupAchievement는 조건부로 변경할 것
+            await popupAchievement("업적명1");
 
             ReactSwal.fire({
                 icon: 'success',

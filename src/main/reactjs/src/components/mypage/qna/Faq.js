@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Faq = () => {
     const [memberinfo, setMemberinfo] = useState([]);
+    const [activeItem, setActiveItem] = useState(null); // 현재 활성화된 아이템의 ID를 저장할 state 추가
 
     const id = sessionStorage.getItem("id");
 
@@ -18,6 +19,14 @@ const Faq = () => {
         getmemberinfo();
     }, []);
 
+    // 클릭 이벤트 핸들러를 통해 현재 활성화된 아이템 업데이트
+    const handleItemClick = (itemId) => {
+        if (itemId === activeItem) {
+            setActiveItem(null); // 현재 클릭된 아이템이 이미 열려있으면 닫음
+        } else {
+            setActiveItem(itemId); // 현재 클릭된 아이템을 열도록 설정
+        }
+    }
 
     return (
         <div className='mx_30'>
@@ -32,13 +41,14 @@ const Faq = () => {
 
             <div className="faq accordion mt_10 fw_600" id="accordionPanelsStayOpenExample">
                 <div className="accordion-item">
-                    <h2 className="accordion-header" id="panelsStayOpen-headingFive">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="true" aria-controls="panelsStayOpen-collapseFive">
+                    <h2 className="accordion-header" id="panelsStayOpen-headingOne">
+                        <button className={`accordion-button ${activeItem === 'item1' ? '' : 'collapsed'}`} type="button" onClick={() => handleItemClick('item1')} aria-expanded={activeItem === 'item1'} aria-controls="panelsStayOpen-collapseOne">
+                            {/* 아이템 1에 대한 아이디를 부여하고, 클릭 시 해당 아이디로 업데이트 */}
                             <img alt='질문' src={require("../../../image/ico_faq_q.png")} className='img-fluid mr_10'/>
                             <span>TODAC은 무슨 뜻인가요?</span>
                         </button>
                     </h2>
-                    <div id="panelsStayOpen-collapseFive" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+                    <div id="panelsStayOpen-collapseOne" className={`accordion-collapse collapse ${activeItem === 'item1' ? 'show' : ''}`} aria-labelledby="panelsStayOpen-headingOne">
                         <div className="accordion-body">
                             <img alt='답변' src={require("../../../image/ico_faq_a.png")} className='img-fluid mr_10'/>
                             <span>토닥(TODAC)은<br/>
@@ -48,13 +58,14 @@ const Faq = () => {
                     </div>
                 </div>
                 <div className="accordion-item">
-                    <h2 className="accordion-header" id="panelsStayOpen-headingOne">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                    <h2 className="accordion-header" id="panelsStayOpen-headingTwo">
+                        <button className={`accordion-button ${activeItem === 'item2' ? '' : 'collapsed'}`} type="button" onClick={() => handleItemClick('item2')} aria-expanded={activeItem === 'item2'} aria-controls="panelsStayOpen-collapseTwo">
+                            {/* 아이템 1에 대한 아이디를 부여하고, 클릭 시 해당 아이디로 업데이트 */}
                             <img alt='질문' src={require("../../../image/ico_faq_q.png")} className='img-fluid mr_10'/>
                             <span>TODAC은 어떤 어플인가요?</span>
                         </button>
                     </h2>
-                    <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                    <div id="panelsStayOpen-collapseTwo" className={`accordion-collapse collapse ${activeItem === 'item2' ? 'show' : ''}`} aria-labelledby="panelsStayOpen-headingTwo">
                         <div className="accordion-body">
                             <img alt='답변' src={require("../../../image/ico_faq_a.png")} className='img-fluid mr_10'/>
                             <span>간직해왔던 마음 속 깊은 고민들을 누군가에게 쉽게 털어 놓기란 쉽지않죠.<br/>토닥은 지쳐있는 여러분의 마음을 다독여 주기위해 탄생했습니다.<br/>
@@ -65,13 +76,14 @@ const Faq = () => {
                     </div>
                 </div>
                 <div className="accordion-item">
-                    <h2 className="accordion-header" id="panelsStayOpen-headingTwo">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                    <h2 className="accordion-header" id="panelsStayOpen-headingThree">
+                        <button className={`accordion-button ${activeItem === 'item3' ? '' : 'collapsed'}`} type="button" onClick={() => handleItemClick('item3')} aria-expanded={activeItem === 'item3'} aria-controls="panelsStayOpen-collapseThree">
+                            {/* 아이템 1에 대한 아이디를 부여하고, 클릭 시 해당 아이디로 업데이트 */}
                             <img alt='질문' src={require("../../../image/ico_faq_q.png")} className='img-fluid mr_10'/>
                             <span>회원탈퇴를 하고싶어요.</span>
                         </button>
                     </h2>
-                    <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                    <div id="panelsStayOpen-collapseThree" className={`accordion-collapse collapse ${activeItem === 'item3' ? 'show' : ''}`} aria-labelledby="panelsStayOpen-headingThree">
                         <div className="accordion-body">
                             <img alt='답변' src={require("../../../image/ico_faq_a.png")} className='img-fluid mr_10'/>
                             <span>고민을 다 털어놓으셨다면, 토닥을 언제든 떠나셔도 좋습니다.<br/>
@@ -81,13 +93,14 @@ const Faq = () => {
                     </div>
                 </div>
                 <div className="accordion-item">
-                    <h2 className="accordion-header" id="panelsStayOpen-headingThree">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                    <h2 className="accordion-header" id="panelsStayOpen-headingFour">
+                        <button className={`accordion-button ${activeItem === 'item4' ? '' : 'collapsed'}`} type="button" onClick={() => handleItemClick('item4')} aria-expanded={activeItem === 'item4'} aria-controls="panelsStayOpen-collapseFour">
+                            {/* 아이템 1에 대한 아이디를 부여하고, 클릭 시 해당 아이디로 업데이트 */}
                             <img alt='질문' src={require("../../../image/ico_faq_q.png")} className='img-fluid mr_10'/>
                             <span>포인트는 어떻게 얻을 수 있나요?</span>
                         </button>
                     </h2>
-                    <div id="panelsStayOpen-collapseThree" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                    <div id="panelsStayOpen-collapseThree" className={`accordion-collapse collapse ${activeItem === 'item4' ? 'show' : ''}`} aria-labelledby="panelsStayOpen-headingFour">
                         <div className="accordion-body">
                             <img alt='답변' src={require("../../../image/ico_faq_a.png")} className='img-fluid mr_10'/>
                             <span>토닥의 포인트를 얻는 방식은 여러가지가 있습니다.
@@ -97,13 +110,14 @@ const Faq = () => {
                     </div>
                 </div>
                 <div className="accordion-item">
-                    <h2 className="accordion-header" id="panelsStayOpen-headingFour">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                    <h2 className="accordion-header" id="panelsStayOpen-headingFive">
+                        <button className={`accordion-button ${activeItem === 'item5' ? '' : 'collapsed'}`} type="button" onClick={() => handleItemClick('item5')} aria-expanded={activeItem === 'item5'} aria-controls="panelsStayOpen-collapseFive">
+                            {/* 아이템 1에 대한 아이디를 부여하고, 클릭 시 해당 아이디로 업데이트 */}
                             <img alt='질문' src={require("../../../image/ico_faq_q.png")} className='img-fluid mr_10'/>
                             <span>후원한 포인트는 어디에 사용되나요?</span>
                         </button>
                     </h2>
-                    <div id="panelsStayOpen-collapseFour" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+                    <div id="panelsStayOpen-collapseFour" className={`accordion-collapse collapse ${activeItem === 'item5' ? 'show' : ''}`} aria-labelledby="panelsStayOpen-headingFive">
                         <div className="accordion-body">
                             <img alt='답변' src={require("../../../image/ico_faq_a.png")} className='img-fluid mr_10'/>
                             <span>토닥은 여러분의 마음을 따듯하게 하기 위해 탄생한 어플인만큼<br/>

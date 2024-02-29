@@ -148,7 +148,6 @@ const MemberPost = () => {
             <div className="fs_17 fw_800">
                 <span className="col_blue2">{member.nickname}</span> 님의 게시글 목록
             </div>
-
             {filteredBoard.length === 0 ? (
                 <div className="fs_14" style={{ marginTop: '10px' }}>
                     작성한 게시글이 없습니다.
@@ -161,8 +160,9 @@ const MemberPost = () => {
                                 <span className="fw_600"
                                     onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberPost/MemberPostDetail?usercode=${usercode}&boardcode=${item.boardcode}`)}>{item.title}</span>
                             </div>
-                            <button onClick={() => deletePost(item.boardcode)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'red' }}>
-                                <img alt="" src={require("../../../image/adminIcon/delete.png")} />
+                            <button onClick={() => deletePost(item.boardcode)}
+                                style={{ background: "none", border: "none", cursor: "pointer", fontSize: "14px", color: 'gray' }}>
+                                삭제
                             </button>
                         </div>
                         <div className="fs_14">{item.registereddate}</div>
