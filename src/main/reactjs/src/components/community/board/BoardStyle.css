@@ -1,21 +1,26 @@
 /*게시글 작성 버튼*/
 .btn_add {
     position: fixed;
-    right: 20px; /* 우측 여백 조절 */
-    bottom: 80px; /* 아래 여백 조절 */
-    z-index: 999; /* 다른 요소 위에 위치하도록 설정 */
+    right: 20px;
+    /* 우측 여백 조절 */
+    bottom: 80px;
+    /* 아래 여백 조절 */
+    z-index: 999;
+    /* 다른 요소 위에 위치하도록 설정 */
 }
+
 .no_result {
     text-align: center;
     padding: 20px;
     border-radius: 5px;
 }
+
 /* form */
 .form_title {
     margin-top: 50px;
 }
 
-.inquiry_btn{
+.inquiry_btn {
     /* background-color: var(--lightblue);
     border: 1px solid var(--midblue);
     border-radius: 5px;
@@ -34,7 +39,7 @@
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
-.inquiry_btn2{
+.inquiry_btn2 {
     /* background-color: var(--lightblue);
     border: 1px solid var(--midblue);
     border-radius: 5px;

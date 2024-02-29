@@ -4,6 +4,7 @@ import axios from "axios";
 import { Pagination, InputAdornment, OutlinedInput, Input, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
+import PageHeader from '../../PageHeader';
 
 
 const MemberPoint = () => {
@@ -17,6 +18,14 @@ const MemberPoint = () => {
     const [member, setMember] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(4);
+
+    const CURRENT_ROUTES = [
+        { name: '관리자 홈', url: '/admin' },
+        { name: '회원 관리', url: '/admin/MemberManage' },
+        { name: '회원 정보', url: `/admin/MemberManage/MemberProfile?usercode=${usercode}` },
+        { name: '회원 TP 사용내역', url: '' }
+    ];
+    const PAGE_TITLE = "회원 TP 사용내역";
 
     useEffect(() => {
         if (usercode) {
@@ -35,50 +44,45 @@ const MemberPoint = () => {
 
     const fetchPoint = (usercode) => {
         setLoading(true);
-        axios.post(`/admin/point?usercode=${usercode}`)
-            .then(res => {
+        axios
+            .post(`/admin/point?usercode=${usercode}`)
+            .then((res) => {
                 setPoint(res.data);
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error("포인트 사용내역을 불러오는 중 오류 발생:", error);
             })
             .finally(() => {
                 setLoading(false);
             });
-    }
+    };
 
     const handlePageChange = (event, value) => {
         setCurrentPage(value);
     };
 
     // 검색어와 일치하는 포인트 사용내역만 필터링
-    const filteredPoint = point.filter(item => item.type.includes(searchQuery));
+    const filteredPoint = point.filter((item) => item.type.includes(searchQuery));
+
+    // 날짜를 내림차순으로 정렬
+    const sortedPoint = filteredPoint.sort((a, b) => new Date(b.applieddate) - new Date(a.applieddate));
 
     // 페이징을 위한 계산
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredPoint.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(filteredPoint.length / itemsPerPage);
+    const currentItems = sortedPoint.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(sortedPoint.length / itemsPerPage);
 
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/admin" className='col_blue2'>관리자 홈 {'>'} </Link>
-                <Link to="/admin/MemberManage" className='col_blue2'>회원 관리 {'>'} </Link>
-                <Link to="/admin/MemberManage/MemberProfile" className='col_blue2'>회원 정보 {'>'}</Link>
-                <Link to="/admin/MemberManage/MemberProfile/MemberPoint" className='col_blue2'> 회원 포인트 사용내역</Link>
-            </div>
-            <div className='fs_25 fw_700'>회원 포인트 사용 내역</div> <br />
-
-            <div className='fs_25 fw_700' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+            <div className='fs_25 fw_700 mt_25' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <img alt='' src={member.photo} style={{ width: '15vh', height: '15vh', borderRadius: '50%' }} />
                     <span className='fs_25 fw_700 mt-2'>{member.nickname}님</span>
                 </div>
             </div>
-            {/* <div className='fs_17 fw_800'>{member.nickname} 님의 포인트 사용내역 검색</div> */}
             <br />
-            {/* 검색창 */}
             <Input
                 id="search"
                 type="text"
@@ -110,25 +114,32 @@ const MemberPoint = () => {
                     </InputAdornment>
                 }
             />
+            <br /><br />
             <div className="fs_17 fw_800">
-                <span className="col_blue2">{member.nickname}</span> 님의 포인트 사용 내역
+                <span className="col_blue2">{member.nickname}</span> 님의 TP 사용내역
             </div>
-            {currentItems.map((item, index) => (
-                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div>
-                            <span className="fw_700">{item.applieddate}</span>
-                        </div>
-                        <div>
-                            <span className="fs_15 w_500">{item.type}</span>
-                        </div>
-                    </div>
-                    <div style={{ marginTop: '8px' }}>
-                        <span className="fw_600 col_blue2">{item.amount}</span>
-                        <span className='fw_600'> P</span>
-                    </div>
+            {filteredPoint.length === 0 ? (
+                <div className='fs_14' style={{ marginTop: '10px' }}>
+                    TP 사용내역이 없습니다.
                 </div>
-            ))}
+            ) : (
+                currentItems.map((item, index) => (
+                    <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div>
+                                <span className="fw_700">{item.applieddate}</span>
+                            </div>
+                            <div>
+                                <span className="fs_15 w_500">{item.type}</span>
+                            </div>
+                        </div>
+                        <div style={{ marginTop: '8px' }}>
+                            <span className="fw_600 col_blue2">{item.amount}</span>
+                            <span className='fw_600'> TP</span>
+                        </div>
+                    </div>
+                ))
+            )}
             {/* Pagination */}
             <div className="justify-content-center d-flex mt-3 qnaPage_btn">
                 <Pagination

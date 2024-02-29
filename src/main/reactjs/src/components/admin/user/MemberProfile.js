@@ -6,8 +6,16 @@ import '../AdminStyle.css';
 import '../../mypage/QnaStyle.css';
 import "../../mypage/MyPageStyle.css";
 import Swal from 'sweetalert2';
+import PageHeader from '../../PageHeader';
 
 const MemberProfile = () => {
+    const CURRENT_ROUTES = [
+        { name: '관리자 홈', url: '/admin' },
+        { name: '회원 관리', url: '/admin/MemberManage' },
+        { name: '회원 정보', url: '' }
+    ];
+    const PAGE_TITLE = "회원 정보";
+
     const nav = useNavigate();
     const [member, setMember] = useState([]);
     let [query, setQuery] = useSearchParams();
@@ -26,9 +34,9 @@ const MemberProfile = () => {
         Swal.fire({
             title: '회원 삭제',
             text: '정말로 이 회원을 삭제하시겠습니까?',
-            icon: 'warning',
+            icon: 'question',
             showCancelButton: true,
-            confirmButtonColor: '#FF7170',
+            confirmButtonColor: '#ff7170',
             confirmButtonText: '예',
             cancelButtonText: '아니오',
         }).then((result) => {
@@ -43,7 +51,8 @@ const MemberProfile = () => {
                             title: '삭제 완료',
                             text: '해당 회원이 삭제되었습니다.',
                             icon: 'success',
-                            confirmButtonColor: '#FF7170',
+                            confirmButtonColor: '#5279FD',
+                            confirmButtonText: '확인'
                         });
                         //회원 삭제 후 이전 페이지로 이동
                         nav(-1);
@@ -61,13 +70,8 @@ const MemberProfile = () => {
 
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/admin" className='col_blue2'>관리자 홈 {'>'} </Link>
-                <Link to="/admin/MemberManage" className='col_blue2'>회원 관리 {'>'} </Link>
-                <span className='col_blue2'>&nbsp;회원 정보</span>
-            </div>
-            <br /><br />
-            <div className='fs_25 fw_700' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+            <div className='fs_25 fw_700 mt_25' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <img alt='' src={member.photo} style={{ width: '18vh', height: '18vh', borderRadius: '50%' }} />
                     <br />

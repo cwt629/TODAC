@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import background2 from "../../image/bg_startmain2.png";
+import background from "../../image/bg_startmain2.png";
+import background2 from "../../image/ico_babytodac3.png";
 
 const LoginMain = () => {
     const [token, setToken] = useState(null);
@@ -46,67 +47,45 @@ const LoginMain = () => {
     };
 
     return (
-        <div className='login_main' m
-        
-        // style={{
-        //     backgroundImage: `url(${background2})`,
-        //     backgroundSize: "contain",
-        //     backgroundRepeat: "no-repeat"
-        // }}
-        >
+        <div className='login_main' 
+        style={{
+            backgroundImage: `url(${background})`,
+            backgroundSize: "auto 45%",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: 'center bottom 50%'
+        }} >
+            <div className='background-overlay' style={{ background: 'linear-gradient(to bottom, var(--lightgray2), var(--mainblack))',opacity: 0.28, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}></div>
+            
+            <div className='mx-5 d-flex justify-content-between' style={{ position: 'relative', zIndex: 1, textAlign:'center', height:'70%', flexDirection:'column'}}>
+                <div className='fw_900 col_blue2' style={{fontSize:'60px'}}>TODAC</div>
+                <div>
+                    <button className='btn_naver bor_db'
+                        onClick={naverLoginEvt}>
+                        <div className='main_login'>
+                            <img alt='네이버 로그인' src={require('../../image/btn_naver.png')} className='img_fluid w_25' />
+                            <div>네이버 로그인</div>
+                        </div>
+                    </button>
 
-            {/* <h1 style={{
-                color: "#FF494D", textAlign: "center",
-                fontSize: "3em", fontWeight: "1000"
-            }}>TODAC</h1> */}
-            <div className="main_ani">
-                <div className="animation">
-                    <span className="one_text">T</span>
-                    <span className="two_t typewriter">&nbsp;his app may</span>
-                    <br />
-                    <span className="one_text">O</span>
-                    <span className="two_t typewriter2">&nbsp;ffer you</span>
-                    <br />
-                    <span className="one_text">D</span>
-                    <span className="two_t typewriter3">&nbsp;ream</span>
-                    <br />
-                    <span className="one_text">A</span>
-                    <span className="two_t typewriter4">&nbsp;nd</span>
-                    <br />
-                    <span className="one_text">C</span>
-                    <span className="two_t typewriter5">&nbsp;omfort</span>
+                    <button className='btn_kakao bor_db mb-4'
+                        onClick={kakaLoginEvt}>
+                        <div className='main_login'>
+                            <img alt='카카오 로그인' src={require('../../image/btn_kakao.png')} className='img_fluid w_25' />
+                            <div>카카오 로그인</div>
+                        </div>
+                    </button>
+
+                    <button className='btn_admin mt-3 bor_db'
+                        onClick={() => nav('admin')}>
+                        <div className='main_login'>
+                            <img alt='관리자 로그인' src={require('../../image/btn_admin.png')} className='img_fluid w_25' />
+                            <div>관리자 로그인</div>
+                        </div>
+                    </button>
+
                 </div>
-            </div>
-
-            {/* <button className='btn btn-success'
-                onClick={naverLoginEvt}
-                style={{ width: "100%" }}>네이버 로그인
-            </button> */}
-            <button className='btn_naver'
-                onClick={naverLoginEvt}>
-                <div className='main_login'>
-                    <img alt='네이버 로그인' src={require('../../image/btn_naver.png')} className='img_fluid w_25' />
-                    <div>네이버 로그인</div>
+                
                 </div>
-            </button>
-
-            <button className='btn_kakao mb-3'
-                onClick={kakaLoginEvt}>
-                <div className='main_login'>
-                    <img alt='카카오 로그인' src={require('../../image/btn_kakao.png')} className='img_fluid w_25' />
-                    <div>카카오 로그인</div>
-                </div>
-            </button>
-
-            <hr />
-
-            <button className='btn_admin mt-3'
-                onClick={() => nav('admin')}>
-                <div className='main_login'>
-                    <img alt='관리자 로그인' src={require('../../image/btn_admin.png')} className='img_fluid w_25' />
-                    <div>관리자 로그인</div>
-                </div>
-            </button>
         </div>
     );
 };

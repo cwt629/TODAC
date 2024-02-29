@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { Pagination, InputAdornment, OutlinedInput, Input, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
+import PageHeader from '../../PageHeader';
 
 const MemberComments = () => {
     const nav = useNavigate();
@@ -17,6 +18,14 @@ const MemberComments = () => {
     const [member, setMember] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(4);
+
+    const CURRENT_ROUTES = [
+        { name: '관리자 홈', url: '/admin' },
+        { name: '회원 관리', url: '/admin/MemberManage' },
+        { name: '회원 정보', url: `/admin/MemberManage/MemberProfile?usercode=${usercode}` },
+        { name: '회원 댓글', url: '' }
+    ];
+    const PAGE_TITLE = "회원 댓글";
 
     useEffect(() => {
         if (usercode) {
@@ -37,7 +46,12 @@ const MemberComments = () => {
         setLoading(true);
         axios.post(`/admin/member/comment?usercode=${usercode}`)
             .then(res => {
-                setComment(res.data);
+                const sortedComments = res.data.sort((a, b) => {
+                    // 날짜를 내림차순으로 정렬
+                    return new Date(b.registereddate) - new Date(a.registereddate);
+                });
+
+                setComment(sortedComments);
             })
             .catch(error => {
                 console.error("댓글을 불러오는 중 오류 발생:", error);
@@ -65,9 +79,9 @@ const MemberComments = () => {
         Swal.fire({
             title: '댓글 삭제',
             text: '해당 댓글을 삭제하시겠습니까?',
-            icon: 'warning',
+            icon: 'question',
             showCancelButton: true,
-            confirmButtonColor: '#FF7170',
+            confirmButtonColor: '#ff7170',
             confirmButtonText: '예',
             cancelButtonText: '아니오',
         }).then((result) => {
@@ -82,7 +96,8 @@ const MemberComments = () => {
                             title: '삭제 완료',
                             text: '댓글이 성공적으로 삭제되었습니다.',
                             icon: 'success',
-                            confirmButtonColor: '#FF7170',
+                            confirmButtonColor: '#5279fd',
+                            confirmButtonText: '확인'
                         });
                     })
                     .catch((error) => {
@@ -94,23 +109,14 @@ const MemberComments = () => {
 
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/admin" className='col_blue2'>관리자 홈 {'>'} </Link>
-                <Link to="/admin/MemberManage" className='col_blue2'>회원 관리 {'>'} </Link>
-                <Link to={`/admin/MemberManage/MemberProfile?usercode=${usercode}`} className='col_blue2'>회원 정보 {'>'}</Link>
-                <span className='col_blue2'>&nbsp;회원 댓글</span>
-            </div>
-            <div className='fs_25 fw_700'>회원 댓글</div> <br />
-
-            <div className='fs_25 fw_700' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+            <div className='fs_25 fw_700 mt_25' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <img alt='' src={member.photo} style={{ width: '15vh', height: '15vh', borderRadius: '50%' }} />
                     <span className='fs_22 fw_700 mt-2'>{member.nickname}님</span>
                 </div>
             </div>
-            {/* <div className='fs_17 fw_800'>{member.nickname} 님의 댓글 검색</div> */}
             <br />
-            {/* 검색창 */}
             <Input
                 id="search"
                 type="text"
@@ -141,23 +147,31 @@ const MemberComments = () => {
                         <SearchIcon />
                     </InputAdornment>
                 }
-            /><br /><br />
+            />
+            <br /><br />
             <div className="fs_17 fw_800">
                 <span className="col_blue2">{member.nickname}</span> 님의 댓글 목록
             </div>
-            {currentItems.map((item, index) => (
-                <div key={index} className="bg_gray bor_gray1 px-3 py-2" style={{ borderRadius: '5px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div>
-                            <span className="fw_600">{item.content}</span>
-                        </div>
-                        <button onClick={() => deleteComment(item.commentcode)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-                            삭제
-                        </button>
-                    </div>
-                    <div className="fs_14">{item.registereddate}</div>
+
+            {filteredComment.length === 0 ? (
+                <div className="fs_14" style={{ marginTop: '10px' }}>
+                    작성한 댓글이 없습니다.
                 </div>
-            ))}
+            ) : (
+                currentItems.map((item, index) => (
+                    <div key={index} className="bg_gray bor_gray1 px-3 py-2">
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div>
+                                <span className="fw_600">{item.content}</span>
+                            </div>
+                            <button onClick={() => deleteComment(item.commentcode)} style={{ background: "none", border: "none", cursor: "pointer", fontSize: "14px", color: 'gray' }}>
+                                삭제
+                            </button>
+                        </div>
+                        <div className="fs_14">{item.registereddate}</div>
+                    </div>
+                ))
+            )}
             {/* Pagination */}
             <div className="justify-content-center d-flex mt-3 qnaPage_btn">
                 <Pagination

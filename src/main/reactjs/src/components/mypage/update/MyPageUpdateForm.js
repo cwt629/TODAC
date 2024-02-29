@@ -143,7 +143,7 @@ const MyPageUpdateForm = () => {
         }
 
         //db에 저장
-        axios.post("/member/insert",{nickname:nickname,userid:storedId,address:address+" "+addressplus,photo:photo})
+        axios.post("/member/insert",{nickname:nickname,userid:storedId,address:address,addressplus:addressplus,photo:photo})
             .then(res=>{
                 //멤버 추가 후 이동할 페이지
                 ReactSwal.fire({
@@ -185,6 +185,7 @@ const MyPageUpdateForm = () => {
                 setAddress(res.data.address);
                 setNickname(res.data.nickname);
                 setPhoto(res.data.photo);
+                setAddressplus(res.data.addressplus);
             })
     }
 

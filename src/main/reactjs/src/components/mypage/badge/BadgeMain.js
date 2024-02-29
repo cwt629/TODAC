@@ -6,21 +6,27 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
+import {getBadgeInfo, getBadgeList} from "../../../utils/badgeInfo";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 
 const BadgeMain = () => {
+    const [badge,setBadge] = useState(getBadgeList());
     const usercode = sessionStorage.getItem("usercode");
     const storedId = sessionStorage.getItem("id");
     const [member, setmember] = useState();
     const [achievelist, setAchievelist] = useState([]);
     const [achievenames, setAchievenames] = useState([]);
+    const ReactSwal = withReactContent(Swal);
     const CURRENT_ROUTES = [
         { name: "내 정보", url: "/user" },
         { name: "내 업적", url: "" },
     ];
 
     // member.registereddate를 Date 객체로 변환
-    const registeredDate = new Date(member.registereddate);
-
+    const registeredDate = new Date(member?.registereddate);
+    // const getBadgeinfo = getBadgeInfo();
     // 년, 월, 일을 가져와서 문자열로 변환
     const year = registeredDate.getFullYear();
     const month = String(registeredDate.getMonth() + 1).padStart(2, "0"); // getMonth()의 반환값은 0부터 시작하므로 +1 해줌
@@ -46,6 +52,39 @@ const BadgeMain = () => {
             setmember(res.data);
         });
     };
+
+    const selectbadge = (item) =>{
+        ReactSwal.fire({
+            showCancelButton:true,
+            html: `<img src="${item.image}"/> <br/><b>${item.name}</b><br/>뱃지를 장착하시겠습니까?`,
+            confirmButtonText: '확인',
+            cancelButtonText: '취소',
+            confirmButtonColor: '#FF7170'
+        }).then((res)=>{
+            if(res.isConfirmed)
+            {
+                axios.post("/equipbadge", {mybadge : item.name, userid : storedId})
+                    .then(res => {
+                    })
+            }
+        })
+    }
+    const selectbadge2 = (image,name) =>{
+        ReactSwal.fire({
+            showCancelButton:'true',
+            html: `<img src="${image}"/> <br/><b>뉴비</b><br/> 뱃지를 장착하시겠습니까?`,
+            confirmButtonText: '확인',
+            cancelButtonText: '취소',
+            confirmButtonColor: '#FF7170'
+        }).then((res)=>{
+            if(res.isConfirmed)
+            {
+                axios.post("/equipbadge", {mybadge : name, userid : storedId})
+                    .then(res => {
+                    })
+            }
+        })
+    }
 
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -79,136 +118,41 @@ const BadgeMain = () => {
                             <Item>
                                 {
                                     <>
-                                        <img alt='' src={require("../../../image/badge/newbie.png")} />
+                                        <img alt='' src="https://kr.object.ncloudstorage.com/guest-hch/TODAC/badge/newbie.png"
+                                             onClick={()=> selectbadge2("https://kr.object.ncloudstorage.com/guest-hch/TODAC/badge/newbie.png","뉴비")}/>
                                         <div className='fw_900'>뉴비</div>
                                         <div className='fs_14'>토닥 첫 로그인</div>
                                         <hr />
-                                        <div>{formattedDate}</div>
+                                        <div className="fw_600">{formattedDate}</div>
                                     </>
                                 }
                             </Item>
                         </Grid>
-                        <Grid xs={6}>
-                            <Item>
-                                {achievenames.includes("떠오르는 샛별") ? (
-                                    <>
-                                        <img alt='' src={require("../../../image/badge/stars.png")} />
-                                        <div className='fw_900'>떠오르는 샛별</div>
-                                        <div className='fs_14'>게시글 5개 작성</div>
-                                        <hr />
-                                        <div>{getAchievementDate("떠오르는 샛별")}</div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <img alt='' src={require("../../../image/badge/stars.png")} className='gray' />
-                                        <div className='fw_900'>떠오르는 샛별</div>
-                                        <div className='fs_14'>게시글 5개 작성</div>
-                                        <hr />
-                                        <div style={{ color: "red" }}>미획득</div>
-                                    </>
-                                )}
-                            </Item>
-                        </Grid>
-                        <Grid xs={6}>
-                            <Item>
-                                {achievenames.includes("고인물") ? (
-                                    <>
-                                        <img alt='' src={require("../../../image/badge/boardking.png")} />
-                                        <div className='fw_900'>고인물</div>
-                                        <div className='fs_14'>게시글 100개 작성</div>
-                                        <hr />
-                                        <div>{getAchievementDate("고인물")}</div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <img
-                                            alt=''
-                                            src={require("../../../image/badge/boardking.png")}
-                                            className='gray'
-                                        />
-                                        <div className='fw_900'>고인물</div>
-                                        <div className='fs_14'>게시글 100개 작성</div>
-                                        <hr />
-                                        <div style={{ color: "red" }}>미획득</div>
-                                    </>
-                                )}
-                            </Item>
-                        </Grid>
-                        <Grid xs={6}>
-                            <Item>
-                                {achievenames.includes("기부자") ? (
-                                    <>
-                                        <img alt='' src={require("../../../image/badge/donation.png")} />
-                                        <div className='fw_900'>기부자</div>
-                                        <div className='fs_14'>후원하기</div>
-                                        <hr />
-                                        <div>{getAchievementDate("기부자")}</div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <img
-                                            alt=''
-                                            src={require("../../../image/badge/donation.png")}
-                                            className='gray'
-                                        />
-                                        <div className='fw_900'>기부자</div>
-                                        <div className='fs_14'>후원하기</div>
-                                        <hr />
-                                        <div style={{ color: "red" }}>미획득</div>
-                                    </>
-                                )}
-                            </Item>
-                        </Grid>
-                        <Grid xs={6}>
-                            <Item>
-                                {achievenames.includes("프로웃음러") ? (
-                                    <>
-                                        <img alt='' src={require("../../../image/badge/smileking.png")} />
-                                        <div className='fw_900'>떠오르는 샛별</div>
-                                        <div className='fs_14'>오늘의 미소 800점</div>
-                                        <hr />
-                                        <div>{getAchievementDate("프로웃음러")}</div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <img
-                                            alt=''
-                                            src={require("../../../image/badge/smileking.png")}
-                                            className='gray'
-                                        />
-                                        <div className='fw_900'>프로웃음러</div>
-                                        <div className='fs_14'>오늘의 미소 800점</div>
-                                        <hr />
-                                        <div style={{ color: "red" }}>미획득</div>
-                                    </>
-                                )}
-                            </Item>
-                        </Grid>
-                        <Grid xs={6}>
-                            <Item>
-                                {achievenames.includes("후원왕") ? (
-                                    <>
-                                        <img alt='' src={require("../../../image/badge/contributor.png")} />
-                                        <div className='fw_900'>후원왕</div>
-                                        <div className='fs_14'>후원의 전당 입성</div>
-                                        <hr />
-                                        <div>{getAchievementDate("고인물")}</div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <img
-                                            alt=''
-                                            src={require("../../../image/badge/contributor.png")}
-                                            className='gray'
-                                        />
-                                        <div className='fw_900'>후원왕</div>
-                                        <div className='fs_14'>후원의 전당 입성</div>
-                                        <hr />
-                                        <div style={{ color: "red" }}>미획득</div>
-                                    </>
-                                )}
-                            </Item>
-                        </Grid>
+                        {badge.map((item,index)=>(
+                            <Grid xs={6}>
+                               <Item>
+                                    {achievenames.includes(item.name) ? (
+                                        <>
+                                            <img alt='' src={item.image}
+                                            onClick={()=> selectbadge(item)}/>
+                                            <div className='fw_900'>{item.name}</div>
+                                            <div className='fs_14'>{item.description}</div>
+                                            <hr />
+                                            <div className='fw_600'>{getAchievementDate(item.name)}</div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <img alt='' src={item.image} className="gray"/>
+                                            <div className='fw_900'>{item.name}</div>
+                                            <div className='fs_14'>{item.description}</div>
+                                            <hr />
+                                            <div style={{color: "red"}}>미획득</div>
+                                        </>
+                                    )}
+                               </Item>
+                            </Grid>
+                                ))
+                        }
                     </Grid>
                 </Box>
             </div>

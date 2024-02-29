@@ -11,7 +11,7 @@
     --bs-accordion-border-radius: 0;
     --bs-accordion-inner-border-radius: 0;
     --bs-accordion-btn-padding-x: 1rem;
-    --bs-accordion-btn-padding-y: 1.5rem;
+    --bs-accordion-btn-padding-y: 1rem;
     --bs-accordion-btn-color: var(--mainblack);
     --bs-accordion-btn-bg: var(--bs-accordion-bg);
     --bs-accordion-btn-icon: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e);
@@ -31,8 +31,8 @@
     color: var(--deepblue) !important;
 }
 
-.accordion-button>span{
-    font-size: 18px;
+.accordion-button>span {
+    font-size: 16px;
     font-weight: 600;
 }
 
@@ -44,7 +44,7 @@
     font-size: 1em;
     height: auto;
     background-color: #E7EDF7;
-    background-image: url('../../image/ico_babytodac2.png');
+    background-image: url('../../image/ico_babytodac4.png');
     background-size: 120px;
     background-repeat: no-repeat;
     background-position: right bottom 15px;
@@ -120,7 +120,7 @@
 }
 
 .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected:hover {
-    background-color:  #BAD1E6 !important;
+    background-color: #BAD1E6 !important;
 }
 
 .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root:hover {
@@ -132,7 +132,7 @@
     font-weight: 600;
 }
 
-.inquiryhistory_bg{
+.inquiryhistory_bg {
     border: none;
     border-radius: 5px;
     background-color: #D4E4F2;
@@ -141,9 +141,8 @@
     color: var(--deepblue);
     padding: 6px 10px;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
-.mr_10{
+.mr_10 {
     margin-right: 10px;
 }

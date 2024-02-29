@@ -45,6 +45,9 @@ public class MemberDto {
     @Column(length = 100)
     private String address;
 
+    @Column(length = 100)
+    private String addressplus;
+
     @ColumnDefault("뉴비")
     private String mybadge;
 

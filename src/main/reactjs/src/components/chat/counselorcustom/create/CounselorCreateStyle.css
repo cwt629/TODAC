@@ -1,11 +1,25 @@
 table.counselor-create {
     width: 100%;
-    /* max-width: 400px; */
+    border: 1px solid #eeeeff;
+    border-collapse: collapse;
+}
+
+table.counselor-create td {
+    border: 1px solid #eeeeff;
+    padding: 10px;
+}
+
+table.counselor-create td.tablehead {
+    font-weight: bold;
 }
 
 table.counselor-create .explain {
     font-size: 0.9em;
     opacity: 0.9;
+}
+
+table.counselor-create textarea {
+    resize: vertical;
 }
 
 div.custom-btn-outer {
