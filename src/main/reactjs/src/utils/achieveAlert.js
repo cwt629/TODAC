@@ -10,11 +10,12 @@ export async function popupAchievement(badgename = "") {
 
     // 해당 정보가 없는 경우
     if (badgeInfo.image.length === 0) {
+        await ReactSwal.fire("왜 안되냐 이거");
         return;
     }
 
     // 뱃지 Swal창 띄우기
-    ReactSwal.fire({
+    await ReactSwal.fire({
         html: <AchievementContent badgeInfo={badgeInfo} />,
         confirmButtonColor: '#5279FD',
         confirmButtonText: '확인'
@@ -24,7 +25,7 @@ export async function popupAchievement(badgename = "") {
 const AchievementContent = ({ badgeInfo }) => {
     return (
         <div>
-            <img alt={badgeInfo.name} src={badgeInfo.image} style={{ width: '100px', height: 'auto' }} />
+            <img alt={badgeInfo.name} src={badgeInfo.image} style={{ maxWidth: '100px' }} />
             <br /><br />
             <div className="fw_600 fs_24">축하드립니다!</div>
             <br />
