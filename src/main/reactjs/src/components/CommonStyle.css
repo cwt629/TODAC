@@ -19,6 +19,7 @@ body * {
     --lightgray2: #dddfea;
     --bggray: #f2f5fa;
     --skyblue: #69caf7;
+    --cobaltblue: #B8D0FA;
 }
 
 body {
@@ -312,6 +313,14 @@ a {
 
 .mt_45 {
     margin-top: 45px;
+}
+
+.mt_60 {
+    margin-top: 60px;
+}
+
+.mt_80 {
+    margin-top: 80px;
 }
 
 .mt_100p {
@@ -760,6 +769,8 @@ button.deepblue {
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
         rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    /* 애니메이션 적용 시도 */
+    transition: transform 0.1s ease;
 }
 
 button.lightblue {
@@ -780,6 +791,8 @@ button.lightblue {
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
         rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    /* 애니메이션 적용 시도 */
+    transition: transform 0.1s ease;
 }
 
 button.white {
@@ -800,6 +813,16 @@ button.white {
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
         rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    /* 애니메이션 적용 시도 */
+    transition: transform 0.1s ease;
+}
+
+button.pressable:active {
+    /* 클릭 시 아래로 2px 이동하는 효과 */
+    transform: translateY(2px);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+        /* 클릭 시 그림자 강조 */
+        0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 button.short {
@@ -808,4 +831,12 @@ button.short {
 
 button.long {
     padding: 6px 30px;
+}
+
+/*입력창 common style*/
+/*height랑 width는 각자 조정해서 스타일하는 쪽이 더 좋아서 안 넣었슴다^^*/
+.input_text {
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    background-color: var(--bggray);
+    outline-color: var(--deepblue);
 }

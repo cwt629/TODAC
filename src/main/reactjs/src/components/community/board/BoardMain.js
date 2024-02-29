@@ -171,7 +171,7 @@ const BoardMain = () => {
                 >
                     <InputBase
                         type='text'
-                        placeholder='검색어를 입력해 주세요.'
+                        placeholder='제목을 입력해 주세요.'
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         onKeyDown={(e) => {
@@ -208,10 +208,10 @@ const BoardMain = () => {
                 </Fab>
             </div>
 
-            <div className='mt-1'>
+            <div className='mt-1' style={{ marginBottom: "10px" }}>
                 {filteredList.length === 0 ? (
                     <Typography className='no_result' variant='h6' color='textSecondary'>
-                        <h1 style={{ color: "#69caf7" }}>"{search}"</h1>
+                        <h1 style={{ color: "#5279FD" }}>"{search}"</h1>
                         <h1>에 대한 검색 결과가 없습니다.</h1>
                         <br />
                         다른 검색어를 입력하시거나

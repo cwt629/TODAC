@@ -42,7 +42,7 @@ const DonationMain = () => {
                 <DonationMainContent />
 
                 {top3.map((item, index) => (
-                    <div
+                    <div key={index}
                         className='mt_10 align-items-center'
                         style={{ display: "flex", position: "relative", justifyContent: "space-between" }}
                     >

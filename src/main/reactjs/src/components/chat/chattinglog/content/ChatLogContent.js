@@ -3,7 +3,7 @@ import defaultProfilePhoto from '../../../../image/default_profile_photo_blue.jp
 
 const ChatLogContent = ({ log }) => {
     return (
-        <div className='chatcontent fs_14 bor_red bg_red mt_10'>
+        <div className='chatcontent fs_14 mt_10'>
             {
                 log &&
                 log.map((data, index) => {

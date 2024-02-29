@@ -72,7 +72,7 @@ const BoardRowItem = ({ idx, data }) => {
                                                 <span style={{ marginLeft: "6px" }}>{data.nickname}</span>
                                             </div>
 
-                                            <div style={{ position: "relative", top: "1.5px" }}>
+                                            <div style={{ position: "relative", top: "-2px" }}>
                                                 <Typography style={{ fontSize: "10px" }}>
                                                     {data.registereddate}
                                                 </Typography>
@@ -81,7 +81,7 @@ const BoardRowItem = ({ idx, data }) => {
                                     </div>
 
                                     <div>
-                                        <Typography style={{ fontSize: "10px", float: "right" }}>
+                                        <Typography style={{ fontSize: "8px", float: "right" }}>
                                             <div className='d-flex'>
                                                 <img
                                                     alt=''
