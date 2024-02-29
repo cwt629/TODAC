@@ -71,13 +71,7 @@ const LoginCallBack = () => {
                     <span>&nbsp;:)</span>
                 </h1>
             ) : (
-                <h1 style={{
-                    color: "#6495ED",
-                    textAlign: "center",
-                    fontSize: "3em",
-                    paddingTop: "200px",
-                    fontWeight: "1000"
-                }}>
+                <h1 className='col_blue2 text-center fs_45 fw_900 login_loading'>
                     처리 중 오류가 발생했습니다.
                 </h1>
             )}

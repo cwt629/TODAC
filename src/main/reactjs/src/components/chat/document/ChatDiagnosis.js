@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import './DocumentStyle.css';
+import counselor from '../../../image/counselor.png';
+import you from '../../../image/you.png';
+import analysis from '../../../image/analysis.png';
+import acting from '../../../image/acting.png';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import summarizeContent from '../api/summarize';
+import PageHeader from '../../PageHeader';
 
 const ChatDiagnosis = () => {
     const [logList, setLogList] = useState([]); // 로그 전체
@@ -16,6 +21,15 @@ const ChatDiagnosis = () => {
     const [diagnosisMessages, setDiagnosisMessages] = useState({ analyzedUserMessage: "", recommendedActivitiesUserMessage: "" });
 
     console.log("roomcode:" + roomcode);
+
+    const CURRENT_ROUTES = [
+        { name: 'TODAC 채팅', url: '/user/chat' },
+        { name: '상담 받기', url: '/user/chat/counsel' },
+        { name: '오늘의 상담 요약', url: '/user/chat/summary' },
+        { name: '나의 진단서', url: '' }
+    ];
+
+    const PAGE_TITLE = "나의 진단서";
 
     // 포인트 사용
     const [donationAmount, setDonationAmount] = useState(500);
@@ -235,29 +249,27 @@ const ChatDiagnosis = () => {
 
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/user/chat" className='col_blue2'>TODAC 채팅 {'>'} </Link>
-                <Link to="/user/chat/counsel" className='col_blue2'>상담 받기 {'>'} </Link>
-                <Link to="/user/chat/summary" className='col_blue2'>요약 {'>'}</Link>
-                <Link to="/user/chat/diagnosis" className='col_blue2'>진단서</Link>
-            </div>
-            <div className='fs_25 fw_700'>나의 진단서</div>
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <div className='diagnosisSummaryContent fs_14 fw_500 mt_10'>
+                <img src={you} alt='You Image' style={{ width: '50px', height: '50px', border: '2px solid #D4E4F2' }} /><br />
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br />
                 {summarizedMessages.summarizedUserMessage}
             </div>
             <br />
             <div className='diagnosisSummaryAnswerContent fs_14 fw_500 mt_10'>
+                <img src={counselor} alt='Counselor Image' style={{ width: '50px', height: '50px', border: '2px solid whitesmoke' }} /><br />
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: 'whitesmoke' }}>상담사의 답변 요약</span><br />
                 {summarizedMessages.summarizedCounselorMessage}
             </div>
             <br />
             <div className='diagnosisPsychology fs_14 fw_500 mt_10'>
+                <img src={analysis} alt='Analysis Image' style={{ width: '50px', height: '50px', border: '2px solid #ccd6f5' }} /><br />
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#ccd6f5' }}>심리 분석</span><br />
                 {diagnosisMessages.analyzedUserMessage?.content}
             </div>
             <br />
             <div className='diagnosisActing fs_14 fw_500 mt_10'>
+                <img src={acting} alt='Acting Image' style={{ width: '50px', height: '50px', border: '2px solid #bfe1ff' }} /><br />
                 <span className='fs_18 fw_700' style={{ borderBottom: 'solid', borderColor: '#bfe1ff' }}>고민이 계속될 땐, 이렇게 해보세요 🤗</span><br />
                 {diagnosisMessages.recommendedActivitiesUserMessage?.content}
             </div>

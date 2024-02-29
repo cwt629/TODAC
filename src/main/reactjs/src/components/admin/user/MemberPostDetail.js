@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import PageHeader from "../../PageHeader";
 
 const MemberPostDetail = () => {
     const nav = useNavigate();
@@ -13,6 +14,20 @@ const MemberPostDetail = () => {
     const [data, setData] = useState([]);
     const [board, setBoard] = useState([]);
     const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/";
+
+    const CURRENT_ROUTES = [
+        { name: '관리자 홈', url: '/admin' },
+        { name: '회원 관리', url: '/admin/MemberManage' },
+        { name: '회원 정보', url: `/admin/MemberManage/MemberProfile?usercode=${usercode}` },
+        { name: '회원 게시글', url: `/admin/MemberManage/MemberProfile/MemberPost?usercode=${usercode}` },
+        { name: '상세', url: `` }
+    ];
+
+    const PAGE_TITLE = (
+        <div>
+            <span className='col_blue2'>{`${member.nickname} `}</span>님의 게시글
+        </div>
+    )
 
     const fetchBoardDetail = (usercode, boardcode) => {
         setLoading(true);
@@ -49,19 +64,7 @@ const MemberPostDetail = () => {
 
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to='/admin' className='col_blue2'>
-                    관리자 홈 {">"}{" "}
-                </Link>
-                <Link to='/admin/MemberManage' className='col_blue2'>
-                    회원 관리 {">"}{" "}
-                </Link>
-                <Link to={`/admin/MemberManage/MemberProfile?usercode=${usercode}`} className='col_blue2'>
-                    회원 정보 {">"}
-                </Link>
-                <span className='col_blue2'>&nbsp;회원 게시글</span>
-            </div>
-            <div className='fs_25 fw_700'><span className='col_blue2'>{member.nickname}</span> 님의 게시글</div>
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <div className="text-center mt_25">
                 {data.photo && <img alt='' src={imageStorage + data.photo} style={{ width: '65%', borderRadius: '10px' }} className="img-fluid" />}
             </div>

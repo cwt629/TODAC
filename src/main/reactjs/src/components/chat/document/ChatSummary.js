@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import diagnosisImg1 from '../../../image/diagnosis1.png';
 import diagnosisImg2 from '../../../image/diagnosis2.png';
+import counselor from '../../../image/counselor.png';
+import info from '../../../image/info.png';
+import you from '../../../image/you.png';
 import './DocumentStyle.css';
 import axios from 'axios';
 import summarizeContent from '../api/summarize';
+import PageHeader from '../../PageHeader';
 
 const ChatSummary = () => {
     const [logList, setLogList] = useState([]);
@@ -18,6 +22,14 @@ const ChatSummary = () => {
     // 포인트 사용
     const [donationAmount, setDonationAmount] = useState(500);
     const usercode = sessionStorage.getItem("usercode");
+
+    const CURRENT_ROUTES = [
+        { name: 'TODAC 채팅', url: '/user/chat' },
+        { name: '상담 받기', url: '/user/chat/counsel' },
+        { name: '오늘의 상담 요약', url: '' }
+    ];
+
+    const PAGE_TITLE = "오늘의 상담 요약";
 
     const pointCheck = () => {
         // 진단서 발급을 시도하기 전에 진단서가 이미 발급되었는지 확인
@@ -37,10 +49,10 @@ const ChatSummary = () => {
             })
     }
 
-    const pointUse = () => {
+    const goDiagnosis = () => {
         Swal.fire({
             title: '진단서 발급',
-            text: '진단서를 발급하시겠습니까?',
+            text: '진단서 페이지로 이동하시겠습니까?',
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#5279FD',
@@ -49,31 +61,48 @@ const ChatSummary = () => {
             cancelButtonText: '아니오'
         }).then((result) => {
             if (result.isConfirmed) {
-                const url = "/payment?amount=" + donationAmount + "&usercode=" + usercode + "&type=진단서 발급";
-                axios.post(url)
-                    .then(res => {
-                        if (res.data === false) {
-                            Swal.fire({
-                                icon: 'warning',
-                                html: '포인트가 부족합니다.',
-                                confirmButtonText: '확인',
-                                confirmButtonColor: '#FF7170'
-                            })
-                        }
-                        else {
-                            Swal.fire({
-                                icon: 'warning',
-                                html: '진단서가 발급되었습니다.',
-                                confirmButtonText: '확인',
-                                confirmButtonColor: '#5279FD'
-                            }).then(() => {
-                                nav('../diagnosis?chatroomcode=' + roomcode);
-                            });
-                        }
-                    })
+                nav('../diagnosis?chatroomcode=' + roomcode);
             }
         });
     }
+
+    // const pointUse = () => {
+    //     Swal.fire({
+    //         title: '진단서 발급',
+    //         text: '진단서를 발급하시겠습니까?',
+    //         icon: 'question',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#5279FD',
+    //         cancelButtonColor: '#FF7170',
+    //         confirmButtonText: '예',
+    //         cancelButtonText: '아니오'
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             const url = "/payment?amount=" + donationAmount + "&usercode=" + usercode + "&type=진단서 발급";
+    //             axios.post(url)
+    //                 .then(res => {
+    //                     if (res.data === false) {
+    //                         Swal.fire({
+    //                             icon: 'warning',
+    //                             html: '포인트가 부족합니다.',
+    //                             confirmButtonText: '확인',
+    //                             confirmButtonColor: '#FF7170'
+    //                         })
+    //                     }
+    //                     else {
+    //                         Swal.fire({
+    //                             icon: 'warning',
+    //                             html: '진단서가 발급되었습니다.',
+    //                             confirmButtonText: '확인',
+    //                             confirmButtonColor: '#5279FD'
+    //                         }).then(() => {
+    //                             nav('../diagnosis?chatroomcode=' + roomcode);
+    //                         });
+    //                     }
+    //                 })
+    //         }
+    //     });
+    // }
 
     const handleInfoClick = () => {
         // sweetalert2 팝업 띄우기
@@ -181,36 +210,31 @@ const ChatSummary = () => {
         // 1. 로그 받아와서 logList에 넣고
         // 2. 새로운 요약을 생성하며 summarizedMessages에 set해주고 해당 요약을 DB에 저장 (밑에 getSummarizedMessages)
 
-        // 이 함수는 말그대로, 지금 만든 요약본을 DB에 집어넣는 작업만 하도록 하자.  
+        // 이 함수는 말그대로, 지금 만든 요약본을 DB에 집어넣는 작업만 하도록 하자.
         checkData();
     }, []);
 
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/user/chat" className='col_blue2'>TODAC 채팅 {'>'} </Link>
-                <Link to="/user/chat/counsel" className='col_blue2'>상담 받기 {'>'} </Link>
-                <Link to="/user/chat/summary" className='col_blue2'>요약</Link>
-            </div>
-            <div className='fs_25 fw_700'>오늘의 상담 요약</div>
+            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <div className='summaryContent fs_14 fw_500 mt_10'>
+                <img src={you} alt='You Image' style={{ width: '50px', height: '50px', border: '2px solid #D4E4F2' }} /><br />
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br />
                 {summarizedMessages.summarizedUserMessage?.content}
             </div>
             <br />
             <div className='summaryAnswerContent fs_14 fw_500 mt_10'>
+                <img src={counselor} alt='Counselor Image' style={{ width: '50px', height: '50px', border: '2px solid whitesmoke' }} /><br />
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: 'whitesmoke' }}>상담사의 답변 요약</span><br />
                 {summarizedMessages.summarizedCounselorMessage?.content}
             </div>
             <br />
-            <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer', float: 'right' }} onClick={handleInfoClick}>ℹ️</span>
-            <br />
-            <div style={{ textAlign: 'center', float: 'clear' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <button className='white long' onClick={() => nav('../../')}>마이 홈 이동하기</button>
-                &nbsp;&nbsp;
-                <button className='deepblue long' onClick={() => {
-                    pointUse();
-                }}>진단서 발급(500P)</button>
+                <div style={{ position: 'relative' }}>
+                    <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer', position: 'absolute', top: 3.5, right: -24 }} onClick={handleInfoClick}><img src={info} alt='Info Image' style={{ width: '20px', height: '20px' }} /></span>
+                    <button className='deepblue long' onClick={goDiagnosis}>진단서 발급(500P)</button>
+                </div>
             </div>
         </div >
     );

@@ -12,6 +12,7 @@ import PageHeader from '../../PageHeader';
 import withReactContent from 'sweetalert2-react-content';
 import ReviewAlert from './ReviewAlert';
 import defaultProfilePhoto from '../../../image/default_profile_photo_blue.jpg';
+import { popupAchievement } from '../../../utils/achieveAlert';
 
 const MAXIMUM_INPUT_LENGTH = 300;
 const MAXIMUM_STARS = 5;
@@ -72,7 +73,7 @@ const ChatRoomMain = () => {
                 title: '초기 데이터 로딩 중!',
                 text: '초기 데이터 로딩 중입니다. 조금만 기다려주세요!',
                 icon: 'error',
-                confirmButtonColor: '#FF7170',
+                confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             });
             return;
@@ -83,7 +84,7 @@ const ChatRoomMain = () => {
                 title: '상담사가 아직 답변중!',
                 text: '상담사가 아직 답변중입니다. 잠시 후 시도해주세요.',
                 icon: 'warning',
-                confirmButtonColor: '#FF7170',
+                confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             });
             return;
@@ -94,9 +95,10 @@ const ChatRoomMain = () => {
                 title: '입력 없음!',
                 text: '메세지를 입력해주세요.',
                 icon: 'error',
-                confirmButtonColor: '#FF7170',
+                confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             });
+
             return;
         }
 
@@ -138,7 +140,7 @@ const ChatRoomMain = () => {
                 icon: 'success',
                 title: `${score >= 0 ? '소중한 리뷰 감사합니다!' : ''}`,
                 html: `채팅 내역${score >= 0 ? '과 별점' : ''}이 저장되었습니다!<br/>요약본 페이지로 이동합니다.`,
-                confirmButtonColor: '#FF7170',
+                confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             }).then(() => {
                 nav("/user/chat/summary?roomcode=" + response.data);
@@ -149,7 +151,7 @@ const ChatRoomMain = () => {
                 icon: 'error',
                 title: '뭔가 문제 발생!',
                 text: `Error: ${err}`,
-                confirmButtonColor: '#FF7170',
+                confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             });
         }
@@ -200,7 +202,7 @@ const ChatRoomMain = () => {
                 title: '답변을 기다려주세요!',
                 html: '아직 상담사가 답변 중이에요!<br/>답변을 기다려 주세요!',
                 confirmButtonText: '확인',
-                confirmButtonColor: '#FF7170'
+                confirmButtonColor: '#5279FD'
             })
 
             return;
@@ -216,15 +218,14 @@ const ChatRoomMain = () => {
                 showCancelButton: true,
                 confirmButtonText: '네',
                 cancelButtonText: '아니오',
-                confirmButtonColor: '#FF7170',
-                cancelButtonColor: '#9396A6'
+                confirmButtonColor: '#5279FD',
             }).then((result) => {
                 if (result.isConfirmed) {
                     ReactSwal.fire({
                         icon: 'success',
                         html: '상담이 종료되었습니다.<br/>채팅 메인 페이지로 돌아갑니다.',
                         confirmButtonText: '확인',
-                        confirmButtonColor: '#FF7170'
+                        confirmButtonColor: '#5279FD'
                     }).then(() => {
                         nav("/user/chat");
                     })
