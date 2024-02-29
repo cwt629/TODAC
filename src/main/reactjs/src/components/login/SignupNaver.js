@@ -18,8 +18,9 @@ const SignupNaver = () => {
         회원가입을 진행해주세요. <br/><br/>
         사진과 닉네임은 회원가입 후 <br/>마이페이지에서 수정 가능합니다.<br/>
         </b>`,
-      confirmButtonColor: '#FF7170',
-      background: '#F9EAEB'
+      confirmButtonColor: '#6495ED',
+      confirmButtonText: '확인',
+      background: 'white'
     });
   },[]);
 
@@ -38,8 +39,8 @@ const SignupNaver = () => {
     border: '1px solid',
     marginTop:"30px", 
     fontWeight:"700",
-    backgroundColor: '#FF7170', // 원하는 색상으로 변경
-    borderColor: '#FF7170', // 원하는 색상으로 변경
+    backgroundColor: '#6495ED', // 원하는 색상으로 변경
+    borderColor: '#6495ED', // 원하는 색상으로 변경
     fontFamily: [
       '-apple-system',
       'BlinkMacSystemFont',
@@ -53,19 +54,19 @@ const SignupNaver = () => {
       '"Segoe UI Symbol"',
     ].join(','),
     '&:hover': {
-      backgroundColor: '#FF5E62', // hover 시 원하는 색상으로 변경
-      borderColor: '#FF5E62', // hover 시 원하는 색상으로 변경
+      backgroundColor: '#6495ED', // hover 시 원하는 색상으로 변경
+      borderColor: '#6495ED', // hover 시 원하는 색상으로 변경
       boxShadow: 'none',
     },
     '&:active': {
       boxShadow: 'none',
-      backgroundColor: '#FF494D', // 클릭 시 원하는 색상으로 변경
-      borderColor: '#FF494D', // 클릭 시 원하는 색상으로 변경
+      backgroundColor: '#6495ED', // 클릭 시 원하는 색상으로 변경
+      borderColor: '#6495ED', // 클릭 시 원하는 색상으로 변경
     },
     '&:focus': {
-      boxShadow: '0 0 0 0.2rem rgba(255,113,112,.5)',
+      boxShadow: '0 0 0 0.2rem #c5d6f5',
     },
-  });
+});
 
   const handleSignup = () => {
     setLoading(true);
@@ -83,8 +84,9 @@ const SignupNaver = () => {
           icon: 'success',
           title: '회원가입 성공',
           text: '회원가입이 성공적으로 완료되었습니다. 다시 로그인 해 주세요.',
-          confirmButtonColor: '#FF7170',
-          background: '#F9EAEB'
+          confirmButtonColor: '#6495ED',
+          confirmButtonText: '확인',
+          background: 'white'
         });
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("id");
@@ -96,8 +98,9 @@ const SignupNaver = () => {
           icon: 'error',
           title: '회원가입 실패',
           text: '회원가입에 실패하였습니다. 다시 시도해주세요.',
-          confirmButtonColor: '#FF7170',
-          background: '#F9EAEB'
+          confirmButtonColor: '#6495ED',
+          confirmButtonText: '확인',
+          background: 'white'
         });
       }
     });
@@ -106,8 +109,7 @@ const SignupNaver = () => {
   return (
     <div className='login_main2'>
       <img alt='back' src={require('../../image/ico_back.png')} onClick={goBack} style={{ cursor: 'pointer' }}/>
-      {/* <ArrowBackIcon onClick={goBack} style={{ cursor: 'pointer' }} /> */}
-      <div className='fs_45 col_red fw_900 text-center mt_80'>
+      <div className='fs_45 col_blue2 fw_900 text-center mt_80'>
         TODAC
       </div>
           <div className='text-center mt_25'>[프로필 사진]</div>
