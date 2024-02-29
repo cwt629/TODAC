@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import './DocumentStyle.css';
+import counselor from '../../../image/counselor.png';
+import you from '../../../image/you.png';
+import analysis from '../../../image/analysis.png';
+import acting from '../../../image/acting.png';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import summarizeContent from '../api/summarize';
@@ -243,21 +247,25 @@ const ChatDiagnosis = () => {
             </div>
             <div className='fs_25 fw_700'>나의 진단서</div>
             <div className='diagnosisSummaryContent fs_14 fw_500 mt_10'>
+                <img src={you} alt='You Image' style={{ width: '50px', height: '50px', border: '2px solid #D4E4F2' }} /><br />
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br />
                 {summarizedMessages.summarizedUserMessage}
             </div>
             <br />
             <div className='diagnosisSummaryAnswerContent fs_14 fw_500 mt_10'>
+                <img src={counselor} alt='Counselor Image' style={{ width: '50px', height: '50px', border: '2px solid whitesmoke' }} /><br />
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: 'whitesmoke' }}>상담사의 답변 요약</span><br />
                 {summarizedMessages.summarizedCounselorMessage}
             </div>
             <br />
             <div className='diagnosisPsychology fs_14 fw_500 mt_10'>
+                <img src={analysis} alt='Analysis Image' style={{ width: '50px', height: '50px', border: '2px solid #ccd6f5' }} /><br />
                 <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#ccd6f5' }}>심리 분석</span><br />
                 {diagnosisMessages.analyzedUserMessage?.content}
             </div>
             <br />
             <div className='diagnosisActing fs_14 fw_500 mt_10'>
+                <img src={acting} alt='Acting Image' style={{ width: '50px', height: '50px', border: '2px solid #bfe1ff' }} /><br />
                 <span className='fs_18 fw_700' style={{ borderBottom: 'solid', borderColor: '#bfe1ff' }}>고민이 계속될 땐, 이렇게 해보세요 🤗</span><br />
                 {diagnosisMessages.recommendedActivitiesUserMessage?.content}
             </div>
