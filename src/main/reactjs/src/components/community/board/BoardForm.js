@@ -1,6 +1,5 @@
 import {
     Avatar,
-    Button,
     CircularProgress,
     List,
     ListItem,
@@ -33,7 +32,7 @@ const BoardForm = () => {
 
     const CURRENT_ROUTES = [
         { name: "커뮤니티", url: "/user/community" },
-        { name: "게시판", url: "/user/community/board" },
+        { name: "게시판", url: "/board" },
         { name: "게시글 등록", url: "/user/community/board/form" },
     ];
 
@@ -69,7 +68,7 @@ const BoardForm = () => {
     // 추가 버튼
     const addDataEvent = async () => {
         const usercode = sessionStorage.getItem("id");
-        if (title === "" || content === "" || counselorcode === "") {
+        if (title === "" || content === "") {
             Swal.fire({
                 title: "입력 없음!",
                 text: "필수 입력값을 입력해주세요.",
@@ -94,19 +93,13 @@ const BoardForm = () => {
                     title: "게시글 작성 완료",
                     text: "게시글이 성공적으로 작성되었습니다.",
                     icon: "success",
-                    confirmButtonColor: "#FF7170",
+                    confirmButtonColor: "#5279FD",
                 });
             })
             .catch((error) => {
                 // 에러 핸들링
                 console.error("Error adding data:", error);
             });
-    };
-
-    // 라디오 버튼 선택 이벤트
-    const onCounselorRadioChange = (value) => {
-        // 라디오 버튼이 선택될 때만 상담사 코드 설정
-        setCounselorCode(value);
     };
 
     return (
@@ -176,7 +169,7 @@ const BoardForm = () => {
                         </div>
                     </div>
 
-                    <div className='mt_10'>
+                    <div className='mt-3'>
                         <TextField
                             label='제목'
                             size='small'
@@ -203,41 +196,11 @@ const BoardForm = () => {
                             }}
                         />
                     </div>
-
-                    <div className='form-group' style={{ marginTop: "10px" }}>
-                        <h6>상담사</h6>
-                        <div style={{ display: "flex" }}>
-                            <List dense sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-                                {Array.from(Array(5).keys()).map((index) => (
-                                    <ListItem key={index} disablePadding>
-                                        <ListItemButton
-                                            role={undefined}
-                                            onClick={() => onCounselorRadioChange(`${index + 1}`)}
-                                            dense
-                                        >
-                                            <ListItemAvatar>
-                                                <Avatar
-                                                    alt={`Avatar n°${index + 1}`}
-                                                    src={`/static/images/avatar/${index + 1}.jpg`}
-                                                />
-                                            </ListItemAvatar>
-                                            <ListItemText primary={`상담사${index + 1}`} />
-                                            <Radio
-                                                edge='end'
-                                                checked={counselorcode === `${index + 1}`}
-                                                tabIndex={-1}
-                                                disableRipple
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-                                ))}
-                            </List>
-                        </div>
+                    <div className='d-flex justify-content-center mt-3'>
+                        <button className='inquiry_btn2' type='button' onClick={addDataEvent}>
+                            작성완료
+                        </button>
                     </div>
-
-                    <button className='inquiry_btn2' type='button' onClick={addDataEvent}>
-                        작성완료
-                    </button>
                 </>
             ) : (
                 // id가 없으면 로그인 페이지로 이동

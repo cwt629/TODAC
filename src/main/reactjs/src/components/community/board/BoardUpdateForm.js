@@ -23,6 +23,7 @@ const BoardUpdateForm = () => {
     const [counselorcode, setCounselorCode] = useState("");
     const [loading, setLoading] = useState(false);
     const navi = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/";
 
     const CURRENT_ROUTES = [
@@ -35,8 +36,13 @@ const BoardUpdateForm = () => {
 
     // 처음 로딩 시 딱 한번 호출
     useEffect(() => {
+        const usercode = sessionStorage.getItem("usercode");
+        // usercode가 있는 경우에만 로그인 상태로 간주
+        setIsLoggedIn(usercode);
+
+        // boardcode로 dto 가져오는 코드
         getSelectData();
-    }, []);
+    }, [boardcode]);
 
     // 파일 업로드 이벤트
     const onUploadEvent = (e) => {
@@ -107,111 +113,133 @@ const BoardUpdateForm = () => {
         <div>
             {selectData && (
                 <div className='form-group mx_30'>
-                    <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+                    {isLoggedIn ? (
+                        <>
+                            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
 
-                    <div className='col-4' style={{ marginTop: "15px", width: "100%", height: "100%" }}>
-                        <div>
-                            {selectData.photo === null ? (
-                                <img
-                                    alt=''
-                                    src={noImage}
-                                    style={{
-                                        width: "100%",
-                                        height: "100%",
-                                        border: "2px solid white",
-                                        borderRadius: "0.8rem",
-                                    }}
-                                />
-                            ) : (
-                                <img
-                                    alt=''
-                                    src={imageStorage + selectData.photo}
-                                    style={{
-                                        width: "100%",
-                                        height: "100%",
-                                        border: "2px solid white",
-                                        borderRadius: "0.8rem",
-                                    }}
-                                />
-                            )}
-                            <img
-                                style={{ width: "40px", height: "40px", position: "absolute", top: "350px", right: "45px" }}
-                                className='img-fluid'
-                                alt='이미지변경'
-                                src={changePhoto}
-                                onClick={() => document.getElementById("fileInput").click()}
-                            />
-                            <div >
-                                <input type='file' id="fileInput" style={{ display:'none'}} onChange={onUploadEvent} />
-                            </div>
-                            {loading && (
-                                <div
-                                    style={{
-                                        position: "relative",
-                                        top: "180px", // 부모 요소의 50% 위치
-                                        left: "43%", // 부모 요소의 50% 위치
-                                        transform: "translate(-50%, -50%)", // 중앙 정렬을 위한 transform
-                                    }}
-                                >
-                                    <CircularProgress size={50} />
+                            <div className='col-4' style={{ marginTop: "15px", width: "100%", height: "100%" }}>
+                                <div>
+                                    {selectData.photo === null ? (
+                                        <img
+                                            alt=''
+                                            src={noImage}
+                                            style={{
+                                                width: "100%",
+                                                height: "100%",
+                                                border: "2px solid white",
+                                                borderRadius: "0.8rem",
+                                            }}
+                                        />
+                                    ) : (
+                                        <img
+                                            alt=''
+                                            src={imageStorage + selectData.photo}
+                                            style={{
+                                                width: "100%",
+                                                height: "100%",
+                                                border: "2px solid white",
+                                                borderRadius: "0.8rem",
+                                            }}
+                                        />
+                                    )}
+                                    <img
+                                        style={{
+                                            width: "40px",
+                                            height: "40px",
+                                            position: "absolute",
+                                            top: "350px",
+                                            right: "45px",
+                                        }}
+                                        className='img-fluid'
+                                        alt='이미지변경'
+                                        src={changePhoto}
+                                        onClick={() => document.getElementById("fileInput").click()}
+                                    />
+                                    <div>
+                                        <input
+                                            type='file'
+                                            id='fileInput'
+                                            style={{ display: "none" }}
+                                            onChange={onUploadEvent}
+                                        />
+                                    </div>
+                                    {loading && (
+                                        <div
+                                            style={{
+                                                position: "relative",
+                                                top: "180px", // 부모 요소의 50% 위치
+                                                left: "43%", // 부모 요소의 50% 위치
+                                                transform: "translate(-50%, -50%)", // 중앙 정렬을 위한 transform
+                                            }}
+                                        >
+                                            <CircularProgress size={50} />
+                                        </div>
+                                    )}
                                 </div>
-                            )}
-                        </div>
-                    </div>
+                            </div>
 
-                    <div className='mt_10'>
-                        <TextField
-                            size='small'
-                            value={selectData.title}
-                            className='bg_gray input_type'
-                            name='title'
-                            style={{ width: "100%" }}
-                            onChange={changeData}
-                        />
-                    </div>
+                            <div className='mt_10'>
+                                <TextField
+                                    size='small'
+                                    value={selectData.title}
+                                    className='bg_gray input_type'
+                                    name='title'
+                                    style={{ width: "100%" }}
+                                    onChange={changeData}
+                                />
+                            </div>
 
-                    <div className='mt-3'>
-                        <TextField
-                            className='bg_gray input_type'
-                            multiline
-                            rows={6}
-                            name='content'
-                            value={selectData.content}
-                            style={{ height: "100%", width: "100%" }}
-                            onChange={changeData}
-                        />
-                    </div>
-                    <div className='form-group' style={{ marginTop: "10px" }}>
-                        <h6>상담사</h6>
-                        <div style={{ display: "flex" }}>
-                            <List dense sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-                                {Array.from(Array(5).keys()).map((index) => (
-                                    <ListItem key={index} disablePadding>
-                                        <ListItemButton role={undefined} onClick={() => handleRadioChange(index)} dense>
-                                            <ListItemAvatar>
-                                                <Avatar
-                                                    alt={`Avatar n°${index + 1}`}
-                                                    src={`/static/images/avatar/${index + 1}.jpg`}
-                                                />
-                                            </ListItemAvatar>
-                                            <ListItemText primary={`상담사${index + 1}`} />
-                                            <Radio
-                                                edge='end'
-                                                checked={selectData.counselorcode === index + 1}
-                                                tabIndex={-1}
-                                                disableRipple
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-                                ))}
-                            </List>
-                        </div>
-                    </div>
-                    <div className="d-flex justify-content-center">
-                    <button className="inquiry_btn2" onClick={updateDataEvent} >
-                        수정
-                    </button>
-                    </div>
+                            <div className='mt-3'>
+                                <TextField
+                                    className='bg_gray input_type'
+                                    multiline
+                                    rows={6}
+                                    name='content'
+                                    value={selectData.content}
+                                    style={{ height: "100%", width: "100%" }}
+                                    onChange={changeData}
+                                />
+                            </div>
+                            <div className='form-group' style={{ marginTop: "10px" }}>
+                                <h6>상담사</h6>
+                                <div style={{ display: "flex" }}>
+                                    <List dense sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+                                        {Array.from(Array(5).keys()).map((index) => (
+                                            <ListItem key={index} disablePadding>
+                                                <ListItemButton
+                                                    role={undefined}
+                                                    onClick={() => handleRadioChange(index)}
+                                                    dense
+                                                >
+                                                    <ListItemAvatar>
+                                                        <Avatar
+                                                            alt={`Avatar n°${index + 1}`}
+                                                            src={`/static/images/avatar/${index + 1}.jpg`}
+                                                        />
+                                                    </ListItemAvatar>
+                                                    <ListItemText primary={`상담사${index + 1}`} />
+                                                    <Radio
+                                                        edge='end'
+                                                        checked={selectData.counselorcode === index + 1}
+                                                        tabIndex={-1}
+                                                        disableRipple
+                                                    />
+                                                </ListItemButton>
+                                            </ListItem>
+                                        ))}
+                                    </List>
+                                </div>
+                            </div>
+                            <div className='d-flex justify-content-center'>
+                                <button className='inquiry_btn2' onClick={updateDataEvent}>
+                                    수정
+                                </button>
+                            </div>
+                        </>
+                    ) : (
+                        // id가 없으면 로그인 페이지로 이동
+                        navi("/login")
+                    )}
                 </div>
             )}
         </div>
