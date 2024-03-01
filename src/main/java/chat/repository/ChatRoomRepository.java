@@ -27,7 +27,7 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoomDto, Short> {
 			LEFT JOIN 
 			    chatdiagnosis d ON r.chatroomcode = d.chatroomcode
 			where r.usercode = :usercode
-			
+			ORDER BY date DESC
 			""", nativeQuery = true)
 	public List<ChatListInterface> getChatroomsOfMember(@Param("usercode") int usercode);
 	

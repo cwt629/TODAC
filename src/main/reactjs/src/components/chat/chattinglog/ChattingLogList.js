@@ -10,7 +10,7 @@ const ChattingLogList = () => {
     const DISPLAY_PER_UNIT = 8;
     const COUNSELOR_DEFAULT_FILTER = "모든 상담사";
 
-    const [dateOrderAsc, setDateOrderAsc] = useState(true); // 날짜에 대해 오름차순이면 true, 내림차순이면 false
+    const [dateOrderAsc, setDateOrderAsc] = useState(false); // 날짜에 대해 오름차순이면 true, 내림차순이면 false
     const [counselor, setCounselor] = useState(COUNSELOR_DEFAULT_FILTER);
     const [counselorFilters, setCounselorFilters] = useState([COUNSELOR_DEFAULT_FILTER]);
     const [list, setList] = useState([]); // 초기에 받아오는 전체 데이터

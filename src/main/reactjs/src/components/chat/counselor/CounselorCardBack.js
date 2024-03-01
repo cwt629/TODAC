@@ -1,7 +1,7 @@
 import React from 'react';
 import defaultPhoto from '../../../image/default_profile_photo_blue.jpg';
 import starIcon from '../../../image/rotating_star.gif';
-import { HighlightOffRounded, PersonRemoveAlt1TwoTone } from '@mui/icons-material';
+import { HighlightOffRounded } from '@mui/icons-material';
 
 const STORAGE_PHOTO_BASE = 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/counselors/';
 
