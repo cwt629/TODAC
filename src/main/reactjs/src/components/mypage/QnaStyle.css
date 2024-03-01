@@ -50,7 +50,7 @@
     background-position: right bottom 15px;
     overflow-y: auto;
     padding-right: 110px;
-    border-top: 1px solid var(--deepblue);
+    border-top: 1px solid #6c757d33;
 }
 
 .faq .accordion-header{
