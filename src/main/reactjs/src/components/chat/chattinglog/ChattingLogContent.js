@@ -30,7 +30,7 @@ const ChattingLogContent = () => {
     }, []);
 
     const handleSummaryClick = () => {
-        nav("../summary?roomcode=" + roomcode);
+        nav("../summary?chatroomcode=" + roomcode);
     }
 
     const handleDiagnosisClick = () => {
