@@ -7,8 +7,6 @@ const ChatRoomMidBar = ({ counselorname, handleFinishChat }) => {
             <div>
                 <span className='fs_19 col_blue2'>{counselorname ? counselorname : '어느'}</span> 상담사와 마음 공유중...
             </div>
-            {/* <div className='fw_500 chatbutton chatfinbutton' style={{ float: 'right' }}
-                onClick={handleFinishChat}>종료</div> */}
             <button type='button' className='deepblue'
                 onClick={handleFinishChat}>
                 종료 <ExitToAppRounded />

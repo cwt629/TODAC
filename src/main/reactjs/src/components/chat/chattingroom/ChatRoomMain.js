@@ -8,7 +8,6 @@ import Swal from 'sweetalert2';
 import ChatReviewModal from './ChatReviewModal';
 import axios from 'axios';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import PageHeader from '../../PageHeader';
 import withReactContent from 'sweetalert2-react-content';
 import ReviewAlert from './ReviewAlert';
 import defaultProfilePhoto from '../../../image/default_profile_photo_blue.jpg';
@@ -40,13 +39,6 @@ const ChatRoomMain = () => {
 
     const nav = useNavigate();
 
-    // const CURRENT_ROUTES = [
-    //     { name: 'TODAC 채팅', url: '/user/chat' },
-    //     { name: '상담받기', url: '' }
-    // ];
-
-    // const PAGE_TITLE = 'TODAC 채팅';
-
     // 초기 데이터 로딩
     useEffect(() => {
         axios.get(`/chat/init?counselorcode=${counselorcode}&usercode=${sessionStorage.getItem("usercode")}`)
@@ -76,7 +68,7 @@ const ChatRoomMain = () => {
             ReactSwal.fire({
                 title: '초기 데이터 로딩 중!',
                 text: '초기 데이터 로딩 중입니다. 조금만 기다려주세요!',
-                icon: 'error',
+                icon: 'warning',
                 confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             });
@@ -86,7 +78,7 @@ const ChatRoomMain = () => {
         if (loading) {
             ReactSwal.fire({
                 title: '상담사가 아직 답변중!',
-                text: '상담사가 아직 답변중입니다. 잠시 후 시도해주세요.',
+                html: '상담사가 아직 답변중입니다.<br/>잠시 후 시도해주세요.',
                 icon: 'warning',
                 confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
@@ -244,7 +236,7 @@ const ChatRoomMain = () => {
                 html: '상담한 내역이 없습니다.<br/>이대로 상담을 종료하시겠습니까?',
                 showConfirmButton: true,
                 showCancelButton: true,
-                confirmButtonText: '네',
+                confirmButtonText: '예',
                 cancelButtonText: '아니오',
                 confirmButtonColor: '#5279FD',
             }).then((result) => {

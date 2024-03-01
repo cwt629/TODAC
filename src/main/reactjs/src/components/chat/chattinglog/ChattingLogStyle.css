@@ -45,3 +45,14 @@ button.chat-date span.chat-arrow {
 button.chat-date span.chat-arrow.chat-arrow-down {
     transform: rotate(180deg);
 }
+
+div.chatlog-buttons {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.chatlog-buttons button {
+    margin: 0 5px;
+}
