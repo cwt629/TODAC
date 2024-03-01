@@ -32,7 +32,7 @@ const ChatMain = () => {
             html: (<div>
                 <span className='col_blue2 fs_20 fw_600'>{data.name}</span> 상담사와<br />상담을 시작하시겠습니까?
             </div>),
-            confirmButtonText: '네',
+            confirmButtonText: '예',
             confirmButtonColor: '#5279FD',
             showCancelButton: true,
             cancelButtonText: '아니오'
@@ -45,10 +45,10 @@ const ChatMain = () => {
 
     const handleCounselorDelete = async (data) => {
         const userConfirm = await ReactSwal.fire({
-            icon: 'warning',
+            icon: 'question',
             title: '정말로 삭제하시겠어요?',
             html: <div>삭제된 상담사는 복구할 수 없습니다.<br />정말로 <span className='col_blue2 fs_20 fw_600'>{data.name}</span> 상담사를 삭제할까요?</div>,
-            confirmButtonText: '네',
+            confirmButtonText: '예',
             confirmButtonColor: '#5279FD',
             showCancelButton: true,
             cancelButtonText: '아니오'

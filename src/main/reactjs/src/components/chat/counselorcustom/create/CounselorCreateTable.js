@@ -80,7 +80,7 @@ const CounselorCreateTable = () => {
             title: '상담사 미리보기',
             html: <CounselorPreview data={data} />,
             confirmButtonColor: '#5279FD',
-            confirmButtonText: '확인'
+            confirmButtonText: '닫기'
         })
     }
 
@@ -106,8 +106,6 @@ const CounselorCreateTable = () => {
                 confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             })
-            // 이름에 포커스
-            //inputName.current.focus();
             return;
         }
 
@@ -119,12 +117,11 @@ const CounselorCreateTable = () => {
                 title: '성격 확인!',
                 html: '성격 입력이 정확하지 않으면<br/>적용이 제대로 되지 않을 수 있습니다.<br/>계속하시겠습니까?',
                 confirmButtonColor: '#5279FD',
-                confirmButtonText: '확인',
+                confirmButtonText: '예',
                 showCancelButton: true,
-                cancelButtonText: '취소'
+                cancelButtonText: '아니오'
             });
             if (!userConfirm.isConfirmed) {
-                //inputPersonality.current.focus();
                 return;
             }
         }

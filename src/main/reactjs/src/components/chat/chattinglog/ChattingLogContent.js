@@ -25,7 +25,6 @@ const ChattingLogContent = () => {
     useEffect(() => {
         axios.get("/chat/loginfo?chatroomcode=" + roomcode)
             .then((res) => {
-                console.log(res.data)
                 setInfo(res.data);
             })
     }, []);
