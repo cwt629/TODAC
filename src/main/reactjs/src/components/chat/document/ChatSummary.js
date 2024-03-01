@@ -51,12 +51,11 @@ const ChatSummary = () => {
 
     const goDiagnosis = () => {
         Swal.fire({
-            title: '진단서 발급',
+            title: hasDiagnosis ? '진단서 확인' : '진단서 발급',
             text: '진단서 페이지로 이동하시겠습니까?',
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#5279FD',
-            cancelButtonColor: '#FF7170',
             confirmButtonText: '예',
             cancelButtonText: '아니오'
         }).then((result) => {
