@@ -56,7 +56,6 @@ const ChatDiagnosis = () => {
                         icon: 'question',
                         showCancelButton: true,
                         confirmButtonColor: '#5279FD',
-                        cancelButtonColor: '#FF7170',
                         confirmButtonText: '예',
                         cancelButtonText: '아니오'
                     }).then((result) => {
@@ -68,10 +67,9 @@ const ChatDiagnosis = () => {
                                         // 포인트 부족 시 충전 안내
                                         Swal.fire({
                                             icon: 'warning',
-                                            html: '포인트가 부족합니다. 포인트를 충전하시겠습니까?',
+                                            html: '포인트가 부족합니다.<br>포인트를 충전하시겠습니까?',
                                             showCancelButton: true,
                                             confirmButtonColor: '#5279FD',
-                                            cancelButtonColor: '#FF7170',
                                             confirmButtonText: '예',
                                             cancelButtonText: '아니오'
                                         }).then((result) => {
@@ -86,7 +84,7 @@ const ChatDiagnosis = () => {
                                     else {
                                         // 진단서 발급 완료
                                         Swal.fire({
-                                            icon: 'warning',
+                                            icon: 'success',
                                             html: '진단서가 발급되었습니다.',
                                             confirmButtonText: '확인',
                                             confirmButtonColor: '#5279FD'
