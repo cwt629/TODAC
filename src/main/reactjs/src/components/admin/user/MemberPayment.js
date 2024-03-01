@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Pagination, InputAdornment, IconButton, Input } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import ClearIcon from "@mui/icons-material/Clear";
 import PageHeader from "../../PageHeader";
 
 const MemberPayment = () => {
