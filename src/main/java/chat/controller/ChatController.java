@@ -126,4 +126,12 @@ public class ChatController {
 		
 		return (officialCount >= 6);
 	}
+	
+	// 업적 2: '다섯 번의 토닥' - 채팅 5회 종료
+	@GetMapping("/chat/achieve/fivetodac")
+	public boolean checkAchieveFiveTodac(@RequestParam("usercode") int usercode) {
+		int chatCount = chatService.getChatCountByUser(usercode);
+		
+		return (chatCount >= 5);
+	}
 }

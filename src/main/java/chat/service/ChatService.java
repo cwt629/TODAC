@@ -60,4 +60,8 @@ public class ChatService {
 	public int getOfficialCounselorsCountByUser(int usercode) {
 		return chatDao.getOfficialCounselorsCountByUser(usercode);
 	}
+	
+	public int getChatCountByUser(int usercode) {
+		return chatDao.getChatCountByUser(usercode);
+	}
 }

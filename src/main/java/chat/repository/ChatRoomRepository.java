@@ -59,4 +59,7 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoomDto, Short> {
 			where r.usercode = :usercode and m.type = 'admin';
 			""", nativeQuery = true)
 	public int getOfficialCounselorsCountByUser(@Param("usercode") int usercode);
+	
+	@Query(value = "select count(*) from chatroom where usercode = :usercode", nativeQuery = true)
+	public int getChatCountByUser(@Param("usercode") int usercode);
 }

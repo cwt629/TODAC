@@ -143,15 +143,24 @@ const ChatRoomMain = () => {
             // chatroom 적용 뒤, 업적 처리
 
             // 1. '모두가 나의 파트너': 모든 상담사와 1회 이상 상담
-            let badgeResponse = await axios.get("/chat/achieve/partners?usercode=" + usercode);
-            console.log(badgeResponse);
-            if (badgeResponse.data) {
+            let badgeResponsePartner = await axios.get("/chat/achieve/partners?usercode=" + usercode);
+            if (badgeResponsePartner.data) {
                 // 업적 달성 처리 시도
-                let achieveResult = await axios.post(`/badgeinsert?usercode=${usercode}&achievename=${BADGE_NAME_PARTNERS}`)
-                console.log(achieveResult);
+                let achieveResult = await axios.post(`/badgeinsert?usercode=${usercode}&achievename=${BADGE_NAME_PARTNERS}`);
 
                 if (achieveResult.data) {
                     await popupAchievement(BADGE_NAME_PARTNERS);
+                }
+            }
+
+            // 2. '다섯 번의 토닥': 채팅 5회 이상 종료
+            let badgeResponseFive = await axios.get("/chat/achieve/fivetodac?usercode=" + usercode);
+            if (badgeResponseFive.data) {
+                // 업적 달성 처리 시도
+                let achieveResult = await axios.post(`/badgeinsert?usercode=${usercode}&achievename=${BADGE_NAME_FIVETODAC}`);
+
+                if (achieveResult.data) {
+                    await popupAchievement(BADGE_NAME_FIVETODAC);
                 }
             }
 
