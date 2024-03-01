@@ -49,7 +49,6 @@ const BadgeMain = () => {
     const getmember = () => {
         const url = "/member/info?userid=" + storedId;
         axios.post(url).then((res) => {
-            console.log(res.data);
             setmember(res.data);
             setEquipbadge(res.data.mybadge);
         });
@@ -136,8 +135,8 @@ const BadgeMain = () => {
                             </Item>
                         </Grid>
                         {badge.map((item, index) => (
-                            <Grid xs={6} >
-                                <Item key={index}
+                            <Grid xs={6} key={index} >
+                                <Item 
                                     style={{
                                         border: equipbadge === item.name ? '5px solid transparent' : '',
                                         boxShadow: equipbadge === item.name ? '0px 0px 10px 5px rgba(82, 121, 253, 0.7)' : '',

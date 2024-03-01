@@ -24,7 +24,6 @@ const MypageMain = () => {
 
     useEffect(() => {
         getmember();
-        console.log("storedId:", storedId, ", usercode:", usercode);
         getachievelist();
     }, []);
 
@@ -69,7 +68,7 @@ const MypageMain = () => {
         Swal.fire({
             title: '회원 탈퇴',
             text: '정말로 탈퇴하시겠습니까?',
-            icon: 'warning',
+            icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#FF7170',
             confirmButtonText: '예',
@@ -83,9 +82,10 @@ const MypageMain = () => {
                         // 삭제 후 다시 게시글 목록을 불러옴
                         Swal.fire({
                             title: '탈퇴 완료',
-                            text: '정상적으로 탈퇴되었습니다..',
+                            text: '정상적으로 탈퇴되었습니다...',
                             icon: 'success',
-                            confirmButtonColor: '#FF7170',
+                            confirmButtonText: '확인',
+                            confirmButtonColor: '#5279FD',
                         });
                         //회원 삭제 후 이전 페이지로 이동
                         //세션에서 토큰 제거
@@ -117,12 +117,13 @@ const MypageMain = () => {
                 <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             </div>
             <div className="profile">
-                <img className="profile" alt='' src={member.photo} />
+                <img className="profile" alt='' src={member.photo}
+                style={{borderRadius:"50%"}} />
                 <div className='mt_10 fs_20 fw_700'>{member.nickname}</div>{member.mybadge}
             </div>
             <div className="iconmenu mt-5">
                 <div onClick={() => nav('point')} className="col">
-                    <img alt="" src={require("../../image/mypageIcon/point.png")} />
+                    <img alt="" src={require("../../image/mypageIcon/point.png")}/>
                     <h6><b style={{ color: "#FF7170" }}>{member.point?.toLocaleString()}</b> TP</h6>
                 </div>
                 <div onClick={() => nav('myboard')} className="col">

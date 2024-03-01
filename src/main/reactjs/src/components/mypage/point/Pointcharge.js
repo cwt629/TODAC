@@ -27,16 +27,16 @@ const Pointcharge = () => {
                 setPoint50000={() => setPoint(50000)}
                 setPointAmount={(amount) => setPoint(amount)}
                 point={point} />
-            <div className="mt_25" style={{ textAlign: "center" }}>
-                <input type={"text"} value={point}
-                    onChange={(e) => {
-                        setPoint(e.target.value);
-                    }} />
-                <br />
-                <button onClick={() => nav("/user/point/checkout?price=" + point)}
-                >충전하기
-                </button>
-            </div>
+            {/*<div className="mt_25" style={{ textAlign: "center" }}>*/}
+            {/*    <input type={"text"} value={point}*/}
+            {/*        onChange={(e) => {*/}
+            {/*            setPoint(e.target.value);*/}
+            {/*        }} />*/}
+            {/*    <br />*/}
+            {/*    <button onClick={() => nav("/user/point/checkout?price=" + point)}*/}
+            {/*    >충전하기*/}
+            {/*    </button>*/}
+            {/*</div>*/}
         </div>
     );
 };

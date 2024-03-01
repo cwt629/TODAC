@@ -22,10 +22,10 @@ const Pointcheck = () => {
     const [listDisplay, setListDisplay] = useState([]); // 화면에 보여줄 리스트 배열
     const CURRENT_ROUTES = [
         { name: '내 정보', url: '/user' },
-        { name: '포인트', url: '' }
+        { name: '내 TP', url: '' }
     ];
 
-    const PAGE_TITLE = '내 포인트';
+    const PAGE_TITLE = 'Todac Point';
 
     const handleExpandDisplay = () => {
         setShowLength(showLength + DISPLAY_PER_UNIT);
@@ -111,14 +111,14 @@ const Pointcheck = () => {
                         style={{ color: "#FF7170" }}>{member.point?.toLocaleString()}</span> TP</h4>
                 </div>
 
-                <div className="fs_17 fw_800 mt_25"><span style={{ color: "#5279FD" }}>{member.nickname}</span> 님의 포인트 사용내역</div>
+                <div className="fs_17 fw_800 mt_25"><span style={{ color: "#5279FD" }}>{member.nickname}</span> 님의 TP 사용내역</div>
                 {/*원태형 코드*/}
                 <table className='chatlog-table mt_25'>
                     <thead>
                         <tr>
                             <th style={{ backgroundColor: 'var(--cobaltblue)', width: '10%' }}>번호</th>
                             <th style={{ backgroundColor: 'var(--cobaltblue)', width: '10%' }}>타입</th>
-                            <th style={{ backgroundColor: 'var(--cobaltblue)', width: '40%' }}>포인트</th>
+                            <th style={{ backgroundColor: 'var(--cobaltblue)', width: '40%' }}>Todac Point</th>
                             <th style={{ backgroundColor: 'var(--cobaltblue)', width: '40%' }}>날짜</th>
                         </tr>
                     </thead>
