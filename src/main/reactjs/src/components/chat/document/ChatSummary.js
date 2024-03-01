@@ -261,7 +261,7 @@ const ChatSummary = () => {
                             :
                             <span>
                                 <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer', position: 'absolute', top: 3.5, right: -24 }} onClick={handleInfoClick}><img src={info} alt='Info Image' style={{ width: '20px', height: '20px' }} /></span>
-                                <button className='deepblue long' onClick={goDiagnosis}>진단서 발급(500P)</button>
+                                <button className='deepblue long' onClick={goDiagnosis}>진단서 발급(500TP)</button>
                             </span>
                     }
 
