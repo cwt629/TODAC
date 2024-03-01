@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import PageHeader from '../../PageHeader';
 
 const InquiryDetail = () => {
     const { inquirycode } = useParams();
@@ -29,38 +30,43 @@ const InquiryDetail = () => {
         getSelectQnaData();
     }, []);
 
+    const CURRENT_ROUTES = [
+        { name: "마이 홈", url: "/user" },
+        { name: "나의 문의내역", url: "/user/inquiry" },
+        { name: "1:1 문의답변", url: "" },
+    ];
+    
+    const PAGE_TITLE = "1:1 문의답변";
+
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14 col_blue2'>
-                <Link to="/user">마이 홈 {'>'} </Link>
-                <Link to="/user/inquiry">1:1 문의 {'>'} </Link>
-                <Link to="/user/inquiry/detail/:inquirycode">1:1 문의 답변</Link>
+            <div>
+                <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             </div>
-            <div className='fs_25 fw_700'>1:1 문의 답변</div>
 
-            <div className='mt_45'>
+            <div className='mt_25'>
                 <div className='fs_18 fw_700'>
                     Q. {selectQnaData.title}
                 </div>
-                <div className='mt_10 bg_blue3 bor_blue3 br_5 p-2' style={{height:"200px"}}>
+                <div className='mt_10 bg_blue3 bor_blue3 br_5 p-2' style={{minHeight:"150px"}}>
                     {selectQnaData.inquiry}
                 </div>
             </div>
 
             <div className='mt_25'>
                 <div className='fs_18 fw_700'>
-                    A. 문의 답변 
+                    A. 문의 답변&nbsp;{selectQnaData.answereddate && <span className='fs_14 fw_600'>({selectQnaData.answereddate})</span>}
                 </div>
-                <div className='mt_10 bg_blue3 bor_blue3 br_5 p-2' style={{height:"200px"}}>
+                <div className='mt_10 bg_blue3 bor_blue3 br_5 p-2' style={{minHeight:"150px"}}>
                     {selectQnaData.answer ? selectQnaData.answer : '아직 답변이 달리지 않았습니다.'}
                 </div>
             </div>
 
-            <div className='d-flex mt_45 inquiry_btn justify-content-evenly'>
-                    <button type='button' onClick={() => nav('../')}>
+            <div className='d-flex mt_45 justify-content-evenly'>
+                    <button className='lightblue long' type='button' onClick={() => nav('../')}>
                         문의  목록으로
                     </button>
-                    <button type='button' onClick={() => nav('../form')}>
+                    <button className='deepblue long' type='button' onClick={() => nav('../form')}>
                         문의 다시하기
                     </button> 
             </div>

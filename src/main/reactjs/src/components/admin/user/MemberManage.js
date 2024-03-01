@@ -101,10 +101,11 @@ const MemberManage = () => {
                 }
             />
             <br /><br />
-            <div className='input-group' style={{ marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div className='input-group' style={{ marginBottom: '10px', marginLeft: '1px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <h6 className='fs_16 fw_800' style={{ marginTop: 'auto' }}>회원 목록</h6>
-                <ViewListFilter dateOrderAsc={dateOrderAsc} handleDateOrderClick={handleDateOrderClick} style={{ marginTop: '-5px' }} />
+                <ViewListFilter dateOrderAsc={dateOrderAsc} handleDateOrderClick={handleDateOrderClick} style={{ marginTop: '-5px', marginRight: '10px' }} />
             </div>
+
             <table className='table'>
                 <thead>
                     <tr>
