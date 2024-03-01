@@ -163,7 +163,7 @@ const ChatRoomMain = () => {
                 confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             }).then(() => {
-                nav("/user/chat/summary?roomcode=" + response.data);
+                nav("/user/chat/summary?chatroomcode=" + response.data);
             })
 
         } catch (err) {
