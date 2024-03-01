@@ -18,6 +18,10 @@ const MemberPayment = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(4);
 
+    //시작일과 종료일을 관리하는 state
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+
     const CURRENT_ROUTES = [
         { name: '관리자 홈', url: '/admin' },
         { name: '회원 관리', url: '/admin/MemberManage' },
@@ -29,9 +33,10 @@ const MemberPayment = () => {
     useEffect(() => {
         if (usercode) {
             getMember(usercode);
-            fetchPay(usercode);
+            // 기간 내 결제내역을 불러오도록 수정
+            fetchPay(usercode, startDate, endDate);
         }
-    }, [usercode]);
+    }, [usercode, startDate, endDate]);
 
     const getMember = () => {
         const url = "/member/data?usercode=" + usercode;
@@ -40,42 +45,43 @@ const MemberPayment = () => {
         });
     };
 
-    const fetchPay = (usercode) => {
+    const fetchPay = async (usercode, startDate, endDate) => {
         setLoading(true);
-        axios
-            .post(`/admin/payment?usercode=${usercode}`)
-            .then((res) => {
-                // '충전'인 항목만 필터링
-                const chargeItems = res.data.filter((item) => item.type === "충전");
+        let url = `/admin/payment?usercode=${usercode}`;
 
-                // 날짜를 내림차순으로 정렬
-                const sortedChargeItems = chargeItems.sort((a, b) => {
-                    return new Date(b.applieddate) - new Date(a.applieddate);
-                });
+        if (startDate && endDate) {
+            url += `&startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`;
+        }
 
-                setPay(sortedChargeItems);
-            })
-            .catch((error) => {
-                console.error("결제내역을 불러오는 중 오류 발생:", error);
-            })
-            .finally(() => {
-                setLoading(false);
+        try {
+            const res = await axios.post(url);
+            const chargeItems = res.data.filter((item) => item.type === "충전");
+            const sortedChargeItems = chargeItems.sort((a, b) => {
+                return new Date(b.applieddate) - new Date(a.applieddate);
             });
+
+            setPay(sortedChargeItems);
+        } catch (error) {
+            console.error("결제내역을 불러오는 중 오류 발생:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handlePageChange = (event, value) => {
         setCurrentPage(value);
     };
+    // 기간에 해당하는 결제 내역만을 필터링한 배열을 계산
+    const filteredPay = pay.filter(item => {
+        return (!startDate || new Date(item.applieddate) >= startDate) &&
+            (!endDate || new Date(item.applieddate) <= endDate);
+    });
 
-    // 검색어와 일치하는 결제내역만 필터링
-    const filteredPay = pay.filter((item) => item.applieddate.includes(searchQuery) && item.type === "충전");
-
-    // 페이징을 위한 계산
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = filteredPay.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(filteredPay.length / itemsPerPage);
 
+    const totalPages = Math.ceil(filteredPay.length / itemsPerPage);
     return (
         <div className='mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
@@ -86,38 +92,32 @@ const MemberPayment = () => {
                 </div>
             </div>
             <br />
-            <Input
-                id='search'
-                type='text'
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder='검색할 날짜를 입력해주세요'
-                className='form-control mb-3 fs_16 fw_800'
-                style={{
-                    height: "40px",
-                    padding: "8px",
-                    borderBottom: "1px solid #D4E4F2",
-                    borderRadius: "0",
-                    border: "none",
-                }}
-                startAdornment={
-                    <>
-                        {searchQuery && (
-                            <InputAdornment position='start'>
-                                <IconButton onClick={() => setSearchQuery("")}>
-                                    <ClearIcon />
-                                </IconButton>
-                            </InputAdornment>
-                        )}
-                    </>
-                }
-                endAdornment={
-                    <InputAdornment position='end'>
-                        <SearchIcon />
-                    </InputAdornment>
-                }
-            />
-            <br /><br />
+            <div style={{ margin: '20px 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                {/* 시작일 입력 필드 */}
+                <Input
+                    type='date'
+                    value={startDate ? startDate.toISOString().split('T')[0] : ''}
+                    onChange={(e) => setStartDate(new Date(e.target.value))}
+                    startAdornment={
+                        <InputAdornment position='start'>
+                            <span className='mobile-label'>시작일</span>
+                        </InputAdornment>
+                    }
+                    style={{ marginBottom: '10px', width: '80%' }}
+                />
+                {/* 종료일 입력 필드 */}
+                <Input
+                    type='date'
+                    value={endDate ? endDate.toISOString().split('T')[0] : ''}
+                    onChange={(e) => setEndDate(new Date(e.target.value))}
+                    startAdornment={
+                        <InputAdornment position='start'>
+                            <span className='mobile-label'>종료일</span>
+                        </InputAdornment>
+                    }
+                    style={{ marginBottom: '20px', width: '80%' }}
+                />
+            </div>
             <div className='fs_17 fw_800'>
                 <span className='col_blue2'>{member.nickname}</span> 님의 결제 내역
             </div>
