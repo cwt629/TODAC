@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import './DocumentStyle.css';
+import Swal from 'sweetalert2';
 import counselor from '../../../image/counselor.png';
 import you from '../../../image/you.png';
 import analysis from '../../../image/analysis.png';
 import acting from '../../../image/acting.png';
+import './DocumentStyle.css';
 import axios from 'axios';
-import Swal from 'sweetalert2';
 import summarizeContent from '../api/summarize';
 import PageHeader from '../../PageHeader';
 
@@ -247,34 +247,65 @@ const ChatDiagnosis = () => {
         checkData();
     }, []);
 
+    // 클릭 이벤트 처리 함수
+    const handleFlip = (e) => {
+        // 현재 클릭된 요소의 부모에 clicked 클래스를 추가하여 효과 적용
+        e.currentTarget.parentElement.classList.toggle('clicked');
+    };
+
     return (
         <div className='mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <div className='diagnosisSummaryContent fs_14 fw_500 mt_10'>
-                <img src={you} alt='You Image' style={{ width: '50px', height: '50px', border: '2px solid #D4E4F2' }} /><br />
-                <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br />
-                {summarizedMessages.summarizedUserMessage}
+
+            <div className='flip-container mx_30 mt_25'>
+                <div className='diagnosisSummaryContent fs_14 fw_500 mt_10 flipper' onClick={handleFlip}>
+                    <div className='front'>
+                        <img src={you} alt='You Image' />
+                    </div>
+                    <div className='back'>
+                        <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br /><br />
+                        <div style={{ height: '175px', overflowY: 'auto' }}>{summarizedMessages.summarizedUserMessage}</div>
+                    </div>
+                </div>
             </div>
             <br />
-            <div className='diagnosisSummaryAnswerContent fs_14 fw_500 mt_10'>
-                <img src={counselor} alt='Counselor Image' style={{ width: '50px', height: '50px', border: '2px solid whitesmoke' }} /><br />
-                <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: 'whitesmoke' }}>상담사의 답변 요약</span><br />
-                {summarizedMessages.summarizedCounselorMessage}
+            <div className='flip-container mx_30 mt_10'>
+                <div className='diagnosisSummaryAnswerContent fs_14 fw_500 mt_10 flipper' onClick={handleFlip}>
+                    <div className='front'>
+                        <img src={counselor} alt='Counselor Image' />
+                    </div>
+                    <div className='back'>
+                        <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: 'whitesmoke' }}>상담사의 답변 요약</span><br /><br />
+                        <div style={{ height: '175px', overflowY: 'auto' }}>{summarizedMessages.summarizedCounselorMessage}</div>
+                    </div>
+                </div>
             </div>
             <br />
-            <div className='diagnosisPsychology fs_14 fw_500 mt_10'>
-                <img src={analysis} alt='Analysis Image' style={{ width: '50px', height: '50px', border: '2px solid #ccd6f5' }} /><br />
-                <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#ccd6f5' }}>심리 분석</span><br />
-                {diagnosisMessages.analyzedUserMessage?.content}
+            <div className='flip-container mx_30 mt_10'>
+                <div className='diagnosisPsychology fs_14 fw_500 mt_10 flipper' onClick={handleFlip}>
+                    <div className='front'>
+                        <img src={analysis} alt='Analysis Image' />
+                    </div>
+                    <div className='back'>
+                        <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#ccd6f5' }}>심리 분석</span><br /><br />
+                        <div style={{ height: '175px', overflowY: 'auto' }}>{diagnosisMessages.analyzedUserMessage?.content}</div>
+                    </div>
+                </div>
             </div>
             <br />
-            <div className='diagnosisActing fs_14 fw_500 mt_10'>
-                <img src={acting} alt='Acting Image' style={{ width: '50px', height: '50px', border: '2px solid #bfe1ff' }} /><br />
-                <span className='fs_18 fw_700' style={{ borderBottom: 'solid', borderColor: '#bfe1ff' }}>고민이 계속될 땐, 이렇게 해보세요 🤗</span><br />
-                {diagnosisMessages.recommendedActivitiesUserMessage?.content}
+            <div className='flip-container mx_30 mt_10'>
+                <div className='diagnosisActing fs_14 fw_500 mt_10 flipper' onClick={handleFlip}>
+                    <div className='front'>
+                        <img src={acting} alt='Acting Image' />
+                    </div>
+                    <div className='back'>
+                        <span className='fs_15 fw_700' style={{ borderBottom: 'solid', borderColor: '#bfe1ff' }}>고민이 계속될 땐, 이렇게 해보세요 🤗</span><br /><br />
+                        <div style={{ height: '175px', overflowY: 'auto' }}>{diagnosisMessages.recommendedActivitiesUserMessage?.content}</div>
+                    </div>
+                </div>
             </div>
             <br />
-            <div style={{ textAlign: 'center' }}>
+            <div className='mt_10' style={{ textAlign: 'center' }}>
                 <button className='white long' onClick={() => nav('../../')}>마이 홈 이동하기</button>
             </div>
         </div>

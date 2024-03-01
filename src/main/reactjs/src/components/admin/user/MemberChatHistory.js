@@ -31,11 +31,11 @@ const MemberChatHistory = () => {
     }, [roomcode]);
 
     return (
-        <div>
-            <div className='mx_30 chatmain'>
+        <div className='mx_30 chatmain'>
+            <div style={{ overflowY: 'auto', position: 'sticky', top: '0' }}>
                 <ChatLogMidbar counselorname={info?.counselorname} />
-                <ChatLogContent log={info?.log} />
             </div>
+            <ChatLogContent log={info?.log} />
         </div>
     );
 };

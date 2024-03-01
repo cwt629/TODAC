@@ -214,20 +214,40 @@ const ChatSummary = () => {
         checkData();
     }, []);
 
+    // 클릭 이벤트 처리 함수
+    const handleFlip = (e) => {
+        // 현재 클릭된 요소의 부모에 clicked 클래스를 추가하여 효과 적용
+        e.currentTarget.parentElement.classList.toggle('clicked');
+    };
+
     return (
         <div className='mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <div className='summaryContent fs_14 fw_500 mt_10'>
-                <img src={you} alt='You Image' style={{ width: '50px', height: '50px', border: '2px solid #D4E4F2' }} /><br />
-                <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br />
-                {summarizedMessages.summarizedUserMessage?.content}
+
+            <div className='flip-container mx_30 mt_25'>
+                <div className='summaryContent fs_14 fw_500 mt_10 flipper' onClick={handleFlip}>
+                    <div className='front'>
+                        <img src={you} alt='You Image' />
+                    </div>
+                    <div className='back'>
+                        <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br /><br />
+                        <div style={{ height: '175px', overflowY: 'auto' }}>{summarizedMessages.summarizedUserMessage?.content}</div>
+                    </div>
+                </div>
             </div>
             <br />
-            <div className='summaryAnswerContent fs_14 fw_500 mt_10'>
-                <img src={counselor} alt='Counselor Image' style={{ width: '50px', height: '50px', border: '2px solid whitesmoke' }} /><br />
-                <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: 'whitesmoke' }}>상담사의 답변 요약</span><br />
-                {summarizedMessages.summarizedCounselorMessage?.content}
+            <div className='flip-container mx_30 mt_10'>
+                <div className='summaryAnswerContent fs_14 fw_500 mt_10 flipper' onClick={handleFlip}>
+                    <div className='front'>
+                        <img src={counselor} alt='Counselor Image' />
+                    </div>
+                    <div className='back'>
+                        <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: 'whitesmoke' }}>상담사의 답변 요약</span><br /><br />
+                        <div style={{ height: '175px', overflowY: 'auto' }}>{summarizedMessages.summarizedCounselorMessage?.content}</div>
+                    </div>
+                </div>
             </div>
+
             <br />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <button className='white long' onClick={() => nav('../../')}>마이 홈 이동하기</button>

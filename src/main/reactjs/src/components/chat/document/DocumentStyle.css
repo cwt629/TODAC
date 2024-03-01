@@ -1,19 +1,6 @@
-/* div.summaryContent {
-    box-sizing: border-box;
-    border-radius: 3px;
-    width: 100%;
-    height: 10vh;
-    padding: 0 10px;
-    overflow-y: auto;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-} */
-
 div.summaryContent {
-    width: 100%;
-    height: 80%;
+    width: 270px;
+    height: 270px;
     border-radius: 20px;
     padding: 30px;
     box-shadow: 5px 5px 5px gray;
@@ -23,22 +10,10 @@ div.summaryContent {
     background-color: whitesmoke;
 }
 
-/* div.summaryAnswerContent {
-    box-sizing: border-box;
-    border-radius: 3px;
-    width: 100%;
-    height: 30vh;
-    padding: 0 10px;
-    overflow-y: auto;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-} */
 
 div.summaryAnswerContent {
-    width: 100%;
-    height: 80%;
+    width: 270px;
+    height: 270px;
     border-radius: 20px;
     padding: 30px;
     box-shadow: 5px 5px 5px gray;
@@ -48,22 +23,58 @@ div.summaryAnswerContent {
     background-color: #D4E4F2;
 }
 
-/* div.diagnosisSummaryContent {
-    box-sizing: border-box;
-    border-radius: 3px;
+
+/* 3D - 카드 뒤집기 */
+.flip-container {
+    perspective: 1000x;
+}
+
+.flip-container.clicked .flipper {
+    transform: rotateY(180deg);
+}
+
+.flipper {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.front,
+.back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.front {
+    z-index: 2;
+}
+
+.back {
+    transform: rotateY(180deg);
+    text-align: center;
+    margin-top: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/* 이미지를 부모 요소에 꽉 채우고 테두리를 둥글게 처리하는 스타일 */
+.flip-container img {
+    /* 부모 요소의 너비에 맞게 이미지 너비 조절 */
     width: 100%;
-    height: auto;
-    padding: 0 10px;
-    overflow-y: auto;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-} */
+    /* 부모 요소의 높이에 맞게 이미지 높이 조절 */
+    height: 100%;
+    /* 이미지 비율 유지하면서 부모 요소에 꽉 차게 채우기 */
+    object-fit: cover;
+    /* 원하는 모양의 테두리 설정 */
+    border-radius: 20px;
+}
+
 
 div.diagnosisSummaryContent {
-    width: 100%;
-    height: auto;
+    width: 270px;
+    height: 270px;
     border-radius: 20px;
     padding: 30px;
     box-shadow: 5px 5px 5px gray;
@@ -73,22 +84,10 @@ div.diagnosisSummaryContent {
     background-color: whitesmoke;
 }
 
-/* div.diagnosisSummaryAnswerContent {
-    box-sizing: border-box;
-    border-radius: 3px;
-    width: 100%;
-    height: auto;
-    padding: 0 10px;
-    overflow-y: auto;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-} */
 
 div.diagnosisSummaryAnswerContent {
-    width: 100%;
-    height: auto;
+    width: 270px;
+    height: 270px;
     border-radius: 20px;
     padding: 30px;
     box-shadow: 5px 5px 5px gray;
@@ -98,22 +97,10 @@ div.diagnosisSummaryAnswerContent {
     background-color: #D4E4F2;
 }
 
-/* div.diagnosisPsychology {
-    box-sizing: border-box;
-    border-radius: 3px;
-    width: 100%;
-    height: auto;
-    padding: 0 10px;
-    overflow-y: auto;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-} */
 
 div.diagnosisPsychology {
-    width: 100%;
-    height: auto;
+    width: 270px;
+    height: 270px;
     border-radius: 20px;
     padding: 30px;
     box-shadow: 5px 5px 5px gray;
@@ -123,22 +110,10 @@ div.diagnosisPsychology {
     background-color: #bfe1ff;
 }
 
-/* div.diagnosisActing {
-    box-sizing: border-box;
-    border-radius: 3px;
-    width: 100%;
-    height: auto;
-    padding: 0 10px;
-    overflow-y: auto;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-} */
 
 div.diagnosisActing {
-    width: 100%;
-    height: auto;
+    width: 270px;
+    height: 270px;
     border-radius: 20px;
     padding: 30px;
     box-shadow: 5px 5px 5px gray;
