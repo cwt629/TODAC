@@ -62,7 +62,6 @@ const MemberChatSearch = () => {
         setCurrentPage(value);
     };
 
-    // 검색어와 일치하는 포인트 사용내역만 필터링
     const filteredChat = chat.filter(item => item.counselorname.includes(searchQuery));
 
     // 페이징을 위한 계산
@@ -135,14 +134,12 @@ const MemberChatSearch = () => {
                                 &nbsp;
                                 <div>
                                     <span className="fw_600">{item.counselorname} 상담사</span>
-                                    <div className="fs_15 ">{getDateFormatPieces(item.date).day}
+                                    <div className="fs_15 input-group">
+                                        {getDateFormatPieces(item.date).day}&nbsp;
+                                        {item.diagnosiscode > 0 ? <div> | <span className='col_blue2 fs_14'>진단서 발급</span></div> : <div> | <span className='col_red fs_14'>진단서 미발급</span></div>}
                                     </div>
                                 </div>
-                                <div>
-                                    <br />
-                                    {/* 진단서 발급 여부 표시 */}
-                                    {item.diagnosiscode > 0 ? <div> | <span className='col_blue2 fs_14'>진단서 발급</span></div> : <div> | <span className='col_red fs_14'>진단서 미발급</span></div>}
-                                </div>
+
                             </div>
                         </div>
                     );

@@ -25,7 +25,8 @@
 .table th,
 .table td {
     padding: 8px;
-    text-align: left;
+    text-align: center;
+    /* 수정된 부분: 가운데 정렬 추가 */
     border-radius: 0px;
 }
 
