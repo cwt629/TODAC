@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import PageHeader from '../../PageHeader';
+import background from "../../../image/bg_startmain2.png";
 
 const Faq = () => {
     const [memberinfo, setMemberinfo] = useState([]);
@@ -28,16 +30,31 @@ const Faq = () => {
         }
     }
 
-    return (
-        <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/user" className='col_blue2'>마이 홈 {'>'} </Link>
-                <Link to="/user/faq" className='col_blue2'>도움말</Link>
-            </div>
-            <div className='fs_25 fw_700'>도움말</div>
+    const CURRENT_ROUTES = [
+        { name: "마이 홈", url: "/user" },
+        { name: "도움말", url: "/user/faq" },
+    ];
+    
+    const PAGE_TITLE = "도움말";
 
-            <div className='mt_45 fw_500'><span className='fw_900 col_blue3'>{memberinfo.nickname}</span> 님, <br/>무엇을 도와드릴까요?</div>
-            <div className='fs_20 fw_700 mt_45'>FAQ</div>
+    return (
+        <div className='mx_30'
+        style={{
+            backgroundImage: `url(${background})`,
+            backgroundSize: "auto 160px",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: 'right top 10px'
+        }}>
+            <div>
+                <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+            </div>
+
+            {/* <div className='mt_25 fw_500'><div><span className='fw_900 col_blue2'>{memberinfo.nickname}</span> 님, <br/>무엇을 도와드릴까요?</div>
+            <div><img alt='' src={require('../../../image/bg_startmain2.png')} style={{width:'150px'}} className='img-fluid'/></div>
+            </div> */}
+            <div className='mt_25 fw_500'><div><span className='fw_900 col_blue2'>{memberinfo.nickname}</span> 님, <br/>무엇을 도와드릴까요?</div>
+            </div>
+            <div className='fs_20 fw_700 mt_25'>FAQ</div>
 
             <div className="faq accordion mt_10 fw_600" id="accordionPanelsStayOpenExample">
                 <div className="accordion-item">
@@ -105,7 +122,7 @@ const Faq = () => {
                             <img alt='답변' src={require("../../../image/ico_faq_a.png")} className='img-fluid mr_10'/>
                             <span>토닥의 포인트를 얻는 방식은 여러가지가 있습니다.
                             <br/>결제를 통해 직접 충전하실 수도 있고,<br/>
-                            이 외에도 업적쌓기나 미니 게임을 통해서 무료로 손쉽게 포인트를 얻으 실 수 있습니다.</span>
+                            이 외에도 업적쌓기나 미니 게임을 통해서 무료로 손쉽게 포인트를 얻으실 수 있습니다.</span>
                         </div>
                     </div>
                 </div>

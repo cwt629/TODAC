@@ -18,6 +18,7 @@ const ChatSummary = () => {
     const roomcode = query.get("chatroomcode");
     const [loading, setLoading] = useState(true); // 요약본 생성 중인지 여부
     const [summarizedMessages, setSummarizedMessages] = useState({ summarizedUserMessage: "", summarizedCounselorMessage: "" });
+    const [hasDiagnosis, setHasDiagnosis] = useState(false);
 
     // 포인트 사용
     const [donationAmount, setDonationAmount] = useState(500);
@@ -211,6 +212,10 @@ const ChatSummary = () => {
 
         // 이 함수는 말그대로, 지금 만든 요약본을 DB에 집어넣는 작업만 하도록 하자.
         checkData();
+        axios.get("/chat/diagnosis/check?chatroomcode=" + roomcode)
+            .then((res) => {
+                setHasDiagnosis(res.data ? true : false);
+            })
     }, []);
 
     // 클릭 이벤트 처리 함수
@@ -251,8 +256,16 @@ const ChatSummary = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <button className='white long' onClick={() => nav('../../')}>마이 홈 이동하기</button>
                 <div style={{ position: 'relative' }}>
-                    <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer', position: 'absolute', top: 3.5, right: -24 }} onClick={handleInfoClick}><img src={info} alt='Info Image' style={{ width: '20px', height: '20px' }} /></span>
-                    <button className='deepblue long' onClick={goDiagnosis}>진단서 발급(500P)</button>
+                    {
+                        (hasDiagnosis) ?
+                            <button className='deepblue long' onClick={goDiagnosis}>나의 진단서 확인</button>
+                            :
+                            <span>
+                                <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer', position: 'absolute', top: 3.5, right: -24 }} onClick={handleInfoClick}><img src={info} alt='Info Image' style={{ width: '20px', height: '20px' }} /></span>
+                                <button className='deepblue long' onClick={goDiagnosis}>진단서 발급(500P)</button>
+                            </span>
+                    }
+
                 </div>
             </div>
         </div >

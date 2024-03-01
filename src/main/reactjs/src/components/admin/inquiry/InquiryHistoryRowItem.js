@@ -7,7 +7,7 @@ const InquiryHistorydataItem = (props) => {
     const nav = useNavigate();
 
     // answer 값에 따라 완료 여부 결정
-    const completionStatus = data.answer ? `답변 완료 (${data.answereddate})` : "미답변";
+    const completionStatus = data.answer ? "답변 완료" : "미답변";
     
     // answer 값에 따라 클래스 결정
     const statusClass = data.answer ? "col_blue2" : "col_red";

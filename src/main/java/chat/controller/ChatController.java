@@ -83,29 +83,27 @@ public class ChatController {
 	
 	@GetMapping("/chat/loginfo")
 	public ChatLogPageDto getChatLogInfo(@RequestParam("chatroomcode") Short chatroomcode) {
+		// 해당 chatroom의 정보
+		ChatRoomDto roomDto = chatService.getRoomByCode(chatroomcode);
+		
 		ChatLogPageDto dto = new ChatLogPageDto();
 		// 1. 상담사 이름 받기
 		String counselorname = chatService.getCounselorNameInRoom(chatroomcode);
 		dto.setCounselorname(counselorname);
 		
-		// 목록 받기에 앞서서, 멤버와 각 상담사들의 프로필을 받아온다
-		List<String> speakersPhoto = new ArrayList<>();
-		
+		// 채팅 목록을 받기 앞서서, 사용자와 상담사의 프로필 사진을 각각 받아온다
 		String memberPhoto = chatService.getMemberPhotoInRoom(chatroomcode); // 사용자의 사진
-		List<CounselorDto> counselors = counselorService.getBasicCounselorList(); // 모든 상담사 정보
-		// speaker 0: 사용자의 프로필 사진
-		speakersPhoto.add(memberPhoto);
-		// speaker 1~6: 상담사의 프로필 사진
-		for (CounselorDto cdto: counselors) {
-			speakersPhoto.add(COUNSELOR_PHOTO_PREFIX + cdto.getPhoto());
-		}
+		String counselorPhoto = roomDto.getCounselor().getPhoto() != null? 
+				COUNSELOR_PHOTO_PREFIX + roomDto.getCounselor().getPhoto()
+				: null; // 상담사의 사진
 		
 		// 2. 채팅 목록 받기
 		List<ChatLogDto> chatlog = chatService.selectLog(chatroomcode);
 		List<ChatLogInfoDto> chatLogInfo = new ArrayList<>();
 		for (int i = 0; i < chatlog.size(); i++) {
 			ChatLogInfoDto infoDto = new ChatLogInfoDto();
-			infoDto.setProfilephoto(speakersPhoto.get(chatlog.get(i).getSpeaker()));
+			// 프로필 사진이 상담사/사용자 것인지는 speaker로 분류한다
+			infoDto.setProfilephoto((chatlog.get(i).getSpeaker() > 0)? counselorPhoto : memberPhoto);
 			infoDto.setSpeaker(chatlog.get(i).getSpeaker());
 			infoDto.setContent(chatlog.get(i).getContent());
 			
@@ -119,5 +117,21 @@ public class ChatController {
 		dto.setDiagnosisCount(diagnosisCount);
 		
 		return dto;
+	}
+	
+	// 업적 1: '모두가 나의 파트너' - 모든 공식 상담사와 채팅
+	@GetMapping("/chat/achieve/partners")
+	public boolean checkAchievePartners(@RequestParam("usercode") int usercode) {
+		int officialCount = chatService.getOfficialCounselorsCountByUser(usercode);
+		
+		return (officialCount >= 6);
+	}
+	
+	// 업적 2: '다섯 번의 토닥' - 채팅 5회 종료
+	@GetMapping("/chat/achieve/fivetodac")
+	public boolean checkAchieveFiveTodac(@RequestParam("usercode") int usercode) {
+		int chatCount = chatService.getChatCountByUser(usercode);
+		
+		return (chatCount >= 5);
 	}
 }

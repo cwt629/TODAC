@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import PageHeader from '../../PageHeader';
 
 const InquiryResponse = () => {
     const { inquirycode } = useParams();
@@ -42,39 +43,44 @@ const InquiryResponse = () => {
             nav(`/admin/InquiryHistory/InquiryHistoryDetail/${inquirycode}`);
         });
     }; 
+
+    const CURRENT_ROUTES = [
+        { name: "관리자 홈", url: "/admin" },
+        { name: "1:1 문의내역", url: "/admin/InquiryHistory" },
+        { name: "1:1 문의답변", url: "" },
+    ];
+    
+    const PAGE_TITLE = "1:1 문의답변";
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/admin" className='col_blue2'>관리자 홈 {'>'} </Link>
-                <Link to="/admin/InquiryHistory" className='col_blue2'>문의 관리 {'>'}</Link>
-                <Link to="/admin/InquiryHistory/InquiryResponse" className='col_blue2'>1:1 문의답변 </Link>
+            <div>
+                <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             </div>
-            <div className='fs_25 fw_700'>1:1 문의답변</div>
 
             <div className='mt_25' style={{textAlign:"center"}}>
-                <img src={selectQnaData.memberPhoto} alt="프로필 사진" style={{width:"100px"}}/>
+                <img src={selectQnaData.memberPhoto} alt="프로필 사진" style={{width:"100px",borderRadius:'100px'}}/>
                 <div className='fw_800 mt_10'>{selectQnaData.memberNickname}</div>
             </div>
 
-            <div className='mt_45'>
+            <div className='mt_25'>
                 <div className='fs_18 fw_700'>
                     Q. {selectQnaData.title}
                 </div>
-                <div className='mt_10 bg_blue3 bor_blue3 br_5 p-2' style={{height:"200px"}}>
+                <div className='mt_10 bg_blue3 bor_blue3 br_5 p-2' style={{minHeight:'150px'}}>
                     {selectQnaData.inquiry}
                 </div>
             </div>
 
             <div className='form-group mt_25'>
                 <div className='fs_18 fw_700'>A. 문의 답변 </div>
-                <textarea type='text' className='form-control mt_10 bg_gray bor_gray2' style={{ height: "200px" }} onChange={addAnswer} name ="answer" value={selectQnaData.answer} placeholder='답변을 입력해주세요.'/>
+                <textarea type='text' className='form-control mt_10 bg_gray bor_gray2 input_text' style={{ minHeight: "150px" }} onChange={addAnswer} name ="answer" value={selectQnaData.answer} placeholder='답변을 입력해주세요.'/>
             </div>
 
-            <div className='d-flex mt_45 inquiry_btn justify-content-evenly'>
-                    <button type='button' onClick={() => nav('/admin/InquiryHistory')}>
+            <div className='d-flex mt_45 justify-content-evenly'>
+                    <button className="lightblue long"type='button' onClick={() => nav('/admin/InquiryHistory')}>
                         문의  목록으로
                     </button>
-                    <button type='button' onClick={addAnsEvent}>
+                    <button className='deepblue long' type='button' onClick={addAnsEvent}>
                         답변 등록하기
                     </button>  
             </div>
