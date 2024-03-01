@@ -15,7 +15,7 @@ const ChatSummary = () => {
     const [logList, setLogList] = useState([]);
     const nav = useNavigate();
     const [query, setQuery] = useSearchParams();
-    const roomcode = query.get("roomcode");
+    const roomcode = query.get("chatroomcode");
     const [loading, setLoading] = useState(true); // 요약본 생성 중인지 여부
     const [summarizedMessages, setSummarizedMessages] = useState({ summarizedUserMessage: "", summarizedCounselorMessage: "" });
 
@@ -25,7 +25,6 @@ const ChatSummary = () => {
 
     const CURRENT_ROUTES = [
         { name: 'TODAC 채팅', url: '/user/chat' },
-        { name: '상담 받기', url: '/user/chat/counsel' },
         { name: '오늘의 상담 요약', url: '' }
     ];
 
@@ -108,7 +107,7 @@ const ChatSummary = () => {
         // sweetalert2 팝업 띄우기
         Swal.fire({
             title: '진단서 예시 및 간단 설명',
-            html: '<div style="border: 1px solid #5279FD; border-radius: 10px; overflow: hidden;"><img src="' + diagnosisImg1 + '" alt="이미지" style="width: 80%; height: auto;"><img src="' + diagnosisImg2 + '" alt="이미지" style="width: 80%; height: auto;"></div>',
+            html: '<span style="color: gray; display: block;">* 카드를 클릭하여 내용을 확인하세요! *</span><br><div style="border: 1px solid #5279FD; border-radius: 10px; overflow: hidden;"><img src="' + diagnosisImg1 + '" alt="이미지" style="width: 80%; height: auto;"><img src="' + diagnosisImg2 + '" alt="이미지" style="width: 80%; height: auto;"></div>',
             icon: 'info',
             confirmButtonColor: '#5279FD',
             confirmButtonText: '닫기',

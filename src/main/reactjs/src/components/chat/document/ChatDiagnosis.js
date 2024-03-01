@@ -24,8 +24,7 @@ const ChatDiagnosis = () => {
 
     const CURRENT_ROUTES = [
         { name: 'TODAC 채팅', url: '/user/chat' },
-        { name: '상담 받기', url: '/user/chat/counsel' },
-        { name: '오늘의 상담 요약', url: '/user/chat/summary' },
+        { name: '오늘의 상담 요약', url: `/user/chat/summary?chatroomcode=${roomcode}` },
         { name: '나의 진단서', url: '' }
     ];
 
