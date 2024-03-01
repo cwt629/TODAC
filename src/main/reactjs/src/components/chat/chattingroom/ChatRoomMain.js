@@ -22,9 +22,13 @@ const ReactSwal = withReactContent(Swal);
 const STORAGE_PHOTO_BASE = 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/';
 const STORAGE_COUNSELOR_FOLDER_NAME = 'counselors/';
 
+const BADGE_NAME_PARTNERS = "모두가 나의 파트너";
+const BADGE_NAME_FIVETODAC = "다섯 번의 토닥";
+
 const ChatRoomMain = () => {
     const [query, setQuery] = useSearchParams();
     const counselorcode = query.get("counselorcode");
+    const usercode = sessionStorage.getItem("usercode");
 
     const [log, setLog] = useState([]);
     const [input, setInput] = useState('');
@@ -135,6 +139,21 @@ const ChatRoomMain = () => {
                 data: JSON.stringify(logData),
                 headers: { 'Content-Type': 'application/json' }
             });
+
+            // chatroom 적용 뒤, 업적 처리
+
+            // 1. '모두가 나의 파트너': 모든 상담사와 1회 이상 상담
+            let badgeResponse = await axios.get("/chat/achieve/partners?usercode=" + usercode);
+            console.log(badgeResponse);
+            if (badgeResponse.data) {
+                // 업적 달성 처리 시도
+                let achieveResult = await axios.post(`/badgeinsert?usercode=${usercode}&achievename=${BADGE_NAME_PARTNERS}`)
+                console.log(achieveResult);
+
+                if (achieveResult.data) {
+                    await popupAchievement(BADGE_NAME_PARTNERS);
+                }
+            }
 
             ReactSwal.fire({
                 icon: 'success',

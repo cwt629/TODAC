@@ -118,4 +118,12 @@ public class ChatController {
 		
 		return dto;
 	}
+	
+	// 업적 1: '모두가 나의 파트너' - 모든 공식 상담사와 채팅
+	@GetMapping("/chat/achieve/partners")
+	public boolean checkAchievePartners(@RequestParam("usercode") int usercode) {
+		int officialCount = chatService.getOfficialCounselorsCountByUser(usercode);
+		
+		return (officialCount >= 6);
+	}
 }

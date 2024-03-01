@@ -78,4 +78,9 @@ public class ChatDao {
 	public String getMemberUsercodeInRoom(Short chatroomcode) {
 		return roomRepository.getMemberUsercodeInRoom(chatroomcode);
 	}
+	
+	// 업적
+	public int getOfficialCounselorsCountByUser(int usercode) {
+		return roomRepository.getOfficialCounselorsCountByUser(usercode);
+	}
 }
