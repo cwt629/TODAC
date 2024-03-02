@@ -20,7 +20,7 @@ const ChatDiagnosis = () => {
     const [summarizedMessages, setSummarizedMessages] = useState({ summarizedUserMessage: "", summarizedCounselorMessage: "" });
     const [diagnosisMessages, setDiagnosisMessages] = useState({ analyzedUserMessage: "", recommendedActivitiesUserMessage: "" });
 
-    console.log("roomcode:" + roomcode);
+    // console.log("roomcode:" + roomcode);
 
     const CURRENT_ROUTES = [
         { name: 'TODAC 채팅', url: '/user/chat' },
@@ -105,8 +105,8 @@ const ChatDiagnosis = () => {
     const summaryDB = async () => {
         try {
             const response = await axios.get("/chat/diagnosis?chatroomcode=" + roomcode);
-            console.log("요약 내용 DB에서 불러옴");
-            console.log(response);
+            // console.log("요약 내용 DB에서 불러옴");
+            // console.log(response);
             setSummaryList(response.data);
             const { summarizedUserMessage, summarizedCounselorMessage } = await summarizeMessages(response.data);
             setSummarizedMessages({ summarizedUserMessage, summarizedCounselorMessage });
@@ -119,8 +119,8 @@ const ChatDiagnosis = () => {
     const diagnosis = async () => {
         try {
             const response = await axios.get("/chat/summary?chatroomcode=" + roomcode);
-            console.log("대화 로그 불러오려고 함");
-            console.log(response);
+            // console.log("대화 로그 불러오려고 함");
+            // console.log(response);
             setLogList(response.data);
             const { analyzedUserMessage, recommendedActivitiesUserMessage } = await diagnosisAiMessages(response.data);
             setDiagnosisMessages({ analyzedUserMessage, recommendedActivitiesUserMessage });
@@ -132,13 +132,13 @@ const ChatDiagnosis = () => {
 
     // 요약 내용을 DB에서 불러옴
     const summarizeMessages = async (chatlog) => {
-        console.log("지금 보내고자 하는 로그");
-        console.log(chatlog);
+        // console.log("지금 보내고자 하는 로그");
+        // console.log(chatlog);
         const chatLogWorry = chatlog[0].worry;
         const chatLogAnswer = chatlog[0].answer;
 
-        console.log(chatLogWorry);
-        console.log(chatLogAnswer);
+        // console.log(chatLogWorry);
+        // console.log(chatLogAnswer);
 
         return { summarizedUserMessage: chatLogWorry, summarizedCounselorMessage: chatLogAnswer };
     };
@@ -157,13 +157,13 @@ const ChatDiagnosis = () => {
             }
         });
 
-        console.log("심리 로그");
-        console.log(chatlog);
+        // console.log("심리 로그");
+        // console.log(chatlog);
 
         const analyzeUserLog = chatlog.filter((log) => (log.speaker === 0));
         const recommendedActivitiesUserLog = chatlog.filter((log) => (log.speaker === 0));
 
-        console.log(analyzeUserLog);
+        // console.log(analyzeUserLog);
 
         const analyzedUserMessage = await summarizeContent(
             analyzeUserLog,
@@ -206,12 +206,12 @@ const ChatDiagnosis = () => {
         try {
             const response = await axios.get("/chat/diagnosis/check?chatroomcode=" + roomcode);
             if (response.data) {
-                console.log("response.data.usercode:" + response.data.usercode);
-                console.log("usercode:" + usercode);
+                // console.log("response.data.usercode:" + response.data.usercode);
+                // console.log("usercode:" + usercode);
                 if (response.data.usercode == usercode || usercode == 5) {
                     getSummarizedMessages();
-                    console.log("진단서 있음")
-                    console.log(response)
+                    // console.log("진단서 있음")
+                    // console.log(response)
                     setDiagnosisMessages({
                         analyzedUserMessage: { content: response.data.deepanswer },
                         recommendedActivitiesUserMessage: { content: response.data.advice }
