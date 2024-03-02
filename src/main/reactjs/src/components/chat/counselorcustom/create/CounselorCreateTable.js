@@ -183,10 +183,11 @@ const CounselorCreateTable = () => {
                     <tr>
                         <td width={100} className='tablehead'>이름 *</td>
                         <td width={400}>
-                            <Input className='input_text'
+                            <input className='input_text' style={{ width: '120px' }}
                                 type="text" name="name" value={data.name}
                                 ref={inputName}
                                 onChange={handleInputChange} maxLength={INPUT_MAX_LENGTH['name']} required />
+                            &nbsp;
                             <span className='custom-inputlen'>({data.name.length} / {INPUT_MAX_LENGTH['name']})</span>
                         </td>
                     </tr>
@@ -203,13 +204,13 @@ const CounselorCreateTable = () => {
                     <tr>
                         <td className='tablehead'>성격 *</td>
                         <td>
-                            <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
+                            <input className='input_text' style={{ width: '160px' }}
                                 type="text" name="personality" value={data.personality} maxLength={INPUT_MAX_LENGTH['personality']} required
                                 ref={inputPersonality}
-                                onChange={handleInputChange} /> 상담사<br />
-                            <span className='custom-inputlen'>({data.personality.length} / {INPUT_MAX_LENGTH['personality']})</span><br />
+                                onChange={handleInputChange} />&nbsp;상담사<br />
+                            <span className='custom-inputlen'>({data.personality.length} / {INPUT_MAX_LENGTH['personality']})</span><br /><br />
                             <div className='explain'>
-                                '~한', '~인'과 같은 형태로 작성하셔야 원하는 대로 동작할 거에요!<br />
+                                * '~한', '~인'과 같은 형태로 작성하셔야 원하는 대로 동작할 거에요!<br />
                                 ex{')'} 얼음처럼 냉철한
                             </div>
                         </td>
@@ -217,18 +218,24 @@ const CounselorCreateTable = () => {
                     <tr>
                         <td className='tablehead'>짧은 소개</td>
                         <td>
-                            <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
+                            <input className='input_text' style={{ width: '160px' }}
                                 type="text" name="briefintro" value={data.briefintro} maxLength={INPUT_MAX_LENGTH['briefintro']}
-                                onChange={handleInputChange} /> <span className='custom-inputlen'>({data.briefintro.length} / {INPUT_MAX_LENGTH['briefintro']})</span>
+                                onChange={handleInputChange} /> <span className='custom-inputlen'>({data.briefintro.length} / {INPUT_MAX_LENGTH['briefintro']})</span><br /><br />
+                            <div className='explain'>
+                                * 짧은 소개는 카드의 앞면에 들어가요!
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <td className='tablehead'>상세 소개</td>
                         <td>
-                            <TextField className="input_text"
+                            <textarea className="input_text" style={{ width: '100%', height: '120px' }}
                                 name="introduction" value={data.introduction} maxLength={INPUT_MAX_LENGTH['introduction']}
-                                onChange={handleInputChange} /><br />
-                            <span className='custom-inputlen'>({data.introduction.length} / {INPUT_MAX_LENGTH['introduction']})</span>
+                                onChange={handleInputChange} ></textarea><br />
+                            <span className='custom-inputlen'>({data.introduction.length} / {INPUT_MAX_LENGTH['introduction']})</span><br /><br />
+                            <div className='explain'>
+                                * 상세 소개는 카드의 뒷면에 들어가요!
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -245,7 +252,7 @@ const CounselorCreateTable = () => {
                     <tr>
                         <td className='tablehead'>첫마디 *</td>
                         <td>
-                            <textarea className="bg_gray bor_gray2 col-9 col_black p-3  br_5"
+                            <textarea className='input_text' style={{ width: '100%' }}
                                 name="greeting" value={data.greeting} maxLength={INPUT_MAX_LENGTH['greeting']} required
                                 onChange={handleInputChange}></textarea><br />
                             <span className='custom-inputlen'>({data.greeting.length} / {INPUT_MAX_LENGTH['greeting']})</span><br />
