@@ -1,9 +1,9 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import MypageMain from '../../../components/mypage/MypageMain';
-import RouterFAQ from './RouterFAQ';
-import RouterInquiry from './RouterInquiry';
-import RouterPoint from './RouterPoint';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import MypageMain from "../../../components/mypage/MypageMain";
+import RouterFAQ from "./RouterFAQ";
+import RouterInquiry from "./RouterInquiry";
+import RouterPoint from "./RouterPoint";
 import MyPageUpdateForm from "../../../components/mypage/update/MyPageUpdateForm";
 import MyBoardMain from "../../../components/mypage/myboard/MyBoardMain";
 import DonationContent from "../../../components/mypage/donate/DonationContent";
@@ -20,8 +20,6 @@ const RouterMypage = () => {
             <Route path='/myboard/*' element={<MyBoardMain />} />
             <Route path='/donate/*' element={<DonationContent />} />
             <Route path='/badge/*' element={<BadgeMain />} />
-
-
         </Routes>
     );
 };

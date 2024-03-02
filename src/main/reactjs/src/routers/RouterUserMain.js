@@ -23,7 +23,7 @@ const RouterUserMain = () => {
             // })
             nav("/login");
         }
-    }, [])
+    }, []);
 
     return (
         <div className='app'>
@@ -32,7 +32,8 @@ const RouterUserMain = () => {
             <div className='appcontent'>
                 <Routes>
                     <Route path='/chat/*' element={<RouterChat />} />
-                    <Route path='/*' element={<RouterMypage />} />
+                    {/* 토큰이 있는 경우에만 RouterMypage로 이동 */}
+                    <Route path='/*' element={sessionStorage.getItem("token") ? <RouterMypage /> : null} />
                     <Route path='/community/*' element={<RouterCommunityHome />} />
                 </Routes>
             </div>

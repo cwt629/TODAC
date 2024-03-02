@@ -39,9 +39,6 @@ const BoardDetail = () => {
         });
         if (isLoggedIn) {
             // 좋아요 수 가져오기
-            axios.get(`/post/like/count?boardcode=${boardcode}`).then((res) => {
-                setLikeCount(res.data);
-            });
 
             // 좋아요 상태 확인
             axios
@@ -52,8 +49,16 @@ const BoardDetail = () => {
         }
     }, [boardcode, id]);
 
-    //Like
+    axios.get(`/post/like/count?boardcode=${boardcode}`).then((res) => {
+        setLikeCount(res.data);
+    });
+
     const handleLike = async () => {
+        if (!id) {
+            showLoginPrompt("로그인 하시겠습니까?");
+            return;
+        }
+
         try {
             await axios.post(`/post/like?boardcode=${boardcode}&usercode=${sessionStorage.getItem("usercode")}`);
             setIsLiked(true);
@@ -62,7 +67,7 @@ const BoardDetail = () => {
             console.error("Error liking board:", error);
         }
     };
-    //unLike
+
     const handleUnlike = async () => {
         try {
             await axios.post(`/post/like?boardcode=${boardcode}&usercode=${sessionStorage.getItem("usercode")}`);
@@ -71,6 +76,23 @@ const BoardDetail = () => {
         } catch (error) {
             console.error("Error unliking board:", error);
         }
+    };
+
+    const showLoginPrompt = (message) => {
+        Swal.fire({
+            title: "로그인이 필요합니다",
+            text: message,
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#5279FD",
+            confirmButtonText: "로그인",
+            cancelButtonText: "취소",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // 로그인 페이지로 이동
+                navi("/login");
+            }
+        });
     };
 
     // 게시글 삭제

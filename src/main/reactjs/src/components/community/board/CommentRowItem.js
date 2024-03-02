@@ -69,9 +69,9 @@ const CommentRowItem = ({ idx, data, deleteComment }) => {
                                             <div>
                                                 <button
                                                     onClick={() => deleteComment(data.commentCode)}
-                                                    style={{ cursor: "pointer" }}
+                                                    style={{ cursor: "pointer", background: "none", border: "none" }}
                                                 >
-                                                    삭제
+                                                    <ClearRoundedIcon sx={{ fontSize: "15px" }} />
                                                 </button>
                                             </div>
                                         ) : // 일반 사용자인 경우 글 작성자인지 확인 후 삭제 버튼 표시
