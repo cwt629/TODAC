@@ -11,7 +11,7 @@ const CounselorCreateApp = () => {
         { name: '나만의 상담사', url: '' }
     ];
 
-    const PAGE_TITLE = '나만의 상담사 만들기';
+    const PAGE_TITLE = '나만의 상담사';
 
     return (
         <div className='mx_30'>
