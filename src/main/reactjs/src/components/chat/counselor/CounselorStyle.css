@@ -144,7 +144,7 @@ div.counselbtndiv.counsel-lognav {
 .swiper-slide .counselor-last-card {
     background-color: #EEF0F7;
     background-image: url('../../../image/ico_babytodac4.png');
-    background-position: center bottom;
+    background-position: center bottom 15px;
     background-repeat: no-repeat;
     background-size: 80% auto;
 }
