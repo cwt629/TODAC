@@ -142,12 +142,18 @@ div.counselbtndiv.counsel-lognav {
 }
 
 .swiper-slide .counselor-last-card {
+    position: relative;
     background-color: #EEF0F7;
     background-image: url('../../../image/ico_babytodac4.png');
-    background-position: center bottom;
+    background-position: center bottom 15px;
     background-repeat: no-repeat;
     background-size: 80% auto;
 }
+
+/* .swiper-slide .counselor-last-card div.custom-go-btn {
+    position: absolute;
+    bottom: 10px;
+} */
 
 /* 무난한 부트스트랩 스타일 버튼 */
 
@@ -158,6 +164,7 @@ div.counselbtndiv.counsel-lognav {
     border: none;
     border-radius: 5px;
     padding: 5px 20px;
+    box-shadow: 2px 2px 2px #ccc;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
 }
