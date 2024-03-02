@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './QnaStyle.css';
 import axios from "axios";
 import "./MyPageStyle.css";
 import Swal from "sweetalert2";
 import PageHeader from "../PageHeader";
+import { getBadgeInfo } from '../../utils/badgeInfo';
 
 const MypageMain = () => {
     const [member, setmember] = useState([]);
@@ -13,18 +14,18 @@ const MypageMain = () => {
     const storedId = sessionStorage.getItem("id");
     const loginType = sessionStorage.getItem("loginType");
     const usercode = sessionStorage.getItem("usercode");
+    const [badgeinfo,setBadgeinfo] = useState();
     const [achieve, setAchieve] = useState([]);
     const achievename = "뉴비"
 
     const CURRENT_ROUTES = [
-        {name: ''},
+        { name: '' },
     ];
     const PAGE_TITLE = '내 정보';
 
 
     useEffect(() => {
         getmember();
-        console.log("storedId:", storedId, ", usercode:", usercode);
         getachievelist();
     }, []);
 
@@ -33,6 +34,9 @@ const MypageMain = () => {
         axios.post(url)
             .then(res => {
                 setmember(res.data);
+                const badgeinfo = getBadgeInfo(res.data.mybadge);
+                setBadgeinfo(badgeinfo)
+                console.log(badgeinfo.image)
             })
     }
 
@@ -69,7 +73,7 @@ const MypageMain = () => {
         Swal.fire({
             title: '회원 탈퇴',
             text: '정말로 탈퇴하시겠습니까?',
-            icon: 'warning',
+            icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#FF7170',
             confirmButtonText: '예',
@@ -83,9 +87,10 @@ const MypageMain = () => {
                         // 삭제 후 다시 게시글 목록을 불러옴
                         Swal.fire({
                             title: '탈퇴 완료',
-                            text: '정상적으로 탈퇴되었습니다..',
+                            text: '정상적으로 탈퇴되었습니다...',
                             icon: 'success',
-                            confirmButtonColor: '#FF7170',
+                            confirmButtonText: '확인',
+                            confirmButtonColor: '#5279FD',
                         });
                         //회원 삭제 후 이전 페이지로 이동
                         //세션에서 토큰 제거
@@ -113,53 +118,58 @@ const MypageMain = () => {
     return (
 
         <div className="mypagemain">
-            <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE}/>
+            <div className='d-flex justify-content-between align-items-center'>
+                <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+            </div>
             <div className="profile">
-                <img className="profile" alt='' src={member.photo}/>
-                <div className='mt_10 fs_20 fw_700'>{member.nickname}</div>{member.mybadge}
+                <img className="profile" alt='' src={member.photo}
+                style={{borderRadius:"50%"}} />
+                <div className='mt_10 fs_20 fw_700'>
+                {badgeinfo && <img alt='' src={badgeinfo.image} style={{width:"25px", height:"25px"}}/>}
+                    {member.nickname}</div>{member.mybadge}
             </div>
-
-            <div>
-                <button onClick={() => nav("badge")}>업적</button>
-            </div>
-
             <div className="iconmenu mt-5">
                 <div onClick={() => nav('point')} className="col">
                     <img alt="" src={require("../../image/mypageIcon/point.png")}/>
-                    <h6>포인트 <b style={{color: "#FF7170"}}>{member.point?.toLocaleString()}</b></h6>
+                    <h6><b style={{ color: "#FF7170" }}>{member.point?.toLocaleString()}</b> TP</h6>
                 </div>
                 <div onClick={() => nav('myboard')} className="col">
-                    <img alt="" src={require("../../image/mypageIcon/board.png")}/>
+                    <img alt="" src={require("../../image/mypageIcon/board.png")} />
                     <h6>게시글</h6>
                 </div>
                 <div onClick={() => nav('donate')} className="col">
-                    <img alt="" src={require("../../image/mypageIcon/donation.png")}/>
+                    <img alt="" src={require("../../image/mypageIcon/donation.png")} />
                     <h6>후원하기</h6>
                 </div>
             </div>
 
             <div className="listmenu fw_600 align-items-center mt_45">
                 <div onClick={() => nav('update')}>
-                    <img alt="" src={require("../../image/mypageIcon/info.png")}/>
+                    <img alt="" src={require("../../image/mypageIcon/info.png")} />
                     <span className='mx-3'>내 정보 관리</span>
-                    <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
+                    <img alt="" src={require("../../image/mypageIcon/pointer.png")} />
+                </div>
+                <div onClick={() => nav('badge')} className='mt-4'>
+                    <img alt="" src={require("../../image/mypageIcon/myachieve.png")} />
+                    <span className='mx-3'>내 업적</span>
+                    <img alt="" src={require("../../image/mypageIcon/pointer.png")} />
                 </div>
                 <div onClick={() => nav('inquiry')} className='mt-4'>
-                    <img alt="" src={require("../../image/mypageIcon/11.png")}/>
+                    <img alt="" src={require("../../image/mypageIcon/11.png")} />
                     <span className='mx-3'>1:1 문의</span>
-                    <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
+                    <img alt="" src={require("../../image/mypageIcon/pointer.png")} />
 
                 </div>
                 <div onClick={() => nav('faq')} className='mt-4'>
-                    <img alt="" src={require("../../image/mypageIcon/faq.png")}/>
+                    <img alt="" src={require("../../image/mypageIcon/faq.png")} />
                     <span className='mx-3'>도움말</span>
-                    <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
+                    <img alt="" src={require("../../image/mypageIcon/pointer.png")} />
                 </div>
-
-                <div onClick={onPersonDelete} className='mt-4' style={{marginTop: "10px"}}>
-                    &nbsp;<img alt="" src={require("../../image/mypageIcon/logout.png")}/>
-                    <span style={{color: "darkgray"}} className='mx-3'>회원 탈퇴</span>
-                    <img alt="" src={require("../../image/mypageIcon/pointer.png")}/>
+                <div onClick={onPersonDelete} className='mt-4' style={{ marginTop: "10px" }}>
+                    <img className='gray'
+                        alt="" src={require("../../image/adminIcon/delete.png")} />
+                    <span style={{ color: "darkgray" }} className='mx-3'>회원 탈퇴</span>
+                    <img alt="" src={require("../../image/mypageIcon/pointer.png")} />
                 </div>
             </div>
 

@@ -6,18 +6,19 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
-import {getBadgeInfo, getBadgeList} from "../../../utils/badgeInfo";
+import { getBadgeInfo, getBadgeList } from "../../../utils/badgeInfo";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 
 const BadgeMain = () => {
-    const [badge,setBadge] = useState(getBadgeList());
+    const [badge, setBadge] = useState(getBadgeList());
     const usercode = sessionStorage.getItem("usercode");
     const storedId = sessionStorage.getItem("id");
     const [member, setmember] = useState();
     const [achievelist, setAchievelist] = useState([]);
     const [achievenames, setAchievenames] = useState([]);
+    const [equipbadge, setEquipbadge] = useState();
     const ReactSwal = withReactContent(Swal);
     const CURRENT_ROUTES = [
         { name: "내 정보", url: "/user" },
@@ -48,39 +49,39 @@ const BadgeMain = () => {
     const getmember = () => {
         const url = "/member/info?userid=" + storedId;
         axios.post(url).then((res) => {
-            console.log(res.data);
             setmember(res.data);
+            setEquipbadge(res.data.mybadge);
         });
     };
 
-    const selectbadge = (item) =>{
+    const selectbadge = (item) => {
         ReactSwal.fire({
-            showCancelButton:true,
+            showCancelButton: true,
             html: `<img src="${item.image}"/> <br/><b>${item.name}</b><br/>뱃지를 장착하시겠습니까?`,
             confirmButtonText: '확인',
             cancelButtonText: '취소',
             confirmButtonColor: '#FF7170'
-        }).then((res)=>{
-            if(res.isConfirmed)
-            {
-                axios.post("/equipbadge", {mybadge : item.name, userid : storedId})
+        }).then((res) => {
+            if (res.isConfirmed) {
+                axios.post("/equipbadge", { mybadge: item.name, userid: storedId })
                     .then(res => {
+                        setEquipbadge(item.name);
                     })
             }
         })
     }
-    const selectbadge2 = (image,name) =>{
+    const selectbadge2 = (image, name) => {
         ReactSwal.fire({
-            showCancelButton:'true',
+            showCancelButton: 'true',
             html: `<img src="${image}"/> <br/><b>뉴비</b><br/> 뱃지를 장착하시겠습니까?`,
             confirmButtonText: '확인',
             cancelButtonText: '취소',
             confirmButtonColor: '#FF7170'
-        }).then((res)=>{
-            if(res.isConfirmed)
-            {
-                axios.post("/equipbadge", {mybadge : name, userid : storedId})
+        }).then((res) => {
+            if (res.isConfirmed) {
+                axios.post("/equipbadge", { mybadge: name, userid: storedId })
                     .then(res => {
+                        setEquipbadge(name);
                     })
             }
         })
@@ -115,11 +116,16 @@ const BadgeMain = () => {
                 <Box sx={{ width: "100%" }}>
                     <Grid container spacing={2}>
                         <Grid xs={6}>
-                            <Item>
+                            <Item style={{
+                                border: equipbadge === "뉴비" ? '5px solid transparent' : '',
+                                boxShadow: equipbadge === "뉴비" ? '0px 0px 10px 5px rgba(82, 121, 253, 0.7)' : '',
+                                transition: 'border-color 0.3s, box-shadow 0.3s'
+                            }}>
+
                                 {
                                     <>
                                         <img alt='' src="https://kr.object.ncloudstorage.com/guest-hch/TODAC/badge/newbie.png"
-                                             onClick={()=> selectbadge2("https://kr.object.ncloudstorage.com/guest-hch/TODAC/badge/newbie.png","뉴비")}/>
+                                            onClick={() => selectbadge2("https://kr.object.ncloudstorage.com/guest-hch/TODAC/badge/newbie.png", "뉴비")} />
                                         <div className='fw_900'>뉴비</div>
                                         <div className='fs_14'>토닥 첫 로그인</div>
                                         <hr />
@@ -128,13 +134,20 @@ const BadgeMain = () => {
                                 }
                             </Item>
                         </Grid>
-                        {badge.map((item,index)=>(
-                            <Grid xs={6}>
-                               <Item>
+                        {badge.map((item, index) => (
+                            <Grid xs={6} key={index} >
+                                <Item 
+                                    style={{
+                                        border: equipbadge === item.name ? '5px solid transparent' : '',
+                                        boxShadow: equipbadge === item.name ? '0px 0px 10px 5px rgba(82, 121, 253, 0.7)' : '',
+                                        transition: 'border-color 0.3s, box-shadow 0.3s'
+                                    }}>
+
                                     {achievenames.includes(item.name) ? (
                                         <>
                                             <img alt='' src={item.image}
-                                            onClick={()=> selectbadge(item)}/>
+                                                onClick={() => selectbadge(item)}
+                                            />
                                             <div className='fw_900'>{item.name}</div>
                                             <div className='fs_14'>{item.description}</div>
                                             <hr />
@@ -142,16 +155,16 @@ const BadgeMain = () => {
                                         </>
                                     ) : (
                                         <>
-                                            <img alt='' src={item.image} className="gray"/>
+                                            <img style={{ width: "100px", height: "100px" }} alt='' src={item.image} className="gray" />
                                             <div className='fw_900'>{item.name}</div>
                                             <div className='fs_14'>{item.description}</div>
                                             <hr />
-                                            <div style={{color: "red"}}>미획득</div>
+                                            <div style={{ color: "red" }}>미획득</div>
                                         </>
                                     )}
-                               </Item>
+                                </Item>
                             </Grid>
-                                ))
+                        ))
                         }
                     </Grid>
                 </Box>

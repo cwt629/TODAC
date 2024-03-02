@@ -87,9 +87,9 @@ const MyBoardMain = () => {
         Swal.fire({
             title: "게시글 삭제",
             text: "해당 게시글을 삭제하시겠습니까?",
-            icon: "warning",
+            icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#5279FD",
+            confirmButtonColor: "#ff7170",
             confirmButtonText: "예",
             cancelButtonText: "아니오",
         }).then((result) => {
@@ -126,7 +126,7 @@ const MyBoardMain = () => {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="검색할 타입을 입력하세요"
+                    placeholder="게시글 제목을 입력해주세요"
                     className="form-control mb-3 fs_16 fw_900"
                     style={{
                         height: '40px',
@@ -156,7 +156,12 @@ const MyBoardMain = () => {
                 <div className="fs_17 fw_800">
                     <span className="col_blue2">{member.nickname}</span> 님의 게시글 목록
                 </div>
-                {currentItems.map((item, index) => (
+                {filteredBoard.length === 0 ? (
+                <div className="fs_14" style={{ marginTop: '10px' }}>
+                    작성한 게시글이 없습니다.
+                </div>
+            ) : (
+                currentItems.map((item, index) => (
                     <div
                         key={index}
                         className='bor_gray1 px-3 py-2 mt_10'
@@ -167,7 +172,7 @@ const MyBoardMain = () => {
                     >
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
                             <div
-                                onClick={() => openModal(item)}
+                                onClick={() => nav(`/board/detail/${item.boardcode}`)}
                                 style={{
                                     cursor: "pointer",
                                     width: "90%",
@@ -187,7 +192,8 @@ const MyBoardMain = () => {
                         </div>
                         <div className='fs_14'>{item.registereddate}</div>
                     </div>
-                ))}
+                ))
+            )}
 
                 {/* Pagination */}
                 <div className="justify-content-center d-flex mt-3 qnaPage_btn">

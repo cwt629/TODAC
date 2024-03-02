@@ -19,7 +19,6 @@ const MyPageUpdateForm = () => {
     const [idcheck,setIdcheck]=useState(true);//아이디 중복확인을 했는지 체크하기 위한 변수
     const [nickname,setNickname]=useState('');
     const storedId = sessionStorage.getItem("id");
-    const userid = sessionStorage.getItem("usercode");
     const [address,setAddress]=useState('');
     const [addressplus,setAddressplus]=useState('');
     const [open, setOpen] = useState(false);//다이얼로그 open/close
@@ -45,7 +44,6 @@ const MyPageUpdateForm = () => {
 
     //주소 선택 완료시 호출될 이벤트
     const selectAddress=(data)=>{
-        console.dir(data);
         setAddress(`(${data.zonecode}) ${data.address} ${data.buildingName} `);
 
         //주소 선택시 출력후 카카오주 소록과 다이얼로그를 닫는다
@@ -148,9 +146,9 @@ const MyPageUpdateForm = () => {
                 //멤버 추가 후 이동할 페이지
                 ReactSwal.fire({
                     icon: 'success',
-                    html: '성공적으로 변경되었습니다',
+                    html: '내 정보가 변경되었습니다',
                     confirmButtonText: '확인',
-                    confirmButtonColor: '#FF7170'
+                    confirmButtonColor: '#5279FD'
                 }).then(()=>{
                     navi("/user");
                 })
@@ -223,21 +221,21 @@ const MyPageUpdateForm = () => {
             <div className="myupdatemain">
                 <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
                 <div className="profile">
-                    <img className="profile" alt='' src={photo}/>
+                    <img className="profile" alt='' src={photo} style={{borderRadius:"50%"}}/>
                     <div className='mt_10 fs_20 fw_700'>{member.nickname}</div>
                     <input type='file' id='filephoto' style={{display: 'none'}}
                            onChange={uploadPhoto}/>
                     {/* <CameraAltOutlined style={{fontSize: '2em', cursor: 'pointer'}}
                                        onClick={() => document.getElementById("filephoto").click()}/> */}
-                    <img style={{width:'30px',height:"30px",position:'absolute',top:"115px",right:'10px'}} className="img-fluid" alt='이미지변경' src={require('../../../image/ico_camera.png')} onClick={() => document.getElementById("filephoto").click()}/>
+                    <img style={{width:'30px',height:"30px",position:'absolute',top:"130px",right:'0px'}} className="img-fluid" alt='이미지변경' src={require('../../../image/ico_camera.png')} onClick={() => document.getElementById("filephoto").click()}/>
                 </div>
 
                 <div className='fs_20 fw_700 mt_45'>닉네임</div>
                 <div className='d-flex justify-content-between h_35 mt_10'>
                     <input className="bg_gray bor_gray2 col-9 col_black p-3  br_5" type={"text"} value={nickname}
                            onChange={(e) => {
-                               setIdcheck(false);//아이디입력시 중복체크 버튼 다시 눌러야함
                                setNickname(e.target.value);
+                               setIdcheck(false);//아이디입력시 중복체크 버튼 다시 눌러야함
                            }}/>
                     <button type='button' className='btn btn-sm btn-secondary'
                             onClick={buttonIdCheck}>중복확인
@@ -262,7 +260,7 @@ const MyPageUpdateForm = () => {
 
             </div>
             <div className='d-flex justify-content-center mt_25'>
-                <button className="bg_blue bor_blue1 h_35 br_5 mt_25 px-3"
+                <button className="btn btn-sm btn-secondary h_35"
                 onClick={saveMemberEvent}>수정 사항 저장
                 </button>
             </div>
