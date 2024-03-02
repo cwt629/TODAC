@@ -2,11 +2,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
 /* Variables */
 /* Basic */
-html, body {
-    background-color: #DFE2E4;
-    font-family: "Roboto", sans-serif;
-}
-
 /* Card */
 .card {
     display: block;
@@ -21,6 +16,41 @@ html, body {
     border-radius: 5px;
 }
 
+
+.card2 {
+    z-index: 5;
+    position: relative;
+    width: 220px;
+    height: 280px;
+    box-shadow: -3px 5px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    background-color: #e7f0f2;
+    margin: auto;
+    font-family: sans-serif;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.card2 .image {
+    background-color: #161d1a;
+    width: 180px;
+    height: 180px;
+}
+.card2 canvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+.card2 h2 {
+    padding-top: 10px;
+    font-size: 22px;
+    font-weight: bold;
+}
+.card2 p {
+    font-size: 20px;
+    padding-top: 5px;
+}
+
+
 /* Title */
 .title {
     text-align: center;
@@ -29,11 +59,6 @@ html, body {
     color: #F5CE64;
     font-size: 40px;
     margin-bottom: 0;
-}
-.title p {
-    color: #A3A8CD;
-    margin-top: 8px;
-    margin-bottom: 25px;
 }
 
 /* Rancking */
