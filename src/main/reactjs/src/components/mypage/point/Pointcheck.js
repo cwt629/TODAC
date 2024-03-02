@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
@@ -21,11 +21,11 @@ const Pointcheck = () => {
     const [showLength, setShowLength] = useState(DISPLAY_PER_UNIT); // 화면에 보여줄 요소의 개수
     const [listDisplay, setListDisplay] = useState([]); // 화면에 보여줄 리스트 배열
     const CURRENT_ROUTES = [
-        {name: '내 정보', url: '/user'},
-        {name: '포인트', url: ''}
+        { name: '내 정보', url: '/user' },
+        { name: '내 TP', url: '' }
     ];
 
-    const PAGE_TITLE = '내 포인트';
+    const PAGE_TITLE = 'Todac Point';
 
     const handleExpandDisplay = () => {
         setShowLength(showLength + DISPLAY_PER_UNIT);
@@ -88,7 +88,7 @@ const Pointcheck = () => {
             cancelButtonText: '취소',
         }).then(res => {
             if (res.isConfirmed) {
-                nav("/user/point/checkout?price=" + {price});
+                nav("/user/point/checkout?price=" + { price });
             }
         });
     }
@@ -98,53 +98,55 @@ const Pointcheck = () => {
             <br></br>
             <div className="myupdatemain">
                 <div className="d-flex justify-content-between align-items-center">
-                    <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE}/>
+                    <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
                     <button className="deepblue"
-                            onClick={() => nav("charge")}>충전하기
+                        onClick={() => nav("charge")}>충전하기
                     </button>
                 </div>
-                <PointLogo/>
-                <div className="point" style={{textAlign: "center"}}>
+                <PointLogo />
+                <div className="point" style={{ textAlign: "center" }}>
                     {/*<img alt="" src={require("../../../image/pointIcon/point.png")}*/}
                     {/*     style={{margin:"40px 0px"}}/>*/}
-                    <h4 className="mt_45">보유 포인트 : <span
-                        style={{color: "#FF7170"}}>{member.point?.toLocaleString()}</span></h4>
+                    <h4 className="mt_45"><span
+                        style={{ color: "#FF7170" }}>{member.point?.toLocaleString()}</span> TP</h4>
                 </div>
 
-                <div className="fs_17 fw_800 mt_25">{member.nickname} 님의 포인트 사용내역</div>
+                <div className="fs_17 fw_800 mt_25"><span style={{ color: "#5279FD" }}>{member.nickname}</span> 님의 TP 사용내역</div>
                 {/*원태형 코드*/}
                 <table className='chatlog-table mt_25'>
                     <thead>
-                    <tr>
-                        <th width='50' style={{backgroundColor: '#F9EAEB'}}>타입</th>
-                        <th width='130' style={{backgroundColor: '#F9EAEB'}}>포인트</th>
-                        <th width='200' style={{backgroundColor: '#F9EAEB'}}>날짜</th>
-                    </tr>
+                        <tr>
+                            <th style={{ backgroundColor: 'var(--cobaltblue)', width: '10%' }}>번호</th>
+                            <th style={{ backgroundColor: 'var(--cobaltblue)', width: '10%' }}>타입</th>
+                            <th style={{ backgroundColor: 'var(--cobaltblue)', width: '40%' }}>Todac Point</th>
+                            <th style={{ backgroundColor: 'var(--cobaltblue)', width: '40%' }}>날짜</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    {/* 테이블 내용 */}
-                    {
-                        point.slice(0, showLength).map((data, index) => (
-                            <tr key={index}>
-                                <td>{data.type}</td>
-                                <td style={{color: (data.type === '충전' || data.type === '오늘의미소') ? 'blue' : 'red'}}>
-                                    {(data.type === '충전' || data.type === '오늘의미소') ? `+${data.amount?.toLocaleString()}` : `-${data.amount?.toLocaleString()}`}
-                                </td>
-                                <td>
-                                    {/* <img alt={data.counselorname} src={data.counselorphoto}
+                        {/* 테이블 내용 */}
+                        {
+                            point.slice(0, showLength).map((data, index) => (
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{data.type}</td>
+                                    <td style={{ color: (data.type === '충전' || data.type === '오늘의 미소') ? '#5279FD' : 'red' }}>
+                                        {(data.type === '충전' || data.type === '오늘의 미소') ? `+${data.amount?.toLocaleString()}` : `-${data.amount?.toLocaleString()}`}
+                                    </td>
+                                    <td>
+                                        {/* <img alt={data.counselorname} src={data.counselorphoto}
                                         width={20} height={20} /> */}
-                                    {data.applieddate}
-                                </td>
-                            </tr>
-                        ))
-                    }
+                                        {data.applieddate}
+                                    </td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
                 {/*원태형 코드*/}
                 <PointCheckButtons needToShow={listDisplay.length > DISPLAY_PER_UNIT}
-                                 displayedAll={listDisplay.length <= showLength}
-                                 handleExpandDisplay={handleExpandDisplay}
-                                 handleShrinkDisplay={handleShrinkDisplay} />
+                    displayedAll={listDisplay.length <= showLength}
+                    handleExpandDisplay={handleExpandDisplay}
+                    handleShrinkDisplay={handleShrinkDisplay} />
             </div>
         </div>
     );
