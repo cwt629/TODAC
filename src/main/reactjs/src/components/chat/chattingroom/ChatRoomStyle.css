@@ -9,10 +9,13 @@ div.chatheader {
 }
 
 div.chatmid {
-    height: 35px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+div.chatmid div.chatmid-title {
+    flex: 1;
 }
 
 div.chatcontent {
