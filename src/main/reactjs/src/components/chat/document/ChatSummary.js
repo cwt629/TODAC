@@ -61,8 +61,8 @@ const ChatSummary = () => {
     const summary = async () => {
         try {
             const response = await axios.get("/chat/summary?chatroomcode=" + roomcode);
-            console.log("로그 불러오려고 함");
-            console.log(response);
+            // console.log("로그 불러오려고 함");
+            // console.log(response);
             setLogList(response.data);
             const { summarizedUserMessage, summarizedCounselorMessage } = await summarizeMessages(response.data);
             setSummarizedMessages({ summarizedUserMessage, summarizedCounselorMessage });
@@ -86,8 +86,8 @@ const ChatSummary = () => {
             }
         });
 
-        console.log("지금 보내고자 하는 로그");
-        console.log(chatlog);
+        // console.log("지금 보내고자 하는 로그");
+        // console.log(chatlog);
 
         const userLog = chatlog.filter((log) => (log.speaker === 0));
         const counselorLog = chatlog.filter((log) => (log.speaker !== 0));
@@ -128,8 +128,8 @@ const ChatSummary = () => {
         try {
             const response = await axios.get("/chat/summary/check?chatroomcode=" + roomcode);
             if (response.data) {
-                console.log("요약본 있음")
-                console.log(response)
+                // console.log("요약본 있음")
+                // console.log(response)
                 setSummarizedMessages({
                     summarizedUserMessage: { content: response.data.worry },
                     summarizedCounselorMessage: { content: response.data.answer }
