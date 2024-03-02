@@ -12,6 +12,7 @@ public interface MainListInterface {
     Timestamp getRegistereddate();
     String getNickname();
     int getVisitcount();
+    String getPhoto();
     String getMybadge();
     String getTitle();
     int getCommentcount();

@@ -33,7 +33,7 @@ public interface BoardRepository extends JpaRepository<BoardDto, Integer> {
    		"""
    			SELECT
           board.boardcode, board.counselorcode, board.usercode, member.nickname, member.mybadge AS mybadge,
-    	  board.registereddate, board.title,
+    	  board.registereddate, board.photo, board.title,
           IFNULL(board.visitcount, 0) AS visitcount,
           IFNULL(COUNT(DISTINCT boardcomment.commentcode), 0) AS commentcount,
           IFNULL(COUNT(DISTINCT boardlikes.likecode), 0) AS likecount
@@ -46,6 +46,10 @@ public interface BoardRepository extends JpaRepository<BoardDto, Integer> {
 		"""
 			, nativeQuery = true)
 	public List<MainListInterface> findAllByOrderByBoardCodeDesc(@Param("sortBy") String sortBy);
+
+	//업적 관련 로직
+	@Query(value = "select count(*) from board where usercode = :usercode", nativeQuery = true)
+	public int getBoardCountByUser(@Param("usercode") int usercode);
 
 
 	@Query(value = "select * from board where usercode=:usercode",nativeQuery = true)
