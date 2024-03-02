@@ -4,17 +4,8 @@ import { useNavigate, useParams } from "react-router";
 import noImage from "../../../image/no_image_board_form.png";
 import PageHeader from "../../PageHeader";
 import changePhoto from "../../../image/change_photo.svg";
-import {
-    Avatar,
-    CircularProgress,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemButton,
-    ListItemText,
-    Radio,
-    TextField,
-} from "@mui/material";
+import { CircularProgress, TextField } from "@mui/material";
+import Swal from "sweetalert2";
 
 const BoardUpdateForm = () => {
     const [photo, setPhoto] = useState("");
@@ -28,8 +19,8 @@ const BoardUpdateForm = () => {
 
     const CURRENT_ROUTES = [
         { name: "커뮤니티", url: "/user/community" },
-        { name: "게시판", url: "/user/community/board" },
-        { name: "상세 페이지", url: "" },
+        { name: "게시판", url: "/board" },
+        { name: "상세 페이지", url: `/board/updateform/${boardcode}` },
     ];
 
     const PAGE_TITLE = "상세 페이지";
@@ -93,16 +84,18 @@ const BoardUpdateForm = () => {
         });
     };
 
-    const handleRadioChange = (value) => {
-        changeData({ target: { name: "counselorcode", value: value + 1 } });
-    };
-
     // 수정 버튼
     const updateDataEvent = () => {
         axios
             .post("/board/update", selectData)
             .then((res) => {
-                navi(`/user/community/board/detail/${selectData.boardcode}`);
+                navi(`/board/detail/${selectData.boardcode}`);
+                Swal.fire({
+                    title: "수정 성공!",
+                    text: "게시글이 성공적으로 수정되었습니다.",
+                    icon: "success",
+                    confirmButtonColor: "#5279FD",
+                });
             })
             .catch((error) => {
                 console.error("update 중 오류", error);
@@ -117,7 +110,10 @@ const BoardUpdateForm = () => {
                         <>
                             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
 
-                            <div className='col-4' style={{ marginTop: "15px", width: "100%", height: "100%" }}>
+                            <div
+                                className='col-4'
+                                style={{ marginTop: "15px", width: "100%", height: "100%", position: "relative" }}
+                            >
                                 <div>
                                     {selectData.photo === null ? (
                                         <img
@@ -147,8 +143,8 @@ const BoardUpdateForm = () => {
                                             width: "40px",
                                             height: "40px",
                                             position: "absolute",
-                                            top: "350px",
-                                            right: "45px",
+                                            top: "286px",
+                                            right: "3px",
                                         }}
                                         className='img-fluid'
                                         alt='이미지변경'
@@ -178,7 +174,7 @@ const BoardUpdateForm = () => {
                                 </div>
                             </div>
 
-                            <div className='mt_10'>
+                            <div className='mt-3'>
                                 <TextField
                                     size='small'
                                     value={selectData.title}
@@ -200,37 +196,8 @@ const BoardUpdateForm = () => {
                                     onChange={changeData}
                                 />
                             </div>
-                            <div className='form-group' style={{ marginTop: "10px" }}>
-                                <h6>상담사</h6>
-                                <div style={{ display: "flex" }}>
-                                    <List dense sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-                                        {Array.from(Array(5).keys()).map((index) => (
-                                            <ListItem key={index} disablePadding>
-                                                <ListItemButton
-                                                    role={undefined}
-                                                    onClick={() => handleRadioChange(index)}
-                                                    dense
-                                                >
-                                                    <ListItemAvatar>
-                                                        <Avatar
-                                                            alt={`Avatar n°${index + 1}`}
-                                                            src={`/static/images/avatar/${index + 1}.jpg`}
-                                                        />
-                                                    </ListItemAvatar>
-                                                    <ListItemText primary={`상담사${index + 1}`} />
-                                                    <Radio
-                                                        edge='end'
-                                                        checked={selectData.counselorcode === index + 1}
-                                                        tabIndex={-1}
-                                                        disableRipple
-                                                    />
-                                                </ListItemButton>
-                                            </ListItem>
-                                        ))}
-                                    </List>
-                                </div>
-                            </div>
-                            <div className='d-flex justify-content-center'>
+
+                            <div className='d-flex justify-content-center mt-3'>
                                 <button className='inquiry_btn2' onClick={updateDataEvent}>
                                     수정
                                 </button>

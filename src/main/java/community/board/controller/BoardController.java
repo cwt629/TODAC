@@ -47,10 +47,10 @@ public class BoardController {
 	}
 
 	//단일한 dto 값을 저장하는 로직
-	@PostMapping("/form/insert/{usercode}")
-	public void insertBoard(@RequestBody BoardDto dto , @PathVariable("usercode") String usercode) {
+	@PostMapping("/form/insert/{userid}")
+	public void insertBoard(@RequestBody BoardDto dto , @PathVariable("userid") String userid) {
 
-		MemberDto findMember = memberDao.getMemberByID(usercode);
+		MemberDto findMember = memberDao.getMemberByID(userid);
 		dto.setMember(findMember);
 
 		//미리 업로드한 photo 를 dto에 넣기
@@ -180,6 +180,20 @@ public class BoardController {
 		} else {
 			return boardService.getBoardList();
 		}
+	}
+
+	@GetMapping("/achieve/daystar")
+	public boolean checkAchieveDayStar(@RequestParam("usercode") int usercode) {
+		int chatCount = boardService.getBoardCountByUser(usercode);
+
+		return (chatCount >= 5);
+	}
+
+	@GetMapping("/achieve/pro")
+	public boolean checkAchievePro(@RequestParam("usercode") int usercode) {
+		int chatCount = boardService.getBoardCountByUser(usercode);
+
+		return (chatCount >= 50);
 	}
 
 }
