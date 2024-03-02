@@ -5,6 +5,7 @@ import axios from "axios";
 import "./MyPageStyle.css";
 import Swal from "sweetalert2";
 import PageHeader from "../PageHeader";
+import { getBadgeInfo } from '../../utils/badgeInfo';
 
 const MypageMain = () => {
     const [member, setmember] = useState([]);
@@ -13,6 +14,7 @@ const MypageMain = () => {
     const storedId = sessionStorage.getItem("id");
     const loginType = sessionStorage.getItem("loginType");
     const usercode = sessionStorage.getItem("usercode");
+    const [badgeinfo,setBadgeinfo] = useState();
     const [achieve, setAchieve] = useState([]);
     const achievename = "뉴비"
 
@@ -32,6 +34,9 @@ const MypageMain = () => {
         axios.post(url)
             .then(res => {
                 setmember(res.data);
+                const badgeinfo = getBadgeInfo(res.data.mybadge);
+                setBadgeinfo(badgeinfo)
+                console.log(badgeinfo.image)
             })
     }
 
@@ -119,7 +124,9 @@ const MypageMain = () => {
             <div className="profile">
                 <img className="profile" alt='' src={member.photo}
                 style={{borderRadius:"50%"}} />
-                <div className='mt_10 fs_20 fw_700'>{member.nickname}</div>{member.mybadge}
+                <div className='mt_10 fs_20 fw_700'>
+                {badgeinfo && <img alt='' src={badgeinfo.image} style={{width:"25px", height:"25px"}}/>}
+                    {member.nickname}</div>{member.mybadge}
             </div>
             <div className="iconmenu mt-5">
                 <div onClick={() => nav('point')} className="col">
