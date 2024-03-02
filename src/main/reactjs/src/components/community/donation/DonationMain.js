@@ -242,9 +242,8 @@ const PAGE_TITLE = "후원의 전당";
                         </div>
                        
                         
-                        <div>
-                            
-                            <span className="fw_700 fs_20" style={{ color: "#FF7170" }}>{item.total_amount?.toLocaleString()}</span>
+                        <div className="fw_700 fs_20">
+                            <span style={{ color: "#FF7170" }}>{item.total_amount?.toLocaleString()}</span>&nbsp;원
                         </div>
                     </div>
                 ))}
