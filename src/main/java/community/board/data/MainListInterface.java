@@ -11,11 +11,8 @@ public interface MainListInterface {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     Timestamp getRegistereddate();
     String getNickname();
-    String getState();
-    String getCategory();
     int getVisitcount();
-    String getPhoto();
-    String getMemberPhoto();
+    String getMybadge();
     String getTitle();
     int getCommentcount();
     int getLikecount();

@@ -1,14 +1,4 @@
-import {
-    Avatar,
-    CircularProgress,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemButton,
-    ListItemText,
-    Radio,
-    TextField,
-} from "@mui/material";
+import { CircularProgress, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -33,7 +23,7 @@ const BoardForm = () => {
     const CURRENT_ROUTES = [
         { name: "커뮤니티", url: "/user/community" },
         { name: "게시판", url: "/board" },
-        { name: "게시글 등록", url: "/user/community/board/form" },
+        { name: "게시글 등록", url: "/board/form" },
     ];
 
     const PAGE_TITLE = "게시글 등록";
@@ -113,6 +103,7 @@ const BoardForm = () => {
                             marginTop: "15px",
                             width: "100%",
                             height: "100%",
+                            position: "relative",
                         }}
                     >
                         <div
@@ -131,16 +122,12 @@ const BoardForm = () => {
                                 />
                             </div>
                             {loading ? (
-                                <div
-                                    style={{
-                                        position: "relative",
-                                    }}
-                                >
+                                <div>
                                     <CircularProgress
                                         size={50}
                                         style={{
-                                            position: "relative",
-                                            top: "180px",
+                                            position: "absolute",
+                                            top: "250px",
                                             left: "43%",
                                             transform: "translate(-50%, -50%)",
                                         }}
@@ -158,8 +145,8 @@ const BoardForm = () => {
                                     width: "40px",
                                     height: "40px",
                                     position: "absolute",
-                                    top: "450px",
-                                    right: "45px",
+                                    top: "289px",
+                                    right: "0px",
                                 }}
                                 className='img-fluid'
                                 alt='이미지변경'

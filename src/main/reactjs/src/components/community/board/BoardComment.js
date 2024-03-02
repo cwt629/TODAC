@@ -68,9 +68,9 @@ const BoardComment = () => {
         Swal.fire({
             title: "댓글 삭제",
             text: "해당 댓글을 삭제하시겠습니까?",
-            icon: "warning",
+            icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#FF7170",
+            confirmButtonColor: "#5279FD",
             confirmButtonText: "예",
             cancelButtonText: "아니오",
         }).then((result) => {
@@ -97,7 +97,7 @@ const BoardComment = () => {
 
     return (
         <div>
-            <div className='mt_45'>
+            <div className='mt-5'>
                 <h5>
                     댓글
                     <img alt='' src={commentImg} />

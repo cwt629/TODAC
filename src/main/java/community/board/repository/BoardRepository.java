@@ -32,8 +32,8 @@ public interface BoardRepository extends JpaRepository<BoardDto, Integer> {
 	@Query(value =
    		"""
    			SELECT
-          board.boardcode, board.counselorcode, board.usercode, member.nickname, member.photo AS memberphoto,
-    	  board.registereddate, board.state, board.category, board.photo, board.title,
+          board.boardcode, board.counselorcode, board.usercode, member.nickname, member.mybadge AS mybadge,
+    	  board.registereddate, board.title,
           IFNULL(board.visitcount, 0) AS visitcount,
           IFNULL(COUNT(DISTINCT boardcomment.commentcode), 0) AS commentcount,
           IFNULL(COUNT(DISTINCT boardlikes.likecode), 0) AS likecount
