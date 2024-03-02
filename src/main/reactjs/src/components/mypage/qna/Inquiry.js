@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import InquiryRowItem from './InquiryRowItem';
 import { Pagination } from '@mui/material';
+import PageHeader from '../../PageHeader';
 
 const Inquiry = () => {
     const [list, setList] = useState([]);
@@ -10,6 +11,7 @@ const Inquiry = () => {
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 추가
     const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수 상태 추가
     const itemsPerPage = 5; // 페이지당 항목 수
+    const pagesToShow = 5; // 표시할 페이지 번호의 최대 개수
 
     const user = sessionStorage.getItem("usercode");
     const nickname = sessionStorage.getItem("nickname");
@@ -46,17 +48,25 @@ const Inquiry = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
 
+    const groupStartPage = Math.max(1, currentPage - Math.floor(pagesToShow / 2));
+    const groupEndPage = Math.min(totalPages, groupStartPage + pagesToShow - 1);
+
+    const CURRENT_ROUTES = [
+        { name: "마이 홈", url: "/user" },
+        { name: "나의 문의내역", url: "/user/inquiry" },
+    ];
+    
+    const PAGE_TITLE = "나의 문의내역";
+
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14 col_blue2'>
-                <Link to="/user">마이 홈 {'>'} </Link>
-                <Link to="/user/inquiry">1:1 문의</Link>
+            <div>
+                <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             </div>
-            <div className='fs_25 fw_700'>나의 문의내역</div>
 
-            <div className='mt_45 fw_500'><span className='fw_900 col_blue3'>{memberinfo.nickname}</span> 님, <br/>무엇을 도와드릴까요?</div>
+            <div className='mt_25 fw_500'><span className='fw_900 col_blue2'>{memberinfo.nickname}</span> 님, <br/>무엇을 도와드릴까요?</div>
 
-            <div className='d-flex mt_45 inquiry_list align-items-center'>
+            <div className='d-flex mt_25 inquiry_list align-items-center'>
                 <div className='me-auto fs_18 fw_700'>
                     1:1 문의내역
                 </div>
@@ -76,11 +86,25 @@ const Inquiry = () => {
                         row={row}
                     />
                 ))}
+                {/* <div className='justify-content-center d-flex mt-3 qnaPage_btn'>
+                    <Pagination
+                        page={currentPage}
+                        count={totalPages}
+                        onChange={handlePageChange}
+                    />
+                </div> */}
                 <div className='justify-content-center d-flex mt-3 qnaPage_btn'>
                     <Pagination
                         page={currentPage}
                         count={totalPages}
                         onChange={handlePageChange}
+                        shape="rounded" // 모서리 둥글게
+                        variant="outlined" // 테두리 스타일
+                        color="primary" // 색상
+                        hidePrevButton
+                        hideNextButton
+                        hideFirstButton
+                        hideLastButton
                     />
                 </div>
             </div>

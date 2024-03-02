@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import './DocumentStyle.css';
+import Swal from 'sweetalert2';
 import counselor from '../../../image/counselor.png';
 import you from '../../../image/you.png';
 import analysis from '../../../image/analysis.png';
 import acting from '../../../image/acting.png';
+import './DocumentStyle.css';
 import axios from 'axios';
-import Swal from 'sweetalert2';
 import summarizeContent from '../api/summarize';
 import PageHeader from '../../PageHeader';
 
@@ -20,12 +20,11 @@ const ChatDiagnosis = () => {
     const [summarizedMessages, setSummarizedMessages] = useState({ summarizedUserMessage: "", summarizedCounselorMessage: "" });
     const [diagnosisMessages, setDiagnosisMessages] = useState({ analyzedUserMessage: "", recommendedActivitiesUserMessage: "" });
 
-    console.log("roomcode:" + roomcode);
+    // console.log("roomcode:" + roomcode);
 
     const CURRENT_ROUTES = [
         { name: 'TODAC 채팅', url: '/user/chat' },
-        { name: '상담 받기', url: '/user/chat/counsel' },
-        { name: '오늘의 상담 요약', url: '/user/chat/summary' },
+        { name: '오늘의 상담 요약', url: `/user/chat/summary?chatroomcode=${roomcode}` },
         { name: '나의 진단서', url: '' }
     ];
 
@@ -57,7 +56,6 @@ const ChatDiagnosis = () => {
                         icon: 'question',
                         showCancelButton: true,
                         confirmButtonColor: '#5279FD',
-                        cancelButtonColor: '#FF7170',
                         confirmButtonText: '예',
                         cancelButtonText: '아니오'
                     }).then((result) => {
@@ -69,10 +67,9 @@ const ChatDiagnosis = () => {
                                         // 포인트 부족 시 충전 안내
                                         Swal.fire({
                                             icon: 'warning',
-                                            html: '포인트가 부족합니다. 포인트를 충전하시겠습니까?',
+                                            html: '포인트가 부족합니다.<br>포인트를 충전하시겠습니까?',
                                             showCancelButton: true,
                                             confirmButtonColor: '#5279FD',
-                                            cancelButtonColor: '#FF7170',
                                             confirmButtonText: '예',
                                             cancelButtonText: '아니오'
                                         }).then((result) => {
@@ -87,7 +84,7 @@ const ChatDiagnosis = () => {
                                     else {
                                         // 진단서 발급 완료
                                         Swal.fire({
-                                            icon: 'warning',
+                                            icon: 'success',
                                             html: '진단서가 발급되었습니다.',
                                             confirmButtonText: '확인',
                                             confirmButtonColor: '#5279FD'
@@ -108,8 +105,8 @@ const ChatDiagnosis = () => {
     const summaryDB = async () => {
         try {
             const response = await axios.get("/chat/diagnosis?chatroomcode=" + roomcode);
-            console.log("요약 내용 DB에서 불러옴");
-            console.log(response);
+            // console.log("요약 내용 DB에서 불러옴");
+            // console.log(response);
             setSummaryList(response.data);
             const { summarizedUserMessage, summarizedCounselorMessage } = await summarizeMessages(response.data);
             setSummarizedMessages({ summarizedUserMessage, summarizedCounselorMessage });
@@ -122,8 +119,8 @@ const ChatDiagnosis = () => {
     const diagnosis = async () => {
         try {
             const response = await axios.get("/chat/summary?chatroomcode=" + roomcode);
-            console.log("대화 로그 불러오려고 함");
-            console.log(response);
+            // console.log("대화 로그 불러오려고 함");
+            // console.log(response);
             setLogList(response.data);
             const { analyzedUserMessage, recommendedActivitiesUserMessage } = await diagnosisAiMessages(response.data);
             setDiagnosisMessages({ analyzedUserMessage, recommendedActivitiesUserMessage });
@@ -135,13 +132,13 @@ const ChatDiagnosis = () => {
 
     // 요약 내용을 DB에서 불러옴
     const summarizeMessages = async (chatlog) => {
-        console.log("지금 보내고자 하는 로그");
-        console.log(chatlog);
+        // console.log("지금 보내고자 하는 로그");
+        // console.log(chatlog);
         const chatLogWorry = chatlog[0].worry;
         const chatLogAnswer = chatlog[0].answer;
 
-        console.log(chatLogWorry);
-        console.log(chatLogAnswer);
+        // console.log(chatLogWorry);
+        // console.log(chatLogAnswer);
 
         return { summarizedUserMessage: chatLogWorry, summarizedCounselorMessage: chatLogAnswer };
     };
@@ -160,13 +157,13 @@ const ChatDiagnosis = () => {
             }
         });
 
-        console.log("심리 로그");
-        console.log(chatlog);
+        // console.log("심리 로그");
+        // console.log(chatlog);
 
         const analyzeUserLog = chatlog.filter((log) => (log.speaker === 0));
         const recommendedActivitiesUserLog = chatlog.filter((log) => (log.speaker === 0));
 
-        console.log(analyzeUserLog);
+        // console.log(analyzeUserLog);
 
         const analyzedUserMessage = await summarizeContent(
             analyzeUserLog,
@@ -209,12 +206,12 @@ const ChatDiagnosis = () => {
         try {
             const response = await axios.get("/chat/diagnosis/check?chatroomcode=" + roomcode);
             if (response.data) {
-                console.log("response.data.usercode:" + response.data.usercode);
-                console.log("usercode:" + usercode);
+                // console.log("response.data.usercode:" + response.data.usercode);
+                // console.log("usercode:" + usercode);
                 if (response.data.usercode == usercode || usercode == 5) {
                     getSummarizedMessages();
-                    console.log("진단서 있음")
-                    console.log(response)
+                    // console.log("진단서 있음")
+                    // console.log(response)
                     setDiagnosisMessages({
                         analyzedUserMessage: { content: response.data.deepanswer },
                         recommendedActivitiesUserMessage: { content: response.data.advice }
@@ -247,34 +244,65 @@ const ChatDiagnosis = () => {
         checkData();
     }, []);
 
+    // 클릭 이벤트 처리 함수
+    const handleFlip = (e) => {
+        // 현재 클릭된 요소의 부모에 clicked 클래스를 추가하여 효과 적용
+        e.currentTarget.parentElement.classList.toggle('clicked');
+    };
+
     return (
         <div className='mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <div className='diagnosisSummaryContent fs_14 fw_500 mt_10'>
-                <img src={you} alt='You Image' style={{ width: '50px', height: '50px', border: '2px solid #D4E4F2' }} /><br />
-                <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br />
-                {summarizedMessages.summarizedUserMessage}
+
+            <div className='flip-container mx_30 mt_25'>
+                <div className='diagnosisSummaryContent fs_14 fw_500 mt_10 flipper' onClick={handleFlip}>
+                    <div className='front'>
+                        <img src={you} alt='You Image' />
+                    </div>
+                    <div className='back'>
+                        <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br /><br />
+                        <div style={{ height: '175px', overflowY: 'auto' }}>{summarizedMessages.summarizedUserMessage}</div>
+                    </div>
+                </div>
             </div>
             <br />
-            <div className='diagnosisSummaryAnswerContent fs_14 fw_500 mt_10'>
-                <img src={counselor} alt='Counselor Image' style={{ width: '50px', height: '50px', border: '2px solid whitesmoke' }} /><br />
-                <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: 'whitesmoke' }}>상담사의 답변 요약</span><br />
-                {summarizedMessages.summarizedCounselorMessage}
+            <div className='flip-container mx_30 mt_10'>
+                <div className='diagnosisSummaryAnswerContent fs_14 fw_500 mt_10 flipper' onClick={handleFlip}>
+                    <div className='front'>
+                        <img src={counselor} alt='Counselor Image' />
+                    </div>
+                    <div className='back'>
+                        <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: 'whitesmoke' }}>상담사의 답변 요약</span><br /><br />
+                        <div style={{ height: '175px', overflowY: 'auto' }}>{summarizedMessages.summarizedCounselorMessage}</div>
+                    </div>
+                </div>
             </div>
             <br />
-            <div className='diagnosisPsychology fs_14 fw_500 mt_10'>
-                <img src={analysis} alt='Analysis Image' style={{ width: '50px', height: '50px', border: '2px solid #ccd6f5' }} /><br />
-                <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#ccd6f5' }}>심리 분석</span><br />
-                {diagnosisMessages.analyzedUserMessage?.content}
+            <div className='flip-container mx_30 mt_10'>
+                <div className='diagnosisPsychology fs_14 fw_500 mt_10 flipper' onClick={handleFlip}>
+                    <div className='front'>
+                        <img src={analysis} alt='Analysis Image' />
+                    </div>
+                    <div className='back'>
+                        <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#ccd6f5' }}>심리 분석</span><br /><br />
+                        <div style={{ height: '175px', overflowY: 'auto' }}>{diagnosisMessages.analyzedUserMessage?.content}</div>
+                    </div>
+                </div>
             </div>
             <br />
-            <div className='diagnosisActing fs_14 fw_500 mt_10'>
-                <img src={acting} alt='Acting Image' style={{ width: '50px', height: '50px', border: '2px solid #bfe1ff' }} /><br />
-                <span className='fs_18 fw_700' style={{ borderBottom: 'solid', borderColor: '#bfe1ff' }}>고민이 계속될 땐, 이렇게 해보세요 🤗</span><br />
-                {diagnosisMessages.recommendedActivitiesUserMessage?.content}
+            <div className='flip-container mx_30 mt_10'>
+                <div className='diagnosisActing fs_14 fw_500 mt_10 flipper' onClick={handleFlip}>
+                    <div className='front'>
+                        <img src={acting} alt='Acting Image' />
+                    </div>
+                    <div className='back'>
+                        <span className='fs_15 fw_700' style={{ borderBottom: 'solid', borderColor: '#bfe1ff' }}>고민이 계속될 땐, 이렇게 해보세요 🤗</span><br /><br />
+                        <div style={{ height: '175px', overflowY: 'auto' }}>{diagnosisMessages.recommendedActivitiesUserMessage?.content}</div>
+                    </div>
+                </div>
             </div>
             <br />
-            <div style={{ textAlign: 'center' }}>
+            <div className='mt_10' style={{ textAlign: 'center' }}>
                 <button className='white long' onClick={() => nav('../../')}>마이 홈 이동하기</button>
             </div>
         </div>

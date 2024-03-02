@@ -8,7 +8,6 @@ import Swal from 'sweetalert2';
 import ChatReviewModal from './ChatReviewModal';
 import axios from 'axios';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import PageHeader from '../../PageHeader';
 import withReactContent from 'sweetalert2-react-content';
 import ReviewAlert from './ReviewAlert';
 import defaultProfilePhoto from '../../../image/default_profile_photo_blue.jpg';
@@ -22,9 +21,13 @@ const ReactSwal = withReactContent(Swal);
 const STORAGE_PHOTO_BASE = 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/';
 const STORAGE_COUNSELOR_FOLDER_NAME = 'counselors/';
 
+const BADGE_NAME_PARTNERS = "모두가 나의 파트너";
+const BADGE_NAME_FIVETODAC = "다섯 번의 토닥";
+
 const ChatRoomMain = () => {
     const [query, setQuery] = useSearchParams();
     const counselorcode = query.get("counselorcode");
+    const usercode = sessionStorage.getItem("usercode");
 
     const [log, setLog] = useState([]);
     const [input, setInput] = useState('');
@@ -35,13 +38,6 @@ const ChatRoomMain = () => {
     const [systemMessage, setSystemMessage] = useState('');
 
     const nav = useNavigate();
-
-    // const CURRENT_ROUTES = [
-    //     { name: 'TODAC 채팅', url: '/user/chat' },
-    //     { name: '상담받기', url: '' }
-    // ];
-
-    // const PAGE_TITLE = 'TODAC 채팅';
 
     // 초기 데이터 로딩
     useEffect(() => {
@@ -72,7 +68,7 @@ const ChatRoomMain = () => {
             ReactSwal.fire({
                 title: '초기 데이터 로딩 중!',
                 text: '초기 데이터 로딩 중입니다. 조금만 기다려주세요!',
-                icon: 'error',
+                icon: 'warning',
                 confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             });
@@ -82,7 +78,7 @@ const ChatRoomMain = () => {
         if (loading) {
             ReactSwal.fire({
                 title: '상담사가 아직 답변중!',
-                text: '상담사가 아직 답변중입니다. 잠시 후 시도해주세요.',
+                html: '상담사가 아직 답변중입니다.<br/>잠시 후 시도해주세요.',
                 icon: 'warning',
                 confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
@@ -136,6 +132,30 @@ const ChatRoomMain = () => {
                 headers: { 'Content-Type': 'application/json' }
             });
 
+            // chatroom 적용 뒤, 업적 처리
+
+            // 1. '모두가 나의 파트너': 모든 상담사와 1회 이상 상담
+            let badgeResponsePartner = await axios.get("/chat/achieve/partners?usercode=" + usercode);
+            if (badgeResponsePartner.data) {
+                // 업적 달성 처리 시도
+                let achieveResult = await axios.post(`/badgeinsert?usercode=${usercode}&achievename=${BADGE_NAME_PARTNERS}`);
+
+                if (achieveResult.data) {
+                    await popupAchievement(BADGE_NAME_PARTNERS);
+                }
+            }
+
+            // 2. '다섯 번의 토닥': 채팅 5회 이상 종료
+            let badgeResponseFive = await axios.get("/chat/achieve/fivetodac?usercode=" + usercode);
+            if (badgeResponseFive.data) {
+                // 업적 달성 처리 시도
+                let achieveResult = await axios.post(`/badgeinsert?usercode=${usercode}&achievename=${BADGE_NAME_FIVETODAC}`);
+
+                if (achieveResult.data) {
+                    await popupAchievement(BADGE_NAME_FIVETODAC);
+                }
+            }
+
             ReactSwal.fire({
                 icon: 'success',
                 title: `${score >= 0 ? '소중한 리뷰 감사합니다!' : ''}`,
@@ -143,7 +163,7 @@ const ChatRoomMain = () => {
                 confirmButtonColor: '#5279FD',
                 confirmButtonText: '확인'
             }).then(() => {
-                nav("/user/chat/summary?roomcode=" + response.data);
+                nav("/user/chat/summary?chatroomcode=" + response.data);
             })
 
         } catch (err) {
@@ -216,7 +236,7 @@ const ChatRoomMain = () => {
                 html: '상담한 내역이 없습니다.<br/>이대로 상담을 종료하시겠습니까?',
                 showConfirmButton: true,
                 showCancelButton: true,
-                confirmButtonText: '네',
+                confirmButtonText: '예',
                 cancelButtonText: '아니오',
                 confirmButtonColor: '#5279FD',
             }).then((result) => {

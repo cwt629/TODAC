@@ -55,4 +55,13 @@ public class ChatService {
 	public String getMemberUsercodeInRoom(Short chatroomcode) {
 		return chatDao.getMemberUsercodeInRoom(chatroomcode);
 	}
+	
+	// 업적
+	public int getOfficialCounselorsCountByUser(int usercode) {
+		return chatDao.getOfficialCounselorsCountByUser(usercode);
+	}
+	
+	public int getChatCountByUser(int usercode) {
+		return chatDao.getChatCountByUser(usercode);
+	}
 }

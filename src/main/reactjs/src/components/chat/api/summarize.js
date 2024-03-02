@@ -29,8 +29,8 @@ async function summarizeContent(log, systemMessage) {
                 }
             }
         );
-        console.log("GPT로부터 온 답변");
-        console.log(response)
+        // console.log("GPT로부터 온 답변");
+        // console.log(response)
         return response.data.choices[0].message;
     } catch (error) {
         console.error("내용을 요약하는 도중 에러가 발생했습니다:", error);

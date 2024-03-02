@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import InquiryHistoryRowItem from './InquiryHistoryRowItem';
 import { Pagination } from '@mui/material';
+import PageHeader from '../../PageHeader';
 
 const InquiryHistory = () => {
     const [list, setList] = useState([]);
@@ -42,29 +43,30 @@ const InquiryHistory = () => {
     const groupStartPage = Math.max(1, currentPage - Math.floor(pagesToShow / 2));
     const groupEndPage = Math.min(totalPages, groupStartPage + pagesToShow - 1);
 
+    const CURRENT_ROUTES = [
+        { name: "관리자 홈", url: "/admin" },
+        { name: "1:1 문의내역", url: "/admin/InquiryHistory" },
+    ];
+    
+    const PAGE_TITLE = "1:1 문의내역";
+
     return (
         <div className='mx_30'>
-            <div className='mt-1 fs_14'>
-                <Link to="/admin" className='col_blue2'>관리자 홈 {'>'} </Link>
-                <Link to="/admin/InquiryHistory" className='col_blue2'>문의 관리</Link>
-            </div>
-            <div className='fs_25 fw_700'>1:1 문의내역</div>
-
-            <div className='mt_45'>
-                <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <div className='fw_800'>문의 목록</div>
-                    <div className='inquiryhistory_bg'>
-                        <input
-                            type="checkbox"
-                            id="showUnansweredOnly"
-                            checked={showUnansweredOnly}
-                            onChange={handleShowUnansweredOnlyChange}
-                            style={{ marginRight: "10px" }}
-                        />
-                        <label htmlFor="showUnansweredOnly">미답변만 확인</label>
-                    </div>
+            <div className="mb-2 d-flex justify-content-between align-items-center">
+                <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
+                <div className='inquiryhistory_bg'>
+                    <input
+                        type="checkbox"
+                        id="showUnansweredOnly"
+                        checked={showUnansweredOnly}
+                        onChange={handleShowUnansweredOnlyChange}
+                        style={{ marginRight: "10px" }}
+                    />
+                    <label htmlFor="showUnansweredOnly">미답변만 확인</label>
                 </div>
+            </div>
 
+            <div className='mt_25'>
                 {list &&
                     list.slice(startIndex, endIndex).map((data, idx) => (
                         <InquiryHistoryRowItem

@@ -27,7 +27,7 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoomDto, Short> {
 			LEFT JOIN 
 			    chatdiagnosis d ON r.chatroomcode = d.chatroomcode
 			where r.usercode = :usercode
-			
+			ORDER BY date DESC
 			""", nativeQuery = true)
 	public List<ChatListInterface> getChatroomsOfMember(@Param("usercode") int usercode);
 	
@@ -49,4 +49,17 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoomDto, Short> {
 			, nativeQuery = true)
 	public String getMemberUsercodeInRoom(@Param("chatroomcode") Short chatroomcode);
 	
+	// 업적 관련
+	@Query(value = 
+			"""
+			select count(distinct r.counselorcode)
+			from chatroom r
+			left join counselor c on r.counselorcode = c.counselorcode
+			left join member m on c.usercode = m.usercode
+			where r.usercode = :usercode and m.type = 'admin';
+			""", nativeQuery = true)
+	public int getOfficialCounselorsCountByUser(@Param("usercode") int usercode);
+	
+	@Query(value = "select count(*) from chatroom where usercode = :usercode", nativeQuery = true)
+	public int getChatCountByUser(@Param("usercode") int usercode);
 }
