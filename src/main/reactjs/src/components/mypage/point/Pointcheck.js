@@ -17,7 +17,7 @@ const Pointcheck = () => {
     const [loading, setLoading] = useState(false);
     const ReactSwal = withReactContent(Swal);
     const [price, setPrice] = useState(0);
-    const DISPLAY_PER_UNIT = 3;
+    const DISPLAY_PER_UNIT = 5;
     const [showLength, setShowLength] = useState(DISPLAY_PER_UNIT); // 화면에 보여줄 요소의 개수
     const [listDisplay, setListDisplay] = useState([]); // 화면에 보여줄 리스트 배열
     const CURRENT_ROUTES = [
@@ -53,7 +53,11 @@ const Pointcheck = () => {
         setLoading(true);
         axios.post(`/admin/point?usercode=${usercode}`)
             .then(res => {
-                setPoint(res.data);
+                const sortedPoint = res.data.sort((a, b) => {
+                    // 날짜를 내림차순으로 정렬 (가정)
+                    return new Date(b.applieddate) - new Date(a.applieddate);
+                });
+                setPoint(sortedPoint);
                 setListDisplay(res.data);
             })
             .catch(error => {
@@ -112,7 +116,6 @@ const Pointcheck = () => {
                 </div>
 
                 <div className="fs_17 fw_800 mt_25"><span style={{ color: "#5279FD" }}>{member.nickname}</span> 님의 TP 사용내역</div>
-                {/*원태형 코드*/}
                 <table className='chatlog-table mt_25'>
                     <thead>
                         <tr>
@@ -142,7 +145,6 @@ const Pointcheck = () => {
                         }
                     </tbody>
                 </table>
-                {/*원태형 코드*/}
                 <PointCheckButtons needToShow={listDisplay.length > DISPLAY_PER_UNIT}
                     displayedAll={listDisplay.length <= showLength}
                     handleExpandDisplay={handleExpandDisplay}

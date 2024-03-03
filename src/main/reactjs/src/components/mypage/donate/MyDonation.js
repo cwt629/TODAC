@@ -28,6 +28,15 @@ const MyDonation = ({member}) => {
             })
         }
 
+        else if(donationAmount=="0"){
+            ReactSwal.fire({
+                icon: 'warning',
+                html: '후원금을 입력해주세요',
+                confirmButtonText: '확인',
+                confirmButtonColor: '#5279FD'
+            })
+        }
+
         else if(!reg.test(donationAmount)){
             ReactSwal.fire({
                 icon: 'warning',
@@ -86,7 +95,7 @@ const MyDonation = ({member}) => {
             <div style={{ position: "relative", width: "100%" }}>
                 <input 
                     className="bg_gray bor_gray2 col_black br_5 h_35 px-3" 
-                    type={"text"} 
+                    type={"number"} 
                     value={donationAmount}
                     onChange={(e) => {
                     setDonationAmount(e.target.value);

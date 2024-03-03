@@ -35,8 +35,6 @@ const DonationMain = () => {
         axios.get("/get/top3Donor").then((res) => {
             const top3Data = res.data;
             setTop3(top3Data);
-            console.log(top3Data);
-            console.log("usercode = " + usercode);
             if (top3Data.some(item => item.usercode == usercode)) {
                 givetop3badge(); // usercode가 top3에 포함되면 특정 함수 실행
             }

@@ -42,18 +42,22 @@ const MyBoardMain = () => {
 
     const fetchBoard = (usercode) => {
         setLoading(true);
-        axios
-            .post(`/admin/member/post?usercode=${usercode}`)
-            .then((res) => {
-                setBoard(res.data);
+        axios.post(`/admin/member/post?usercode=${usercode}`)
+            .then(res => {
+                const sortedBoard = res.data.sort((a, b) => {
+                    // 날짜를 내림차순으로 정렬 (가정)
+                    return new Date(b.registereddate) - new Date(a.registereddate);
+                });
+
+                setBoard(sortedBoard);
             })
-            .catch((error) => {
+            .catch(error => {
                 console.error("게시글을 불러오는 중 오류 발생:", error);
             })
             .finally(() => {
                 setLoading(false);
             });
-    };
+    }
 
     const handlePageChange = (event, value) => {
         setCurrentPage(value);
