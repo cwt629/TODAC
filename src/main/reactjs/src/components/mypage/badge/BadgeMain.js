@@ -60,28 +60,12 @@ const BadgeMain = () => {
             html: `<img src="${item.image}"/> <br/><b>${item.name}</b><br/>뱃지를 장착하시겠습니까?`,
             confirmButtonText: '확인',
             cancelButtonText: '취소',
-            confirmButtonColor: '#FF7170'
+            confirmButtonColor: '#5279FD'
         }).then((res) => {
             if (res.isConfirmed) {
                 axios.post("/equipbadge", { mybadge: item.name, userid: storedId })
                     .then(res => {
                         setEquipbadge(item.name);
-                    })
-            }
-        })
-    }
-    const selectbadge2 = (image, name) => {
-        ReactSwal.fire({
-            showCancelButton: 'true',
-            html: `<img src="${image}"/> <br/><b>뉴비</b><br/> 뱃지를 장착하시겠습니까?`,
-            confirmButtonText: '확인',
-            cancelButtonText: '취소',
-            confirmButtonColor: '#FF7170'
-        }).then((res) => {
-            if (res.isConfirmed) {
-                axios.post("/equipbadge", { mybadge: name, userid: storedId })
-                    .then(res => {
-                        setEquipbadge(name);
                     })
             }
         })
@@ -115,25 +99,6 @@ const BadgeMain = () => {
             <div className='mt_10'>
                 <Box sx={{ width: "100%" }}>
                     <Grid container spacing={2}>
-                        <Grid xs={6}>
-                            <Item style={{
-                                border: equipbadge === "뉴비" ? '5px solid transparent' : '',
-                                boxShadow: equipbadge === "뉴비" ? '0px 0px 10px 5px rgba(82, 121, 253, 0.7)' : '',
-                                transition: 'border-color 0.3s, box-shadow 0.3s'
-                            }}>
-
-                                {
-                                    <>
-                                        <img alt='' src="https://kr.object.ncloudstorage.com/guest-hch/TODAC/badge/newbie.png"
-                                            onClick={() => selectbadge2("https://kr.object.ncloudstorage.com/guest-hch/TODAC/badge/newbie.png", "뉴비")} />
-                                        <div className='fw_900'>뉴비</div>
-                                        <div className='fs_14'>토닥 첫 로그인</div>
-                                        <hr />
-                                        <div className="fw_600">{formattedDate}</div>
-                                    </>
-                                }
-                            </Item>
-                        </Grid>
                         {badge.map((item, index) => (
                             <Grid xs={6} key={index} >
                                 <Item 
