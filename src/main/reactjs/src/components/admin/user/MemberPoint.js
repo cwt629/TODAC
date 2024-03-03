@@ -88,7 +88,7 @@ const MemberPoint = () => {
             </div>
             <br />
             <br />
-            <div className='fs_17 fw_800' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className='fs_17 fw_800' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px' }}>
                 <div>
                     <span className='col_blue2'>{member.nickname}</span> 님의 TP 사용내역
                 </div>
