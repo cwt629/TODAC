@@ -41,7 +41,7 @@ const CounselorCardBack = ({ borcolor, data, handleCounselClick, handleCounselor
                     ))
                 }
             </div>
-            <div className='mt_10'>
+            <div className='mt_10 counsel-start'>
                 <button type='button' className='counselinnerbtn officialbtn btn-jittery fw_600'
                     onClick={() => handleCounselClick(data)}>상담 시작!</button>
             </div>
