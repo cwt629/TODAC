@@ -16,4 +16,15 @@ public interface ChatDiagnosisRepository extends JpaRepository<ChatDiagnosisDto,
 			where d.chatroomcode=:chatroomcode
 			""", nativeQuery = true)
 	ChatDiagnosisInterface findByChatroom(@Param("chatroomcode") Short chatroomcode);
+	
+	// 업적
+
+	@Query(value = 
+			"""
+			select count(*)
+			from chatdiagnosis d 
+			left join chatroom c on d.chatroomcode = c.chatroomcode 
+			where usercode=:usercode
+			""", nativeQuery = true)
+	public int getDiagnosisCountByUser(@Param("usercode") int usercode);
 }

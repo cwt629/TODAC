@@ -9,6 +9,9 @@ import './DocumentStyle.css';
 import axios from 'axios';
 import summarizeContent from '../api/summarize';
 import PageHeader from '../../PageHeader';
+import { popupAchievement } from '../../../utils/achieveAlert';
+
+const BADGE_NAME_FIRSTDIAGNOSIS = "나도 몰랐던 나의 이야기";
 
 const ChatDiagnosis = () => {
     const [logList, setLogList] = useState([]); // 로그 전체
@@ -88,11 +91,23 @@ const ChatDiagnosis = () => {
                                             html: '진단서가 발급되었습니다.',
                                             confirmButtonText: '확인',
                                             confirmButtonColor: '#5279FD'
-                                        }).then(() => {
+                                        }).then(async () => {
                                             getDiagnosisMessages();
+                                            // 업적 달성 처리
+                                            let badgeResponseOne = await axios.get("/chat/achieve/firstDiagnosis?usercode=" + usercode);
+                                            if (badgeResponseOne.data) {
+                                                // 업적 달성 처리 시도
+                                                let achieveResult = await axios.post(`/badgeinsert?usercode=${usercode}&achievename=${BADGE_NAME_FIRSTDIAGNOSIS}`);
+                                                if (achieveResult.data) {
+                                                    await popupAchievement(BADGE_NAME_FIRSTDIAGNOSIS);
+                                                }
+                                            }
                                         });
                                     }
                                 })
+                                .catch(error => {
+                                    console.error('Error issuing diagnosis: ', error);
+                                });
                         }
                     });
                 }
