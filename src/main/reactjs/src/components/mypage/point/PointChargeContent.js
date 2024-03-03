@@ -83,7 +83,7 @@ const PointChargeContent = (props) => {
                                 background: "unset",
                                 color: "white"
                             }}
-                                type={"text"} value={temppoint}
+                                type={"number"} value={temppoint}
                                 placeholder='직접입력'
                                 onChange={(e) => {
                                     setTemppoint(e.target.value);

@@ -9,6 +9,7 @@ import axios from "axios";
 import { getBadgeInfo, getBadgeList } from "../../../utils/badgeInfo";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { useNavigate } from "react-router-dom";
 
 
 const BadgeMain = () => {
@@ -20,21 +21,11 @@ const BadgeMain = () => {
     const [achievenames, setAchievenames] = useState([]);
     const [equipbadge, setEquipbadge] = useState();
     const ReactSwal = withReactContent(Swal);
+    const nav = useNavigate();
     const CURRENT_ROUTES = [
         { name: "내 정보", url: "/user" },
         { name: "내 업적", url: "" },
     ];
-
-    // member.registereddate를 Date 객체로 변환
-    const registeredDate = new Date(member?.registereddate);
-    // const getBadgeinfo = getBadgeInfo();
-    // 년, 월, 일을 가져와서 문자열로 변환
-    const year = registeredDate.getFullYear();
-    const month = String(registeredDate.getMonth() + 1).padStart(2, "0"); // getMonth()의 반환값은 0부터 시작하므로 +1 해줌
-    const day = String(registeredDate.getDate()).padStart(2, "0");
-
-    // 년월일 형식으로 조합
-    const formattedDate = `${year}-${month}-${day}`;
 
     const getachievelist = () => {
         const url = "/getachievelist?usercode=" + usercode;
@@ -66,6 +57,7 @@ const BadgeMain = () => {
                 axios.post("/equipbadge", { mybadge: item.name, userid: storedId })
                     .then(res => {
                         setEquipbadge(item.name);
+                        nav("/user");
                     })
             }
         })
@@ -103,7 +95,6 @@ const BadgeMain = () => {
                             <Grid xs={6} key={index} >
                                 <Item 
                                     style={{
-                                        border: equipbadge === item.name ? '5px solid transparent' : '',
                                         boxShadow: equipbadge === item.name ? '0px 0px 10px 5px rgba(82, 121, 253, 0.7)' : '',
                                         transition: 'border-color 0.3s, box-shadow 0.3s'
                                     }}>

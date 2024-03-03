@@ -36,7 +36,6 @@ const MypageMain = () => {
                 setmember(res.data);
                 const badgeinfo = getBadgeInfo(res.data.mybadge);
                 setBadgeinfo(badgeinfo)
-                console.log(badgeinfo.image)
             })
     }
 
