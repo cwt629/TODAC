@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import Button from "@mui/material/Button";
 import "../pointStyle.css";
 import OneCoinOneHeart from "./OneCoinOneHeart";
+import {popupAchievement} from "../../../utils/achieveAlert";
 
 const MyDonation = ({member}) => {
     const usercode = sessionStorage.getItem("usercode");
@@ -58,12 +59,7 @@ const MyDonation = ({member}) => {
                         axios.post(`/badgeinsert?usercode=${usercode}&achievename=기부자`)
                             .then(res=>{
                                 if(res.data===true){
-                                    ReactSwal.fire({
-                                        icon: 'success',
-                                        html: '업적을 달성했습니다!',
-                                        confirmButtonText: '확인',
-                                        confirmButtonColor: '#9396A6'
-                                    })
+                                    popupAchievement("기부자");
                                 }
                             })
                         nav("/user/community/donation")
