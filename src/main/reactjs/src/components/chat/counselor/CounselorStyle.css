@@ -45,6 +45,7 @@ div.counselorcard img.counselorphoto.backphoto {
 div.counselorcard img.counselorphoto.frontphoto {
     width: 80%;
     height: auto;
+    max-height: 200px;
 }
 
 div.counselbtndiv {
