@@ -18,6 +18,8 @@ const MemberChatSearch = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(4);
     const [diagnosisFilter, setDiagnosisFilter] = useState('all'); // 'all', 'issued', 'notIssued'
+    const [selectedType, setSelectedType] = useState('all');
+    const [sortedChat, setSortedChat] = useState([]);
 
     const CURRENT_ROUTES = [
         { name: '관리자 홈', url: '/admin' },
@@ -67,6 +69,19 @@ const MemberChatSearch = () => {
         setDiagnosisFilter(event.target.value);
     };
 
+    const handleTypeChange = (type) => {
+        setSelectedType(type);
+        setSearchQuery(''); // 선택이 변경되면 검색어를 초기화합니다.
+    };
+
+    useEffect(() => {
+        if (chat.length > 0) {
+            // 채팅 내역을 날짜 기준으로 내림차순으로 정렬
+            const sortedChat = chat.sort((a, b) => new Date(b.date) - new Date(a.date));
+            setChat(sortedChat);
+        }
+    }, [chat]);
+
     const filteredChat = chat.filter((item) => item.counselorname.includes(searchQuery));
 
     // 진단서 발급 여부에 따라 필터링
@@ -80,11 +95,21 @@ const MemberChatSearch = () => {
         }
     });
 
+    const filteredByType = filteredByDiagnosis.filter((item) => {
+        if (selectedType === 'all') {
+            return true; // 모든 항목 표시
+        } else if (selectedType === 'issued') {
+            return item.diagnosiscode > 0; // 진단서 발급된 항목만 표시
+        } else {
+            return item.diagnosiscode <= 0; // 진단서 미발급된 항목만 표시
+        }
+    });
+
     // 페이징을 위한 계산
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredByDiagnosis.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(filteredByDiagnosis.length / itemsPerPage);
+    const currentItems = filteredByType.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(filteredByType.length / itemsPerPage);
 
     return (
         <div className='mx_30'>
@@ -129,22 +154,27 @@ const MemberChatSearch = () => {
                 }
             />
             <br /><br />
-            <div className="fs_17 fw_800">
-                <span className="col_blue2">{member.nickname}</span> 님의 채팅 기록
-                {/* 진단서 발급 여부 선택하는 select 요소 추가 */}
-                <div className="dropdown-center">
-                    <label htmlFor="diagnosisFilterSelect" className="mr-2"></label>
-                    <select
-                        id="diagnosisFilterSelect"
-                        value={diagnosisFilter}
-                        onChange={handleSelectChange}
-                        className="diagnosis-filter-select white pressable" // 추가된 부분
-                    >
-                        <option value="all">전체</option>
-                        <option value="issued">진단서 발급</option>
-                        <option value="notIssued">진단서 미발급</option>
-                    </select>
+            <div className="fs_17 fw_800" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px' }}>
+                <div>
+                    <span className='col_blue2'>{member.nickname}</span> 님의 채팅 기록
                 </div>
+                <label htmlFor="typeSelect" className='dropdown-toggle white pressable' type='button' data-bs-toggle="dropdown">
+                    {selectedType === 'all' ? '전체' : (selectedType === 'issued' ? '진단서 발급' : '진단서 미발급')}
+                </label>
+                <ul className='dropdown-menu' style={{ marginTop: '6px' }}>
+                    <li key="all" value="all" onClick={() => handleTypeChange('all')}>
+                        <a className={`dropdown-item ${selectedType === 'all' ? 'fw_600' : ''}`} href='#'
+                            style={{ color: (selectedType === 'all') ? 'var(--deepblue)' : 'var(--mainblack)' }}>전체</a>
+                    </li>
+                    <li key="issued" value="issued" onClick={() => handleTypeChange('issued')}>
+                        <a className={`dropdown-item ${selectedType === 'issued' ? 'fw_600' : ''}`} href='#'
+                            style={{ color: (selectedType === 'issued') ? 'var(--deepblue)' : 'var(--mainblack)' }}>진단서 발급</a>
+                    </li>
+                    <li key="notIssued" value="notIssued" onClick={() => handleTypeChange('notIssued')}>
+                        <a className={`dropdown-item ${selectedType === 'notIssued' ? 'fw_600' : ''}`} href='#'
+                            style={{ color: (selectedType === 'notIssued') ? 'var(--deepblue)' : 'var(--mainblack)' }}>진단서 미발급</a>
+                    </li>
+                </ul>
             </div>
 
             {filteredByDiagnosis.length === 0 ? (
