@@ -50,7 +50,7 @@ const CommunityMain = () => {
             <button className='bor_blue2 mt_45 w_100p br_5 p_15' onClick={() => nav("game")}>
                 <div className='d-flex'>
                     <div className=''>
-                        <span className='col_blue2 fw_700 fs_20'>오늘의 미소</span>
+                        <span className='col_blue2 fw_700 fs_20'>미소팡팡</span>
                         <div className='mt_10'>
                             당신도 스마일처럼 웃어보세요.
                             <br />
