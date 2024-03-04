@@ -170,8 +170,10 @@ const ChatSummary = () => {
     return (
         <div className='mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-
-            <div className='flip-container mx_30 mt_25'>
+            <div className='mt_25 text-center'>
+                <span style={{ color: 'gray' }}>* 카드를 클릭하여 내용을 확인하세요! *</span>
+            </div>
+            <div className='flip-container mx_30 mt_20'>
                 <div className='summaryContent fs_14 fw_500 mt_10 flipper' onClick={handleFlip}>
                     <div className='front'>
                         <img src={you} alt='You Image' />
