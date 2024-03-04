@@ -62,3 +62,11 @@ div.mypagemain div.lastmenu{
 .h_35 {
     height: 40px;
 }
+
+.gray {
+    filter: grayscale(100%);
+    opacity: 55%;
+    height: 20px;
+    width: 20px;
+    margin-left: 2px;
+}

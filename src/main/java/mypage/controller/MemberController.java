@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mypage.data.BadgeDto;
+import mypage.repository.BadgeDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,8 @@ public class MemberController {
 	private final MemberDao memberDao;
     @Autowired
     private final NcpObjectStorageService storageService;
+    @Autowired
+    private final BadgeDao badgeDao;
     private String bucketName = "guest-hch";  // 버켓네임 지정
     private String folderName = "TODAC/profile";       // 저장할 폴더네임 지정
     private String uploadFilename;
@@ -45,7 +49,14 @@ public class MemberController {
     	Map<String, Object> retMap = new HashMap<String, Object>();
     	
         memberDao.insertMember(dto);
-        
+
+        //뉴비 뱃지 수여.
+        BadgeDto badgeDto = new BadgeDto();
+        dto = memberDao.getMemberByID(dto.getUserid());
+        badgeDto.setMember(dto);
+        badgeDto.setAchievename("뉴비");
+        badgeDao.insertMembertoBadge(badgeDto);
+
         retMap.put("result", "success");
         //System.out.println(" =========================== : retMap : " + retMap);
         

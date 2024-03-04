@@ -2,7 +2,7 @@
     align-items: center;
     appearance: none;
     background-color: #fff;
-    border-radius: 1.3rem;
+    border-radius: 1rem;
     border-style: none;
     box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px, rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
     box-sizing: border-box;
@@ -13,7 +13,7 @@
     font-family: "Google Sans", Roboto, Arial, sans-serif;
     font-size: 14px;
     font-weight: 500;
-    height: 3.5rem;
+    height: 2.6rem;
     justify-content: center;
     letter-spacing: 0.25px;
     line-height: normal;
@@ -28,7 +28,7 @@
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    width: 4rem;
+    width: 4.5rem;
     will-change: transform, opacity;
     z-index: 0;
 }

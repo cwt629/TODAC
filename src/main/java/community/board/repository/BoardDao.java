@@ -62,6 +62,10 @@ public class BoardDao {
                 return boardRepository.findAllByOrderByBoardCodeDesc("latest");
         }
     }
+
+    public int getBoardCountByUser(int usercode) {
+        return boardRepository.getBoardCountByUser(usercode);
+    }
     
     public List<BoardDto> getMemberPostData(int usercode)
     {

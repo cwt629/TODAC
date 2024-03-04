@@ -39,9 +39,6 @@ const BoardDetail = () => {
         });
         if (isLoggedIn) {
             // 좋아요 수 가져오기
-            axios.get(`/post/like/count?boardcode=${boardcode}`).then((res) => {
-                setLikeCount(res.data);
-            });
 
             // 좋아요 상태 확인
             axios
@@ -52,8 +49,16 @@ const BoardDetail = () => {
         }
     }, [boardcode, id]);
 
-    //Like
+    axios.get(`/post/like/count?boardcode=${boardcode}`).then((res) => {
+        setLikeCount(res.data);
+    });
+
     const handleLike = async () => {
+        if (!id) {
+            showLoginPrompt("로그인 하시겠습니까?");
+            return;
+        }
+
         try {
             await axios.post(`/post/like?boardcode=${boardcode}&usercode=${sessionStorage.getItem("usercode")}`);
             setIsLiked(true);
@@ -62,7 +67,7 @@ const BoardDetail = () => {
             console.error("Error liking board:", error);
         }
     };
-    //unLike
+
     const handleUnlike = async () => {
         try {
             await axios.post(`/post/like?boardcode=${boardcode}&usercode=${sessionStorage.getItem("usercode")}`);
@@ -73,12 +78,29 @@ const BoardDetail = () => {
         }
     };
 
+    const showLoginPrompt = (message) => {
+        Swal.fire({
+            title: "로그인이 필요합니다",
+            text: message,
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#5279FD",
+            confirmButtonText: "로그인",
+            cancelButtonText: "취소",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // 로그인 페이지로 이동
+                navi("/login");
+            }
+        });
+    };
+
     // 게시글 삭제
     const deletePost = (boardcode) => {
         Swal.fire({
             title: "게시글 삭제",
             text: "해당 게시글을 삭제하시겠습니까?",
-            icon: "warning",
+            icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#FF7170",
             confirmButtonText: "예",
@@ -114,9 +136,9 @@ const BoardDetail = () => {
         if (userRole === "todac") {
             // 관리자인 경우
             Swal.fire({
-                title: "관리자 메뉴",
-                text: "삭제하시겠습니까?",
-                icon: "warning",
+                title: "게시글 삭제",
+                text: "해당 게시글을 삭제하시겠습니까?",
+                icon: "question",
                 showCancelButton: true,
                 confirmButtonColor: "#FF7170",
                 confirmButtonText: "예",
@@ -130,12 +152,15 @@ const BoardDetail = () => {
         } else if (data.userCode == sessionStorage.getItem("usercode")) {
             // 글 작성자인 경우
             Swal.fire({
-                title: "수정 또는 삭제",
+                title: "게시글 수정 또는 삭제",
                 icon: "warning",
                 showDenyButton: true,
                 showCancelButton: true,
                 confirmButtonText: "수정",
+                confirmButtonColor: "#5279FD",
                 denyButtonText: "삭제",
+                denyButtonColor: "#ff7170",
+                cancelButtonText: "취소",
             }).then((result) => {
                 if (result.isConfirmed) {
                     // 수정 로직 수행
@@ -175,30 +200,14 @@ const BoardDetail = () => {
             container: "#btnKakao",
             objectType: "feed",
             content: {
-                title: data.title,
-                description: "심리상담앱 'TODAC'에 오신것을 환영합니다.",
+                title: `${data.memberNickname}님의 게시글로 당신을 초대합니다`,
+                description: `"TODAC"에 오신것을 환영합니다.`,
                 imageUrl: data.photo ? imageStorage + data.photo : undefined,
                 link: {
                     mobileWebUrl: window.location.href,
                     webUrl: window.location.href,
                 },
             },
-            buttons: [
-                {
-                    title: "웹으로 보기",
-                    link: {
-                        mobileWebUrl: window.location.href,
-                        webUrl: window.location.href,
-                    },
-                },
-                {
-                    title: "앱으로 보기",
-                    link: {
-                        mobileWebUrl: window.location.href,
-                        webUrl: window.location.href,
-                    },
-                },
-            ],
         });
     };
 
@@ -211,8 +220,8 @@ const BoardDetail = () => {
 
         clipboard.on("success", function (e) {
             Swal.fire({
-                title: "링크 복사 완료",
-                text: e.text,
+                title: "URL이 복사 되었습니다!",
+                // text: e.text,
                 icon: "success",
             });
         });
@@ -314,7 +323,7 @@ const BoardDetail = () => {
                             ) : null}
                         </div>
                         <div id='btnlike' style={{ position: "relative" }}>
-                            <button type='button' className='button-18 d-flex justify-content-center'>
+                            <button type='button' className='button-17 d-flex justify-content-center'>
                                 <span
                                     style={{ marginRight: "5px", cursor: "pointer" }}
                                     onClick={isLiked ? handleUnlike : handleLike}
@@ -326,7 +335,7 @@ const BoardDetail = () => {
                         </div>
                         <div id='btnshare' style={{ marginLeft: "20px" }}></div>
                         <button className='button-17' id='btnShere' cursor='pointer' onClick={toggleShareVisibility}>
-                            <img alt='' src={shareIcon} />
+                            <img alt='' src={shareIcon} style={{ width: "25px", height: "25px" }} />
                         </button>
 
                         {shareVisible && (
@@ -336,7 +345,7 @@ const BoardDetail = () => {
                                 style={{
                                     position: "absolute",
                                     right: "1.5rem",
-                                    bottom: "-3.3rem",
+                                    bottom: "-3.2rem",
                                     gap: "0.8rem",
                                     alignItems: "center",
                                     border: "0.2rem solid transparent",
@@ -352,14 +361,16 @@ const BoardDetail = () => {
                                 <div id='btnKakao' onClick={shareKakao}>
                                     <img alt='kakaoicon' src={kakaoIcon} />
                                 </div>
-                                <div>
+                                <div style={{ position: "relative" }}>
                                     <button
                                         className='button-container copy-button'
                                         style={{
+                                            position: "relative",
                                             width: "35.5px",
                                             height: "37.5px",
-                                            borderRadius: "2rem",
+                                            borderRadius: "",
                                             border: "none",
+                                            backgroundColor: "white",
                                         }}
                                         onClick={handleCopyClipBoard}
                                     >
@@ -367,9 +378,9 @@ const BoardDetail = () => {
                                             alt=''
                                             src={linkIcon}
                                             style={{
-                                                position: "relative",
-                                                right: "7px",
-                                                bottom: "1px",
+                                                position: "absolute",
+                                                right: "0px",
+                                                bottom: "0.3px",
                                                 width: "35.5px",
                                                 height: "35.5px",
                                             }}

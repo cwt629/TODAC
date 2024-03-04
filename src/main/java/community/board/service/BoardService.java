@@ -20,5 +20,10 @@ public class BoardService {
     public List<MainListInterface> getBoardListSorted(String sortBy) {
         return boardDao.getBoardListSorted(sortBy);
     }
+
+    public int getBoardCountByUser(int usercode) {
+        return boardDao.getBoardCountByUser(usercode);
+    }
+
 }
 

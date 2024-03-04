@@ -1,6 +1,5 @@
 package chat.service;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import chat.data.ChatDiagnosisDto;
@@ -19,5 +18,10 @@ public class ChatDiagnosisService {
 	
 	public ChatDiagnosisInterface findByChatroom(Short chatroomcode) {
 		return chatDiagnosisRepository.findByChatroom(chatroomcode);
+	}
+	
+	// 업적
+	public int getDiagnosisCountByUser(int usercode) {
+		return chatDiagnosisRepository.getDiagnosisCountByUser(usercode);
 	}
 }

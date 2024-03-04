@@ -30,7 +30,7 @@ const BoardMain = () => {
     const [search, setSearch] = useState(""); // 검색어를 저장하는 state
     const [filteredList, setFilteredList] = useState(list); // 검색된 목록을 저장하는 state
     const [cols, setCols] = useState(2); // 초기 cols 값 설정
-    const [sortBy, setSortBy] = useState("");
+    const [sortBy, setSortBy] = useState("latest");
     const navi = useNavigate();
     const CURRENT_ROUTES = [
         { name: "커뮤니티", url: "/user/community" },
@@ -130,23 +130,45 @@ const BoardMain = () => {
         <div className='mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
             <div style={{ position: "absolute", top: "112px", left: "230px" }}>
-                <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
-                    <InputLabel id='demo-select-sort-label'>선택</InputLabel>
-                    <Select
-                        labelId='demo-select-sort-label'
-                        id='demo-select-sort'
-                        value={sortBy}
-                        label='Sort By'
-                        onChange={handleChange}
-                    >
-                        {/* <MenuItem value=''>
+                <Paper
+                    style={{
+                        position: "relative",
+                        height: "50px",
+                        margin: "5px auto",
+                        padding: "5px 0px",
+                        border: "1px solid white",
+                        borderRadius: "10px",
+                        outline: "0",
+                    }}
+                >
+                    <FormControl sx={{ m: 1, minWidth: 110 }} size='small'>
+                        <Select
+                            sx={{
+                                boxShadow: "none",
+                                ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                                "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+                                    border: 0,
+                                },
+                                "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                    border: 0,
+                                },
+                                top: "-8px",
+                            }}
+                            labelId='demo-select-sort-label'
+                            id='demo-select-sort'
+                            value={sortBy}
+                            label='Sort By'
+                            onChange={handleChange}
+                        >
+                            {/* <MenuItem value=''>
                             <em>None</em>
                         </MenuItem> */}
-                        <MenuItem value='latest'>최신순</MenuItem>
-                        <MenuItem value='recommended'>추천순</MenuItem>
-                        <MenuItem value='mostViewed'>조회순</MenuItem>
-                    </Select>
-                </FormControl>
+                            <MenuItem value='latest'>최신순</MenuItem>
+                            <MenuItem value='recommended'>인기순</MenuItem>
+                            <MenuItem value='mostViewed'>조회순</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Paper>
             </div>
             <div
                 className=''

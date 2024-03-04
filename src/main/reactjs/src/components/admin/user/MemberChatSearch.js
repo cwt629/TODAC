@@ -17,6 +17,9 @@ const MemberChatSearch = () => {
     const [member, setMember] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(4);
+    const [diagnosisFilter, setDiagnosisFilter] = useState('all'); // 'all', 'issued', 'notIssued'
+    const [selectedType, setSelectedType] = useState('all');
+    const [sortedChat, setSortedChat] = useState([]);
 
     const CURRENT_ROUTES = [
         { name: '관리자 홈', url: '/admin' },
@@ -62,14 +65,51 @@ const MemberChatSearch = () => {
         setCurrentPage(value);
     };
 
-    // 검색어와 일치하는 포인트 사용내역만 필터링
-    const filteredChat = chat.filter(item => item.counselorname.includes(searchQuery));
+    const handleSelectChange = (event) => {
+        setDiagnosisFilter(event.target.value);
+    };
+
+    const handleTypeChange = (type) => {
+        setSelectedType(type);
+        setSearchQuery(''); // 선택이 변경되면 검색어를 초기화합니다.
+    };
+
+    useEffect(() => {
+        if (chat.length > 0) {
+            // 채팅 내역을 날짜 기준으로 내림차순으로 정렬
+            const sortedChat = chat.sort((a, b) => new Date(b.date) - new Date(a.date));
+            setChat(sortedChat);
+        }
+    }, [chat]);
+
+    const filteredChat = chat.filter((item) => item.counselorname.includes(searchQuery));
+
+    // 진단서 발급 여부에 따라 필터링
+    const filteredByDiagnosis = filteredChat.filter((item) => {
+        if (diagnosisFilter === 'all') {
+            return true; // 모든 항목 표시
+        } else if (diagnosisFilter === 'issued') {
+            return item.diagnosiscode > 0; // 진단서 발급된 항목만 표시
+        } else {
+            return item.diagnosiscode <= 0; // 진단서 미발급된 항목만 표시
+        }
+    });
+
+    const filteredByType = filteredByDiagnosis.filter((item) => {
+        if (selectedType === 'all') {
+            return true; // 모든 항목 표시
+        } else if (selectedType === 'issued') {
+            return item.diagnosiscode > 0; // 진단서 발급된 항목만 표시
+        } else {
+            return item.diagnosiscode <= 0; // 진단서 미발급된 항목만 표시
+        }
+    });
 
     // 페이징을 위한 계산
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredChat.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(filteredChat.length / itemsPerPage);
+    const currentItems = filteredByType.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(filteredByType.length / itemsPerPage);
 
     return (
         <div className='mx_30'>
@@ -114,39 +154,65 @@ const MemberChatSearch = () => {
                 }
             />
             <br /><br />
-            <div className="fs_17 fw_800">
-                <span className="col_blue2">{member.nickname}</span> 님의 채팅 기록
+            <div className="fs_17 fw_800" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px' }}>
+                <div>
+                    <span className='col_blue2'>{member.nickname}</span> 님의 채팅 기록
+                </div>
+                <label htmlFor="typeSelect" className='dropdown-toggle white pressable' type='button' data-bs-toggle="dropdown">
+                    {selectedType === 'all' ? '전체' : (selectedType === 'issued' ? '진단서 발급' : '진단서 미발급')}
+                </label>
+                <ul className='dropdown-menu' style={{ marginTop: '6px' }}>
+                    <li key="all" value="all" onClick={() => handleTypeChange('all')}>
+                        <a className={`dropdown-item ${selectedType === 'all' ? 'fw_600' : ''}`} href='#'
+                            style={{ color: (selectedType === 'all') ? 'var(--deepblue)' : 'var(--mainblack)' }}>전체</a>
+                    </li>
+                    <li key="issued" value="issued" onClick={() => handleTypeChange('issued')}>
+                        <a className={`dropdown-item ${selectedType === 'issued' ? 'fw_600' : ''}`} href='#'
+                            style={{ color: (selectedType === 'issued') ? 'var(--deepblue)' : 'var(--mainblack)' }}>진단서 발급</a>
+                    </li>
+                    <li key="notIssued" value="notIssued" onClick={() => handleTypeChange('notIssued')}>
+                        <a className={`dropdown-item ${selectedType === 'notIssued' ? 'fw_600' : ''}`} href='#'
+                            style={{ color: (selectedType === 'notIssued') ? 'var(--deepblue)' : 'var(--mainblack)' }}>진단서 미발급</a>
+                    </li>
+                </ul>
             </div>
-            {filteredChat.length === 0 ? (
-                <div className='fs_14' style={{ marginTop: '10px' }}>
+
+            {filteredByDiagnosis.length === 0 ? (
+                <div className="fs_14" style={{ marginTop: '10px' }}>
                     채팅 내역이 없습니다.
                 </div>
             ) : (
-                currentItems.map((item, index) => {
-                    return (
-                        <div key={index} className="bg_gray bor_gray1 px-3 py-2"
-                            onClick={() => nav(`/admin/MemberManage/MemberProfile/MemberChatSearch/MemberChatHistory?usercode=${member.usercode}&chatroomcode=${item.chatroomcode}`)}>
-                            <div className='input-group'>
-                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <div>
-                                        <span><img alt='' src={item.counselorphoto} style={{ width: '40px', height: '40px', borderRadius: '50px' }} /></span>&nbsp;
-                                    </div>
-                                </div>
-                                &nbsp;
+                currentItems.map((item, index) => (
+                    <div
+                        key={index}
+                        className="bg_gray bor_gray1 px-3 py-2"
+                        onClick={() =>
+                            nav(
+                                `/admin/MemberManage/MemberProfile/MemberChatSearch/MemberChatHistory?usercode=${member.usercode}&chatroomcode=${item.chatroomcode}`
+                            )
+                        }
+                    >
+                        <div className="input-group">
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <div>
-                                    <span className="fw_600">{item.counselorname} 상담사</span>
-                                    <div className="fs_15 ">{getDateFormatPieces(item.date).day}
-                                    </div>
+                                    <span><img alt="" src={item.counselorphoto} style={{ width: '40px', height: '40px', borderRadius: '50px' }} /></span>&nbsp;
                                 </div>
-                                <div>
-                                    <br />
-                                    {/* 진단서 발급 여부 표시 */}
-                                    {item.diagnosiscode > 0 ? <div> | <span className='col_blue2 fs_14'>진단서 발급</span></div> : <div> | <span className='col_red fs_14'>진단서 미발급</span></div>}
+                            </div>
+                            &nbsp;
+                            <div>
+                                <span className="fw_600">{item.counselorname} 상담사</span>
+                                <div className="fs_15 input-group">
+                                    {getDateFormatPieces(item.date).day}&nbsp;
+                                    {item.diagnosiscode > 0 ? (
+                                        <div> | <span className="col_blue2 fs_14">진단서 발급</span></div>
+                                    ) : (
+                                        <div> | <span className="col_red fs_14">진단서 미발급</span></div>
+                                    )}
                                 </div>
                             </div>
                         </div>
-                    );
-                })
+                    </div>
+                ))
             )}
 
             {/* Pagination */}
@@ -176,20 +242,20 @@ function getDateFormatPieces(str) {
 
     // 년, 월, 일, 시, 분, 초 추출
     const year = date.getFullYear().toString();
-    const month = ("0" + (date.getMonth() + 1)).slice(-2);
-    const day = ("0" + date.getDate()).slice(-2);
-    const hour = ("0" + date.getHours()).slice(-2);
-    const minute = ("0" + date.getMinutes()).slice(-2);
-    const second = ("0" + date.getSeconds()).slice(-2);
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    const hour = ('0' + date.getHours()).slice(-2);
+    const minute = ('0' + date.getMinutes()).slice(-2);
+    const second = ('0' + date.getSeconds()).slice(-2);
 
     // 요일
-    const DAYS_OF_WEEK = ["일", "월", "화", "수", "목", "금", "토"];
+    const DAYS_OF_WEEK = ['일', '월', '화', '수', '목', '금', '토'];
     const dayOfWeek = DAYS_OF_WEEK[date.getDay()];
 
     return {
         day: `${year}-${month}-${day}`,
         dayOfWeek: dayOfWeek,
-        time: `${hour}:${minute}:${second}`
+        time: `${hour}:${minute}:${second}`,
     };
 }
 

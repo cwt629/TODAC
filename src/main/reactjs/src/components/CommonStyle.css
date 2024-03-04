@@ -839,4 +839,8 @@ button.long {
     box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
     background-color: var(--bggray);
     outline-color: var(--deepblue);
+    padding: 8.5px 14px;
+    border-radius: 5px;
+    border: 1px solid var(--deepgray);
+    box-sizing: border-box;
 }

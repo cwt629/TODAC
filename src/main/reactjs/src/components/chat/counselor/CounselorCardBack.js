@@ -1,7 +1,7 @@
 import React from 'react';
 import defaultPhoto from '../../../image/default_profile_photo_blue.jpg';
 import starIcon from '../../../image/rotating_star.gif';
-import { HighlightOffRounded, PersonRemoveAlt1TwoTone } from '@mui/icons-material';
+import { ClearRounded, HighlightOffRounded } from '@mui/icons-material';
 
 const STORAGE_PHOTO_BASE = 'https://kr.object.ncloudstorage.com/guest-hch/TODAC/counselors/';
 
@@ -41,7 +41,7 @@ const CounselorCardBack = ({ borcolor, data, handleCounselClick, handleCounselor
                     ))
                 }
             </div>
-            <div className='mt_10'>
+            <div className='mt_10 counsel-start'>
                 <button type='button' className='counselinnerbtn officialbtn btn-jittery fw_600'
                     onClick={() => handleCounselClick(data)}>상담 시작!</button>
             </div>

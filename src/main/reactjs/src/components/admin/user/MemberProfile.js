@@ -74,8 +74,7 @@ const MemberProfile = () => {
             <div className='fs_25 fw_700 mt_25' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <img alt='' src={member.photo} style={{ width: '18vh', height: '18vh', borderRadius: '50%' }} />
-                    <br />
-                    <span className='fs_28 fw_700 mt-2'>{member.nickname}님</span>
+                    <span className='fs_28 fw_700 mt_25'>{member.nickname}님</span>
                 </div>
             </div>
             <div className="listmenu fw_600 align-items-center mt_45">
@@ -96,7 +95,7 @@ const MemberProfile = () => {
                 </div>
                 <div onClick={() => nav('MemberPoint?usercode=' + member.usercode)} className='mt-4'>
                     <img alt="" src={require("../../../image/adminIcon/point.png")} />
-                    <span className='mx-3 fs_17'>{member.nickname} 님의 포인트 사용</span>
+                    <span className='mx-3 fs_17'>{member.nickname} 님의 TP 사용 내역</span>
                     <img alt="" src={require("../../../image/mypageIcon/pointer.png")} />
                 </div>
                 <div onClick={() => nav('MemberChatSearch?usercode=' + member.usercode)} className='mt-4'>

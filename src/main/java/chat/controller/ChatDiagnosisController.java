@@ -30,4 +30,12 @@ public class ChatDiagnosisController {
 	public ChatDiagnosisInterface findByChatroom(@RequestParam("chatroomcode") Short chatroomcode) {
 		return chatDiagnosisService.findByChatroom(chatroomcode);
 	}
+	
+	// 업적 : '나도 몰랐던 나의 이야기' - 진단서 발급 1회
+	@GetMapping("/chat/achieve/firstDiagnosis")
+	public boolean checkAchieveFirstDiagnosis(@RequestParam("usercode") int usercode) {
+		int diagnosisCount = chatDiagnosisService.getDiagnosisCountByUser(usercode);
+		
+		return (diagnosisCount >= 1);
+	}
 }
