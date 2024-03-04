@@ -34,7 +34,7 @@ const MemberProfile = () => {
         Swal.fire({
             title: '회원 삭제',
             text: '정말로 이 회원을 삭제하시겠습니까?',
-            icon: 'question',
+            icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#ff7170',
             confirmButtonText: '예',

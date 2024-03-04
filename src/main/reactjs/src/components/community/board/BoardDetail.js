@@ -28,25 +28,28 @@ const BoardDetail = () => {
     const navi = useNavigate();
 
     useEffect(() => {
-        //로그인 상태 체크
-        const isLoggedIn = id;
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`/board/detail?boardcode=${boardcode}`);
+                setData(response.data);
+                setIsLiked(response.data.liked);
 
-        axios.get(`/board/detail?boardcode=${boardcode}`).then((res) => {
-            setData(res.data);
-            setIsLiked(res.data.liked); // 서버에서 받아온 데이터에서 좋아요 여부를 설정
-        });
-        if (isLoggedIn) {
-            // 좋아요 수 가져오기
+                // 좋아요 수 가져오기
+                const likeCountResponse = await axios.get(`/post/like/count?boardcode=${boardcode}`);
+                setLikeCount(likeCountResponse.data);
 
-            // 좋아요 상태 확인
-            axios
-                .get(`/post/checkLikeStatus?boardcode=${boardcode}&usercode=${sessionStorage.getItem("usercode")}`)
-                .then((res) => {
-                    setIsLiked(res.data);
-                });
-        }
-    }, [boardcode, id]);
+                // 좋아요 상태 확인
+                const likeStatusResponse = await axios.get(
+                    `/post/checkLikeStatus?boardcode=${boardcode}&usercode=${sessionStorage.getItem("usercode")}`
+                );
+                setIsLiked(likeStatusResponse.data);
+            } catch (error) {
+                console.error("Error fetching board details:", error);
+            }
+        };
 
+        fetchData();
+    }, [boardcode]);
     axios.get(`/post/like/count?boardcode=${boardcode}`).then((res) => {
         setLikeCount(res.data);
     });
@@ -222,6 +225,7 @@ const BoardDetail = () => {
                 // text: e.text,
                 icon: "success",
                 confirmButtonColor: "#5279FD",
+                confirmButtonText: "확인",
             });
         });
 
