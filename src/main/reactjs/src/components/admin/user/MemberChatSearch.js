@@ -71,6 +71,7 @@ const MemberChatSearch = () => {
 
     const handleTypeChange = (type) => {
         setSelectedType(type);
+        setCurrentPage(1); // 페이지 변경 시 초기화
         setSearchQuery(''); // 선택이 변경되면 검색어를 초기화합니다.
     };
 
@@ -105,11 +106,19 @@ const MemberChatSearch = () => {
         }
     });
 
+    // 페이징 및 필터링을 한 번에 수행
+    const filteredItems = chat.filter((item) =>
+        item.counselorname.includes(searchQuery) &&
+        (diagnosisFilter === 'all' || (diagnosisFilter === 'issued' && item.diagnosiscode > 0) || (diagnosisFilter === 'notIssued' && item.diagnosiscode <= 0)) &&
+        (selectedType === 'all' || (selectedType === 'issued' && item.diagnosiscode > 0) || (selectedType === 'notIssued' && item.diagnosiscode <= 0))
+    );
+
     // 페이징을 위한 계산
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredByType.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(filteredByType.length / itemsPerPage);
+    const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+
 
     return (
         <div className='mx_30'>
