@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
-
+  
 const LoginCallBack = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -57,9 +57,10 @@ const LoginCallBack = () => {
     }, [navigate]);
 
     return (
-        <div>
+        <div className='login_main2'>
+            <img alt='back' src={require('../../image/ico_back.png')} onClick={() => navigate('/')} style={{ cursor: 'pointer' }}/>
             {loading ? (
-                <h1 className='col_blue2 text-center fs_45 fw_900 login_loading'>
+                <h1 className='col_blue2 text-center fs_45 fw_900 mt_45' style={{marginTop:250}}>
                     <span>상</span>
                     <span>담</span>
                     <span>사</span>
@@ -71,7 +72,7 @@ const LoginCallBack = () => {
                     <span>&nbsp;:)</span>
                 </h1>
             ) : (
-                <h1 className='col_blue2 text-center fs_45 fw_900 login_loading'>
+                <h1 className='col_blue2 text-center fs_45 fw_900' style={{marginTop:250}}>
                     처리 중 오류가 발생했습니다.
                 </h1>
             )}
