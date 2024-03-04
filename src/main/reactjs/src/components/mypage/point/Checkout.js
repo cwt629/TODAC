@@ -48,8 +48,9 @@ const Checkout = () => {
     }, []);
 
     return (
-        <div className="wrapper w-100">
+        <div className="wrapper w-100 ">
             <div className="max-w-540 w-100">
+                <span className="overlaywhite"></span> {/* overlay를 추가합니다. */}
                 <div id="payment-method" className="w-100" />
                 <div id="agreement" className="w-100" />
                 <div className="btn-wrapper w-100">
