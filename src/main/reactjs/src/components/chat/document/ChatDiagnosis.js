@@ -320,7 +320,7 @@ const ChatDiagnosis = () => {
             </div>
             <br />
             <div className='mt_10' style={{ textAlign: 'center' }}>
-                <button className='white long' onClick={() => nav('../../')}>마이 홈 이동하기</button>
+                <button className='white long' onClick={() => nav('../../')}>내 정보 가기</button>
             </div>
         </div>
     );
