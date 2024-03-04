@@ -176,14 +176,14 @@ const BoardDetail = () => {
 
     const shareTwitter = () => {
         // 트위터 공유 로직
-        let sendText = "Todac";
-        let sendUrl = "175.45.192.182/";
+        let sendText = "TODAC";
+        let sendUrl = window.location.href;
         window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url" + sendUrl);
     };
 
     const shareFacebook = () => {
         // 페이스북 공유 로직
-        let sendUrl = "175.45.192.182/";
+        let sendUrl = window.location.href;
         window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
     };
 
@@ -203,7 +203,7 @@ const BoardDetail = () => {
             content: {
                 title: `${data.memberNickname}님의 게시글로 당신을 초대합니다`,
                 description: `"TODAC"에 오신것을 환영합니다.`,
-                imageUrl: data.photo ? imageStorage + data.photo : "",
+                imageUrl: "https://kr.object.ncloudstorage.com/guest-hch/TODAC/share/TODACbot.png",
                 link: {
                     mobileWebUrl: window.location.href,
                     webUrl: window.location.href,
