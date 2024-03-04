@@ -19,8 +19,23 @@ a {
     overflow: auto;
 }
 
+.hideTop {
+    padding-top: 10%;
+}
+
 .max-w-540 {
     max-width: 540px;
+    position: relative; /* 부모 요소를 relative로 설정합니다. */
+}
+
+.overlaywhite {
+    position: absolute; /* 부모 요소를 기준으로 위치를 설정합니다. */
+    top: 0; /* 부모 요소의 상단에 위치시킵니다. */
+    left: 0; /* 부모 요소의 왼쪽에 위치시킵니다. */
+    width: 100%; /* 부모 요소의 가로 전체를 차지합니다. */
+    height: 7%; /* 부모 요소의 상단 10%만큼의 높이를 설정합니다. */
+    background-color: white; /* 하얀색 배경을 설정합니다. */
+    z-index: 1; /* 다른 요소 위에 위치하도록 z-index 값을 설정합니다. */
 }
 
 .btn-wrapper {
