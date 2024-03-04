@@ -11,7 +11,6 @@ import { getBadgeInfo } from "../../../utils/badgeInfo";
 import newbie from "../../../image/badge/newbie.png";
 
 const BoardRowItem = ({ idx, data }) => {
-    console.log("여기 데이터가 무엇이냐" + data);
     const navi = useNavigate();
 
     const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/"; //ncloud 에서 가져옴

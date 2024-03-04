@@ -65,7 +65,7 @@ const BoardForm = () => {
         if (title === "" || content === "") {
             Swal.fire({
                 title: "입력 없음!",
-                text: "필수 입력값을 입력해주세요.",
+                text: "제목과 내용을 입력해주세요.",
                 icon: "warning",
                 confirmButtonColor: "#5279FD",
                 confirmButtonText: "확인",
@@ -107,6 +107,7 @@ const BoardForm = () => {
                 text: "게시글이 성공적으로 작성되었습니다.",
                 icon: "success",
                 confirmButtonColor: "#5279FD",
+                confirmButtonText: "확인",
             }).then((res) => {
                 // 추가 성공 후 목록으로 이동
                 navi("/board");
@@ -175,8 +176,8 @@ const BoardForm = () => {
                                     width: "40px",
                                     height: "40px",
                                     position: "absolute",
-                                    top: "289px",
-                                    right: "0px",
+                                    bottom: "5px",
+                                    right: "5px",
                                 }}
                                 className='img-fluid'
                                 alt='이미지변경'

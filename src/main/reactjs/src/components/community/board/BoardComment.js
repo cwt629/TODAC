@@ -21,7 +21,6 @@ const BoardComment = () => {
         axios.get(`/commentlist?boardcode=${boardcode}`).then((res) => {
             setCommentList(res.data);
             setListDisplay(res.data);
-            console.log(res.data);
         });
     };
 
@@ -68,9 +67,9 @@ const BoardComment = () => {
         Swal.fire({
             title: "댓글 삭제",
             text: "해당 댓글을 삭제하시겠습니까?",
-            icon: "question",
+            icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#5279FD",
+            confirmButtonColor: "#FF7170",
             confirmButtonText: "예",
             cancelButtonText: "아니오",
         }).then((result) => {
