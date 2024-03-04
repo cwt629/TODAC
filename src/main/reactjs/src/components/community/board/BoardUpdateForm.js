@@ -110,11 +110,8 @@ const BoardUpdateForm = () => {
                         <>
                             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
 
-                            <div
-                                className='col-4'
-                                style={{ marginTop: "15px", width: "100%", height: "100%", position: "relative" }}
-                            >
-                                <div>
+                            <div className='col-4' style={{ marginTop: "15px", width: "100%", height: "100%" }}>
+                                <div id='photo'>
                                     {selectData.photo === null ? (
                                         <img
                                             alt=''
@@ -135,22 +132,27 @@ const BoardUpdateForm = () => {
                                                 height: "100%",
                                                 border: "2px solid white",
                                                 borderRadius: "0.8rem",
+                                                position: "relative",
                                             }}
                                         />
                                     )}
-                                    <img
+                                    <div
+                                        id='changephoto'
                                         style={{
                                             width: "40px",
                                             height: "40px",
                                             position: "absolute",
-                                            top: "286px",
-                                            right: "3px",
+                                            top: "458px",
+                                            right: "30px",
                                         }}
-                                        className='img-fluid'
-                                        alt='이미지변경'
-                                        src={changePhoto}
-                                        onClick={() => document.getElementById("fileInput").click()}
-                                    />
+                                    >
+                                        <img
+                                            className='img-fluid'
+                                            alt='이미지변경'
+                                            src={changePhoto}
+                                            onClick={() => document.getElementById("fileInput").click()}
+                                        />
+                                    </div>
                                     <div>
                                         <input
                                             type='file'
@@ -162,7 +164,7 @@ const BoardUpdateForm = () => {
                                     {loading && (
                                         <div
                                             style={{
-                                                position: "relative",
+                                                position: "absolute",
                                                 top: "180px", // 부모 요소의 50% 위치
                                                 left: "43%", // 부모 요소의 50% 위치
                                                 transform: "translate(-50%, -50%)", // 중앙 정렬을 위한 transform
