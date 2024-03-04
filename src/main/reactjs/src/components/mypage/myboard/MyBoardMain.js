@@ -91,7 +91,7 @@ const MyBoardMain = () => {
         Swal.fire({
             title: "게시글 삭제",
             text: "해당 게시글을 삭제하시겠습니까?",
-            icon: "question",
+            icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#ff7170",
             confirmButtonText: "예",
@@ -109,6 +109,7 @@ const MyBoardMain = () => {
                             text: "게시글이 성공적으로 삭제되었습니다.",
                             icon: "success",
                             confirmButtonColor: "#5279FD",
+                            confirmButtonText: "확인"
                         });
                     })
                     .catch((error) => {
@@ -161,43 +162,43 @@ const MyBoardMain = () => {
                     <span className="col_blue2">{member.nickname}</span> 님의 게시글 목록
                 </div>
                 {filteredBoard.length === 0 ? (
-                <div className="fs_14" style={{ marginTop: '10px' }}>
-                    작성한 게시글이 없습니다.
-                </div>
-            ) : (
-                currentItems.map((item, index) => (
-                    <div
-                        key={index}
-                        className='bor_gray1 px-3 py-2 mt_10'
-                        style={{
-                            boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
-                            borderRadius: "10px",
-                        }}
-                    >
-                        <div style={{ display: "flex", justifyContent: "space-between" }}>
-                            <div
-                                onClick={() => nav(`/board/detail/${item.boardcode}`)}
-                                style={{
-                                    cursor: "pointer",
-                                    width: "90%",
-                                    overflow: "hidden",
-                                    whiteSpace: "nowrap",
-                                    textOverflow: "ellipsis",
-                                }}
-                            >
-                                <span className='fw_600'>{item.title}</span>
-                            </div>
-                            <button
-                                onClick={() => deletePost(item.boardcode)}
-                                style={{ background: "none", border: "none", cursor: "pointer", fontSize: "14px", color: 'gray' }}
-                            >
-                                삭제
-                            </button>
-                        </div>
-                        <div className='fs_14'>{item.registereddate}</div>
+                    <div className="fs_14" style={{ marginTop: '10px' }}>
+                        작성한 게시글이 없습니다.
                     </div>
-                ))
-            )}
+                ) : (
+                    currentItems.map((item, index) => (
+                        <div
+                            key={index}
+                            className='bor_gray1 px-3 py-2 mt_10'
+                            style={{
+                                boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+                                borderRadius: "10px",
+                            }}
+                        >
+                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <div
+                                    onClick={() => nav(`/board/detail/${item.boardcode}`)}
+                                    style={{
+                                        cursor: "pointer",
+                                        width: "90%",
+                                        overflow: "hidden",
+                                        whiteSpace: "nowrap",
+                                        textOverflow: "ellipsis",
+                                    }}
+                                >
+                                    <span className='fw_600'>{item.title}</span>
+                                </div>
+                                <button
+                                    onClick={() => deletePost(item.boardcode)}
+                                    style={{ background: "none", border: "none", cursor: "pointer", fontSize: "14px", color: 'gray' }}
+                                >
+                                    삭제
+                                </button>
+                            </div>
+                            <div className='fs_14'>{item.registereddate}</div>
+                        </div>
+                    ))
+                )}
 
                 {/* Pagination */}
                 <div className="justify-content-center d-flex mt-3 qnaPage_btn">

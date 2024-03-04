@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
 import './tossstyle.css';
 import {useSearchParams} from "react-router-dom";
+import './Checkout.css';
 
 const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 
