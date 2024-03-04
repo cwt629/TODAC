@@ -1,0 +1,58 @@
+div.selectCounselor {
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 50%;
+    height: 5vh;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+div.chatlistfilter {
+    display: flex;
+    justify-content: flex-start;
+}
+
+table.chatlog-table {
+    width: 100%;
+    border: 1px solid #eeeeff;
+    border-collapse: collapse;
+    font-size: 13px;
+    padding: 0px 0px;
+}
+
+table.chatlog-table th,
+table.chatlog-table td {
+    border: 1px solid #eeeeff;
+    text-align: center;
+}
+
+table.chatlog-table tbody tr>td:nth-child(1) {
+    font-weight: bold;
+}
+
+table.chatlog-table tbody tr>td:nth-child(3) {
+    font-weight: bold;
+}
+
+button.chat-date span.chat-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+button.chat-date span.chat-arrow.chat-arrow-down {
+    transform: rotate(180deg);
+}
+
+div.chatlog-buttons {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.chatlog-buttons button {
+    margin: 0 5px;
+}
