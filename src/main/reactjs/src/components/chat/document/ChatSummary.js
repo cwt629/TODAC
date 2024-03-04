@@ -199,7 +199,7 @@ const ChatSummary = () => {
 
             <br />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <button className='white long' onClick={() => nav('../../')}>마이 홈 이동하기</button>
+                <button className='white long' onClick={() => nav('../../')}>내 정보 가기</button>
                 <div style={{ position: 'relative' }}>
                     {
                         (hasDiagnosis) ?

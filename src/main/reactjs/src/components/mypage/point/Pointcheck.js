@@ -5,8 +5,8 @@ import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import PointLogo from "./PointLogo";
 import PageHeader from "../../PageHeader";
-import "../../chat/chattinglog/ChattingLogStyle.css";
 import PointCheckButtons from "./PointCheckButtons";
+import "./Pointcheck.css";
 
 const Pointcheck = () => {
     const storedId = sessionStorage.getItem("id");
@@ -132,10 +132,10 @@ const Pointcheck = () => {
                 <table className='chatlog-table mt_25'>
                     <thead>
                         <tr>
-                            <th style={{ backgroundColor: 'var(--cobaltblue)', width: '10%' }}>번호</th>
-                            <th style={{ backgroundColor: 'var(--cobaltblue)', width: '10%' }}>타입</th>
-                            <th style={{ backgroundColor: 'var(--cobaltblue)', width: '40%' }}>Todac Point</th>
-                            <th style={{ backgroundColor: 'var(--cobaltblue)', width: '40%' }}>날짜</th>
+                            <th style={{ backgroundColor: 'var(--cobaltblue)' }}>번호</th>
+                            <th style={{ backgroundColor: 'var(--cobaltblue)' }}>타입</th>
+                            <th style={{ backgroundColor: 'var(--cobaltblue)' }}>Todac Point</th>
+                            <th style={{ backgroundColor: 'var(--cobaltblue)' }}>날짜</th>
                         </tr>
                     </thead>
                     <tbody>

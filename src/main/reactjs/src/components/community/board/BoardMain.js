@@ -136,7 +136,7 @@ const BoardMain = () => {
                         margin: "5px auto",
                         padding: "5px 0px",
                         border: "1px solid white",
-                        borderRadius: "10px",
+                        borderRadius: "0.2rem",
                         outline: "0",
                     }}
                 >
@@ -173,7 +173,7 @@ const BoardMain = () => {
                 className=''
                 style={{
                     width: "100%",
-                    marginTop: "10px",
+                    marginTop: "20px",
                 }}
             >
                 <Paper
@@ -184,7 +184,7 @@ const BoardMain = () => {
                         margin: "10px auto",
                         padding: "7px 10px",
                         border: "1px solid white",
-                        borderRadius: "10px",
+                        borderRadius: "0.2rem",
                         outline: "0",
                         alignItems: "center",
                         width: "322px",

@@ -115,10 +115,11 @@ const BoardDetail = () => {
                         // 추가 성공 후 목록으로 이동
                         navi("/board");
                         Swal.fire({
-                            title: "삭제 완료",
+                            title: "삭제 완료!",
                             text: "게시글이 성공적으로 삭제되었습니다.",
                             icon: "success",
-                            confirmButtonColor: "#FF7170",
+                            confirmButtonColor: "#5279FD",
+                            confirmButtonText: "확인",
                         });
                     })
                     .catch((error) => {
@@ -136,20 +137,9 @@ const BoardDetail = () => {
     const handleMoreView = () => {
         if (userRole === "todac") {
             // 관리자인 경우
-            Swal.fire({
-                title: "게시글 삭제",
-                text: "해당 게시글을 삭제하시겠습니까?",
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonColor: "#FF7170",
-                confirmButtonText: "예",
-                cancelButtonText: "아니오",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // 삭제 로직 수행
-                    deletePost(boardcode);
-                }
-            });
+
+            // 삭제 로직 수행
+            deletePost(boardcode);
         } else if (data.userCode == sessionStorage.getItem("usercode")) {
             // 글 작성자인 경우
             Swal.fire({
@@ -248,7 +238,7 @@ const BoardDetail = () => {
                 <div className='form-group mx_30'>
                     {/* <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} /> */}
 
-                    <div className='mt_10' style={{ fontSize: "40px" }}>
+                    <div className='mt_10' style={{ fontSize: "30px" }}>
                         {data.title}
                     </div>
                     <div className='mt-1 d-flex'>
@@ -293,8 +283,13 @@ const BoardDetail = () => {
                         )}
                     </div>
 
-                    <div className='mt-3' style={{ fontSize: "25px" }}>
-                        {data.content}
+                    <div className='mt-3' style={{ fontSize: "20px" }}>
+                        {data.content.split("\n").map((line, i) => (
+                            <div key={i}>
+                                {line}
+                                {i !== data.content.split("\n").length - 1 && <br />}
+                            </div>
+                        ))}
                     </div>
 
                     <div className='mt_25 d-flex justify-content-center' style={{ position: "relative" }}>
