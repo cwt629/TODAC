@@ -60,7 +60,7 @@ public class GameController {
 
         PointRecordDto pdto = new PointRecordDto();
         pdto.setAmount(score);
-        pdto.setType("오늘의미소");
+        pdto.setType("미소팡팡");
         pdto.setMember(memdto);
         pointRecordDao.inserPointRecord(pdto);
         retMap.put("badge",badge);
