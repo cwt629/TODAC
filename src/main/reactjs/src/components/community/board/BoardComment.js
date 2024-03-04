@@ -84,7 +84,8 @@ const BoardComment = () => {
                             title: "삭제 완료",
                             text: "댓글이 성공적으로 삭제되었습니다.",
                             icon: "success",
-                            confirmButtonColor: "#FF7170",
+                            confirmButtonColor: "#5279FD",
+                            confirmButtonText: "확인",
                         });
                     })
                     .catch((error) => {

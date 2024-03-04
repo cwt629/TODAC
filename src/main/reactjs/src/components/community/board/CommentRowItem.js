@@ -23,7 +23,7 @@ function getDateFormatPieces(str) {
     const minute = date.getMinutes();
 
     const now = new Date();
-    const timeDiff = Math.floor((now - date) / (1000 * 60 * 60)); // 작성 시간과 현재 시간의 차이 (시간 단위)
+    const timeDiff = Math.floor((now - date) / (1000 * 60)); // 작성 시간과 현재 시간의 차이 (분
 
     // 오전/오후 구분
     const ampm = hour >= 12 ? "오후" : "오전";
@@ -31,8 +31,21 @@ function getDateFormatPieces(str) {
     // 12시간 형식으로 변환
     const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
 
-    // 작성된지 몇 시간 전인지 계산
-    const timeAgo = timeDiff === 0 ? "방금 전" : `${timeDiff}시간 전`;
+    // 작성된지 몇 분 전 또는 몇 일 전인지 계산
+    let timeAgo = "";
+    if (timeDiff < 1) {
+        // 1분 이내
+        timeAgo = "방금 전";
+    } else if (timeDiff < 60) {
+        // 60분 이내
+        timeAgo = `${timeDiff}분 전`;
+    } else if (timeDiff < 24 * 60) {
+        // 24시간 이내
+        timeAgo = `${Math.floor(timeDiff / 60)}시간 전`;
+    } else {
+        // 24시간 이후일 경우
+        timeAgo = `${Math.floor(timeDiff / (24 * 60))}일 전`;
+    }
 
     return {
         year: year,
