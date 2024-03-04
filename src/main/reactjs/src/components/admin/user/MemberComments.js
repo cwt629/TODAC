@@ -149,7 +149,7 @@ const MemberComments = () => {
                 }
             />
             <br /><br />
-            <div className="fs_17 fw_800">
+            <div className="fs_17 fw_800" style={{ marginBottom: '5px' }}>
                 <span className="col_blue2">{member.nickname}</span> 님의 댓글 목록
             </div>
 

@@ -8,7 +8,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import cameraIcon from '../../../../image/change_photo.svg';
-import { Input, TextField } from '@mui/material';
+import { popupAchievement } from '../../../../utils/achieveAlert';
+
+// 달성 가능한 업적 이름
+const BADGE_NAME_NEWCOUNSELOR = "신생 상담사";
 
 const CounselorCreateTable = () => {
     // 각 input의 최대 길이
@@ -20,7 +23,11 @@ const CounselorCreateTable = () => {
         'greeting': 50
     };
 
+    // 파일의 최대 크기 : 3MB (413 error 방지를 위함)
+    const PHOTO_MAX_SIZE = 1024 * 1024 * 3;
+
     const nav = useNavigate();
+    const usercode = sessionStorage.getItem("usercode");
 
     // 앞서 상담사 선택에서 받는 형태의 데이터 구조를 가지게 한다.
     const [data, setData] = useState({
@@ -53,23 +60,35 @@ const CounselorCreateTable = () => {
 
     // 사진 변경 이벤트
     const handlePhotoUpload = (e) => {
-        console.log(e.target.files);
         const file = e.target.files[0];
         if (file) {
-            if (file.type.startsWith('image/')) {
-                setPhotoFile(file);
-                // 미리보기를 위한 이미지 URL 저장
-                setData({ ...data, photo: URL.createObjectURL(file) });
-            }
-            else {
+            // 이미지가 아닌 경우
+            if (!file.type.startsWith('image/')) {
                 ReactSwal.fire({
                     icon: 'error',
                     title: '이미지만 업로드 가능!',
                     html: '이미지 파일만 업로드 해주세요.',
                     confirmButtonColor: '#5279FD',
                     confirmButtonText: '확인'
-                })
+                });
+                return;
             }
+
+            // 크기를 넘어간 경우
+            if (file.size > PHOTO_MAX_SIZE) {
+                ReactSwal.fire({
+                    icon: 'error',
+                    title: '파일 크기 초과!',
+                    html: '파일의 크기는 3MB를 초과할 수 없습니다.',
+                    confirmButtonColor: '#5279FD',
+                    confirmButtonText: '확인'
+                });
+                return;
+            }
+
+            setPhotoFile(file);
+            // 미리보기를 위한 이미지 URL 저장
+            setData({ ...data, photo: URL.createObjectURL(file) });
         }
     }
 
@@ -151,6 +170,12 @@ const CounselorCreateTable = () => {
                 }
             });
 
+            // 문제 없이 전송된 경우, 여기서 업적 달성 처리
+            let achieveResult = await axios.post(`/badgeinsert?usercode=${usercode}&achievename=${BADGE_NAME_NEWCOUNSELOR}`);
+            if (achieveResult.data) {
+                await popupAchievement(BADGE_NAME_NEWCOUNSELOR);
+            }
+
             await ReactSwal.fire({
                 icon: 'success',
                 title: '커스텀 성공!',
@@ -194,11 +219,17 @@ const CounselorCreateTable = () => {
                     <tr>
                         <td className='tablehead'>사진</td>
                         <td style={{ position: 'relative' }}>
-                            <img alt='' src={data.photo ? data.photo : defaultImage} style={{ width: '100%', height: 'auto' }} />
-                            <input type='file' accept='image/*' id='counselor-create-image' style={{ display: 'none' }}
-                                onChange={handlePhotoUpload} />
-                            <img style={{ width: '30px', height: "30px", position: 'absolute', bottom: "10px", right: '10px' }} className="img-fluid"
-                                alt='이미지변경' src={cameraIcon} onClick={() => document.getElementById("counselor-create-image").click()} />
+                            <div style={{ position: 'relative' }}>
+                                <img alt='' src={data.photo ? data.photo : defaultImage} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <input type='file' accept='image/*' size={PHOTO_MAX_SIZE} id='counselor-create-image' style={{ display: 'none' }}
+                                    onChange={handlePhotoUpload} />
+                                <img style={{ width: '30px', height: "30px", position: 'absolute', bottom: "5px", right: '5px' }} className="img-fluid"
+                                    alt='이미지변경' src={cameraIcon} onClick={() => document.getElementById("counselor-create-image").click()} />
+                            </div>
+                            <br />
+                            <div className='explain'>
+                                * 파일은 이미지만 가능하며, 최대 3MB의 사진만 업로드 가능합니다.
+                            </div>
                         </td>
                     </tr>
                     <tr>

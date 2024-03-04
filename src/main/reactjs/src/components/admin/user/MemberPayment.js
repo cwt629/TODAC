@@ -116,7 +116,7 @@ const MemberPayment = () => {
                     style={{ marginBottom: '20px', width: '80%' }}
                 />
             </div>
-            <div className='fs_17 fw_800'>
+            <div className='fs_17 fw_800' style={{ marginBottom: '5px' }}>
                 <span className='col_blue2'>{member.nickname}</span> 님의 결제 내역
             </div>
             {filteredPay.length === 0 ? (

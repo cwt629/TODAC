@@ -4,6 +4,7 @@ import axios from "axios";
 import "./DonationMainStyle.css";
 import DonationMainContent from "./DonationMainContent";
 import PageHeader from "../../PageHeader";
+import { popupAchievement } from "../../../utils/achieveAlert";
 
 // 한국식 통화 형식으로 숫자를 형식화하는 함수
 function formatCurrency(number) {
@@ -11,6 +12,7 @@ function formatCurrency(number) {
 }
 
 const DonationMain = () => {
+    const usercode = sessionStorage.getItem("usercode");
     const [totaldonation, setTotaldonation] = useState(0);
     const [top3, setTop3] = useState([]);
     const [currentTotalDonation, setCurrentTotalDonation] = useState(0);
@@ -20,12 +22,25 @@ const DonationMain = () => {
         });
     };
 
+    const givetop3badge = () => {
+        axios.post(`/badgeinsert?usercode=${usercode}&achievename=후원왕`)
+                            .then(res=>{
+                                if(res.data===true){
+                                    popupAchievement("후원왕");
+                                }
+                            })
+    };
+
     const getTop3 = () => {
         axios.get("/get/top3Donor").then((res) => {
-            setTop3(res.data);
-            console.log(res.data);
+            const top3Data = res.data;
+            setTop3(top3Data);
+            if (top3Data.some(item => item.usercode == usercode)) {
+                givetop3badge(); // usercode가 top3에 포함되면 특정 함수 실행
+            }
         });
     };
+    
 
     useEffect(() => {
         getAllDonation();
@@ -233,12 +248,12 @@ const PAGE_TITLE = "후원의 전당";
                                 alt=''
                                 src={require(`../../../image/donationIcon/rank${index}.png`)}
                             />
-                            <spna className="fw_700 fs_20">
+                            <span className="fw_700 fs_20">
                                 <img
                                 style={{ width: "40px", height: "40px", borderRadius: "50px" }}
                                 alt='' className="mx-3"
                                 src={item.photo}/>'{item.nickname}' 님 :{" "}
-                            </spna> 
+                            </span> 
                         </div>
                        
                         

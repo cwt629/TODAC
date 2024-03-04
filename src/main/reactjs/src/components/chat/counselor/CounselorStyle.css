@@ -36,6 +36,12 @@ div.counselorcard.card-back div.counselor-introduction {
     text-align: left;
 }
 
+/* Safari 환경에서 버튼이 앞면에서도 보이는 현상이 있어, div자체에 속성 부여 시도 */
+div.counselorcard.card-back div.counsel-start {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
 div.counselorcard img.counselorphoto.backphoto {
     width: 100px;
     height: 100px;
@@ -45,6 +51,7 @@ div.counselorcard img.counselorphoto.backphoto {
 div.counselorcard img.counselorphoto.frontphoto {
     width: 80%;
     height: auto;
+    max-height: 200px;
 }
 
 div.counselbtndiv {
