@@ -17,9 +17,6 @@ const Pointcharge = () => {
         <div className="mx_30">
             <div className="d-flex justify-content-between align-items-center">
                 <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-                <button className="deepblue mt_25"
-                    onClick={() => nav("/user/point/checkout?price=" + point)}>충전하기
-                </button>
             </div>
             <br />
             <PointChargeContent setPoint5000={() => setPoint(5000)}
@@ -27,6 +24,15 @@ const Pointcharge = () => {
                 setPoint50000={() => setPoint(50000)}
                 setPointAmount={(amount) => setPoint(amount)}
                 point={point} />
+            <div style={{ textAlign: "center", height: "40px", marginTop: "25px" }}>
+                <button className="white" style={{
+                    height: "100%",
+                    width: "40%"
+                }}
+                    onClick={() => nav("/user/point/checkout?price=" + point)}>충전하기
+                </button>
+            </div>
+
         </div>
     );
 };

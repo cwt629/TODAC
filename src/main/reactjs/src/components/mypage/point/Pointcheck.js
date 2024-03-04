@@ -97,6 +97,19 @@ const Pointcheck = () => {
         });
     }
 
+    // data.applieddate 값을 받아와서 원하는 형식으로 변환하는 함수
+    const formatDate = (applieddate) => {
+        // applieddate가 '2024-03-04 11:21' 형식이라고 가정합니다.
+        const date = new Date(applieddate);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 월을 두 자리로 만들고, 부족한 경우 앞에 0을 채웁니다.
+        const day = String(date.getDate()).padStart(2, '0'); // 일을 두 자리로 만들고, 부족한 경우 앞에 0을 채웁니다.
+        const hours = String(date.getHours()).padStart(2, '0'); // 시를 두 자리로 만들고, 부족한 경우 앞에 0을 채웁니다.
+        const minutes = String(date.getMinutes()).padStart(2, '0'); // 분을 두 자리로 만들고, 부족한 경우 앞에 0을 채웁니다.
+
+        return `${year}/${month}/${day} ${hours}:${minutes}`;
+    }
+
     return (
         <div>
             <br></br>
@@ -138,7 +151,7 @@ const Pointcheck = () => {
                                     <td>
                                         {/* <img alt={data.counselorname} src={data.counselorphoto}
                                         width={20} height={20} /> */}
-                                        {data.applieddate}
+                                        {formatDate(data.applieddate)}
                                     </td>
                                 </tr>
                             ))
