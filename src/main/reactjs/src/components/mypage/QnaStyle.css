@@ -50,6 +50,11 @@
     background-position: right bottom 15px;
     overflow-y: auto;
     padding-right: 110px;
+    border-top: 1px solid #6c757d33;
+}
+
+.faq .accordion-header{
+    box-shadow: 0 8px 8px rgba(0,0,0,0.12)
 }
 
 .faq .accordion-item {

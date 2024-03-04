@@ -1,8 +1,8 @@
-.gray{
+.gray {
     filter: grayscale(100%);
 }
 
-Item img{
+Item img {
     width: 100px;
     height: 100px;
 }

@@ -68,9 +68,9 @@ const BoardComment = () => {
         Swal.fire({
             title: "댓글 삭제",
             text: "해당 댓글을 삭제하시겠습니까?",
-            icon: "warning",
+            icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#FF7170",
+            confirmButtonColor: "#5279FD",
             confirmButtonText: "예",
             cancelButtonText: "아니오",
         }).then((result) => {
@@ -95,9 +95,33 @@ const BoardComment = () => {
         });
     };
 
+    const handlePaperClick = () => {
+        // 비로그인 사용자인 경우 로그인 안내 메시지 출력
+        if (!usercode) {
+            showLoginPrompt("로그인 하시겠습니까?");
+        }
+    };
+
+    const showLoginPrompt = (message) => {
+        Swal.fire({
+            title: "로그인이 필요합니다",
+            text: message,
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#5279FD",
+            confirmButtonText: "로그인",
+            cancelButtonText: "취소",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // 로그인 페이지로 이동
+                window.location.href = "/login";
+            }
+        });
+    };
+
     return (
         <div>
-            <div className='mt_45'>
+            <div className='mt-5'>
                 <h5>
                     댓글
                     <img alt='' src={commentImg} />
@@ -122,7 +146,9 @@ const BoardComment = () => {
                         p: "2px 4px",
                         alignItems: "center",
                         width: "100%",
+                        cursor: "pointer", // 마우스 커서를 손가락 모양으로 변경
                     }}
+                    onClick={handlePaperClick} // 클릭 이벤트 핸들러 추가
                 >
                     <InputBase
                         type='text'

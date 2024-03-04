@@ -15,9 +15,10 @@ const ChatSummary = () => {
     const [logList, setLogList] = useState([]);
     const nav = useNavigate();
     const [query, setQuery] = useSearchParams();
-    const roomcode = query.get("roomcode");
+    const roomcode = query.get("chatroomcode");
     const [loading, setLoading] = useState(true); // 요약본 생성 중인지 여부
     const [summarizedMessages, setSummarizedMessages] = useState({ summarizedUserMessage: "", summarizedCounselorMessage: "" });
+    const [hasDiagnosis, setHasDiagnosis] = useState(false);
 
     // 포인트 사용
     const [donationAmount, setDonationAmount] = useState(500);
@@ -25,38 +26,18 @@ const ChatSummary = () => {
 
     const CURRENT_ROUTES = [
         { name: 'TODAC 채팅', url: '/user/chat' },
-        { name: '상담 받기', url: '/user/chat/counsel' },
         { name: '오늘의 상담 요약', url: '' }
     ];
 
     const PAGE_TITLE = "오늘의 상담 요약";
 
-    const pointCheck = () => {
-        // 진단서 발급을 시도하기 전에 진단서가 이미 발급되었는지 확인
-        axios.get("/chat/diagnosis/check?chatroomode=" + roomcode)
-            .then(response => {
-                if (response.data) {
-                    // 이미 진단서가 발급된 경우 알림 후 진단서 페이지로 이동
-                    Swal.fire({
-                        icon: 'warning',
-                        html: '이미 진단서가 발급되었습니다.',
-                        confirmButtonText: '확인',
-                        confirmButtonColor: '#5279FD'
-                    }).then(() => {
-                        nav("../diagnosis?chatroomcode=" + roomcode);
-                    });
-                }
-            })
-    }
-
     const goDiagnosis = () => {
         Swal.fire({
-            title: '진단서 발급',
+            title: hasDiagnosis ? '진단서 확인' : '진단서 발급',
             text: '진단서 페이지로 이동하시겠습니까?',
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#5279FD',
-            cancelButtonColor: '#FF7170',
             confirmButtonText: '예',
             cancelButtonText: '아니오'
         }).then((result) => {
@@ -66,49 +47,11 @@ const ChatSummary = () => {
         });
     }
 
-    // const pointUse = () => {
-    //     Swal.fire({
-    //         title: '진단서 발급',
-    //         text: '진단서를 발급하시겠습니까?',
-    //         icon: 'question',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#5279FD',
-    //         cancelButtonColor: '#FF7170',
-    //         confirmButtonText: '예',
-    //         cancelButtonText: '아니오'
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             const url = "/payment?amount=" + donationAmount + "&usercode=" + usercode + "&type=진단서 발급";
-    //             axios.post(url)
-    //                 .then(res => {
-    //                     if (res.data === false) {
-    //                         Swal.fire({
-    //                             icon: 'warning',
-    //                             html: '포인트가 부족합니다.',
-    //                             confirmButtonText: '확인',
-    //                             confirmButtonColor: '#FF7170'
-    //                         })
-    //                     }
-    //                     else {
-    //                         Swal.fire({
-    //                             icon: 'warning',
-    //                             html: '진단서가 발급되었습니다.',
-    //                             confirmButtonText: '확인',
-    //                             confirmButtonColor: '#5279FD'
-    //                         }).then(() => {
-    //                             nav('../diagnosis?chatroomcode=' + roomcode);
-    //                         });
-    //                     }
-    //                 })
-    //         }
-    //     });
-    // }
-
     const handleInfoClick = () => {
         // sweetalert2 팝업 띄우기
         Swal.fire({
             title: '진단서 예시 및 간단 설명',
-            html: '<div style="border: 1px solid #5279FD; border-radius: 10px; overflow: hidden;"><img src="' + diagnosisImg1 + '" alt="이미지" style="width: 80%; height: auto;"><img src="' + diagnosisImg2 + '" alt="이미지" style="width: 80%; height: auto;"></div>',
+            html: '<span style="color: gray; display: block;">* 카드를 클릭하여 내용을 확인하세요! *</span><br><div style="border: 1px solid #5279FD; border-radius: 10px; overflow: hidden;"><img src="' + diagnosisImg1 + '" alt="이미지" style="width: 80%; height: auto;"><img src="' + diagnosisImg2 + '" alt="이미지" style="width: 80%; height: auto;"></div>',
             icon: 'info',
             confirmButtonColor: '#5279FD',
             confirmButtonText: '닫기',
@@ -118,8 +61,8 @@ const ChatSummary = () => {
     const summary = async () => {
         try {
             const response = await axios.get("/chat/summary?chatroomcode=" + roomcode);
-            console.log("로그 불러오려고 함");
-            console.log(response);
+            // console.log("로그 불러오려고 함");
+            // console.log(response);
             setLogList(response.data);
             const { summarizedUserMessage, summarizedCounselorMessage } = await summarizeMessages(response.data);
             setSummarizedMessages({ summarizedUserMessage, summarizedCounselorMessage });
@@ -143,8 +86,8 @@ const ChatSummary = () => {
             }
         });
 
-        console.log("지금 보내고자 하는 로그");
-        console.log(chatlog);
+        // console.log("지금 보내고자 하는 로그");
+        // console.log(chatlog);
 
         const userLog = chatlog.filter((log) => (log.speaker === 0));
         const counselorLog = chatlog.filter((log) => (log.speaker !== 0));
@@ -185,8 +128,8 @@ const ChatSummary = () => {
         try {
             const response = await axios.get("/chat/summary/check?chatroomcode=" + roomcode);
             if (response.data) {
-                console.log("요약본 있음")
-                console.log(response)
+                // console.log("요약본 있음")
+                // console.log(response)
                 setSummarizedMessages({
                     summarizedUserMessage: { content: response.data.worry },
                     summarizedCounselorMessage: { content: response.data.answer }
@@ -212,28 +155,59 @@ const ChatSummary = () => {
 
         // 이 함수는 말그대로, 지금 만든 요약본을 DB에 집어넣는 작업만 하도록 하자.
         checkData();
+        axios.get("/chat/diagnosis/check?chatroomcode=" + roomcode)
+            .then((res) => {
+                setHasDiagnosis(res.data ? true : false);
+            })
     }, []);
+
+    // 클릭 이벤트 처리 함수
+    const handleFlip = (e) => {
+        // 현재 클릭된 요소의 부모에 clicked 클래스를 추가하여 효과 적용
+        e.currentTarget.parentElement.classList.toggle('clicked');
+    };
 
     return (
         <div className='mx_30'>
             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
-            <div className='summaryContent fs_14 fw_500 mt_10'>
-                <img src={you} alt='You Image' style={{ width: '50px', height: '50px', border: '2px solid #D4E4F2' }} /><br />
-                <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br />
-                {summarizedMessages.summarizedUserMessage?.content}
+
+            <div className='flip-container mx_30 mt_25'>
+                <div className='summaryContent fs_14 fw_500 mt_10 flipper' onClick={handleFlip}>
+                    <div className='front'>
+                        <img src={you} alt='You Image' />
+                    </div>
+                    <div className='back'>
+                        <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: '#D4E4F2' }}>내 고민 요약</span><br /><br />
+                        <div style={{ height: '175px', overflowY: 'auto' }}>{summarizedMessages.summarizedUserMessage?.content}</div>
+                    </div>
+                </div>
             </div>
             <br />
-            <div className='summaryAnswerContent fs_14 fw_500 mt_10'>
-                <img src={counselor} alt='Counselor Image' style={{ width: '50px', height: '50px', border: '2px solid whitesmoke' }} /><br />
-                <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: 'whitesmoke' }}>상담사의 답변 요약</span><br />
-                {summarizedMessages.summarizedCounselorMessage?.content}
+            <div className='flip-container mx_30 mt_10'>
+                <div className='summaryAnswerContent fs_14 fw_500 mt_10 flipper' onClick={handleFlip}>
+                    <div className='front'>
+                        <img src={counselor} alt='Counselor Image' />
+                    </div>
+                    <div className='back'>
+                        <span className='fs_20 fw_700' style={{ borderBottom: 'solid', borderColor: 'whitesmoke' }}>상담사의 답변 요약</span><br /><br />
+                        <div style={{ height: '175px', overflowY: 'auto' }}>{summarizedMessages.summarizedCounselorMessage?.content}</div>
+                    </div>
+                </div>
             </div>
+
             <br />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <button className='white long' onClick={() => nav('../../')}>마이 홈 이동하기</button>
                 <div style={{ position: 'relative' }}>
-                    <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer', position: 'absolute', top: 3.5, right: -24 }} onClick={handleInfoClick}><img src={info} alt='Info Image' style={{ width: '20px', height: '20px' }} /></span>
-                    <button className='deepblue long' onClick={goDiagnosis}>진단서 발급(500P)</button>
+                    {
+                        (hasDiagnosis) ?
+                            <button className='deepblue long' onClick={goDiagnosis}>나의 진단서 확인</button>
+                            :
+                            <span>
+                                <span role="img" aria-label="info-icon" className="info-icon" style={{ cursor: 'pointer', position: 'absolute', top: 3.5, right: -24 }} onClick={handleInfoClick}><img src={info} alt='Info Image' style={{ width: '20px', height: '20px' }} /></span>
+                                <button className='deepblue' onClick={goDiagnosis} style={{ padding: '6px 25px' }}>진단서 발급(500TP)</button>
+                            </span>
+                    }
                 </div>
             </div>
         </div >

@@ -11,7 +11,7 @@ const CounselorCardLast = () => {
                 여러분이 원하는 대로<br />
                 상담사를 직접 커스텀해보세요!
             </div>
-            <div className='mt_25'>
+            <div className='mt_10 custom-go-btn'>
                 <button type='button' className='counselinnerbtn btn-jittery'
                     onClick={() => nav("custom")}>GO!</button>
             </div>

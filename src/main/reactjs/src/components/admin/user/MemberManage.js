@@ -60,11 +60,14 @@ const MemberManage = () => {
 
     const indexOfLastMember = currentPage * membersPerPage;
     const indexOfFirstMember = indexOfLastMember - membersPerPage;
-    const currentMembers = listDisplay // listDisplay로 변경
-        .filter(member => member.nickname.toLowerCase().includes(searchTerm.toLowerCase()))
-        .slice(indexOfFirstMember, indexOfLastMember);
 
-    const totalPages = Math.ceil(listDisplay.length / membersPerPage); // listDisplay로 변경
+    // 검색어 입력 여부에 따라 currentMembers의 길이를 기준으로 계산
+    const currentMembers = listDisplay
+        .filter(member => member.nickname.toLowerCase().includes(searchTerm.toLowerCase()));
+    const totalPages = Math.ceil(currentMembers.length / membersPerPage);
+
+    const displayedMembers = currentMembers
+        .slice(indexOfFirstMember, indexOfLastMember);
 
     const handlePageChange = (event, value) => {
         setCurrentPage(value);
@@ -101,10 +104,11 @@ const MemberManage = () => {
                 }
             />
             <br /><br />
-            <div className='input-group' style={{ marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div className='input-group' style={{ marginBottom: '10px', marginLeft: '1px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <h6 className='fs_16 fw_800' style={{ marginTop: 'auto' }}>회원 목록</h6>
-                <ViewListFilter dateOrderAsc={dateOrderAsc} handleDateOrderClick={handleDateOrderClick} style={{ marginTop: '-5px' }} />
+                <ViewListFilter dateOrderAsc={dateOrderAsc} handleDateOrderClick={handleDateOrderClick} style={{ marginTop: '-5px', marginRight: '10px' }} />
             </div>
+
             <table className='table'>
                 <thead>
                     <tr>
@@ -114,23 +118,29 @@ const MemberManage = () => {
                     </tr>
                 </thead>
                 <tbody className='bg_red'>
-                    {currentMembers.map((member, index) => (
-                        <tr
-                            key={index}
-                            onClick={() => nav("MemberProfile?usercode=" + member.usercode)}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <td>{index + 1 + indexOfFirstMember}</td>
-                            <td>{member.nickname}</td>
-                            <td>{member.registereddate}</td>
+                    {displayedMembers.length === 0 ? (
+                        <tr>
+                            <td colSpan="3">검색된 닉네임이 없습니다.</td>
                         </tr>
-                    ))}
+                    ) : (
+                        displayedMembers.map((member, index) => (
+                            <tr
+                                key={index}
+                                onClick={() => nav("MemberProfile?usercode=" + member.usercode)}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                <td>{index + 1 + indexOfFirstMember}</td>
+                                <td>{member.nickname}</td>
+                                <td>{member.registereddate}</td>
+                            </tr>
+                        ))
+                    )}
                 </tbody>
             </table>
             {/* Pagination */}
             <div className="justify-content-center d-flex mt-3 qnaPage_btn">
                 <Pagination
-                    count={totalPages}
+                    count={totalPages}  // totalPages를 검색 결과 리스트의 페이지 수로 변경
                     page={currentPage}
                     onChange={handlePageChange}
                     shape="rounded"

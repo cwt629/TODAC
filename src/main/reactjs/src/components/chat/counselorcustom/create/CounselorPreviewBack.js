@@ -35,7 +35,7 @@ const CounselorPreviewBack = ({ data }) => {
                         : '상담사에 대한 소개'
                 }
             </div>
-            <div className='mt_10'>
+            <div className='mt_10 counsel-start'>
                 <button type='button' className='counselinnerbtn officialbtn btn-jittery fw_600'>상담 시작!</button>
             </div>
         </div>

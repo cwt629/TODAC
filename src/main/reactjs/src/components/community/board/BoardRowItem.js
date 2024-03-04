@@ -7,6 +7,8 @@ import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
 import commentImg from "../../../image/comment.svg";
 import heartImg from "../../../image/heart_full.svg";
 import viewImg from "../../../image/view_icon.svg";
+import { getBadgeInfo } from "../../../utils/badgeInfo";
+import newbie from "../../../image/badge/newbie.png";
 
 const BoardRowItem = ({ idx, data }) => {
     console.log("여기 데이터가 무엇이냐" + data);
@@ -59,17 +61,21 @@ const BoardRowItem = ({ idx, data }) => {
                                             className='d-flex justify-content-between'
                                             style={{ position: "relative", top: "2.5px", alignItems: "center" }}
                                         >
-                                            <div>
+                                            <div id='badge'>
                                                 <img
                                                     alt=''
-                                                    src={data.memberPhoto}
+                                                    src={
+                                                        data.mybadge === "뉴비"
+                                                            ? newbie
+                                                            : getBadgeInfo(data.mybadge).image
+                                                    }
                                                     style={{
                                                         width: "18px",
                                                         height: "18px",
                                                         borderRadius: "50px",
                                                     }}
                                                 />
-                                                <span style={{ marginLeft: "6px" }}>{data.nickname}</span>
+                                                <span>{data.nickname}</span>
                                             </div>
 
                                             <div style={{ position: "relative", top: "-2px" }}>

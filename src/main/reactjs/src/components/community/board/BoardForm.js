@@ -1,14 +1,4 @@
-import {
-    Avatar,
-    CircularProgress,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemButton,
-    ListItemText,
-    Radio,
-    TextField,
-} from "@mui/material";
+import { CircularProgress, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -18,6 +8,7 @@ import "./BoardStyle.css";
 import "../../CommonStyle.css";
 import changePhoto from "../../../image/change_photo.svg";
 import Swal from "sweetalert2";
+import { popupAchievement } from "../../../utils/achieveAlert";
 
 const BoardForm = () => {
     const [photo, setPhoto] = useState("");
@@ -26,17 +17,21 @@ const BoardForm = () => {
     const [counselorcode, setCounselorCode] = useState("");
     const [loading, setLoading] = useState(false);
     const navi = useNavigate();
-    const id = sessionStorage.getItem("id");
+    const userid = sessionStorage.getItem("id");
+    const usercode = sessionStorage.getItem("usercode");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const imageStorage = "https://kr.object.ncloudstorage.com/guest-hch/TODAC/"; //ncloud 에서 가져옴
 
     const CURRENT_ROUTES = [
         { name: "커뮤니티", url: "/user/community" },
         { name: "게시판", url: "/board" },
-        { name: "게시글 등록", url: "/user/community/board/form" },
+        { name: "게시글 등록", url: "/board/form" },
     ];
 
     const PAGE_TITLE = "게시글 등록";
+
+    const BADGE_NAME_DAYSTAR = "떠오르는 샛별";
+    const BADGE_NAME_PRO = "고인물";
 
     useEffect(() => {
         const id = sessionStorage.getItem("id");
@@ -67,39 +62,64 @@ const BoardForm = () => {
 
     // 추가 버튼
     const addDataEvent = async () => {
-        const usercode = sessionStorage.getItem("id");
         if (title === "" || content === "") {
             Swal.fire({
                 title: "입력 없음!",
                 text: "필수 입력값을 입력해주세요.",
                 icon: "warning",
-                confirmButtonColor: "#FF7170",
+                confirmButtonColor: "#5279FD",
                 confirmButtonText: "확인",
             });
             return;
         }
-
-        axios
-            .post(`/form/insert/${usercode}`, {
+        try {
+            axios.post(`/form/insert/${userid}`, {
                 photo: photo,
                 title: title,
                 content: content,
                 counselorcode: counselorcode,
-            })
-            .then((res) => {
+            });
+            //1. 떠오르는 샛별 : 게시글 5개 작성 시
+            let badgeResponseDaystar = await axios.get("/achieve/daystar?usercode=" + usercode);
+            if (badgeResponseDaystar.data) {
+                // 업적 달성 처리 시도
+                let achieveResult = await axios.post(
+                    `/badgeinsert?usercode=${usercode}&achievename=${BADGE_NAME_DAYSTAR}`
+                );
+
+                if (achieveResult.data) {
+                    await popupAchievement(BADGE_NAME_DAYSTAR);
+                }
+            }
+            //2. 고인물 : 게시글 50개 작성 시
+            let badgeResponsePro = await axios.get("/achieve/pro?usercode=" + usercode);
+            if (badgeResponsePro.data) {
+                // 업적 달성 처리 시도
+                let achieveResult = await axios.post(`/badgeinsert?usercode=${usercode}&achievename=${BADGE_NAME_PRO}`);
+
+                if (achieveResult.data) {
+                    await popupAchievement(BADGE_NAME_PRO);
+                }
+            }
+
+            Swal.fire({
+                title: "게시글 작성 완료",
+                text: "게시글이 성공적으로 작성되었습니다.",
+                icon: "success",
+                confirmButtonColor: "#5279FD",
+            }).then((res) => {
                 // 추가 성공 후 목록으로 이동
                 navi("/board");
-                Swal.fire({
-                    title: "게시글 작성 완료",
-                    text: "게시글이 성공적으로 작성되었습니다.",
-                    icon: "success",
-                    confirmButtonColor: "#5279FD",
-                });
-            })
-            .catch((error) => {
-                // 에러 핸들링
-                console.error("Error adding data:", error);
             });
+        } catch (err) {
+            Swal.fire({
+                icon: "error",
+                title: "뭔가 문제 발생!",
+                text: `Error: ${err}`,
+                confirmButtonColor: "#5279FD",
+                confirmButtonText: "확인",
+            });
+        }
     };
 
     return (
@@ -113,6 +133,7 @@ const BoardForm = () => {
                             marginTop: "15px",
                             width: "100%",
                             height: "100%",
+                            position: "relative",
                         }}
                     >
                         <div
@@ -131,16 +152,12 @@ const BoardForm = () => {
                                 />
                             </div>
                             {loading ? (
-                                <div
-                                    style={{
-                                        position: "relative",
-                                    }}
-                                >
+                                <div>
                                     <CircularProgress
                                         size={50}
                                         style={{
-                                            position: "relative",
-                                            top: "180px",
+                                            position: "absolute",
+                                            top: "250px",
                                             left: "43%",
                                             transform: "translate(-50%, -50%)",
                                         }}
@@ -158,8 +175,8 @@ const BoardForm = () => {
                                     width: "40px",
                                     height: "40px",
                                     position: "absolute",
-                                    top: "450px",
-                                    right: "45px",
+                                    top: "289px",
+                                    right: "0px",
                                 }}
                                 className='img-fluid'
                                 alt='이미지변경'

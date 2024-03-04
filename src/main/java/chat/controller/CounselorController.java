@@ -30,6 +30,8 @@ public class CounselorController {
 	
 	private String bucketName = "guest-hch";
 	private String folderName = "TODAC/counselors";
+	
+	private String defaultPhotoName = "default_profile_photo_blue.jpg";
 
 	@GetMapping("counselor/list")
 	public List<CounselorDetailInterface> getList(){
@@ -43,8 +45,8 @@ public class CounselorController {
 	
 	@PostMapping("counselor/custom")
 	public void insertCounselor(@ModelAttribute CounselorCustomDto dto, @RequestParam(value = "upload", required = false) MultipartFile upload) {
-		// 1. 이미지 파일 업로드하여 이름 얻기 - 이미지가 없으면 null로 남긴다
-		String photoName = null;
+		// 1. 이미지 파일 업로드하여 이름 얻기 - 이미지가 없으면 기본 이미지 이름으로 남긴다
+		String photoName = defaultPhotoName;
 		if (upload != null)
 			photoName = storageService.uploadFile(bucketName, folderName, upload);
 		
@@ -71,8 +73,8 @@ public class CounselorController {
 		CounselorDto dto = counselorService.getCounselorByCode(counselorcode);
 		// 파일 이름 받기
 		String photo = dto.getPhoto();
-		// 파일이 존재하면, 스토리지에서 이를 먼저 삭제해준다
-		if (photo != null) {
+		// 파일이 디폴트가 아닌 다른 이미지라면, 스토리지에서 이를 먼저 삭제해준다
+		if (!photo.equals(defaultPhotoName)) {
 			storageService.deleteFile(bucketName, folderName, photo);
 		}
 		
