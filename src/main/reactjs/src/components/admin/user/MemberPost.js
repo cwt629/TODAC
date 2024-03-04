@@ -80,7 +80,7 @@ const MemberPost = () => {
         Swal.fire({
             title: '게시글 삭제',
             text: '해당 게시글을 삭제하시겠습니까?',
-            icon: 'question',
+            icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#ff7170',
             confirmButtonText: '예',

@@ -31,11 +31,9 @@ const BoardDetail = () => {
         //로그인 상태 체크
         const isLoggedIn = id;
 
-        console.log("조회수 렌더링");
         axios.get(`/board/detail?boardcode=${boardcode}`).then((res) => {
             setData(res.data);
             setIsLiked(res.data.liked); // 서버에서 받아온 데이터에서 좋아요 여부를 설정
-            console.log(res.data);
         });
         if (isLoggedIn) {
             // 좋아요 수 가져오기
@@ -100,7 +98,7 @@ const BoardDetail = () => {
         Swal.fire({
             title: "게시글 삭제",
             text: "해당 게시글을 삭제하시겠습니까?",
-            icon: "question",
+            icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#FF7170",
             confirmButtonText: "예",
@@ -152,8 +150,8 @@ const BoardDetail = () => {
         } else if (data.userCode == sessionStorage.getItem("usercode")) {
             // 글 작성자인 경우
             Swal.fire({
-                title: "게시글 수정 또는 삭제",
-                icon: "warning",
+                title: "게시글 관리",
+                icon: "question",
                 showDenyButton: true,
                 showCancelButton: true,
                 confirmButtonText: "수정",
@@ -223,6 +221,7 @@ const BoardDetail = () => {
                 title: "URL이 복사 되었습니다!",
                 // text: e.text,
                 icon: "success",
+                confirmButtonColor: "#5279FD",
             });
         });
 
@@ -265,9 +264,9 @@ const BoardDetail = () => {
                             {data.registerDate} • 좋아요 {likeCount} • 조회 {data.visitCount}
                         </span>
                     </div>
-
+                    <hr />
                     <div
-                        className='col-4'
+                        className='mt-4'
                         style={{
                             marginTop: "15px",
                             width: "100%",
@@ -305,7 +304,7 @@ const BoardDetail = () => {
                                         style={{ marginRight: "20px" }}
                                         onClick={handleMoreView}
                                     >
-                                        <img alt='' src={MoreIcon} style={{ width: "30px" }} />
+                                        <img alt='' src={MoreIcon} style={{ width: "25px" }} />
                                     </button>
                                 </div>
                             ) : // 일반 사용자인 경우 글 작성자인지 확인 후 삭제 및 수정 버튼 표시
@@ -317,7 +316,7 @@ const BoardDetail = () => {
                                         style={{ marginRight: "20px" }}
                                         onClick={handleMoreView}
                                     >
-                                        <img alt='' src={MoreIcon} style={{ width: "30px" }} />
+                                        <img alt='' src={MoreIcon} style={{ width: "25px" }} />
                                     </button>
                                 </div>
                             ) : null}
