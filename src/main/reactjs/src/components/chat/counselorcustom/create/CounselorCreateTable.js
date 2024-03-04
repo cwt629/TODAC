@@ -8,7 +8,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import cameraIcon from '../../../../image/change_photo.svg';
-import { Input, TextField } from '@mui/material';
+import { popupAchievement } from '../../../../utils/achieveAlert';
+
+// 달성 가능한 업적 이름
+const BADGE_NAME_NEWCOUNSELOR = "신생 상담사";
 
 const CounselorCreateTable = () => {
     // 각 input의 최대 길이
@@ -24,6 +27,7 @@ const CounselorCreateTable = () => {
     const PHOTO_MAX_SIZE = 1024 * 1024 * 3;
 
     const nav = useNavigate();
+    const usercode = sessionStorage.getItem("usercode");
 
     // 앞서 상담사 선택에서 받는 형태의 데이터 구조를 가지게 한다.
     const [data, setData] = useState({
@@ -166,6 +170,12 @@ const CounselorCreateTable = () => {
                 }
             });
 
+            // 문제 없이 전송된 경우, 여기서 업적 달성 처리
+            let achieveResult = await axios.post(`/badgeinsert?usercode=${usercode}&achievename=${BADGE_NAME_NEWCOUNSELOR}`);
+            if (achieveResult.data) {
+                await popupAchievement(BADGE_NAME_NEWCOUNSELOR);
+            }
+
             await ReactSwal.fire({
                 icon: 'success',
                 title: '커스텀 성공!',
@@ -227,12 +237,11 @@ const CounselorCreateTable = () => {
                         <td>
                             <input className='input_text' style={{ width: '160px' }}
                                 type="text" name="personality" value={data.personality} maxLength={INPUT_MAX_LENGTH['personality']} required
-                                ref={inputPersonality}
+                                ref={inputPersonality} placeholder='ex) 얼음처럼 냉철한'
                                 onChange={handleInputChange} />&nbsp;상담사<br />
                             <span className='custom-inputlen'>({data.personality.length} / {INPUT_MAX_LENGTH['personality']})</span><br /><br />
                             <div className='explain'>
-                                * '~한', '~인'과 같은 형태로 작성하셔야 원하는 대로 동작할 거에요!<br />
-                                ex{')'} 얼음처럼 냉철한
+                                * '~한', '~인'과 같은 형태로 작성하셔야 원하는 대로 동작할 거에요!
                             </div>
                         </td>
                     </tr>

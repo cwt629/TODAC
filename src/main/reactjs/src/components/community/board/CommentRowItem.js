@@ -41,7 +41,6 @@ const CommentRowItem = ({ idx, data, deleteComment }) => {
     // 날짜 포맷팅
     const datePieces = getDateFormatPieces(data.registerDate);
     const userRole = sessionStorage.getItem("id");
-    const navi = useNavigate();
 
     return (
         <div>

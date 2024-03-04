@@ -83,7 +83,7 @@ const SignupNaver = () => {
         Swal.fire({
           icon: 'success',
           title: '회원가입 성공',
-          text: '회원가입이 성공적으로 완료되었습니다. 다시 로그인 해 주세요.',
+          html: '회원가입이 성공적으로 완료되었습니다.<br/> 다시 로그인 해 주세요.',
           confirmButtonColor: '#6495ED',
           confirmButtonText: '확인',
           background: 'white'
@@ -97,7 +97,7 @@ const SignupNaver = () => {
         Swal.fire({
           icon: 'error',
           title: '회원가입 실패',
-          text: '회원가입에 실패하였습니다. 다시 시도해주세요.',
+          html: '회원가입에 실패하였습니다. <br/>다시 시도해주세요.',
           confirmButtonColor: '#6495ED',
           confirmButtonText: '확인',
           background: 'white'

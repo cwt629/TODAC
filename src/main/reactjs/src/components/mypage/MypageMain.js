@@ -14,7 +14,7 @@ const MypageMain = () => {
     const storedId = sessionStorage.getItem("id");
     const loginType = sessionStorage.getItem("loginType");
     const usercode = sessionStorage.getItem("usercode");
-    const [badgeinfo,setBadgeinfo] = useState();
+    const [badgeinfo, setBadgeinfo] = useState();
     const [achieve, setAchieve] = useState([]);
     const achievename = "뉴비"
 
@@ -72,7 +72,7 @@ const MypageMain = () => {
         Swal.fire({
             title: '회원 탈퇴',
             text: '정말로 탈퇴하시겠습니까?',
-            icon: 'question',
+            icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#FF7170',
             confirmButtonText: '예',
@@ -122,14 +122,14 @@ const MypageMain = () => {
             </div>
             <div className="profile">
                 <img className="profile" alt='' src={member.photo}
-                style={{borderRadius:"50%"}} />
+                    style={{ borderRadius: "50%" }} />
                 <div className='mt_10 fs_20 fw_700'>
-                {badgeinfo && <img alt='' src={badgeinfo.image} style={{width:"25px", height:"25px"}}/>}
+                    {badgeinfo && <img alt='' src={badgeinfo.image} style={{ width: "25px", height: "25px" }} />}
                     {member.nickname}</div>{member.mybadge}
             </div>
             <div className="iconmenu mt-5">
                 <div onClick={() => nav('point')} className="col">
-                    <img alt="" src={require("../../image/mypageIcon/point.png")}/>
+                    <img alt="" src={require("../../image/mypageIcon/point.png")} />
                     <h6><b style={{ color: "#FF7170" }}>{member.point?.toLocaleString()}</b> TP</h6>
                 </div>
                 <div onClick={() => nav('myboard')} className="col">

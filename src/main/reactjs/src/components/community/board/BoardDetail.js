@@ -200,30 +200,14 @@ const BoardDetail = () => {
             container: "#btnKakao",
             objectType: "feed",
             content: {
-                title: data.title,
-                description: "심리상담앱 'TODAC'에 오신것을 환영합니다.",
-                imageUrl: data.photo ? imageStorage + data.photo : undefined,
+                title: `${data.memberNickname}님의 게시글로 당신을 초대합니다`,
+                description: `"TODAC"에 오신것을 환영합니다.`,
+                imageUrl: data.photo ? imageStorage + data.photo : "",
                 link: {
                     mobileWebUrl: window.location.href,
                     webUrl: window.location.href,
                 },
             },
-            buttons: [
-                {
-                    title: "웹으로 보기",
-                    link: {
-                        mobileWebUrl: window.location.href,
-                        webUrl: window.location.href,
-                    },
-                },
-                {
-                    title: "앱으로 보기",
-                    link: {
-                        mobileWebUrl: window.location.href,
-                        webUrl: window.location.href,
-                    },
-                },
-            ],
         });
     };
 
@@ -339,7 +323,7 @@ const BoardDetail = () => {
                             ) : null}
                         </div>
                         <div id='btnlike' style={{ position: "relative" }}>
-                            <button type='button' className='button-18 d-flex justify-content-center'>
+                            <button type='button' className='button-17 d-flex justify-content-center'>
                                 <span
                                     style={{ marginRight: "5px", cursor: "pointer" }}
                                     onClick={isLiked ? handleUnlike : handleLike}
@@ -351,7 +335,7 @@ const BoardDetail = () => {
                         </div>
                         <div id='btnshare' style={{ marginLeft: "20px" }}></div>
                         <button className='button-17' id='btnShere' cursor='pointer' onClick={toggleShareVisibility}>
-                            <img alt='' src={shareIcon} />
+                            <img alt='' src={shareIcon} style={{ width: "25px", height: "25px" }} />
                         </button>
 
                         {shareVisible && (

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
 import './tossstyle.css';
-import {useSearchParams} from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+
 
 const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 
@@ -20,7 +21,7 @@ const Checkout = () => {
 
     useEffect(() => {
         (async () => {
-            const paymentWidget = await loadPaymentWidget("test_ck_6BYq7GWPVvg4aYjdz5WwrNE5vbo1",  storedId); // 비회원 customerKey
+            const paymentWidget = await loadPaymentWidget("test_ck_6BYq7GWPVvg4aYjdz5WwrNE5vbo1", storedId); // 비회원 customerKey
 
             if (paymentWidgetRef.current == null) {
                 paymentWidgetRef.current = paymentWidget;
