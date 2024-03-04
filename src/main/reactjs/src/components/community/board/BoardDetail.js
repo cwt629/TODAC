@@ -202,7 +202,7 @@ const BoardDetail = () => {
             content: {
                 title: `${data.memberNickname}님의 게시글로 당신을 초대합니다`,
                 description: `"TODAC"에 오신것을 환영합니다.`,
-                imageUrl: data.photo ? imageStorage + data.photo : undefined,
+                imageUrl: data.photo ? imageStorage + data.photo : "",
                 link: {
                     mobileWebUrl: window.location.href,
                     webUrl: window.location.href,
