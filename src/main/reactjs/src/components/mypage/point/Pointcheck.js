@@ -132,8 +132,8 @@ const Pointcheck = () => {
                                 <tr key={index}>
                                     <td>{index + 1}</td>
                                     <td>{data.type}</td>
-                                    <td style={{ color: (data.type === '충전' || data.type === '오늘의 미소') ? '#5279FD' : 'red' }}>
-                                        {(data.type === '충전' || data.type === '오늘의 미소') ? `+${data.amount?.toLocaleString()}` : `-${data.amount?.toLocaleString()}`}
+                                    <td style={{ color: (data.type === '충전' || data.type === '미소팡팡') ? '#5279FD' : 'red' }}>
+                                        {(data.type === '충전' || data.type === '미소팡팡') ? `+${data.amount?.toLocaleString()}` : `-${data.amount?.toLocaleString()}`}
                                     </td>
                                     <td>
                                         {/* <img alt={data.counselorname} src={data.counselorphoto}

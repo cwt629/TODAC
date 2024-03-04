@@ -68,10 +68,10 @@ const GameMain = () => {
 
             <div className='mt-1 fs_14 col_blue2'>
                 <Link to='/user/community'>커뮤니티 {">"} </Link>
-                <span>오늘의미소</span>
+                <span>미소팡팡</span>
             </div>
 
-            <div className='fs_25 fw_700'>오늘의 미소</div>
+            <div className='fs_25 fw_700'>미소팡팡</div>
 
             <div style={{width: '100%', position : 'relative', height: '550px'}}>
             <iframe
