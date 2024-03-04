@@ -5,8 +5,9 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { useNavigate, useParams } from "react-router-dom";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import newbie from "../../../image/badge/newbie.png";
+import { getBadgeInfo } from "../../../utils/badgeInfo";
 
 // 날짜를 로그에 맞게 포매팅하는 함수
 function getDateFormatPieces(str) {
@@ -21,11 +22,17 @@ function getDateFormatPieces(str) {
     const hour = date.getHours();
     const minute = date.getMinutes();
 
+    const now = new Date();
+    const timeDiff = Math.floor((now - date) / (1000 * 60 * 60)); // 작성 시간과 현재 시간의 차이 (시간 단위)
+
     // 오전/오후 구분
     const ampm = hour >= 12 ? "오후" : "오전";
 
     // 12시간 형식으로 변환
     const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+
+    // 작성된지 몇 시간 전인지 계산
+    const timeAgo = timeDiff === 0 ? "방금 전" : `${timeDiff}시간 전`;
 
     return {
         year: year,
@@ -34,6 +41,7 @@ function getDateFormatPieces(str) {
         ampm: ampm,
         hour: formattedHour,
         minute: minute,
+        timeAgo: timeAgo,
     };
 }
 
@@ -46,7 +54,7 @@ const CommentRowItem = ({ idx, data, deleteComment }) => {
         <div>
             <div>
                 <List sx={{ width: "100%", maxWidth: "100%", bgcolor: "background.paper" }}>
-                    <ListItem alignItems='flex-start' style={{ paddingLeft: "0", borderBottom: "1px solid gray" }}>
+                    <ListItem alignItems='flex-start' style={{ paddingLeft: "0", borderBottom: "1px solid #CBCBCB" }}>
                         <ListItemAvatar>
                             <Avatar alt='' src={data.memberPhoto} sx={{ width: 49, height: 49 }} />
                         </ListItemAvatar>
@@ -61,7 +69,26 @@ const CommentRowItem = ({ idx, data, deleteComment }) => {
                                             variant='body1' //크기 조절 가능 mui
                                             color='text.primary'
                                         >
-                                            {data.memberNickname}
+                                            <div
+                                                id='badge'
+                                                style={{ position: "relative", top: "5px", alignItems: "center" }}
+                                            >
+                                                <img
+                                                    alt=''
+                                                    src={
+                                                        data.mybadge === "뉴비"
+                                                            ? newbie
+                                                            : getBadgeInfo(data.mybadge).image
+                                                    }
+                                                    style={{
+                                                        width: "18px",
+                                                        height: "18px",
+                                                        borderRadius: "50px",
+                                                    }}
+                                                />
+
+                                                <span>{data.memberNickname}</span>
+                                            </div>
                                         </Typography>
                                         {userRole === "todac" ? (
                                             // 관리자인 경우에는 삭제 기능만 표시
@@ -96,7 +123,7 @@ const CommentRowItem = ({ idx, data, deleteComment }) => {
                                             variant='body2'
                                             color='text.primary'
                                         >
-                                            {`${datePieces.year}. ${datePieces.month}. ${datePieces.day}. ${datePieces.ampm} ${datePieces.hour}:${datePieces.minute}`}
+                                            {`${datePieces.year}. ${datePieces.month}. ${datePieces.day} ${datePieces.ampm} ${datePieces.hour}:${datePieces.minute} ${datePieces.timeAgo}`}
                                         </Typography>
                                     </div>
                                     <Typography

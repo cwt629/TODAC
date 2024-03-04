@@ -44,7 +44,6 @@ const BoardMain = () => {
             setList(res.data);
             setFilteredList(res.data); // 초기 전체 리스트 출력용
             handleSortList(res.data, sortBy); // 정렬 함수 호출
-            console.log(res.data);
         });
     };
 

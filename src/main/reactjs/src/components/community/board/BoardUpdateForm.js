@@ -95,6 +95,7 @@ const BoardUpdateForm = () => {
                     text: "게시글이 성공적으로 수정되었습니다.",
                     icon: "success",
                     confirmButtonColor: "#5279FD",
+                    confirmButtonText: "확인",
                 });
             })
             .catch((error) => {
@@ -110,7 +111,10 @@ const BoardUpdateForm = () => {
                         <>
                             <PageHeader routes={CURRENT_ROUTES} title={PAGE_TITLE} />
 
-                            <div className='col-4' style={{ marginTop: "15px", width: "100%", height: "100%" }}>
+                            <div
+                                className='col-4'
+                                style={{ marginTop: "15px", width: "100%", height: "100%", position: "relative" }}
+                            >
                                 <div id='photo'>
                                     {selectData.photo === null ? (
                                         <img
@@ -136,23 +140,21 @@ const BoardUpdateForm = () => {
                                             }}
                                         />
                                     )}
-                                    <div
-                                        id='changephoto'
+
+                                    <img
                                         style={{
                                             width: "40px",
                                             height: "40px",
                                             position: "absolute",
-                                            top: "458px",
-                                            right: "30px",
+                                            bottom: "5px",
+                                            right: "5px",
                                         }}
-                                    >
-                                        <img
-                                            className='img-fluid'
-                                            alt='이미지변경'
-                                            src={changePhoto}
-                                            onClick={() => document.getElementById("fileInput").click()}
-                                        />
-                                    </div>
+                                        className='img-fluid'
+                                        alt='이미지변경'
+                                        src={changePhoto}
+                                        onClick={() => document.getElementById("fileInput").click()}
+                                    />
+
                                     <div>
                                         <input
                                             type='file'
