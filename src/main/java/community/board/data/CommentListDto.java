@@ -15,6 +15,7 @@ public class CommentListDto {
     private String content;
     private int userCode;
     private int commentCode;
+    private String mybadge;
     public CommentListDto(BoardCommentDto boardCommentDto) {
         boardCode = boardCommentDto.getBoard().getBoardcode();
         memberNickname = boardCommentDto.getMember().getNickname();
@@ -23,6 +24,7 @@ public class CommentListDto {
         content = boardCommentDto.getContent();
         userCode = boardCommentDto.getMember().getUsercode();
         commentCode = boardCommentDto.getCommentcode();
+        mybadge = boardCommentDto.getMember().getMybadge();
     }
 
 }
