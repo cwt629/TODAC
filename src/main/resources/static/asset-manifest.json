@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.4ada0d3d.css",
-    "main.js": "/static/js/main.8a6b79bb.js",
+    "main.css": "/static/css/main.d29bcfa4.css",
+    "main.js": "/static/js/main.fe68db0c.js",
     "static/js/453.fcbfcfec.chunk.js": "/static/js/453.fcbfcfec.chunk.js",
     "static/media/bg_startmain2.png": "/static/media/bg_startmain2.102eb1537d403fe7ed56.png",
     "static/media/diagnosis2.png": "/static/media/diagnosis2.8573ab07b25df44ad5d9.png",
@@ -24,15 +24,15 @@
     "static/media/view_icon.svg": "/static/media/view_icon.ecda4f30cc5d9ffa912b32c9a4b3b3bf.svg",
     "static/media/icon-facebook.svg": "/static/media/icon-facebook.2be98f0bccc5e86e559d2f29d7e5a22e.svg",
     "static/media/ico_chat.svg": "/static/media/ico_chat.3a657451f376895d7c4f739ba9c3279b.svg",
-    "static/media/heart_full.svg": "/static/media/heart_full.4ea175d3ef5a0700fbc161029436c3d7.svg",
+    "static/media/heart_full.svg": "/static/media/heart_full.4298d68ac9598a8c3e840029279433c2.svg",
     "static/media/ico_community.svg": "/static/media/ico_community.e4205b40dab0a385c8fd81c3217b8208.svg",
-    "static/media/heart.svg": "/static/media/heart.1a70462512c98b84f7a61fd60f00e462.svg",
-    "main.4ada0d3d.css.map": "/static/css/main.4ada0d3d.css.map",
-    "main.8a6b79bb.js.map": "/static/js/main.8a6b79bb.js.map",
+    "static/media/heart.svg": "/static/media/heart.0008786961a69acfe7b4de96da781cf2.svg",
+    "main.d29bcfa4.css.map": "/static/css/main.d29bcfa4.css.map",
+    "main.fe68db0c.js.map": "/static/js/main.fe68db0c.js.map",
     "453.fcbfcfec.chunk.js.map": "/static/js/453.fcbfcfec.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4ada0d3d.css",
-    "static/js/main.8a6b79bb.js"
+    "static/css/main.d29bcfa4.css",
+    "static/js/main.fe68db0c.js"
   ]
 }
