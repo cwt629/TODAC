@@ -237,12 +237,11 @@ const CounselorCreateTable = () => {
                         <td>
                             <input className='input_text' style={{ width: '160px' }}
                                 type="text" name="personality" value={data.personality} maxLength={INPUT_MAX_LENGTH['personality']} required
-                                ref={inputPersonality}
+                                ref={inputPersonality} placeholder='ex) 얼음처럼 냉철한'
                                 onChange={handleInputChange} />&nbsp;상담사<br />
                             <span className='custom-inputlen'>({data.personality.length} / {INPUT_MAX_LENGTH['personality']})</span><br /><br />
                             <div className='explain'>
-                                * '~한', '~인'과 같은 형태로 작성하셔야 원하는 대로 동작할 거에요!<br />
-                                ex{')'} 얼음처럼 냉철한
+                                * '~한', '~인'과 같은 형태로 작성하셔야 원하는 대로 동작할 거에요!
                             </div>
                         </td>
                     </tr>
