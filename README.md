@@ -72,6 +72,49 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 
 <br>
 
+<details>
+  <summary><b style="font-size: 20px;">시작 화면</b></summary>
+  <br>
+  <blockquote>담당자: 한충희</blockquote>
+  <br>
+  <table width='100%'>
+    <tr>
+      <td align=center width='50%'>
+        <b>시작 화면</b>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>
+        <img src="https://github.com/cwt629/TODAC/assets/81515049/90517ce5-735d-45e8-a45b-1da41b0722e0">
+      </td>
+    </tr>
+  </table>
+</details>
+<details>
+  <summary><b style="font-size: 20px;">소셜 로그인</b></summary>
+  <br>
+  <blockquote>담당자: 김나혜</blockquote>
+  <br>
+  <table width='100%'>
+    <tr>
+      <td align=center width='50%'>
+        <b>네이버 로그인</b>
+      </td>
+      <td align=center width='50%'>
+        <b>카카오 로그인</b>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>
+        <img src="https://github.com/cwt629/TODAC/assets/81515049/eb6ddedd-3eb0-47ae-a2ce-b5c275f733d1">
+      </td>
+      <td align=center>
+        <img src="https://github.com/cwt629/TODAC/assets/81515049/ef8a4d2e-e93f-4faf-a735-75209e415ed1">
+      </td>
+    </tr>
+  </table>
+</details>
+
 <br>
 
 # 안드로이드 앱 제작
@@ -93,8 +136,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
     </tr>
 </table>
 
-
-
+<br>
 
 # 프로젝트 후기
 ### 장원태
