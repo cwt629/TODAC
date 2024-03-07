@@ -45,7 +45,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 
 
 ### Front-End
-<img src="https://img.shields.io/badge/HTML5-E34F29?style=for-the-badge&logo=HTML5&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"> <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=Bootstrap&logoColor=white"> <img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jQuery&logoColor=white"><img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"><img src="https://img.shields.io/badge/react router-CA4245?style=for-the-badge&logo=react router&logoColor=white"><img src="https://img.shields.io/badge/mui-007FFF?style=for-the-badge&logo=mui&logoColor=white"><img src="https://img.shields.io/badge/swiper-6332F6?style=for-the-badge&logo=swiper&logoColor=white"><img src="https://img.shields.io/badge/cocos2d-55C2E1?style=for-the-badge&logo=COCOS&logoColor=white">
+<img src="https://img.shields.io/badge/HTML5-E34F29?style=for-the-badge&logo=HTML5&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"> <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=Bootstrap&logoColor=white"> <img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jQuery&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/react router-CA4245?style=for-the-badge&logo=react router&logoColor=white"> <img src="https://img.shields.io/badge/mui-007FFF?style=for-the-badge&logo=mui&logoColor=white"> <img src="https://img.shields.io/badge/swiper-6332F6?style=for-the-badge&logo=swiper&logoColor=white"> <img src="https://img.shields.io/badge/cocos2d-55C2E1?style=for-the-badge&logo=COCOS&logoColor=white">
 
 
 ### Back-End
@@ -71,6 +71,30 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 # 페이지 구성
 
 <br>
+
+<br>
+
+# 안드로이드 앱 제작
+> 담당자: 김나혜
+
+웹사이트와 더불어 다음과 같이 apk파일 형태의 안드로이드 앱 형태로도 제작을 진행하였습니다.
+<table width='100%'>
+    <tr>
+        <td align=center width='50%'><b>앱 설치 확인</b></td>
+        <td align=center width='50%'><b>앱 작동 확인</b></td>
+    </tr>
+    <tr>
+        <td>
+            <img src="https://github.com/cwt629/TODAC/assets/81515049/9cb3a4c2-485f-41a8-a538-96df65edd7ef" alt="앱설치확인" >
+        </td>
+        <td>
+        <img src="https://github.com/cwt629/TODAC/assets/81515049/ae4e034c-462e-40cb-95c0-dc1b1314a654" alt="앱작동확인">
+        </td>
+    </tr>
+</table>
+
+
+
 
 # 프로젝트 후기
 ### 장원태
