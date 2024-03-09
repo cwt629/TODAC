@@ -18,15 +18,15 @@
 |:---:|:---:|:---:|
 | <img src="https://github.com/cwt629/Jejugagga/assets/81515049/baa62258-6633-471d-8470-9d06ff618d5a" alt="장원태" width="90%" height="90%"> | <img src="https://github.com/cwt629/Jejugagga/assets/81515049/510d6a89-16a0-4104-8c4a-ad0a23a54cb0" alt="이재영" width="90%" height="90%"> | <img src="https://github.com/cwt629/Jejugagga/assets/81515049/ce2b06e5-14ec-492f-b8c0-27e5d0501dd9" alt="한충희" width="90%" height="90%"> |
 | [@cwt629](https://github.com/cwt629) | [@jaeyoung99-lee](https://github.com/jaeyoung99-lee) | [@mongdamhwa](https://github.com/mongdamhwa) |
-| - 역할 | - 역할 | - 역할 |
+| - 팀 조장<br>- AI 상담사 구성 및 채팅<br>- 상담 기록 열람<br>- Git & CI/CD 관리 | - 팀 부조장<br>- 채팅 요약본<br>- 채팅 진단서<br>- Git 관리<br> | - UI/UX 총괄<br>- 1:1 문의<br>- 도움말<br>- 시작 페이지 |
 | <b>김나혜</b> | <b>김동현</b> ||
 | <img src="https://github.com/cwt629/Jejugagga/assets/81515049/d59adaff-afa8-4a89-b0e0-939f3df03cb8" alt="김나혜" width="90%" height="90%"> | <img src="https://github.com/cwt629/Jejugagga/assets/81515049/12ab9646-b5f7-4213-80ac-2f5b28e3f293" alt="김동현" width="90%" height="90%"> ||
 |[@joyzoey](https://github.com/joyzoey) | [@dongpyeon](https://github.com/dongpyeon) ||
-| - 역할 | - 역할 ||
+| - 소셜/관리자 로그인<br>- 미소팡팡 게임<br>- Web View 기반 앱 변환 | - 마이페이지<br>- 결제<br>- 후원<br>- 업적&뱃지 ||
 | <b>유서연</b> | <b>이승민</b> ||
 | <img src="https://github.com/cwt629/Jejugagga/assets/81515049/7454e7a5-2922-47e5-9217-c5418d1d221a" alt="유서연" width="90%" height="90%"> | <img src="https://github.com/cwt629/Jejugagga/assets/81515049/4a5ea456-ff46-4965-94b5-94d824922603" alt="이승민" width="90%" height="90%"> ||
 | [@yseoyeon0915](https://github.com/yseoyeon0915) | [@2Smean](https://github.com/2Smean) ||
-| - 역할 | - 역할 ||
+| - 회원 관리<br>- 문의 게시판 관리 | - 커뮤니티 - 게시판<br>- 게시글 공유 ||
 
 <br>
 
@@ -482,6 +482,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 # 프로젝트 후기
 ### 장원태
 
+  
 ### 이재영
 
 ### 한충희
