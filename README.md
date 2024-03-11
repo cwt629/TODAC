@@ -10,6 +10,7 @@
 <br>
 
 ### 발표 영상
+[Click here for full video](https://www.youtube.com/watch?v=1zYzwDaO2j4&t=5036s)
 
 <br>
 
@@ -18,11 +19,11 @@
 |:---:|:---:|:---:|
 | <img src="https://github.com/cwt629/Jejugagga/assets/81515049/baa62258-6633-471d-8470-9d06ff618d5a" alt="장원태" width="90%" height="90%"> | <img src="https://github.com/cwt629/Jejugagga/assets/81515049/510d6a89-16a0-4104-8c4a-ad0a23a54cb0" alt="이재영" width="90%" height="90%"> | <img src="https://github.com/cwt629/Jejugagga/assets/81515049/ce2b06e5-14ec-492f-b8c0-27e5d0501dd9" alt="한충희" width="90%" height="90%"> |
 | [@cwt629](https://github.com/cwt629) | [@jaeyoung99-lee](https://github.com/jaeyoung99-lee) | [@mongdamhwa](https://github.com/mongdamhwa) |
-| - 팀 조장<br>- AI 상담사 구성 및 채팅<br>- 상담 기록 열람<br>- Git & CI/CD 관리 | - 팀 부조장<br>- 채팅 요약본<br>- 채팅 진단서<br>- Git 관리<br> | - UI/UX 총괄<br>- 1:1 문의<br>- 도움말<br>- 시작 페이지 |
+| - 팀 조장<br>- AI 상담사 구성 및 채팅, 기록<br>- Git & CI/CD 관리<br>- DB 설계 | - 팀 부조장<br>- 채팅 요약본<br>- 채팅 진단서<br>- Git 관리<br> | - UI/UX 총괄<br>- 1:1 문의<br>- 도움말<br>- 시작 페이지 |
 | <b>김나혜</b> | <b>김동현</b> ||
 | <img src="https://github.com/cwt629/Jejugagga/assets/81515049/d59adaff-afa8-4a89-b0e0-939f3df03cb8" alt="김나혜" width="90%" height="90%"> | <img src="https://github.com/cwt629/Jejugagga/assets/81515049/12ab9646-b5f7-4213-80ac-2f5b28e3f293" alt="김동현" width="90%" height="90%"> ||
 |[@joyzoey](https://github.com/joyzoey) | [@dongpyeon](https://github.com/dongpyeon) ||
-| - 소셜/관리자 로그인<br>- 미소팡팡 게임<br>- Web View 기반 앱 변환 | - 마이페이지<br>- 결제<br>- 후원<br>- 업적&뱃지 ||
+| - 소셜/관리자 로그인<br>- 미소팡팡 게임<br>- Web View 기반 앱 변환 | - 마이페이지<br>- 결제&후원<br>- 업적&뱃지<br>- DB 설계 ||
 | <b>유서연</b> | <b>이승민</b> ||
 | <img src="https://github.com/cwt629/Jejugagga/assets/81515049/7454e7a5-2922-47e5-9217-c5418d1d221a" alt="유서연" width="90%" height="90%"> | <img src="https://github.com/cwt629/Jejugagga/assets/81515049/4a5ea456-ff46-4965-94b5-94d824922603" alt="이승민" width="90%" height="90%"> ||
 | [@yseoyeon0915](https://github.com/yseoyeon0915) | [@2Smean](https://github.com/2Smean) ||
@@ -73,7 +74,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 <br>
 
 <details>
-  <summary><b style="font-size: 20px;">시작 화면</b></summary>
+  <summary style="font-size: 20px;"><b>시작 화면</b></summary>
   <br>
   <blockquote>담당자: 한충희</blockquote>
   <br>
@@ -92,7 +93,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 </details>
 <br>
 <details>
-  <summary><b style="font-size: 20px;">소셜 로그인</b></summary>
+  <summary style="font-size: 20px;"><b>소셜 로그인</b></summary>
   <br>
   <blockquote>담당자: 김나혜</blockquote>
   <br>
@@ -128,7 +129,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 <br>
 
 <details>
-  <summary><b style="font-size: 20px;">AI 상담</b></summary>
+  <summary style="font-size: 20px;"><b>AI 상담</b></summary>
   <br>
   <blockquote>담당자: 장원태, 이재영</blockquote>
   <br>
@@ -227,7 +228,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 <br>
 
 <details>
-  <summary><b style="font-size: 20px;">커뮤니티 - 게시판</b></summary>
+  <summary style="font-size: 20px;"><b>커뮤니티 - 게시판</b></summary>
   <br>
   <blockquote>담당자: 이승민</blockquote>
   <br>
@@ -284,7 +285,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 <br>
 
 <details>
-  <summary><b style="font-size: 20px;">커뮤니티 - 후원</b></summary>
+  <summary style="font-size: 20px;"><b>커뮤니티 - 후원</b></summary>
   <br>
   <blockquote>담당자: 김동현</blockquote>
   <br>
@@ -304,7 +305,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 <br>
 
 <details>
-  <summary><b style="font-size: 20px;">커뮤니티 - 미소팡팡</b></summary>
+  <summary style="font-size: 20px;"><b>커뮤니티 - 미소팡팡</b></summary>
   <br>
   <blockquote>담당자: 김나혜</blockquote>
   <br>
@@ -324,7 +325,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 <br>
 
 <details>
-  <summary><b style="font-size: 20px;">마이페이지</b></summary>
+  <summary style="font-size: 20px;"><b>마이페이지</b></summary>
   <br>
   <blockquote>담당자: 김동현, 한충희</blockquote>
   <br>
@@ -382,7 +383,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 <br>
 
 <details>
-  <summary><b style="font-size: 20px;">관리자페이지</b></summary>
+  <summary style="font-size: 20px;"><b>관리자페이지</b></summary>
   <br>
   <blockquote>담당자: 유서연</blockquote>
   <br>
@@ -486,6 +487,15 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 중간중간 막히는 부분도, 어려운 부분도, 마무리 시점에조차도 개선점은 여전히 많이 남아 있지만, 이 프로젝트도 하나의 온전한 서비스를 만들고자 끝없이 노력한 하나의 결과물로서는 손색이 없다고 생각합니다. 이 프로젝트를 기점으로 실제 서비스를 기획하는 것에 대해서도 시야를 넓혀 바라볼 수 있게 된 것 같습니다.
   
 ### 이재영
+우선 프로젝트를 함께 해준 우리 팀원들에게 감사의 말씀을 전하고 싶습니다.  
+파이널 프로젝트를 진행하는 과정에서 제 의견이 강한 부분이 많이 있었는데 좋다고 해주고 받아준 우리 팀원들에게 진심으로 감동이었고 감사했습니다.  
+덕분에 제가 하고 싶었던, 제가 꿈꿨던 기능들을 다 할 수 있었던 것 같습니다.  
+이번 팀 프로젝트를 진행하면서 협업의 중요성을 다시 한 번 깨달았습니다.  
+각자의 역할을 명확히 하고 소통을 통해 함께 문제를 해결하는 과정이 매우 의미 있었고 모두의 노력으로 성공적으로 마무리할 수 있어서 기쁘고 뿌듯합니다.  
+하지만 여기서 멈추지 않고 더 나아가 지금까지 배운 지식과 기술을 통해서 한 발 더 진화된 프로젝트를 하고 싶습니다.  
+기회가 된다면 지금 팀원들과 또 하나의 프로젝트를 진행하고 싶습니다.  
+이번 프로젝트는 저에게 있어서 현 상태에 만족하며 안주하지 않고 앞으로 나아가는 사람이 될 수 있는 첫 발돋움이 되는 프로젝트라고 생각합니다.  
+파이널 프로젝트 기간 동안 저를 믿고 따라와 준 팀원들에게 다시 한 번 감사의 말씀을 전합니다.  
 
 ### 한충희
 6개월여정의 종지부를 찍는 프로젝트인만큼 잘하고 싶었다. 그래서 욕심이 컸지만 욕심만큼의 능력은 부족했기에 많은 기능을 다루진 못해서 아쉽고, 더 노력하지 못한 지난 시간들이 후회되었다.  
@@ -496,10 +506,22 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 좋은 사람들과 재밌게 하나의 완성된 결과물을 만들어 낼 수 있어 즐거웠습니다. 함께 개발에 참여한 동료분들 모두 원하는 곳에 취업하셨으면 좋겠고 감사했습니다! :)
 
 ### 김동현
+이번 프로젝트를 통해 팀의 역할 분배의 중요성을 깨달았으며, 개인 역량을 객관적으로 확인할 수 있게 된 귀한 경험이었습니다.  
+프로젝트 도입 시 역할을 정하는 부분에서 각자가 원하는 파트를 맡으면서 웹으로써 필요한 기능을 상충하기는 어렵다는 것을 느꼈습니다. 그럼에도 원하는 파트를 양보해 주었던 팀원에게 매우 감사했습니다.  
+또한 프로젝트를 진행하면서 예상과는 달리 작업시간이 느려져 원하는 기능을 많이 추가 못해 아쉬움이 컸었습니다.  
+맡은 역할을 준수하면서도, 역할을 일찍 마친 후 추가할 사항이나 작업 진행이 더뎌질 때 주목해야 할 기능들을 좀 더 체계적으로 설정했으면 어땠을지 하는 아쉬움이 남았었습니다.  
 
 ### 유서연
 짧다면 짧고 길다면 긴 6개월이라는 기간동안 덕분에 많은 것을 배워갈 수 있었습니다. 과정은 오늘부로 끝이 났지만 좀 더 했으면 좋겠다는 생각이 들 정도로 아쉬움이 많이 남네요.
 좋은 조원들을 만나 덕분에 파이널 프로젝트까지 잘 끝마칠 수 있었던 것 같아서 이 자리를 빌어 조원들에게 감사인사를 전하고 싶습니다. 그동안 다들 수고많으셨습니다!
 
 ### 이승민
-
+지난 한 달간의 프로젝트는 제게 여러 가지 측면에서 의미 있는 경험으로 남았습니다.  
+먼저, 게시판을 제작하며 CRUD를 토대로 전반적인 프론트엔드와 백엔드의 소통을 더욱 잘 이해할 수 있었고 새로운 기술과 도전에 부딪히는 경험을 쌓았습니다.  
+이론으로만 이해했던 기술들을 실제로 프로젝트에 녹여내면서 제 역할에서의 능력을 한층 향상시킬 수 있었습니다.  
+뿐만 아니라, 팀 내에서의 협력은 프로젝트의 핵심이었습니다. 많은 에러들과 어려운 문제에 직면했을 때 팀원들과
+함께 고민하고 해결책을 찾아내는 과정에서 팀워크의 중요성을 몸소 깨달았습니다.  
+또한, 이전의 프로젝트의 문제점들과 아쉬웠던 부분을 꼼꼼히 분석하고 보완하기 위해 노력했습니다.  
+팀원들과의 소통과 피드백을 수용하며 프로젝트에 적용한 결과, 각자 최대의 역량으로 서로 도우며 프로젝트에 임할 수 있었습니다.  
+이번 프로젝트를 통해 책임감 있는 개발자로 성장할 수 있는 계기가 되었습니다. 앞으로도 팀과 함께 보다 더 큰 도전과 성취를 향해 나아가며, 지속적인 학습과 협업을 통해 더 나은 결과물을 창출하고 싶습니다.  
+함께 고생해준 팀원들에게 감사의 말씀을 올립니다!
