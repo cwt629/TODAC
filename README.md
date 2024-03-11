@@ -343,7 +343,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
         <img src="https://github.com/cwt629/TODAC/assets/81515049/9ace41d3-8a73-4e15-bb03-7ff68c5a0b3a">
       </td>
       <td align=center>
-        <img src="https://github.com/cwt629/TODAC/assets/81515049/19042979-5e76-4a1d-91d6-6f2db9cb9805">
+        <img src="https://github.com/cwt629/TODAC/assets/81515049/8645bc42-6b3b-4061-a00c-2cff33216540">
       </td>
     </tr>
     <tr>
