@@ -74,7 +74,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 <br>
 
 <details>
-  <summary style="font-size: 20px;"><b>시작 화면</b></summary>
+  <summary><b>시작 화면</b></summary>
   <br>
   <blockquote>담당자: 한충희</blockquote>
   <br>
@@ -93,7 +93,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 </details>
 <br>
 <details>
-  <summary style="font-size: 20px;"><b>소셜 로그인</b></summary>
+  <summary><b>소셜 로그인</b></summary>
   <br>
   <blockquote>담당자: 김나혜</blockquote>
   <br>
@@ -129,7 +129,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 <br>
 
 <details>
-  <summary style="font-size: 20px;"><b>AI 상담</b></summary>
+  <summary><b>AI 상담</b></summary>
   <br>
   <blockquote>담당자: 장원태, 이재영</blockquote>
   <br>
@@ -228,7 +228,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 <br>
 
 <details>
-  <summary style="font-size: 20px;"><b>커뮤니티 - 게시판</b></summary>
+  <summary><b>커뮤니티 - 게시판</b></summary>
   <br>
   <blockquote>담당자: 이승민</blockquote>
   <br>
@@ -285,7 +285,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 <br>
 
 <details>
-  <summary style="font-size: 20px;"><b>커뮤니티 - 후원</b></summary>
+  <summary><b>커뮤니티 - 후원</b></summary>
   <br>
   <blockquote>담당자: 김동현</blockquote>
   <br>
@@ -305,7 +305,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 <br>
 
 <details>
-  <summary style="font-size: 20px;"><b>커뮤니티 - 미소팡팡</b></summary>
+  <summary><b>커뮤니티 - 미소팡팡</b></summary>
   <br>
   <blockquote>담당자: 김나혜</blockquote>
   <br>
@@ -325,7 +325,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 <br>
 
 <details>
-  <summary style="font-size: 20px;"><b>마이페이지</b></summary>
+  <summary><b>마이페이지</b></summary>
   <br>
   <blockquote>담당자: 김동현, 한충희</blockquote>
   <br>
@@ -383,7 +383,7 @@ TODAC은 항상 당신의 곁에 있으니, 어려울 때 저희를 찾아주세
 <br>
 
 <details>
-  <summary style="font-size: 20px;"><b>관리자페이지</b></summary>
+  <summary><b>관리자페이지</b></summary>
   <br>
   <blockquote>담당자: 유서연</blockquote>
   <br>
