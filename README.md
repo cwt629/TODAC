@@ -10,7 +10,7 @@
 <br>
 
 ### 발표 영상
-[Click here for full video](https://www.youtube.com/watch?v=1zYzwDaO2j4&t=5036s)
+[Click here](https://youtu.be/o5niu0Hq_1A?si=rdrPB6Iy-nOoHELO)
 
 <br>
 
